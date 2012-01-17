@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Pc2AvMapping:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:Pc2AvMapping="http://lu.uni.geko.pc2avmapping">
+  <entries>
+    <source href="pointcut.lts_pc#//@children.0"/>
+    <target href="advice.lts_av#//@children.0"/>
+    <target href="advice.lts_av#//@children.1"/>
+  </entries>
+</Pc2AvMapping:Mapping>

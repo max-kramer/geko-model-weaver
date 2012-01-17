@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2012 University of Luxembourg and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Max E. Kramer - initial API and implementation
+-->
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lu.uni.geko.mapping/src"
+    modelPluginID="lu.uni.geko.mapping" modelName="Pc2AvMapping" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>Pc2AvMapping.ecore</foreignModel>
+  <genPackages prefix="Pc2AvMapping" disposableProviderFactory="true" ecorePackage="Pc2AvMapping.ecore#/">
+    <genClasses ecoreClass="Pc2AvMapping.ecore#//Mapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Pc2AvMapping.ecore#//Mapping/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="Pc2AvMapping.ecore#//MappingEntry">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Pc2AvMapping.ecore#//MappingEntry/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Pc2AvMapping.ecore#//MappingEntry/target"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

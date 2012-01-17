@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2012 University of Luxembourg and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Max E. Kramer - initial API and implementation
+-->
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lu.uni.geko.examples.lts.model/src"
+    editDirectory="/lu.uni.geko.examples.lts.edit/src" editorDirectory="/lu.uni.geko.examples.lts.editor/src"
+    modelPluginID="lu.uni.geko.examples.lts.model" modelName="Lts" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="lu.uni.geko.examples.lts.edit"
+    editorPluginID="lu.uni.geko.examples.lts.editor">
+  <foreignModel>lts.ecore</foreignModel>
+  <genPackages prefix="Lts" disposableProviderFactory="true" ecorePackage="lts.ecore#/">
+    <genClasses ecoreClass="lts.ecore#//LTS">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lts.ecore#//LTS/ownedState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts.ecore#//LTS/initialState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts.ecore#//LTS/currentState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts.ecore#//LTS/finalState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts.ecore#//LTS/name"/>
+    </genClasses>
+    <genClasses ecoreClass="lts.ecore#//State">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference lts.ecore#//State/owningLTS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts.ecore#//State/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lts.ecore#//State/outgoingTransition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts.ecore#//State/incomingTransition"/>
+    </genClasses>
+    <genClasses ecoreClass="lts.ecore#//Transition">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference lts.ecore#//Transition/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts.ecore#//Transition/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts.ecore#//Transition/input"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts.ecore#//Transition/output"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

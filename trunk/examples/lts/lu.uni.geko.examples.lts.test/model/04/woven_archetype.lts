@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lts:LTS xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:lts="http://lts" initialState="//@ownedState.0" currentState="//@ownedState.0" finalState="//@ownedState.2" name="base04">
+  <ownedState name="a">
+    <outgoingTransition target="//@ownedState.1" input="m1" output="m1_out"/>
+  </ownedState>
+  <ownedState name="c" incomingTransition="//@ownedState.0/@outgoingTransition.0">
+    <outgoingTransition target="//@ownedState.2" input="m8" output="m8_out"/>
+  </ownedState>
+  <ownedState name="d" incomingTransition="//@ownedState.1/@outgoingTransition.0"/>
+</lts:LTS>

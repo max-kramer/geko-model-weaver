@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lts:LTS xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:lts="http://lts" initialState="//@ownedState.0" currentState="//@ownedState.0" finalState="//@ownedState.3" name="base06">
+  <ownedState name="a">
+    <outgoingTransition target="//@ownedState.1" input="m1" output="m1_out"/>
+  </ownedState>
+  <ownedState name="e" incomingTransition="//@ownedState.0/@outgoingTransition.0 //@ownedState.1/@outgoingTransition.1">
+    <outgoingTransition target="//@ownedState.2" input="m3" output="m3_out"/>
+    <outgoingTransition target="//@ownedState.1" input="m6" output="m6_out"/>
+    <outgoingTransition target="//@ownedState.2" input="m8" output="m8_out"/>
+    <outgoingTransition target="//@ownedState.3" input="m5" output="m5_out"/>
+  </ownedState>
+  <ownedState name="e" incomingTransition="//@ownedState.1/@outgoingTransition.0 //@ownedState.3/@outgoingTransition.0 //@ownedState.1/@outgoingTransition.2">
+    <outgoingTransition target="//@ownedState.3" input="m4" output="m4_out"/>
+  </ownedState>
+  <ownedState name="d" incomingTransition="//@ownedState.2/@outgoingTransition.0 //@ownedState.1/@outgoingTransition.3">
+    <outgoingTransition target="//@ownedState.2" input="m7" output="m7_out"/>
+  </ownedState>
+</lts:LTS>

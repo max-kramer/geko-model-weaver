@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsd:BSD xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:bsd="http://lu.uni.geko.examples.bsd" name="base">
+  <precendenceTuples precedingEvent="//@messages.0/@sendEvent" subsequentEvent="//@messages.0/@receiveEvent"/>
+  <precendenceTuples precedingEvent="//@messages.0/@receiveEvent" subsequentEvent="//@messages.1/@sendEvent"/>
+  <precendenceTuples precedingEvent="//@messages.1/@sendEvent" subsequentEvent="//@messages.1/@receiveEvent"/>
+  <precendenceTuples precedingEvent="//@messages.1/@receiveEvent" subsequentEvent="//@messages.3/@receiveEvent"/>
+  <precendenceTuples precedingEvent="//@messages.1/@sendEvent" subsequentEvent="//@messages.0/@sendEvent"/>
+  <precendenceTuples precedingEvent="//@messages.2/@sendEvent" subsequentEvent="//@messages.2/@receiveEvent"/>
+  <precendenceTuples precedingEvent="//@messages.0/@sendEvent" subsequentEvent="//@messages.3/@sendEvent"/>
+  <lifelines name="A"/>
+  <lifelines name="B"/>
+  <lifelines name="C"/>
+  <messages name="m1">
+    <sendEvent name="!m1" owningLifeline="//@lifelines.0"/>
+    <receiveEvent name="?m1" owningLifeline="//@lifelines.1"/>
+  </messages>
+  <messages name="m2">
+    <sendEvent name="!m2" owningLifeline="//@lifelines.1"/>
+    <receiveEvent name="?m2" owningLifeline="//@lifelines.0"/>
+  </messages>
+  <messages name="m1">
+    <sendEvent name="!m1" owningLifeline="//@lifelines.1"/>
+    <receiveEvent name="?m1" owningLifeline="//@lifelines.2"/>
+  </messages>
+  <messages name="m3">
+    <sendEvent name="!m3" owningLifeline="//@lifelines.1"/>
+    <receiveEvent name="?m3" owningLifeline="//@lifelines.0"/>
+  </messages>
+</bsd:BSD>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <!--<extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="lu.uni.geko.popupMenuContribution">
+         <menu
+               label="GeKo Weaver (deprecated)"
+               path="additions"
+               id="lu.uni.geko.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Generate Pointcut and Advice Metamodels"
+               class="lu.uni.geko.popup.actions.GeneratePointcutAndAdviceMM"
+               menubarPath="lu.uni.geko.menu1/group1"
+               enablesFor="+"
+               id="lu.uni.geko.generatePointcutAndAdviceMMAction">
+            <selection
+                  class="org.eclipse.core.resources.IFile"
+                  name="*.ecore">
+            </selection>
+         </action>
+         <action
+               label="Install and start generated editor plug-in"
+               class="lu.uni.geko.popup.actions.InstallAndStartGeneratedEditorPlugin"
+               menubarPath="lu.uni.geko.menu1/group1"
+               enablesFor="+"
+               id="lu.uni.geko.installAndStartGeneratedEditorPlugin">
+            <selection
+                  class="org.eclipse.core.resources.IFile"
+                  name="*.genmodel">
+            </selection>
+         </action>
+         <action
+               label="Generate Pointcut Rules"
+               class="lu.uni.geko.popup.actions.GeneratePointcutRules"
+               menubarPath="lu.uni.geko.menu1/group1"
+               enablesFor="+"
+               id="lu.uni.geko.generatePointcutRules">
+            <selection
+                  class="org.eclipse.core.resources.IFile"
+                  name="*_pc">
+            </selection>
+         </action>
+         <action
+               label="Detect Joinpoints"
+               class="lu.uni.geko.popup.actions.DetectJoinpoints"
+               menubarPath="lu.uni.geko.menu1/group1"
+               enablesFor="2+"
+               id="lu.uni.geko.detectJoinpoints">
+         </action>
+         <action
+               label="Weave Asymmetrically"
+               class="lu.uni.geko.popup.actions.WeaveAsymmetrically"
+               menubarPath="lu.uni.geko.menu1/group1"
+               enablesFor="2+"
+               id="lu.uni.geko.weaveAsymmetrically">
+         </action>
+      </objectContribution>
+   </extension>-->
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="hasEcoreFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.ecore"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="hasGenmodelFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.genmodel"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="hasPcFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_pc"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="containsPcFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_pc"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyTwoElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="2">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="containsAvFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_av"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyThreeElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="3">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="containsMappingFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.pc2avmapping"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyFourElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="4">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="onlyFoldersSelected">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFolder"/>
+            </iterate>
+         </with>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="lu.uni.geko.commands.GenerateBasePCAndAVEditorsHandler"
+            description="Generate Base, Pointcut and Advice Editors"
+            id="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
+            name="GenerateBasePCAndAVEditors">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GeneratePointcutMMHandler"
+            description="Generate Pointcut Metamodel"
+            id="lu.uni.geko.commands.GeneratePointcutMM"
+            name="GeneratePointcutMM">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GenerateAdviceMMHandler"
+            description="Generate Advice Metamodel"
+            id="lu.uni.geko.commands.GenerateAdviceMM"
+            name="GenerateAdviceMM">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.InstallAndStartGeneratedEditorPluginHandler"
+            description="Install and Start Generated Editor Plugin"
+            id="lu.uni.geko.commands.InstallAndStartGeneratedEditorPlugin"
+            name="InstallAndStartGeneratedEditorPlugin">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GeneratePointcutRulesHandler"
+            description="Generate Pointcut Rules"
+            id="lu.uni.geko.commands.GeneratePointcutRules"
+            name="GeneratePointcutRules">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.DetectJoinpointsHandler"
+            description="Detect Joinpoints"
+            id="lu.uni.geko.commands.DetectJoinpoints"
+            name="DetectJoinpoints">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMappingHandler"
+            description="Weave Asymmetrically (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMapping"
+            name="WeaveAsymmetricallyInferPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMappingHandler"
+            description="Weave Asymmetrically (Infering Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMapping"
+            name="WeaveAsymmetricallyWithPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.TestAsymmetricWeaverHandler"
+            description="Run Asymmetric Weaver Tests in Subfolders"
+            id="lu.uni.geko.commands.TestAsymmetricWeaver"
+            name="TestAsymmetricWeaver">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               label="GeKo Weaver">
+            <command
+                  commandId="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
+                  label="Generate Base, Pointcut and Advice Editors"
+                  style="push"
+                  tooltip="Generates a pointcut and an advice metamodel from the selected base metamodel and registers editors for them. ">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GeneratePointcutMM"
+                  label="Generate Pointcut Metamodel"
+                  style="push"
+                  tooltip="Generates a pointcut metamodel from the selected base metamodel and registers an editor for it. ">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GenerateAdviceMM"
+                  label="Generate Advice Metamodel"
+                  style="push"
+                  tooltip="Generates an advice metamodel from the selected base metamodel and registers an editor for it. ">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.InstallAndStartGeneratedEditorPlugin"
+                  label="Install and Start Generated Editor Plugin"
+                  style="push"
+                  tooltip="Installs and starts the editor plugin that was generated using this genmodel.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasGenmodelFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GeneratePointcutRules"
+                  label="Generate Pointcut Rules"
+                  style="push"
+                  tooltip="Generates and displays the pointcut rules that are used to detect joinpoints for the selected pointcut.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasPcFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.DetectJoinpoints"
+                  label="Detect Joinpoints"
+                  style="push"
+                  tooltip="Detects the joinpoints for the selected pointcut and base model.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyTwoElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMapping"
+                  label="Weave Asymmetrically (Infer Pointcut 2 Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model by infering the mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyThreeElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMapping"
+                  label="Weave Asymmetrically (Infering Completion of Pointcut 2 Adivce Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually infering a completion of) the selected mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyFourElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.TestAsymmetricWeaver"
+                  label="Run Asymmetric Weaver Tests in selected Folders"
+                  style="push"
+                  tooltip="Compares the weaving result to the woven archetype in all selected folders">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="onlyFoldersSelected">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

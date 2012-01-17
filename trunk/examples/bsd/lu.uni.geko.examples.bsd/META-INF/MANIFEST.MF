@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Basic Sequence Diagram Example for GeKo Model Weaver
+Bundle-SymbolicName: lu.uni.geko.examples.bsd
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: uni.lu
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="lu.uni.geko.resources.simpleresourceloaderext" name="SimpleResourceLoaderExt" schema="schema/lu.uni.geko.resources.simpleresourceloaderext.exsd"/>
+   <extension-point id="lu.uni.geko.resources.refinedresourceloaderext" name="RefinedResourceLoaderExt" schema="schema/lu.uni.geko.resources.refinedresourceloaderext.exsd"/>
+   <extension
+         point="lu.uni.geko.resources.simpleresourceloaderext">
+      <client
+            class="lu.uni.geko.resources.DefaultSimpleResourceLoaderFactory">
+      </client>
+   </extension>
+</plugin>

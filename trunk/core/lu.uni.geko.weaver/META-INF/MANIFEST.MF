@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Weaver for GeKo Generic Weaver
+Bundle-SymbolicName: lu.uni.geko.weaver;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: lu.uni
+Require-Bundle: org.eclipse.core.runtime,
+ lu.uni.geko.util,
+ org.eclipse.emf.ecore,
+ lu.uni.geko.resources;bundle-version="1.0.0",
+ lu.uni.geko.common;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: lu.uni.geko.weaver,
+ lu.uni.geko.weaver.scope
+Import-Package: Pc2AvMapping

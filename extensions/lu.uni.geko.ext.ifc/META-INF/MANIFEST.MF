@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: IFC building model extension for GeKo
+Bundle-SymbolicName: lu.uni.geko.ext.ifc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: lu.uni
+Require-Bundle: org.eclipse.core.runtime,
+ lu.uni.geko.resources;bundle-version="1.0.0",
+ qut.part21;bundle-version="1.0.0",
+ qut.metamodel.ifcheader,
+ qut.metamodel.trace,
+ lu.uni.geko.util;bundle-version="1.0.0",
+ qut.ifc,
+ lu.uni.geko.weaver;bundle-version="1.0.0",
+ lu.uni.geko.mmtransformer;bundle-version="1.0.0",
+ org.eclipse.emf.codegen.ecore,
+ lu.uni.geko.common;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: IFC2X3.util

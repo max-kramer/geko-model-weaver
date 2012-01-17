@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2012 University of Luxembourg and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Max E. Kramer - initial API and implementation
+-->
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lu.uni.geko.examples.bsd_av.model/src"
+    editDirectory="/lu.uni.geko.examples.bsd_av.edit/src" editorDirectory="/lu.uni.geko.examples.bsd_av.editor/src"
+    modelPluginID="lu.uni.geko.examples.bsd_av.model" modelName="Bsd_advice" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="lu.uni.geko.examples.bsd_av.edit"
+    editorPluginID="lu.uni.geko.examples.bsd_av.editor">
+  <foreignModel>bsd_advice.ecore</foreignModel>
+  <genPackages prefix="Bsd_av" disposableProviderFactory="true" ecorePackage="bsd_advice.ecore#/">
+    <genClasses ecoreClass="bsd_advice.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_advice.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//BSD">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//BSD/precendenceTuples"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//BSD/lifelines"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//BSD/messages"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//Lifeline"/>
+    <genClasses ecoreClass="bsd_advice.ecore#//Event">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//Event/owningLifeline"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//SendEvent"/>
+    <genClasses ecoreClass="bsd_advice.ecore#//ReceiveEvent"/>
+    <genClasses ecoreClass="bsd_advice.ecore#//PrecedenceTuple">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//PrecedenceTuple/precedingEvent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//PrecedenceTuple/subsequentEvent"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//Message">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//Message/sendEvent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//Message/receiveEvent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_advice.ecore#//Message/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_advice.ecore#//Message/type"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//Advice">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//Advice/children"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//GlobalScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//GlobalScope/scopedObject"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_advice.ecore#//PerJoinPointScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_advice.ecore#//PerJoinPointScope/scopedObject"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

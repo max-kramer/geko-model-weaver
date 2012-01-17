@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Utilities for GeKo Generic Model Weaver
+Bundle-SymbolicName: lu.uni.geko.util;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: lu.uni
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.7.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ org.eclipse.ui.console;bundle-version="3.5.100",
+ lu.uni.geko.mapping;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: lu.uni.geko.util.adapters,
+ lu.uni.geko.util.datastructures,
+ lu.uni.geko.util.ecorecopy,
+ lu.uni.geko.util.ui

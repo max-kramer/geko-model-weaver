@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<statements:Specification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:expressions="http://lu.uni.snt.bsmtl.expressions" xmlns:operations="http://lu.uni.snt.bsmtl.operations" xmlns:statements="http://lu.uni.snt.bsmtl.statements">
+  <statements xsi:type="statements:SimpleTransfStmt">
+    <selectingExpr>
+      <restrictedExpr xsi:type="operations:BinaryOperation">
+        <leftOperand xsi:type="expressions:AllInstancesExpr">
+          <type ifcClassName="IfcWindow"/>
+        </leftOperand>
+        <rightOperand xsi:type="expressions:AllInstancesExpr">
+          <type ifcClassName="IfcBuildingStorey"/>
+        </rightOperand>
+        <operator/>
+      </restrictedExpr>
+      <varBinding boundName="w">
+        <boundType ifcClassName="IfcWindow"/>
+      </varBinding>
+      <varBinding boundName="s">
+        <boundType ifcClassName="IfcBuildingStorey"/>
+      </varBinding>
+      <restrictingExpr xsi:type="expressions:MethodCallExpr">
+        <baseExpr xsi:type="expressions:VarReferenceExpr" referencedVarBinding="//@statements.0/@selectingExpr/@varBinding.0"/>
+        <calledMethod methodName="containedIn"/>
+        <argument xsi:type="expressions:VarReferenceExpr" referencedVarBinding="//@statements.0/@selectingExpr/@varBinding.1"/>
+      </restrictingExpr>
+    </selectingExpr>
+    <transformingExpr xsi:type="expressions:MethodCallExpr"/>
+  </statements>
+</statements:Specification>

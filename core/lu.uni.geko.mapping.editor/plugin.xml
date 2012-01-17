@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="Pc2AvMapping.presentation.Pc2AvMappingModelWizardID"
+            name="%_UI_Pc2AvMappingModelWizard_label"
+            class="Pc2AvMapping.presentation.Pc2AvMappingModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/Pc2AvMappingModelFile.gif">
+         <description>%_UI_Pc2AvMappingModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="Pc2AvMapping.presentation.Pc2AvMappingEditorID"
+            name="%_UI_Pc2AvMappingEditor_label"
+            icon="icons/full/obj16/Pc2AvMappingModelFile.gif"
+            extensions="pc2avmapping"
+            class="Pc2AvMapping.presentation.Pc2AvMappingEditor"
+            contributorClass="Pc2AvMapping.presentation.Pc2AvMappingActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

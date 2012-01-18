@@ -22,7 +22,6 @@ import java.util.Set;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EMFResourceAdapter;
 import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
@@ -349,8 +348,7 @@ public class Merger {
 		if (baseElementsToBeMergedWithAdviceElement == null) {
 			// we are inspecting a reference to a new element that has no correspondence in the pointcut
 			// this is the only case were we actually need to copy something from the advice
-			AdviceInstantiationScope adviceInstantiationScope = adviceEObjects2ScopeMap.get(adviceElement);
-			EObject adviceFeatureValueElementCopy = MainCopier.copyAdviceEObject(adviceElement, wovenMRoot, base2AdviceMergeBiMap, adviceInstantiationScope);
+			EObject adviceFeatureValueElementCopy = MainCopier.copyAdviceEObject(adviceElement, wovenMRoot, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
 			console.println("Copied '" + adviceElement + "': '" + adviceFeatureValueElementCopy + "'");
 			return adviceFeatureValueElementCopy;
 		} else {
@@ -439,7 +437,7 @@ public class Merger {
 			boolean madeContent = currentAdviceEObjectsToBeAdded.remove(adviceFeatureValue);
 			if (madeContent) {
 				console.println("This reference change made '" + baseVersionOfAdviceFeatureValue + "' a new content of  '" + ((EObject) adviceFeatureValue).eContainer() + "'.");
-				Set<EObject> adviceFeatureValueAllContentsSet = EMFResourceAdapter.getAllContentsSet(adviceFeatureValue);
+				Set<EObject> adviceFeatureValueAllContentsSet = EMFAdapter.getAllContentsSet(adviceFeatureValue);
 				currentAdviceEObjectsToBeAdded.removeAll(adviceFeatureValueAllContentsSet);
 			}
 		}

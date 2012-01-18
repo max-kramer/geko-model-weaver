@@ -52,7 +52,15 @@ public class ScopeResolver {
 					if (scopedObject == null || !(scopedObject instanceof EObject)) {
 						throw new RuntimeException("The scope element '" + nextContent + "' of the advice model '" + adviceMURI + "' has to reference an EObject!");
 					} else {
-						adviceEObjects2ScopeMap.put((EObject) scopedObject, scope);
+						EObject scopedEObject = (EObject) scopedObject;
+						adviceEObjects2ScopeMap.put(scopedEObject, scope);
+						// inherit scope for contained objects but do not overwrite specified scope
+						for (EObject scopedContent : EMFAdapter.getAllContents(scopedEObject)) {
+							AdviceInstantiationScope contentScope = adviceEObjects2ScopeMap.get(scopedObject);
+							if (contentScope == null) {
+								adviceEObjects2ScopeMap.put(scopedContent, scope);
+							}
+						}
 					}
 				}	
 			} else {

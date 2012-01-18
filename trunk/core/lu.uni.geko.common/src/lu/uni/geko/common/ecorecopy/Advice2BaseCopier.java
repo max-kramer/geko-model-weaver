@@ -10,48 +10,44 @@
  ******************************************************************************/
 package lu.uni.geko.common.ecorecopy;
 
-import java.util.Set;
+import lu.uni.geko.common.GeKoConstants;
+import lu.uni.geko.util.ecorecopy.Abstract2BaseCopier;
 
 import org.eclipse.emf.ecore.EObject;
 
-import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.JavaAdapter;
-import lu.uni.geko.util.datastructures.BiN2NMap;
-import lu.uni.geko.util.ecorecopy.Abstract2BaseCopier;
-
-public class Advice2BaseCopier extends Abstract2BaseCopier {
+public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 	private static final long serialVersionUID = -7077381667743808845L;
-	private final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap;
-
-	public Advice2BaseCopier(BiN2NMap<EObject, EObject> base2AdviceMergeBiMap) {
-		this.base2AdviceMergeBiMap = base2AdviceMergeBiMap;
-	}
 
 	@Override
 	protected String getPackageNameSuffixToBeRemoved() {
 		return GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE;
 	}
 	
-	private EObject getIfMappedOrCopiedAndCopyOtherwise(Object adviceObject) {
+	private EObject getIfNoNewCopyNeededAndCopyOtherwise(Object adviceObject) {
 		if (adviceObject instanceof EObject) {
-			Set<EObject> baseElementsToBeMergedWithAdviceElement = base2AdviceMergeBiMap.getAllKeysForValue((EObject) adviceObject);
-			if (baseElementsToBeMergedWithAdviceElement != null && baseElementsToBeMergedWithAdviceElement.size() > 0) {
-				// if more than one base element is merged with this advice element it does not matter which one we return as references are corrected afterwards anyway
-				return JavaAdapter.one(baseElementsToBeMergedWithAdviceElement);
+			EObject existingCopy = getIfNoNewCopyNeeded((EObject) adviceObject);
+			if (existingCopy != null) {
+				return existingCopy;
 			}
 		}
-		EObject adviceEObjectCopy = super.get(adviceObject);
-		if (adviceEObjectCopy == null) {
-			if (adviceObject instanceof EObject) {
-				return copyWithoutCheckingWhetherAlreadyCopied((EObject) adviceObject);
-			} else {
-				throw new RuntimeException("Advice2BaseCopier can only copy EObjects but '" + adviceObject + "' is no EObject!");
-			}
+		if (adviceObject instanceof EObject) {
+			return copyWithoutCheckingWhetherAlreadyCopied((EObject) adviceObject);
 		} else {
-			return adviceEObjectCopy;
+			throw new RuntimeException("Advice2BaseCopier can only copy EObjects but '" + adviceObject + "' is no EObject!");
 		}
 	}
 	
+	/**
+	 * Tries to retrieve an existing copy for this advice element or a base element that will be merged with this advice element.
+	 * If no existing copy or base element can be used this method returns <code>null</code>.
+	 */
+	public abstract EObject getIfNoNewCopyNeeded(EObject adviceEObject);
+	
+	/**
+	 * Registers the given copy of the give advice element so that it will only be copied again if needed.
+	 */
+	public abstract void registerCopy(EObject adviceEObject, EObject copy);
+
 	@Override
 	/** 
 	 * Returns the base object that is mapped to the given advice object (if existing)
@@ -59,7 +55,9 @@ public class Advice2BaseCopier extends Abstract2BaseCopier {
 	 * ATTENTION: References have to be copied with an additional call to <code>copyReferences()</code>.
 	 */
 	public EObject get(Object adviceObject) {
-		return getIfMappedOrCopiedAndCopyOtherwise(adviceObject);
+		EObject copy = getIfNoNewCopyNeededAndCopyOtherwise(adviceObject);
+		registerCopy((EObject) adviceObject, copy);
+		return copy;
 	}
 	
 	@Override
@@ -69,6 +67,8 @@ public class Advice2BaseCopier extends Abstract2BaseCopier {
 	 * ATTENTION: References have to be copied with an additional call to <code>copyReferences()</code>.
 	 */
 	public EObject copy(EObject adviceEObject) {
-		return getIfMappedOrCopiedAndCopyOtherwise(adviceEObject);
+		EObject copy = getIfNoNewCopyNeededAndCopyOtherwise(adviceEObject);
+		registerCopy(adviceEObject, copy);
+		return copy;
 	}
 }

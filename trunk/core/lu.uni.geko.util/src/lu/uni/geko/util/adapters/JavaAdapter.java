@@ -17,6 +17,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 public class JavaAdapter {
@@ -178,4 +179,13 @@ public class JavaAdapter {
 			throw new RuntimeException("The string '" + baseString + "' has to end with the suffix '" + suffixToTrim + "' in order to be trimmed!");
 		}
  	}
+	
+	public static <T> Iterable<T> toIterable(final Iterator<T> iterator) {
+		return new Iterable<T>() {
+			@Override
+			public Iterator<T> iterator() {
+				return iterator;
+			}
+		};
+	}
 }

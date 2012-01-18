@@ -17,7 +17,6 @@ import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.adapters.EMFFactoryAdapter;
-import lu.uni.geko.util.adapters.EMFResourceAdapter;
 import lu.uni.geko.util.adapters.EclipseAdapter;
 import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.Pair;
@@ -61,8 +60,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	}
 	
 	private void repairMMIfNecessary(EPackage mmPackage) {
-		Set<EObject> mmContents = EMFResourceAdapter.getAllContentsSet(mmPackage);
-		for (EObject mmContent : mmContents) {
+		for (EObject mmContent : EMFAdapter.getAllContents(mmPackage)) {
 			if (mmContent instanceof EClass) {
 				EClass metaclass = (EClass) mmContent;
 				for (EStructuralFeature feature : metaclass.getEStructuralFeatures()) {
@@ -142,8 +140,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 		EClass rootClass = EMFFactoryAdapter.addNewClassToPackage(rootElementName, newMMPackage, "metamodel '" + this.uri + "'");
 		EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
 		EMFFactoryAdapter.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
-		Set<EObject> mmContents = EMFResourceAdapter.getAllContentsSet(newMMPackage);
-		for (EObject mmContent : mmContents) {
+		for (EObject mmContent : EMFAdapter.getAllContents(newMMPackage)) {
 			if (mmContent instanceof EClass) {
 				EClass metaclass = (EClass) mmContent;
 				metaclass.setAbstract(false);

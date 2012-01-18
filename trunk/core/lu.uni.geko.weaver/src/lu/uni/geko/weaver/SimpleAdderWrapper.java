@@ -18,7 +18,6 @@ import java.util.Set;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EMFResourceAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
@@ -62,14 +61,13 @@ public class SimpleAdderWrapper implements MightyAdderExt {
 						if (containmentReference != null) {
 							EClassifier uniqueRootContainmentReferenceType = containmentReference.getEType();
 							if (featureCorresponder.isSameOrSuperType(adviceEObjectToBeAdded.eClass(), uniqueRootContainmentReferenceType)) {			
-								AdviceInstantiationScope adviceInstantiationScope = adviceEObjects2ScopeMap.get(adviceEObjectToBeAdded);
-								EObject baseVersionOfAdviceEObjectToBeAdded = MainCopier.copyAdviceEObject(adviceEObjectToBeAdded, uniqueWovenRoot, base2AdviceMergeBiMap, adviceInstantiationScope);
+								EObject baseVersionOfAdviceEObjectToBeAdded = MainCopier.copyAdviceEObject(adviceEObjectToBeAdded, uniqueWovenRoot, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
 								List<EObject> rootElementContents = EMFAdapter.getFeatureValuesIfManyTyped(uniqueWovenRoot, containmentReference);
 								rootElementContents.add(baseVersionOfAdviceEObjectToBeAdded);
 								console.println("Added the advice element '" + baseVersionOfAdviceEObjectToBeAdded + "' to the containment reference '" + containmentReference.getName() + "' of the unique root element '" + uniqueWovenRoot + "' of the woven model.");
 								adviceEObjectsAlreadyAdded.add(adviceEObjectToBeAdded);
 								// recognize that all advice elements that are contained in the current advice element do not need to be added anymore
-								Set<EObject> adviceEObjectToBeAddedAllContentsSet = EMFResourceAdapter.getAllContentsSet(adviceEObjectToBeAdded);
+								Set<EObject> adviceEObjectToBeAddedAllContentsSet = EMFAdapter.getAllContentsSet(adviceEObjectToBeAdded);
 								adviceEObjectsAlreadyAdded.addAll(adviceEObjectToBeAddedAllContentsSet);
 							}
 						}

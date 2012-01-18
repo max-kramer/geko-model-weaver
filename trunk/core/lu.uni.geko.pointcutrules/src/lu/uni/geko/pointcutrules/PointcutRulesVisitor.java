@@ -20,7 +20,6 @@ import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EMFResourceAdapter;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -126,7 +125,7 @@ public class PointcutRulesVisitor {
 				}
 			}
 			rules.append(")\n");
-			allContainedObjects.addAll(EMFResourceAdapter.getAllContentsSet(eObject));
+			allContainedObjects.addAll(EMFAdapter.getAllContentsSet(eObject));
 		}
 		// RATIONALE MK avoid infinite recursion
 		if (!allContainedObjects.isEmpty()) {

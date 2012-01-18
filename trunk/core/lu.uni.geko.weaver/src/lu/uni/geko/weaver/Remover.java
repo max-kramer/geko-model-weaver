@@ -17,7 +17,6 @@ import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EMFResourceAdapter;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
@@ -38,7 +37,7 @@ public class Remover {
 		boolean additionalIterationNeeded = true;
 		while (additionalIterationNeeded && baseEObjectsToBeRemoved.size() > 0) {
 				additionalIterationNeeded = false;
-				Set<EObject> allBaseEObjectsToBeRemoved = EMFResourceAdapter.getAllContentsSet(baseEObjectsToBeRemoved);
+				Set<EObject> allBaseEObjectsToBeRemoved = EMFAdapter.getAllContentsSet(baseEObjectsToBeRemoved);
 				Pair<Boolean, Set<EObject>> currentCleanupResult = removeReferencesAndInconsitencies(allBaseEObjectsToBeRemoved);
 				additionalIterationNeeded = currentCleanupResult.first;
 				baseEObjectsToBeRemoved = currentCleanupResult.second;

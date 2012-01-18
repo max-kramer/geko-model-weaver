@@ -12,8 +12,6 @@ package lu.uni.geko.util.adapters;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -46,30 +44,7 @@ public class EMFResourceAdapter {
 	}
 	
 	public static Set<EObject> getAllContentsSet(Resource resource) {
-		return getAllContentsSet(resource.getAllContents());
-	}
-
-	public static Set<EObject> getAllContentsSet(Set<EObject> eObjects) {
-		Set<EObject> allContentsSet = new HashSet<EObject>(eObjects);
-		for (EObject eObject : eObjects) {
-			Set<EObject> currentAllContentsSet = getAllContentsSet(eObject);
-			allContentsSet.addAll(currentAllContentsSet);
-		}
-		return allContentsSet;
-	}
-	
-	public static Set<EObject> getAllContentsSet(EObject eObject) {
-		Iterator<EObject> allContentsIterator = eObject.eAllContents();
-		return getAllContentsSet(allContentsIterator);
-	}
-	
-	public static Set<EObject> getAllContentsSet(Iterator<EObject> allContentsIterator) {
-		Set<EObject> allContentsSet = new HashSet<EObject>();
-		while (allContentsIterator.hasNext()) {
-			EObject nextContent = allContentsIterator.next();
-			allContentsSet.add(nextContent);
-		}
-		return allContentsSet;
+		return EMFAdapter.getAllContentsSet(resource.getAllContents());
 	}
 	
 	public static void saveEObjectAsOnlyContent(EObject eObject, Resource resource) throws IOException {

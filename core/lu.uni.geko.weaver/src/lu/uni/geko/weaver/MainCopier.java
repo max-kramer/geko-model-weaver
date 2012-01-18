@@ -11,6 +11,7 @@
 package lu.uni.geko.weaver;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import lu.uni.geko.util.adapters.EclipseAdapter;
@@ -21,7 +22,7 @@ import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import org.eclipse.emf.ecore.EObject;
 
 public class MainCopier {
-	public static EObject copyAdviceEObject(final EObject sourceAdviceEObject, final EObject rootEObject, final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, final AdviceInstantiationScope scope) {
+	public static EObject copyAdviceEObject(final EObject sourceAdviceEObject, final EObject rootEObject, final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
 		List<Pair<CopierFactoryExt, Integer>> copierFactories = EclipseAdapter.getRegisteredExecutablesWithPriority(CopierFactoryExt.ID, "class", CopierFactoryExt.class);
 		
 		EclipseAdapter.sortExectuablesDescByPriority(CopierFactoryExt.ID, copierFactories);
@@ -32,8 +33,8 @@ public class MainCopier {
 			Callable<EObject> callable = new Callable<EObject>() {
 				@Override
 				public EObject call() {
-					Copier copier = copierFactoryPair.first.getCopier(rootEObject, base2AdviceMergeBiMap, scope);
-					return copier.copyAdviceEObject(sourceAdviceEObject, finalCurrentCopyBaseEObject);
+					Copier copier = copierFactoryPair.first.getCopier(rootEObject);
+					return copier.copyAdviceEObject(sourceAdviceEObject, finalCurrentCopyBaseEObject, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
 				}
 			};
 			currentCopyBaseEObject = EclipseAdapter.callInProtectedMode(callable);

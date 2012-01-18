@@ -10,8 +10,13 @@
  ******************************************************************************/
 package lu.uni.geko.weaver;
 
+import java.util.Map;
+
+import lu.uni.geko.util.datastructures.BiN2NMap;
+import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
+
 import org.eclipse.emf.ecore.EObject;
 
 public interface Copier {
-	EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject);
+	EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap);
 }

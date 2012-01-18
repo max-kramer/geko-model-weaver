@@ -10,14 +10,11 @@
  ******************************************************************************/
 package lu.uni.geko.weaver;
 
-import lu.uni.geko.util.datastructures.BiN2NMap;
-import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
-
 import org.eclipse.emf.ecore.EObject;
 
 public interface CopierFactoryExt {
 	/** extension point ID **/
 	String ID = "lu.uni.geko.weaver.copierfactoryext";
 
-	Copier getCopier(EObject rootEObject, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, AdviceInstantiationScope scope);
+	Copier getCopier(EObject rootEObject);
 }

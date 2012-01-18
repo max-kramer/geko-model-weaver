@@ -11,7 +11,10 @@
 package lu.uni.geko.util.adapters;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -177,5 +180,32 @@ public class EMFAdapter {
 	public static Object eGetForFeatureName(EObject eObject, String featureName) {
 		EStructuralFeature feature = eObject.eClass().getEStructuralFeature(featureName);
 		return eObject.eGet(feature);
+	}
+	
+	public static Set<EObject> getAllContentsSet(Set<EObject> eObjects) {
+		Set<EObject> allContentsSet = new HashSet<EObject>(eObjects);
+		for (EObject eObject : eObjects) {
+			Set<EObject> currentAllContentsSet = getAllContentsSet(eObject);
+			allContentsSet.addAll(currentAllContentsSet);
+		}
+		return allContentsSet;
+	}
+	
+	public static Iterable<EObject> getAllContents(EObject eObject) {
+		return JavaAdapter.toIterable(eObject.eAllContents());
+	}
+	
+	public static Set<EObject> getAllContentsSet(EObject eObject) {
+		Iterator<EObject> allContentsIterator = eObject.eAllContents();
+		return getAllContentsSet(allContentsIterator);
+	}
+	
+	public static Set<EObject> getAllContentsSet(Iterator<EObject> allContentsIterator) {
+		Set<EObject> allContentsSet = new HashSet<EObject>();
+		while (allContentsIterator.hasNext()) {
+			EObject nextContent = allContentsIterator.next();
+			allContentsSet.add(nextContent);
+		}
+		return allContentsSet;
 	}
 }

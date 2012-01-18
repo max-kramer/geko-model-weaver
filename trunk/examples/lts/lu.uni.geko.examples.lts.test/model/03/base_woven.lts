@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<lts:LTS xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:lts="http://lts" initialState="//@ownedState.0" currentState="//@ownedState.0" finalState="//@ownedState.2 //@ownedState.1" name="base03">
-  <ownedState name="a">
-    <outgoingTransition target="//@ownedState.1" input="t1" output="t1_out"/>
-    <outgoingTransition target="//@ownedState.1" input="t2" output="t2_out"/>
-  </ownedState>
-  <ownedState name="c" incomingTransition="//@ownedState.0/@outgoingTransition.1 //@ownedState.0/@outgoingTransition.0"/>
-  <ownedState name="d"/>
-</lts:LTS>

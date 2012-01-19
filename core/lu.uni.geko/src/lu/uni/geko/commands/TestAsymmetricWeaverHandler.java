@@ -23,7 +23,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
 public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
-	private static final int TEST_COUNT = 1;
+	private static final int TEST_COUNT = 42;
 
 	@Override
 	protected List<Runnable> getRunnables(List<IFolder> folders) {

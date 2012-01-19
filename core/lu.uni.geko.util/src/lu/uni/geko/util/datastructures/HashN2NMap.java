@@ -17,6 +17,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * A mapping from possibly multiple keys to possibly multiple values implemented using {@link java.util.HashMap}s.
+ * ATTENTION: The implementation is backed up by the returned sets. Changing these returned sets will change the mapping and may result in inconsistent behaviour!
+ * @author Max E. Kramer
+ * @param <K> key type
+ * @param <V> value type
+ */
 public class HashN2NMap<K,V> implements N2NMap<K,V> {
 	// RATIONALE MK do not disclose all functionality of the used map
 	private final Map<Set<K>, Set<V>> map;
@@ -42,26 +49,34 @@ public class HashN2NMap<K,V> implements N2NMap<K,V> {
 	public Set<K> keySet() {
 		return this.singleKey2ValuesCache.keySet();
 	}
-
 	@Override
-	public Pair<Set<K>,Set<V>> put(K key, V value) {
+	public void put(K key, V value) {
 		Set<K> keySet = Collections.singleton(key);
 		Set<V> valueSet = Collections.singleton(value);
-		return put(keySet, valueSet);
+		put(keySet, valueSet);
 	}
 
 	@Override
-	public Pair<Set<K>, Set<V>> put(Set<K> keySet, Set<V> valueSet) {
+	public void put(Set<K> keySet, Set<V> valueSet) {
 		this.map.put(keySet, valueSet);
 		for (K key : keySet) {
-			Set<V> allKeyValues = this.singleKey2ValuesCache.get(key);
+			Set<V> allKeyValues = getAllValuesForKey(key);
 			if (allKeyValues == null) {
 				allKeyValues = new HashSet<V>();
 				this.singleKey2ValuesCache.put(key, allKeyValues);
 			}
 			allKeyValues.addAll(valueSet);
 		}	
-		return new Pair<Set<K>,Set<V>>(keySet, valueSet);
+	}
+	
+	@Override
+	public boolean remove(K key, V value) {
+		Set<V> allKeyValues = getAllValuesForKey(key);
+		if (allKeyValues == null) {
+			return false;
+		} else {
+			return allKeyValues.remove(value);
+		}
 	}
 	
 	@Override

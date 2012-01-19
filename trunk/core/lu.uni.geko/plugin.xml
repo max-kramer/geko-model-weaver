@@ -1,69 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
-   <!--<extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.core.resources.IFile"
-            id="lu.uni.geko.popupMenuContribution">
-         <menu
-               label="GeKo Weaver (deprecated)"
-               path="additions"
-               id="lu.uni.geko.menu1">
-            <separator
-                  name="group1">
-            </separator>
-         </menu>
-         <action
-               label="Generate Pointcut and Advice Metamodels"
-               class="lu.uni.geko.popup.actions.GeneratePointcutAndAdviceMM"
-               menubarPath="lu.uni.geko.menu1/group1"
-               enablesFor="+"
-               id="lu.uni.geko.generatePointcutAndAdviceMMAction">
-            <selection
-                  class="org.eclipse.core.resources.IFile"
-                  name="*.ecore">
-            </selection>
-         </action>
-         <action
-               label="Install and start generated editor plug-in"
-               class="lu.uni.geko.popup.actions.InstallAndStartGeneratedEditorPlugin"
-               menubarPath="lu.uni.geko.menu1/group1"
-               enablesFor="+"
-               id="lu.uni.geko.installAndStartGeneratedEditorPlugin">
-            <selection
-                  class="org.eclipse.core.resources.IFile"
-                  name="*.genmodel">
-            </selection>
-         </action>
-         <action
-               label="Generate Pointcut Rules"
-               class="lu.uni.geko.popup.actions.GeneratePointcutRules"
-               menubarPath="lu.uni.geko.menu1/group1"
-               enablesFor="+"
-               id="lu.uni.geko.generatePointcutRules">
-            <selection
-                  class="org.eclipse.core.resources.IFile"
-                  name="*_pc">
-            </selection>
-         </action>
-         <action
-               label="Detect Joinpoints"
-               class="lu.uni.geko.popup.actions.DetectJoinpoints"
-               menubarPath="lu.uni.geko.menu1/group1"
-               enablesFor="2+"
-               id="lu.uni.geko.detectJoinpoints">
-         </action>
-         <action
-               label="Weave Asymmetrically"
-               class="lu.uni.geko.popup.actions.WeaveAsymmetrically"
-               menubarPath="lu.uni.geko.menu1/group1"
-               enablesFor="2+"
-               id="lu.uni.geko.weaveAsymmetrically">
-         </action>
-      </objectContribution>
-   </extension>-->
    <extension
          point="org.eclipse.core.expressions.definitions">
       <definition
@@ -250,7 +187,7 @@
                   commandId="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
                   label="Generate Base, Pointcut and Advice Editors"
                   style="push"
-                  tooltip="Generates a pointcut and an advice metamodel from the selected base metamodel and registers editors for them. ">
+                  tooltip="Generates a pointcut and an advice metamodel from the selected base metamodel and registers editors for them.">
                <visibleWhen
                      checkEnabled="false">
                   <reference
@@ -262,7 +199,7 @@
                   commandId="lu.uni.geko.commands.GeneratePointcutMM"
                   label="Generate Pointcut Metamodel"
                   style="push"
-                  tooltip="Generates a pointcut metamodel from the selected base metamodel and registers an editor for it. ">
+                  tooltip="Generates a pointcut metamodel from the selected base metamodel and registers an editor for it.">
                <visibleWhen
                      checkEnabled="false">
                   <reference
@@ -274,7 +211,7 @@
                   commandId="lu.uni.geko.commands.GenerateAdviceMM"
                   label="Generate Advice Metamodel"
                   style="push"
-                  tooltip="Generates an advice metamodel from the selected base metamodel and registers an editor for it. ">
+                  tooltip="Generates an advice metamodel from the selected base metamodel and registers an editor for it.">
                <visibleWhen
                      checkEnabled="false">
                   <reference
@@ -327,7 +264,7 @@
                   commandId="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMapping"
                   label="Weave Asymmetrically (Infer Pointcut 2 Advice Mapping)"
                   style="push"
-                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model by infering the mapping from pointcut to advice.">
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model by inferring the mapping from pointcut to advice.">
                <visibleWhen
                      checkEnabled="false">
                   <and>
@@ -347,7 +284,7 @@
                   commandId="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMapping"
                   label="Weave Asymmetrically (Infering Completion of Pointcut 2 Adivce Mapping)"
                   style="push"
-                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually infering a completion of) the selected mapping from pointcut to advice.">
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
                <visibleWhen
                      checkEnabled="false">
                   <and>

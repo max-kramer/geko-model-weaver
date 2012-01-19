@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -25,87 +25,219 @@ import lu.uni.geko.weaver.Pc2AvMapResolver;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
-public class ActionsFacade {
-	// TODO MK write Java-Doc comments for all methods in ActionsFacade
-	
-	/**
-	 *
-	 * @param mmURI
-	 * @return (pointcutMMUri, adviceMMUri)
-	 */
-	public static Pair<URI, URI> generateBasePCAndAVEditors(final URI mmURI) {
-		return (new MMTransformer(mmURI)).generate();
-	}
+/**
+ * A utility class following the facade design pattern to grant access to all
+ * commands.
+ *
+ * @author Max E. Kramer
+ */
+public final class ActionsFacade {
+    /**
+     * Utility classes should not have a public or default constructor.
+     */
+    private ActionsFacade() {
+    }
 
-	public static URI generateAdviceMM(final URI mmURI) {
-		return (new MMTransformer(mmURI)).generateAdviceMM();
-	}
-	
-	public static URI generatePointcutMM(final URI mmURI) {
-		return (new MMTransformer(mmURI)).generatePointcutMM();
-	}
-	
-	public static Pair<String, Map<Integer, EObject>> generatePointcutRulesAndIDs(final URI pointcutMURI) {
-		return (new PointcutRulesGenerator(pointcutMURI)).generate();
-	}
-	
-	/**
-	 * 
-	 * @param pointcutMURI
-	 * @param baseMURI
-	 * @return pointcut2BaseMaps
-	 */
-	public static List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
-		Pair<String, Map<Integer, EObject>> pointcutRulesAndIDs = generatePointcutRulesAndIDs(pointcutMURI);
-		String pointcutRules = pointcutRulesAndIDs.first;
-		Map<Integer, EObject> pcID2PcEObjectMap = pointcutRulesAndIDs.second;
-		return detectJoinpoints(pointcutRules, pcID2PcEObjectMap, baseMURI);
-	}
-	
-	/**
-	 * 
-	 * @param pointcutRules
-	 * @param pcID2PcEObjectMap
-	 * @param baseMURI
-	 * @param console
-	 * @return pointcut2BaseMaps
-	 */
-	private static List<Map<EObject, EObject>> detectJoinpoints(final String pointcutRules, final Map<Integer, EObject> pcID2PcEObjectMap, final URI baseMURI) {
-		return (new JoinpointDetector(pointcutRules, pcID2PcEObjectMap, baseMURI)).generate();
-	}
-	
-	public static URI weaveAsymmetricallyInferPc2AvMapping(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final boolean inPlace, final boolean persist) {
-		N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(pointcutMURI, adviceMURI)).generate();
-		if (pointcut2AdviceMapping == null) {
-			return null;
-		} else {
-			return weaveAsymmetrically(baseMURI, pointcutMURI, adviceMURI, pointcut2AdviceMapping, inPlace, persist);
-		}
-	}
-	
-	public static URI weaveAsymmetricallyWithPc2AvMappingModel(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final URI pc2AvMappingMURI, final boolean inPlace, final boolean persist) {
-		N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(pointcutMURI, adviceMURI, pc2AvMappingMURI)).generate();
-		if (pointcut2AdviceMapping == null) {
-			return null;
-		} else {
-			return weaveAsymmetrically(baseMURI, pointcutMURI, adviceMURI, pointcut2AdviceMapping, inPlace, persist);
-		}
-	}
-	
-	private static URI weaveAsymmetrically(final URI baseMURI, final URI pointcutMURI,
-			final URI adviceMURI,
-			final N2NMap<EObject, EObject> pointcut2AdviceMapping,
-			final boolean inPlace,
-			final boolean persist) {
-		AsymmetricWeaver asymmetricWeaver = new AsymmetricWeaver(baseMURI, adviceMURI, pointcut2AdviceMapping, inPlace);
-		URI wovenMURI = inPlace ? baseMURI : asymmetricWeaver.copyBaseToWovenMURI();
-		List<Map<EObject, EObject>> pointcut2BaseMaps = detectJoinpoints(pointcutMURI, wovenMURI);
-		asymmetricWeaver.setPointcut2BaseMaps(pointcut2BaseMaps);
-		asymmetricWeaver.generate(persist);
-		return wovenMURI;
-	}
+    /**
+     * Generates a pointcut and an advice metamodel from the base metamodel at
+     * the given URI and registers editor for these new metamodels and the
+     * existing metamodel.
+     *
+     * @param mmURI
+     *            the URI of the base metamodel
+     * @return (pointcutMMUri, adviceMMUri)
+     */
+    public static Pair<URI, URI> generateBasePCAndAVEditors(final URI mmURI) {
+        return (new MMTransformer(mmURI)).generate();
+    }
 
-	public static void installAndStartGeneratedEditorPlugin(final URI uri) {
-		PluginStarter.installAndStartGeneratedEditorPluginForUri(uri);
-	}
+    /**
+     * Generates an advice metamodel from the base metamodel at the given URI
+     * and registers an editor for it.
+     *
+     * @param mmURI
+     *            the URI of the base metamodel
+     * @return the URI of the generated advice metamodel
+     */
+    public static URI generateAdviceMM(final URI mmURI) {
+        return (new MMTransformer(mmURI)).generateAdviceMM();
+    }
+
+    /**
+     * Generates a pointcut metamodel from the base metamodel at the given URI
+     * and registers an editor for it.
+     *
+     * @param mmURI
+     *            the URI of the base metamodel
+     * @return the URI of the generated pointcut metamodel
+     */
+    public static URI generatePointcutMM(final URI mmURI) {
+        return (new MMTransformer(mmURI)).generatePointcutMM();
+    }
+
+    /**
+     * Generates the pointcut rules for the model at the given URI and returns
+     * them together with a mapping from the used IDs to the corresponding
+     * pointcut elements.
+     *
+     * @param pointcutMURI
+     *            the URI of the base model
+     * @return (pointcut rules, usedIDs2CorrespondingEObjectsMap)
+     */
+    public static Pair<String, Map<Integer, EObject>> generatePointcutRulesAndIDs(
+            final URI pointcutMURI) {
+        return (new PointcutRulesGenerator(pointcutMURI)).generate();
+    }
+
+    /**
+     * Detects the joinpoints for the pointcut and base model at the given URIs
+     * and returns them in form of a list of mappings from pointcut elements to
+     * base elements.
+     *
+     * @param pointcutMURI
+     *            the URI of the pointcut model
+     * @param baseMURI
+     *            the URI of the base model
+     * @return pointcut2BaseMaps a list of mappings from pointcut EObjects to
+     *         base EObjects
+     */
+    public static List<Map<EObject, EObject>> detectJoinpoints(
+            final URI pointcutMURI, final URI baseMURI) {
+        Pair<String, Map<Integer, EObject>> pointcutRulesAndIDs = generatePointcutRulesAndIDs(pointcutMURI);
+        String pointcutRules = pointcutRulesAndIDs.first;
+        Map<Integer, EObject> pcID2PcEObjectMap = pointcutRulesAndIDs.second;
+        return detectJoinpoints(pointcutRules, pcID2PcEObjectMap, baseMURI);
+    }
+
+    /**
+     * Detects the joinpoints for the base model at the given URI using the
+     * given pointcut rules together with the given mapping from pointcut IDs to
+     * pointcut elements and returns them in form of a list of mappings from
+     * pointcut elements to base elements.
+     *
+     * @param pointcutRules
+     *            the pointcut rules
+     * @param pcID2PcEObjectMap
+     *            the mapping from pointcut IDs to pointcut elements
+     * @param baseMURI
+     *            the URI of the base model
+     * @return pointcut2BaseMaps a list of mappings from pointcut EObjects to
+     *         base EObjects
+     */
+    private static List<Map<EObject, EObject>> detectJoinpoints(
+            final String pointcutRules,
+            final Map<Integer, EObject> pcID2PcEObjectMap, final URI baseMURI) {
+        return (new JoinpointDetector(pointcutRules, pcID2PcEObjectMap,
+                baseMURI)).generate();
+    }
+
+    /**
+     * Weaves the base, pointcut and advice models at the given URIs to a new
+     * woven model by inferring the mapping from pointcut to advice.
+     *
+     * @param baseMURI
+     *            the URI of the base model
+     * @param pointcutMURI
+     *            the URI of the pointcut model
+     * @param adviceMURI
+     *            the URI of the advice model
+     * @param inPlace
+     *            whether the weaving should be done in-place or using a new
+     *            copy of the model
+     * @param persist
+     *            whether the result of the weaving should be saved or not
+     * @return the URI of the woven model
+     */
+    public static URI weaveAsymmetricallyInferPc2AvMapping(final URI baseMURI,
+            final URI pointcutMURI, final URI adviceMURI,
+            final boolean inPlace, final boolean persist) {
+        N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(
+                pointcutMURI, adviceMURI)).generate();
+        if (pointcut2AdviceMapping == null) {
+            return null;
+        } else {
+            return weaveAsymmetrically(baseMURI, pointcutMURI, adviceMURI,
+                    pointcut2AdviceMapping, inPlace, persist);
+        }
+    }
+
+    /**
+     * Weaves the base, pointcut and advice models at the given URIs to a new
+     * woven model using the mapping from pointcut to advice at the given URI.
+     * Infers a completion of this mapping if needed.
+     *
+     * @param baseMURI
+     *            the URI of the base model
+     * @param pointcutMURI
+     *            the URI of the pointcut model
+     * @param adviceMURI
+     *            the URI of the advice model
+     * @param pc2AvMappingMURI
+     *            the URI of the mapping from pointcut to advice elements
+     * @param inPlace
+     *            whether the weaving should be done in-place or using a new
+     *            copy of the model
+     * @param persist
+     *            whether the result of the weaving should be saved or not
+     * @return the URI of the woven model
+     */
+    public static URI weaveAsymmetricallyWithPc2AvMappingModel(
+            final URI baseMURI, final URI pointcutMURI, final URI adviceMURI,
+            final URI pc2AvMappingMURI, final boolean inPlace,
+            final boolean persist) {
+        N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(
+                pointcutMURI, adviceMURI, pc2AvMappingMURI)).generate();
+        if (pointcut2AdviceMapping == null) {
+            return null;
+        } else {
+            return weaveAsymmetrically(baseMURI, pointcutMURI, adviceMURI,
+                    pointcut2AdviceMapping, inPlace, persist);
+        }
+    }
+
+    /**
+     * Weaves the base, pointcut and advice models at the given URIs to a new
+     * woven model using the given mapping from pointcut to advice elements.
+     *
+     * @param baseMURI
+     *            the URI of the base model
+     * @param pointcutMURI
+     *            the URI of the pointcut model
+     * @param adviceMURI
+     *            the URI of the advice model
+     * @param pointcut2AdviceMapping
+     *            the mapping from pointcut to advice elements
+     * @param inPlace
+     *            whether the weaving should be done in-place or using a new
+     *            copy of the model
+     * @param persist
+     *            whether the result of the weaving should be saved or not
+     * @return the URI of the woven model
+     */
+    private static URI weaveAsymmetrically(final URI baseMURI,
+            final URI pointcutMURI, final URI adviceMURI,
+            final N2NMap<EObject, EObject> pointcut2AdviceMapping,
+            final boolean inPlace, final boolean persist) {
+        AsymmetricWeaver asymmetricWeaver = new AsymmetricWeaver(baseMURI,
+                adviceMURI, pointcut2AdviceMapping, inPlace);
+        URI wovenMURI = inPlace ? baseMURI : asymmetricWeaver
+                .copyBaseToWovenMURI();
+        List<Map<EObject, EObject>> pointcut2BaseMaps = detectJoinpoints(
+                pointcutMURI, wovenMURI);
+        asymmetricWeaver.setPointcut2BaseMaps(pointcut2BaseMaps);
+        asymmetricWeaver.generate(persist);
+        return wovenMURI;
+    }
+
+    /**
+     * Installs and starts the editor plugin that was created for the metamodel
+     * at the given URI.
+     *
+     * @param uri
+     *            the URI of the metamodel for which an editor was already
+     *            created
+     */
+    public static void installAndStartGeneratedEditorPlugin(final URI uri) {
+        PluginStarter.installAndStartGeneratedEditorPluginForUri(uri);
+    }
 }

@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -14,10 +14,11 @@ import lu.uni.geko.common.GeKoConstants;
 
 import org.eclipse.core.resources.IFile;
 
-public abstract class AbstractEcoreFilesHandler extends AbstractSingleFileTypeCommandHandler {
-	@Override
-	protected boolean isSelectableFile(final IFile iFile) {
-		String fileExt = iFile.getFileExtension();
-		return fileExt.equals(GeKoConstants.MM_FILE_EXT);
-	}
+public abstract class AbstractEcoreFilesHandler extends
+        AbstractSingleFileTypeCommandHandler {
+    @Override
+    protected boolean isSelectableFile(final IFile iFile) {
+        String fileExt = iFile.getFileExtension();
+        return fileExt.equals(GeKoConstants.MM_FILE_EXT);
+    }
 }

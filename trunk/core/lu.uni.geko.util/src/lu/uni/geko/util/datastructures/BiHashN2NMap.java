@@ -15,6 +15,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A bidirectional mapping from possibly multiple keys to possibly multiple values implemented using {@link java.util.HashMap}s.
+ * ATTENTION: The implementation is backed up by the returned sets. Changing these returned sets will change the mapping and may result in inconsistent behaviour!
+ * @author Max E. Kramer
+ * @param <K> key type
+ * @param <V> value type
+ */
 public class BiHashN2NMap<K, V> extends HashN2NMap<K, V> implements BiN2NMap<K, V> {
 	// RATIONALE MK cache all keys for a value in order not to iterate over all entries every time getAllKeysForValue(V) is called
 	private final Map<V, Set<K>> singleValue2KeysCache;
@@ -35,16 +42,26 @@ public class BiHashN2NMap<K, V> extends HashN2NMap<K, V> implements BiN2NMap<K, 
 	}
 	
 	@Override
-	public Pair<Set<K>, Set<V>> put(Set<K> keySet, Set<V> valueSet) {
-		 Pair<Set<K>, Set<V>> entry = super.put(keySet, valueSet);
+	public void put(Set<K> keySet, Set<V> valueSet) {
+		super.put(keySet, valueSet);
 		for (V value : valueSet) {
-			Set<K> allValueKeys = this.singleValue2KeysCache.get(value);
+			Set<K> allValueKeys = getAllKeysForValue(value);
 			if (allValueKeys == null) {
 				allValueKeys = new HashSet<K>();
 				this.singleValue2KeysCache.put(value, allValueKeys);
 			}
 			allValueKeys.addAll(keySet);
 		}	
-		return entry;
 	}
+	
+	@Override
+	public boolean remove(K key, V value) {
+		super.remove(key, value);
+		Set<K> allValueKeys = getAllKeysForValue(value);
+		if (allValueKeys == null) {
+			return false;
+		} else {
+			return allValueKeys.remove(key);
+		}
+	};
 }

@@ -10,8 +10,6 @@
  ******************************************************************************/
 package lu.uni.geko.mmtransformer;
 
-import java.util.Set;
-
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.resources.MainResourceLoader;

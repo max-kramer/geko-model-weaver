@@ -45,18 +45,24 @@ public interface N2NMap<K, V> {
 	/**
 	 * Adds the value to the set of values that are the target of the key (if not contained yet).
 	 * @param key
-	 * @param value
-	 * @return the new set of target values for the key (containing the given value)
+	 * @param valuerget values for the key (containing the given value)
 	 */
-	Pair<Set<K>,Set<V>> put(K key, V value);
+	void put(K key, V value);
 	
 	/**
 	 * Adds the values to the set of values that are the target of the keys (if not contained yet).
 	 * @param keys
 	 * @param values
-	 * @return the new set of target values for the keys (containing the given values)
 	 */
-	Pair<Set<K>,Set<V>> put(Set<K> keySet, Set<V> valueSet);
+	void put(Set<K> keySet, Set<V> valueSet);
+	
+	/**
+	 * Removes the mapping from the given key to the given value from the mapping.
+	 * @param key
+	 * @param value
+	 * @return <code>true</code> if the key was mapped to the value and <code>false</code> otherwise.
+	 */
+	boolean remove(K key, V value);
 	
 	/**
 	 * @see java.util.Map#containsKey(Object)

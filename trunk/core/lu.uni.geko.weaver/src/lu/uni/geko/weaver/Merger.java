@@ -110,11 +110,26 @@ public class Merger {
 		replaceReferencesToMergedBaseEObjects();
 	}
 
-	private void merge1BaseWithNAdviceEObjects(Set<EObject> adviceEObjects, EObject baseEObject) {
+	/**
+	 * ATTENTION SIDE-EFFECT
+	 * @param adviceEObjects
+	 * @param baseEObject
+	 */
+	private void merge1BaseWithNAdviceEObjects(Set<EObject> base2AdviceMergeBiMapValueEntry, EObject baseEObject) {
+		// copy the advice elements set as it is the real entry in the map and should not be changed accidentally
+		Set<EObject> adviceEObjects = new HashSet<EObject>(base2AdviceMergeBiMapValueEntry);
 		EObject directlyMergedAdviceEObject = JavaAdapter.pop(adviceEObjects);
 		List<EObject> baseEObjectCopies = new ArrayList<EObject>(adviceEObjects.size());
 		for (EObject adviceEObject : adviceEObjects) {
 			EObject baseEObjectCopy = baseCopier.copy(baseEObject);
+			// Now we have duplicated the base element that has to be merged with multiple advice elements.
+			// This means our base2AdviceMergeBiMap should no longer map the original base element to all advice elements.
+			// Instead every new duplicate of the base element should map to the corresponding advice elements (and the other way round).
+			// This change is realized in two steps. First we remove the mapping from the original base element to the advice element.
+			// Then we add a new mapping from the base duplicate to the advice element.
+			base2AdviceMergeBiMap.remove(baseEObject, adviceEObject);
+			base2AdviceMergeBiMap.put(baseEObjectCopy, adviceEObject);
+			// We did this mapping change as early as possible and now we can go on with processing the copy and merging it.
 			baseCopier.copyReferences();
 			baseEObjectCopies.add(baseEObjectCopy);
 			merge1BaseWith1AdviceEObject(baseEObjectCopy, adviceEObject);

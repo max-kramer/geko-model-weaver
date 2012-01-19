@@ -28,7 +28,7 @@ public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 		return GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE;
 	}
 	
-	private EObject getIfNoNewCopyNeededAndCopyOtherwise(Object adviceObject) {
+	private EObject getIfNoNewCopyNeededAndCopyRegisterAndReferenceOtherwise(Object adviceObject) {
 		if (adviceObject instanceof EObject) {
 			EObject existingCopy = getIfNoNewCopyNeeded((EObject) adviceObject);
 			if (existingCopy != null) {
@@ -36,7 +36,11 @@ public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 			}
 		}
 		if (adviceObject instanceof EObject) {
-			return copyWithoutCheckingWhetherAlreadyCopied((EObject) adviceObject);
+			EObject adviceEObject = (EObject) adviceObject;
+			EObject newCopy = copyWithoutCheckingWhetherAlreadyCopied((EObject) adviceEObject);
+			registerCopy(adviceEObject, newCopy);
+			copyReferences(adviceEObject, newCopy);
+			return newCopy;
 		} else {
 			throw new RuntimeException("Advice2BaseCopier can only copy EObjects but '" + adviceObject + "' is no EObject!");
 		}
@@ -60,9 +64,7 @@ public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 	 * ATTENTION: References have to be copied with an additional call to <code>copyReferences()</code>.
 	 */
 	public EObject get(Object adviceObject) {
-		EObject copy = getIfNoNewCopyNeededAndCopyOtherwise(adviceObject);
-		registerCopy((EObject) adviceObject, copy);
-		return copy;
+		return getIfNoNewCopyNeededAndCopyRegisterAndReferenceOtherwise(adviceObject);
 	}
 	
 	@Override
@@ -72,9 +74,7 @@ public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 	 * ATTENTION: References have to be copied with an additional call to <code>copyReferences()</code>.
 	 */
 	public EObject copy(EObject adviceEObject) {
-		EObject copy = getIfNoNewCopyNeededAndCopyOtherwise(adviceEObject);
-		registerCopy(adviceEObject, copy);
-		return copy;
+		return getIfNoNewCopyNeededAndCopyRegisterAndReferenceOtherwise(adviceEObject);
 	}
 	
 	@Override

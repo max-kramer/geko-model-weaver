@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
 public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
+	private static final int TEST_COUNT = 1;
 
 	@Override
 	protected List<Runnable> getRunnables(List<IFolder> folders) {
@@ -31,20 +32,22 @@ public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
 			runnables.add(new Runnable() {	
 				@Override
 				public void run() {
-					Quintuple<URI, URI, URI, URI, URI> modelURIs = Tester.getModelURIsFromFolder(folder);
-					URI baseMURI = modelURIs.first;
-					URI pointcutMURI = modelURIs.second;
-					URI adviceMURI = modelURIs.third;
-					URI pc2AvMappingMURI = modelURIs.fourth;
-					URI wovenArchetypeMURI = modelURIs.fifth;
-					URI wovenMURI;
-					if (pc2AvMappingMURI == null) {
-						wovenMURI = ActionsFacade.weaveAsymmetricallyInferPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
-					} else {
-						wovenMURI = ActionsFacade.weaveAsymmetricallyWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
+					for (int i = 0; i < TEST_COUNT; i++) {
+						Quintuple<URI, URI, URI, URI, URI> modelURIs = Tester.getModelURIsFromFolder(folder);
+						URI baseMURI = modelURIs.first;
+						URI pointcutMURI = modelURIs.second;
+						URI adviceMURI = modelURIs.third;
+						URI pc2AvMappingMURI = modelURIs.fourth;
+						URI wovenArchetypeMURI = modelURIs.fifth;
+						URI wovenMURI;
+						if (pc2AvMappingMURI == null) {
+							wovenMURI = ActionsFacade.weaveAsymmetricallyInferPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+						} else {
+							wovenMURI = ActionsFacade.weaveAsymmetricallyWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
+						}
+						wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
+						Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
 					}
-					wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
-					Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
 				}
 			});
 		}

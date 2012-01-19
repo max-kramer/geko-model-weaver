@@ -82,9 +82,6 @@ public class AsymmetricWeaver extends AbstractTransformer<URI> {
 	
 	public URI generate(boolean persist) {	
 		for (Map<EObject, EObject> pointcut2BaseMap: this.pointcut2BaseMaps) {
-			
-//				Set<EObject> baseEObjects = EMFAdapter.getAllContentsSet(this.wovenMURI);
-//				Set<EObject> baseEObjectsToBeKept = SetCalculator.calculateBaseEObjectsToBeKept(baseEObjects, pointcut2BaseMap);
 			Set<EObject> baseEObjectsToBeRemoved = SetCalculator.calculateBaseEObjectsToBeRemoved(pointcut2BaseMap, this.pointcut2AdviceMap);
 			BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = SetCalculator.calculateBase2AdviceMergeMap(pointcut2BaseMap, this.pointcut2AdviceMap);
 			Pair<Set<EObject>, Map<EObject, AdviceInstantiationScope>> adviceAndScopePair = ScopeResolver.getAdviceElementsAndAdviceEObjects2ScopeMap(this.adviceMURI);
@@ -92,7 +89,6 @@ public class AsymmetricWeaver extends AbstractTransformer<URI> {
 			Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adviceAndScopePair.second;
 			Set<EObject> adviceEObjectsToBeAdded = SetCalculator.calculateAdviceEObjectsToBeAdded(adviceEObjects, pointcut2AdviceMap);
 			console.println("\nInspecting join point: " + pointcut2BaseMap + "\n");
-//				console.println("baseEObjectsToBeKept:\n" + baseEObjectsToBeKept);
 			console.println("baseEObjectsToBeRemoved:\n" + baseEObjectsToBeRemoved + "\n");
 			console.println("base2AdviceMergeBiMap:\n" + base2AdviceMergeBiMap + "\n");
 			console.println("adviceEObjectsToBeAdded:\n" + adviceEObjectsToBeAdded + "\n");

@@ -11,7 +11,6 @@
 package lu.uni.geko.weaver;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,12 +20,7 @@ import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeType;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.ecore.util.FeatureMapUtil;
 
 public class DefaultCopier extends Advice2BaseCopier implements Copier {
 	private static final long serialVersionUID = -4631517304088959864L;
@@ -42,7 +36,7 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 		currentBase2AdviceMergeBiMap = base2AdviceMergeBiMap;
 		currentAdviceEObjects2ScopeMap = adviceEObjects2ScopeMap;
 		EObject copy = copy(sourceAdviceEObject);
-		copyReferences();
+		copyReferences(sourceAdviceEObject, copy);
 		currentBase2AdviceMergeBiMap = null;
 		currentAdviceEObjects2ScopeMap = null;
 		return copy;
@@ -132,82 +126,4 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 			throw new RuntimeException("Illegal call to registerPerJoinPointCopy(" + sourceAdviceEObject + ", " + copy + ")!");
 		}
 	}
-	
-	/**
-	 * Hooks up cross references; it delegates to {@link #copyReference copyReference}.
-    */
-   public void copyReferences()
-   {
-	 Set<Map.Entry<EObject, EObject>> currentEntrySet = new HashSet<Map.Entry<EObject,EObject>>(entrySet());
-	 int currentSize = size();
-     for (Map.Entry<EObject, EObject> entry  : currentEntrySet)
-     {
-       EObject eObject = entry.getKey();
-       EObject copyEObject = entry.getValue();
-       EClass eClass = eObject.eClass();
-       for (int j = 0, size = eClass.getFeatureCount(); j < size; ++j)
-       {
-         EStructuralFeature eStructuralFeature = eClass.getEStructuralFeature(j);
-         if (eStructuralFeature.isChangeable() && !eStructuralFeature.isDerived())
-         {
-           if (eStructuralFeature instanceof EReference)
-           {
-             EReference eReference = (EReference)eStructuralFeature;
-             if (!eReference.isContainment() && !eReference.isContainer())
-             {
-               copyReference(eReference, eObject, copyEObject);
-             }
-           }
-           else if (FeatureMapUtil.isFeatureMap(eStructuralFeature))
-           {
-             FeatureMap featureMap = (FeatureMap)eObject.eGet(eStructuralFeature);
-             FeatureMap copyFeatureMap = (FeatureMap)copyEObject.eGet(getTarget(eStructuralFeature));
-             int copyFeatureMapSize = copyFeatureMap.size();
-             for (int k = 0, featureMapSize = featureMap.size(); k < featureMapSize; ++k)
-             {
-               EStructuralFeature feature = featureMap.getEStructuralFeature(k);
-               if (feature instanceof EReference)
-               {
-                 Object referencedEObject = featureMap.getValue(k);
-                 Object copyReferencedEObject = get(referencedEObject);
-                 if (copyReferencedEObject == null && referencedEObject != null)
-                 {
-                   EReference reference = (EReference)feature;
-                   if (!useOriginalReferences || reference.isContainment() || reference.getEOpposite() != null)
-                   {
-                     continue;
-                   }
-                   copyReferencedEObject = referencedEObject;
-                 }
-                 // If we can't add it, it must already be in the list so find it and move it to the end.
-                 //
-                 if (!copyFeatureMap.add(feature, copyReferencedEObject))
-                 {
-                   for (int l = 0; l < copyFeatureMapSize; ++l) 
-                   {
-                     if (copyFeatureMap.getEStructuralFeature(l) == feature && copyFeatureMap.getValue(l) == copyReferencedEObject)
-                     {
-                       copyFeatureMap.move(copyFeatureMap.size() - 1, l);
-                       --copyFeatureMapSize;
-                       break;
-                     }
-                   }
-                 }
-               }
-               else
-               {
-                 copyFeatureMap.add(featureMap.get(k));
-               }
-             }
-           }
-         }
-       }
-     }
-     
-     
-	 int newSize = size();
-	 if (newSize > currentSize) {
-		 copyReferences();
-	 }
-   }
 }

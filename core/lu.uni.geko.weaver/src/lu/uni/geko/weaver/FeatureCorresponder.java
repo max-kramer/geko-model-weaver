@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class FeatureCorresponder {
 	private final Advice2BaseEqualityHelper advice2BaseEqualityHelper;
-	
+
 	public FeatureCorresponder() {
 		this.advice2BaseEqualityHelper = new Advice2BaseEqualityHelper();
 	}
-	
+
 	public boolean isSameOrSuperType(EClassifier possiblySuperType, EClassifier possiblyExtendingType) {
 		boolean sameType = advice2BaseEqualityHelper.equals(possiblySuperType, possiblyExtendingType);
 		if (sameType) {
@@ -47,7 +47,7 @@ public class FeatureCorresponder {
 			}
 		}
 	}
-	
+
 	public Collection<Pair<EStructuralFeature, EStructuralFeature>> getCorrespondingFeatures(EObject targetEObject, EObject sourceEObject) {
 		boolean equalClasses = targetEObject.eClass().equals(sourceEObject.eClass());
 		if (equalClasses) {
@@ -69,20 +69,26 @@ public class FeatureCorresponder {
 		Collection<Pair<EStructuralFeature, EStructuralFeature>> correspondingFeatures = new ArrayList<Pair<EStructuralFeature, EStructuralFeature>>();
 		List<EStructuralFeature> sourceFeatures = sourceEObject.eClass().getEAllStructuralFeatures();
 		for (EStructuralFeature sourceFeature : sourceFeatures) {
-			String featureName = sourceFeature.getName();
-			EStructuralFeature targetFeature = targetEObject.eClass().getEStructuralFeature(featureName);
-			boolean equalFeatures =  advice2BaseEqualityHelper.equals(targetFeature, sourceFeature);
-			if (equalFeatures) {
-				correspondingFeatures.add(new Pair<EStructuralFeature, EStructuralFeature>(targetFeature, sourceFeature));
-			}
-			else { // TODO MK support objects with ambiguous structural feature names
-				throw new RuntimeException("The base feature '" + targetFeature + "' and the advice feature '" + sourceFeature + "'" +
-						   "of the base object '" + targetEObject + "' and the advice object '" + sourceEObject + "'" +
-						   "have the same name but are not structurally equal!");	
-			}
+         EStructuralFeature targetFeature = getCorrespondingBaseFeature(targetEObject, sourceEObject, sourceFeature);
+         correspondingFeatures.add(new Pair<EStructuralFeature, EStructuralFeature>(targetFeature, sourceFeature));
 		}
 		return correspondingFeatures;
 	}
+
+   public EStructuralFeature getCorrespondingBaseFeature(EObject baseEObject, EObject adviceEObject,
+         EStructuralFeature sourceFeature) {
+      String featureName = sourceFeature.getName();
+      EStructuralFeature baseFeature = baseEObject.eClass().getEStructuralFeature(featureName);
+      boolean equalFeatures =  advice2BaseEqualityHelper.equals(baseFeature, sourceFeature);
+      if (equalFeatures) {
+         return baseFeature;
+      }
+      else { // TODO MK support objects with ambiguous structural feature names
+      	throw new RuntimeException("The base feature '" + baseFeature + "' and the advice feature '" + sourceFeature + "'" +
+      			   "of the base object '" + baseEObject + "' and the advice object '" + adviceEObject + "'" +
+      			   "have the same name but are not structurally equal!");
+      }
+   }
 
 	private Collection<Pair<EStructuralFeature, EStructuralFeature>> getCorrespondingFeaturesForEqualClasses(
 			EObject targetEObject, EObject sourceEObject) {
@@ -92,7 +98,7 @@ public class FeatureCorresponder {
 			correspondingFeatures.add(new Pair<EStructuralFeature, EStructuralFeature>(sourceFeature, sourceFeature));
 		}
 		return correspondingFeatures;
-	}	
+	}
 
 	private Collection<Pair<EStructuralFeature, EStructuralFeature>>  getCorrespondingFeaturesForCommonSupertype(
 			EObject targetEObject, EObject sourceEObject) {

@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class EMFToStringAdapter extends ToStringAdapter {
 	public static final EMFToStringAdapter INSTANCE = new EMFToStringAdapter();
-	
+
 	private EMFToStringAdapter() {
 		// empty
 	}
-	
+
 	@Override
 	protected String toString(Object object, int indentLevel) {
 		if (object instanceof EObject) {
@@ -31,7 +31,7 @@ public class EMFToStringAdapter extends ToStringAdapter {
 		}
 		return super.toString(object, indentLevel);
 	}
-	
+
 	protected String toString(EObject eObject, int indentLevel) {
 		StringBuilder s = new StringBuilder();
 		String eObjectID = getEObjectID(eObject);
@@ -42,13 +42,14 @@ public class EMFToStringAdapter extends ToStringAdapter {
 			s.append("\n");
 			indentLevel++;
 			String indentation = getIndentation(indentLevel);
-			boolean notFirstEntry = appendFeatureNameAndValueIfNotNull(eObject, s, eAllStructuralFeatures, indentation, 0);
+         boolean previousEntryNotSkipped = appendFeatureNameAndValueIfNotNull(eObject, s, eAllStructuralFeatures, indentation, 0);
 			for (int i = 1; i < featureCount; i++) {
 				String prefix = "";
-				if (notFirstEntry) {
+            if (previousEntryNotSkipped) {
 					prefix = ",\n";
 				}
-				notFirstEntry |= appendFeatureNameAndValueIfNotNull(eObject, s, eAllStructuralFeatures, prefix + indentation, i);
+            previousEntryNotSkipped = appendFeatureNameAndValueIfNotNull(eObject, s, eAllStructuralFeatures,
+                  prefix + indentation, i);
 			}
 			s.append("\n");
 		}
@@ -65,7 +66,7 @@ public class EMFToStringAdapter extends ToStringAdapter {
 			return false;
 		}
 	}
-	
+
 	private String getEObjectID(EObject eObject) {
 		return eObject.eClass().getName() + "#" + eObject.hashCode();
 	}

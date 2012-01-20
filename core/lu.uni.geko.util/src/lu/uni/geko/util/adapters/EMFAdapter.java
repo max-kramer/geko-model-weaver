@@ -4,12 +4,13 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
 package lu.uni.geko.util.adapters;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,16 +38,16 @@ public class EMFAdapter {
 	public static URI getEMFUriForIResource(IResource iResource) {
 		return URI.createPlatformResourceURI(iResource.getFullPath().toString(), true);
 	}
-	
+
 	public static IPath getIPathForEMFUri(URI uri) {
 		return new Path(uri.toPlatformString(true));
 	}
-	
+
 	public static IFile getIFileForEMFUri(URI uri) {
 		IPath path = getIPathForEMFUri(uri);
 		return ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 	}
-	
+
 	public static URI newUriWithStringAppendedToFilename(URI uri, String toAppend) {
 		String fileExt = uri.fileExtension();
 		if (fileExt != null) {
@@ -63,16 +64,16 @@ public class EMFAdapter {
 	public static String getCanonicalClassNameWithTrimmedPackageName(EObject eObject, String packageNameSuffixToBeRemoved) {
 		String className = getCanonicalClassNameForEObject(eObject);
 		return JavaAdapter.removePackageSuffixFromCanonicalClassName(className, packageNameSuffixToBeRemoved);
-	}	
-	
+	}
+
 	public static String getCanonicalClassNameForEObject(EObject eObject) {
 		return getCanonicalClassNameForEClassifier(eObject.eClass());
 	}
-	
+
 	public static String getCanonicalClassNameForEClassifier(EClassifier eClassifier) {
 		return eClassifier.getInstanceClass().getCanonicalName();
 	}
-	
+
 	/**
 	 * Returns a List containing the values for the given feature and eObject if the feature is many-typed and null otherwise.
 	 */
@@ -89,7 +90,7 @@ public class EMFAdapter {
 			return null;
 		}
 	}
-	
+
 	public static Object getFeatureValueIfNotManyTyped(EObject eObject, EStructuralFeature feature) {
 		if (!feature.isMany()) {
 			Object featureValue = eObject.eGet(feature);
@@ -102,7 +103,7 @@ public class EMFAdapter {
 			return null;
 		}
 	}
-	
+
 
 	public static EClass getEClassByRemovingAPackageSuffix(EClass eClass, String packageNameSuffixToBeRemoved) {
 		EClassifier classifierVariant = getEClassifierByRemovingAPackageSuffix(eClass, packageNameSuffixToBeRemoved);
@@ -119,18 +120,18 @@ public class EMFAdapter {
 
 	public static EClassifier getEClassifierByRemovingAPackageSuffix(EClassifier eClassifier, String packageNameSuffixToBeRemoved) {
 		String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
-		String variantPackageNsURI = JavaAdapter.removePackageSuffixFromPackageName(originalPackageNsURI, packageNameSuffixToBeRemoved);						
+		String variantPackageNsURI = JavaAdapter.removePackageSuffixFromPackageName(originalPackageNsURI, packageNameSuffixToBeRemoved);
 		return getEClassifierInPackageVariant(eClassifier, variantPackageNsURI);
 	}
-	
+
 	public static EClass getEClassByReplacingAPackageNsURISuffix(EClass eClass, String packageNameSuffixToBeRemoved, String packageNameSuffixReplacement) {
 		EClassifier classifierVariant = getEClassifierByReplacingAPackageNsURISuffix(eClass, packageNameSuffixToBeRemoved, packageNameSuffixReplacement);
 		return ensureIsEClass(classifierVariant);
 	}
-	
+
 	public static EClassifier getEClassifierByReplacingAPackageNsURISuffix(EClassifier eClassifier, String packageNameSuffixToBeRemoved, String packageNameSuffixReplacement) {
 		String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
-		String variantPackageNsURI = JavaAdapter.replacePackageSuffixInPackageName(originalPackageNsURI, packageNameSuffixToBeRemoved, packageNameSuffixReplacement);						
+		String variantPackageNsURI = JavaAdapter.replacePackageSuffixInPackageName(originalPackageNsURI, packageNameSuffixToBeRemoved, packageNameSuffixReplacement);
 		return getEClassifierInPackageVariant(eClassifier, variantPackageNsURI);
 	}
 
@@ -140,7 +141,7 @@ public class EMFAdapter {
 		String className = eClassifier.getName();
 		return packageVariant.getEClassifier(className);
 	}
-	
+
 	public static boolean equals(Object object1, Object object2) {
 		if (object1 instanceof EObject && object2 instanceof EObject) {
 			return EcoreUtil.equals((EObject) object1, (EObject) object2);
@@ -152,18 +153,18 @@ public class EMFAdapter {
 			}
 		}
 	}
-	
+
 	public static boolean isStringAttribute(EStructuralFeature eStructuralFeature) {
 		if (eStructuralFeature instanceof EAttribute) {
 			return isStringAttribute((EAttribute) eStructuralFeature);
 		}
 		return false;
 	}
-	
+
 	public static boolean isStringAttribute(EAttribute eAttribute) {
 		return eAttribute.getEType().getInstanceClassName().equals("java.lang.String");
 	}
-	
+
 	public static Collection<Setting> getReferencesTo(EObject referencedEObject) {
 		ECrossReferenceAdapter crossReferenceAdapter = ECrossReferenceAdapter.getCrossReferenceAdapter(referencedEObject);
 		if (crossReferenceAdapter == null) {
@@ -176,12 +177,12 @@ public class EMFAdapter {
 	public static EClassifier getEClassifierForName(String className) {
 		return EcorePackage.eINSTANCE.getEClassifier(className);
 	}
-	
+
 	public static Object eGetForFeatureName(EObject eObject, String featureName) {
 		EStructuralFeature feature = eObject.eClass().getEStructuralFeature(featureName);
 		return eObject.eGet(feature);
 	}
-	
+
 	public static Set<EObject> getAllContentsSet(Set<EObject> eObjects) {
 		Set<EObject> allContentsSet = new HashSet<EObject>(eObjects);
 		for (EObject eObject : eObjects) {
@@ -190,16 +191,16 @@ public class EMFAdapter {
 		}
 		return allContentsSet;
 	}
-	
+
 	public static Iterable<EObject> getAllContents(EObject eObject) {
 		return JavaAdapter.toIterable(eObject.eAllContents());
 	}
-	
+
 	public static Set<EObject> getAllContentsSet(EObject eObject) {
 		Iterator<EObject> allContentsIterator = eObject.eAllContents();
 		return getAllContentsSet(allContentsIterator);
 	}
-	
+
 	public static Set<EObject> getAllContentsSet(Iterator<EObject> allContentsIterator) {
 		Set<EObject> allContentsSet = new HashSet<EObject>();
 		while (allContentsIterator.hasNext()) {
@@ -208,4 +209,24 @@ public class EMFAdapter {
 		}
 		return allContentsSet;
 	}
+
+   /**
+    * Returns whether the first eObject is contained indirectly in the second collection of eObjects. Returns <code>false</code>
+    * if the first eObject is contained in the second collection but no member of the collection is a real ancestor of the first
+    * eObject.
+    * 
+    * @param eObject
+    * @param possibleContainers
+    * @return
+    */
+   public static boolean isReallyIndirectlyContained(EObject eObject, Collection<EObject> possibleContainers) {
+      Collection<EObject> cleanedPossibleContainers;
+      if (possibleContainers.contains(eObject)) {
+         cleanedPossibleContainers = new ArrayList<EObject>(possibleContainers);
+         cleanedPossibleContainers.remove(eObject);
+      } else {
+         cleanedPossibleContainers = possibleContainers;
+      }
+      return EcoreUtil.isAncestor(cleanedPossibleContainers, eObject);
+   }
 }

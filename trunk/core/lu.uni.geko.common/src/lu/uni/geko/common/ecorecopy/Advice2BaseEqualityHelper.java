@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -17,9 +17,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-/**
- * ATTENTION: This equality is not symmetric! The object of the base has to be the first and the object of the advice has to be the second parameter!
- */
 public class Advice2BaseEqualityHelper extends UnorderedReferencesRespectingEqualityHelper {
 	private static final long serialVersionUID = 244404966675802867L;
 
@@ -62,4 +59,13 @@ public class Advice2BaseEqualityHelper extends UnorderedReferencesRespectingEqua
 		}
 		return super.haveEqualFeature(baseEObject, adviceEObject, feature);
 	}
+
+   /**
+    * ATTENTION: This equality is not symmetric! The object of the base has to be the first and the object of the advice has to be the second parameter!
+    */
+   @Override
+   public boolean equals(EObject baseEObject, EObject adviceEObject) {
+      // only "overridden" for the JavaDoc comment
+      return super.equals(baseEObject, adviceEObject);
+   }
 }

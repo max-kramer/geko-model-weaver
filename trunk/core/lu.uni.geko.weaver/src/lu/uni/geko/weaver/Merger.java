@@ -151,15 +151,17 @@ public class Merger {
 
 				}
 			} else { // !referencingFeature.isMany()
-				EStructuralFeature referencingEObjectContainingFeature = oldReferencingEObject.eContainingFeature();
+            EStructuralFeature referencingEObjectContainmentFeature = oldReferencingEObject.eContainmentFeature();
 				EObject referenceContainer = oldReferencingEObject.eContainer();
 				boolean containedInCopySource = containedIn(referenceContainer, baseEObject);
 				boolean containedInCopyTarget = containedIn(referenceContainer, baseEObjectCopies);
 				if (!containedInCopySource && !containedInCopyTarget) {
-					if (referencingEObjectContainingFeature.isMany()) {
-						List<EObject> referencingEObjectSiblings = EMFAdapter.getFeatureValuesIfManyTyped(referenceContainer, referencingEObjectContainingFeature);
+               if (referencingEObjectContainmentFeature.isMany()) {
+                  List<EObject> referencingEObjectSiblings = EMFAdapter.getFeatureValuesIfManyTyped(referenceContainer,
+                        referencingEObjectContainmentFeature);
 						int currentSize = referencingEObjectSiblings.size();
-						boolean upperBoundReached = upperBoundReachedForReferencingEObjectContainer(currentSize, referencingEObjectContainingFeature, baseEObject, baseEObjectCopies, oldReferencingEObject);
+                  boolean upperBoundReached = upperBoundReachedForReferencingEObjectContainer(currentSize,
+                        referencingEObjectContainmentFeature, baseEObject, baseEObjectCopies, oldReferencingEObject);
 						if (!upperBoundReached) {
 							for (EObject baseEObjectCopy : baseEObjectCopies) {
 								EObject referencingEObjectCopy = baseCopier.copy(oldReferencingEObject);
@@ -342,7 +344,7 @@ public class Merger {
 			for (EObject baseFeatureValueElement : baseFeatureValues) {
 				Collection<EObject> adviceElementsToBeMergedWithBaseFeatureValue = base2AdviceMergeBiMap.getAllValuesForKey(baseFeatureValueElement);
 				if (adviceElementsToBeMergedWithBaseFeatureValue != null) {
-					willBeMergedWithABaseFeatureValue |= adviceElementsToBeMergedWithBaseFeatureValue.contains(adviceFeatureValue);
+               willBeMergedWithABaseFeatureValue = adviceElementsToBeMergedWithBaseFeatureValue.contains(adviceFeatureValue);
 					if (willBeMergedWithABaseFeatureValue) {
 						break;
 					}
@@ -450,8 +452,8 @@ public class Merger {
 		// check whether by adding a reference to the advice feature element
 		// this element also became a content of the base object (and thus of the overall model)
 		// attention: we need to use the base mm version of the advice feature value to obtain the same feature
-		EReference adviceFeatureValueContainingFeature = baseVersionOfAdviceFeatureValue.eContainmentFeature();
-		if (baseFeature.equals(adviceFeatureValueContainingFeature)) {
+		EReference adviceFeatureValueContainmentFeature = baseVersionOfAdviceFeatureValue.eContainmentFeature();
+		if (baseFeature.equals(adviceFeatureValueContainmentFeature)) {
 			// attention: we need to remove the advice mm versions of the advice feature value and its contents from the list of elements to be added
 			boolean madeContent = currentAdviceEObjectsToBeAdded.remove(adviceFeatureValue);
 			if (madeContent) {

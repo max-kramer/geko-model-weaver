@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -23,13 +23,13 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
 public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
-	private static final int TEST_COUNT = 42;
+   private static final int TEST_COUNT = 42;
 
 	@Override
 	protected List<Runnable> getRunnables(List<IFolder> folders) {
 		List<Runnable> runnables = new ArrayList<Runnable>(folders.size());
 		for (final IFolder folder : folders) {
-			runnables.add(new Runnable() {	
+			runnables.add(new Runnable() {
 				@Override
 				public void run() {
 					for (int i = 0; i < TEST_COUNT; i++) {

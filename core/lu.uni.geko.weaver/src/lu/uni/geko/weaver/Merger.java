@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -45,7 +45,7 @@ public class Merger {
 	private final Set<EObject> currentAdviceEObjectsToBeAdded;
 	private final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap;
 	private final URI wovenMURI;
-	private EObject wovenMRoot;
+	private final EObject wovenMRoot;
 	private final Copier baseCopier;
 	private final FeatureCorresponder featureCorresponder;
 	// Whenever two or more base elements are mapped to an advice element this results in a merge of these base elements.
@@ -59,7 +59,7 @@ public class Merger {
 	private final Map<EObject, Set<EStructuralFeature>> baseEObjects2FeatureConflictsMap;
 	private final Map<EObject, EObject> merged2KeptBaseEObjectMap;
 	private final SimpleMessageConsole console;
-	
+
 	public Merger(BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Set<EObject> adviceEObjectsToBeAdded, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap, URI wovenMURI) {
 		this.base2AdviceMergeBiMap = base2AdviceMergeBiMap;
 		this.currentAdviceEObjectsToBeAdded = adviceEObjectsToBeAdded;
@@ -72,7 +72,7 @@ public class Merger {
 		this.merged2KeptBaseEObjectMap = new HashMap<EObject, EObject>();
 		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
 	}
-	
+
 	public Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject> , FeatureCorresponder, Map<EObject, AdviceInstantiationScope>> performMergesAndReturnAdderParameters() {
 		performMerges();
 		boolean resolved = allBaseWithBaseMergeFeatureConflictsResolved();
@@ -84,7 +84,7 @@ public class Merger {
 	}
 
 	/**
-	 * ATTENTION SIDE-EFFECT: all elements that became a content of a model element during the merge are removed from adviceEObjectsToBeAdded 
+	 * ATTENTION SIDE-EFFECT: all elements that became a content of a model element during the merge are removed from adviceEObjectsToBeAdded
 	 */
 	private void performMerges() {
 		for (Entry<Set<EObject>, Set<EObject>> base2AdviceMergeEntry : base2AdviceMergeBiMap.entrySet()) {
@@ -105,7 +105,7 @@ public class Merger {
 				} else {
 					// TODO MK decide what to do with mappings that map multiple pointcut elements to multiple advice elements
 				}
-			}	
+			}
 		}
 		replaceReferencesToMergedBaseEObjects();
 	}
@@ -148,7 +148,7 @@ public class Merger {
 					referencedValues.addAll(baseEObjectCopies);
 					console.println("Added reference copies for the reference to '" + baseEObject + "' to the '" +
 									referencingFeature.getName() + "' feature of the base object '" + oldReferencingEObject + "'");
-		
+
 				}
 			} else { // !referencingFeature.isMany()
 				EStructuralFeature referencingEObjectContainingFeature = oldReferencingEObject.eContainingFeature();
@@ -167,7 +167,7 @@ public class Merger {
 								referencingEObjectCopy.eSet(referencingFeature, baseEObjectCopy);
 								referencingEObjectSiblings.add(referencingEObjectCopy);
 								console.println("Added the copy '" + referencingEObjectCopy + "' of the referencing object '" + oldReferencingEObject + "' for the reference '" +
-												referencingFeature.getName() + "' referencing the copy '" + baseEObjectCopy + "' of the base object '" + 
+												referencingFeature.getName() + "' referencing the copy '" + baseEObjectCopy + "' of the base object '" +
 												baseEObject + "' to the container '" + referenceContainer + "'");
 							}
 						}
@@ -179,7 +179,7 @@ public class Merger {
 		}
 		merge1BaseWith1AdviceEObject(baseEObject, directlyMergedAdviceEObject);
 	}
-	
+
 	private boolean containedIn(EObject eObject, Collection<EObject> possibleContainers) {
 		for (EObject possibleContainer : possibleContainers) {
 			if (containedIn(eObject, possibleContainer)) {
@@ -202,29 +202,33 @@ public class Merger {
 
 
 	private boolean upperBoundReachedForReferencingEObjectContainer(int currentSize, EStructuralFeature referencingFeature, EObject referencedEObject, List<EObject> objectsToBeReferenced, EObject referencingEObject) {
-		// TODO MK remove redundant code for checking of upper bounds
-		int upperBound = referencingFeature.getUpperBound();
-		int increase = objectsToBeReferenced.size();
-		if (currentSize + increase <= upperBound || upperBound == -1) {
-			return false;
-		} else {
-			throw new RuntimeException("Cannot duplicate the referencing object '" + referencingEObject + "' for the reference to the object '" + referencedEObject + "' for the duplicates '" + objectsToBeReferenced + "'" +
-										"because the '" + referencingFeature.getName() + "' reference already would exceed the upper bound of '" + upperBound + "'!");
-		}
-	}
-		
-	private boolean upperBoundReached(int currentSize, EStructuralFeature referencingFeature, EObject referencedEObject, List<EObject> objectsToBeReferenced) {
-		// TODO MK remove redundant code for checking of upper bounds
-		int upperBound = referencingFeature.getUpperBound();
-		int increase = objectsToBeReferenced.size();
-		if (currentSize + increase <= upperBound || upperBound == -1) {
-			return false;
-		} else {
-			throw new RuntimeException("Cannot duplicate the reference to the object '" + referencedEObject + "' for the duplicates '" + objectsToBeReferenced + "'" +
-										"because the '" + referencingFeature.getName() + "' reference already would exceed the upper bound of '" + upperBound + "'!");
-		}
+        return upperBoundReached(currentSize, referencingFeature,
+                referencedEObject, objectsToBeReferenced,
+                "the referencing object '" + referencingEObject + "' for ");
 	}
 
+	private boolean upperBoundReached(int currentSize, EStructuralFeature referencingFeature, EObject referencedEObject, List<EObject> objectsToBeReferenced) {
+        return upperBoundReached(currentSize, referencingFeature,
+                referencedEObject, objectsToBeReferenced, "");
+	}
+
+    private boolean upperBoundReached(int currentSize,
+            EStructuralFeature referencingFeature, EObject referencedEObject,
+            List<EObject> objectsToBeReferenced, String indirectReferenceMessage) {
+        int upperBound = referencingFeature.getUpperBound();
+        int increase = objectsToBeReferenced.size();
+        if (currentSize + increase <= upperBound || upperBound == -1) {
+            return false;
+        } else {
+            throw new RuntimeException("Cannot duplicate "
+                    + indirectReferenceMessage
+                    + " the reference to the object '" + referencedEObject
+                    + "' for the duplicates '" + objectsToBeReferenced + "'"
+                    + "because the '" + referencingFeature.getName()
+                    + "' reference already would exceed the upper bound of '"
+                    + upperBound + "'!");
+        }
+    }
 
 	private void merge1BaseWith1AdviceEObject(EObject baseEObject, EObject adviceEObject) {
 		Collection<Pair<EStructuralFeature, EStructuralFeature>> correspondingFeatures = featureCorresponder.getCorrespondingFeatures(baseEObject, adviceEObject);
@@ -236,7 +240,7 @@ public class Merger {
 			}
 		}
 	}
-	
+
 	private void mergeNBaseWith1AdviceEObject(Set<EObject> baseEObjects, EObject adviceEObject) {
 		EObject keptBaseEObject = JavaAdapter.pop(baseEObjects);
 		for (EObject disappearingBaseEObject : baseEObjects) {
@@ -245,7 +249,7 @@ public class Merger {
 		}
 		merge1BaseWith1AdviceEObject(keptBaseEObject, adviceEObject);
 	}
-	
+
 	private void merge1BaseWith1BaseEObject(EObject keptBaseEObject, EObject disappearingBaseEObject) {
 		Collection<Pair<EStructuralFeature, EStructuralFeature>> correspondingFeatures = featureCorresponder.getCorrespondingFeatures(keptBaseEObject, disappearingBaseEObject);
 		for (Pair<EStructuralFeature, EStructuralFeature> correspondingFeaturePair : correspondingFeatures) {
@@ -256,7 +260,7 @@ public class Merger {
 			}
 		}
 	}
-	
+
 	private void baseMergeCorrespondingManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject, EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
 		List<EObject> keptFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(keptBaseEObject, keptFeature);
 		List<EObject> disappearingFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(disappearingBaseEObject, disappearingFeature);
@@ -273,7 +277,7 @@ public class Merger {
 		}
 		keptFeatureValues.addAll(featureValuesToBeAdded);
 	}
-	
+
 	private boolean upperBoundReached(EObject targetEObject, EObject sourceEObject, EStructuralFeature targetFeature, List<EObject> targetFeatureValues, EObject sourceFeatureValue) {
 		int currentSize = targetFeatureValues.size();
 		return upperBoundReached(currentSize, targetEObject, sourceEObject, targetFeature, sourceFeatureValue);
@@ -289,7 +293,7 @@ public class Merger {
 										"but this cannot be done as the upper bound of '" +  targetFeature.getUpperBound() + "' has already been reached!");
 		}
 	}
-	
+
 	private void baseMergeCorrespondingNotManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject, EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
 		Object keptFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(keptBaseEObject, keptFeature);
 		Object disappearingFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(disappearingBaseEObject, disappearingFeature);
@@ -303,9 +307,9 @@ public class Merger {
 			} else { // disappearingFeatureValue !instanceof EObject
 				if (disappearingFeatureValue == null) {
 					// do nothing
-				} else { 
+				} else {
 					throw new RuntimeException("The feature value '" + keptFeatureValue + "' of the feature '" + keptFeature.getName()+ "' of the base object '" + keptBaseEObject + "' is an EObject " +
-											   "but the feature value '" + disappearingFeatureValue + "'  of the base object that should be merged with it is not an EObject!");	
+											   "but the feature value '" + disappearingFeatureValue + "'  of the base object that should be merged with it is not an EObject!");
 				}
 			}
 		} else { // keptFeatureValue !instanceof EObject
@@ -326,7 +330,7 @@ public class Merger {
 		conflictingFeatures.add(keptFeature);
 		console.println("Registered a base with base merge feature value conflict for " + keptBaseEObject + " . " + keptFeature.getName() + " = " +  keptFeatureValue + " " +
 						"and " + disappearingBaseEObject + " . " + disappearingFeature.getName() + " = " +  disappearingFeatureValue + ".");
-	}	
+	}
 
 	private void adviceMergeCorrespondingManyFeature(EObject baseEObject, EObject adviceEObject, EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
 		List<EObject> baseFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(baseEObject, baseFeature);
@@ -349,12 +353,12 @@ public class Merger {
 			} else {
 				boolean upperBoundReached = upperBoundReached(baseEObject, adviceEObject, baseFeature, baseFeatureValues, adviceFeatureValue);
 				if (!upperBoundReached) {
-					EObject baseVersionOfAdviceFeatureValue = getBaseElementForAdviceElement(adviceFeatureValue); 
+					EObject baseVersionOfAdviceFeatureValue = getBaseElementForAdviceElement(adviceFeatureValue);
 					baseFeatureValues.add(baseVersionOfAdviceFeatureValue);
 					console.println("Added '" + baseVersionOfAdviceFeatureValue + "' to the '" + baseFeature.getName() + "' reference of the base object '" + baseEObject + "'");
 					removeAdviceElementFromToAddListIfAlreadyDone(baseFeature, adviceFeatureValue, baseVersionOfAdviceFeatureValue);
 				}
-			}	
+			}
 		}
 	}
 
@@ -378,7 +382,7 @@ public class Merger {
 			throw new RuntimeException("GeKo is not yet supporting the merge of base objects that are mapped to more than one advice object!");
 		}
 	}
-	
+
 	private void adviceMergeCorrespondingNotManyFeature(EObject baseEObject, EObject adviceEObject, EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
 		Object baseFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(baseEObject, baseFeature);
 		Object adviceFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(adviceEObject, adviceFeature);
@@ -402,9 +406,9 @@ public class Merger {
 			} else { // adviceFeatureValue !instanceof EObject
 				if (adviceFeatureValue == null) {
 					// do nothing
-				} else { 
+				} else {
 					throw new RuntimeException("The base feature value '" + baseFeatureValue + "' of the feature '" + baseFeature.getName()+ "' of the base object '" + baseEObject + "' is an EObject " +
-											   "but the advice feature value '" + adviceFeatureValue + "'  of the advice object that should be merged with it is not an EObject!");	
+											   "but the advice feature value '" + adviceFeatureValue + "'  of the advice object that should be merged with it is not an EObject!");
 				}
 			}
 		} else { // baseFeatureValue !instanceof EObject
@@ -414,14 +418,14 @@ public class Merger {
 				replaceObjectFeatureValue(baseEObject, baseFeature, baseFeatureValue, adviceFeatureValue);
 			}
 		}
-	}						
-									
+	}
+
 	private void replaceEObjectFeatureValue(EObject baseEObject, EStructuralFeature baseFeature, EObject baseFeatureValue, EObject adviceFeatureValue) {
 		EObject baseVersionOfAdviceFeatureValue = getBaseElementForAdviceElement(adviceFeatureValue);
 		replaceObjectFeatureValue(baseEObject, baseFeature, baseFeatureValue, baseVersionOfAdviceFeatureValue);
 		removeAdviceElementFromToAddListIfAlreadyDone(baseFeature, adviceFeatureValue, baseVersionOfAdviceFeatureValue);
-	}		
-												
+	}
+
 	private void replaceObjectFeatureValue(EObject baseEObject, EStructuralFeature baseFeature, Object baseFeatureValue, Object adviceFeatureValue) {
 		EcoreUtil.replace(baseEObject, baseFeature, baseFeatureValue, adviceFeatureValue);
 		console.println("Changed the '" + baseFeature.getName() + "' feature value of the base object '" + baseEObject + "' from '" + baseFeatureValue + "' to '" + adviceFeatureValue + "'.");
@@ -437,27 +441,27 @@ public class Merger {
 				console.println("This feature value change resolved the base with base merge conflict for " + baseEObject + " . " + baseFeature.getName() + ".");
 			}
 		}
-	}	
+	}
 
 	/**
-	 * ATTENTION SIDE-EFFECT: if the advice feature value became a content when it was referenced using the base feature then the advice feature will be removed from adviceEObjectsToBeAdded 
+	 * ATTENTION SIDE-EFFECT: if the advice feature value became a content when it was referenced using the base feature then the advice feature will be removed from adviceEObjectsToBeAdded
 	 */
 	private void removeAdviceElementFromToAddListIfAlreadyDone(EStructuralFeature baseFeature, EObject adviceFeatureValue, EObject baseVersionOfAdviceFeatureValue) {
 		// check whether by adding a reference to the advice feature element
 		// this element also became a content of the base object (and thus of the overall model)
 		// attention: we need to use the base mm version of the advice feature value to obtain the same feature
-		EReference adviceFeatureValueContainingFeature = ((EObject) baseVersionOfAdviceFeatureValue).eContainmentFeature();
+		EReference adviceFeatureValueContainingFeature = baseVersionOfAdviceFeatureValue.eContainmentFeature();
 		if (baseFeature.equals(adviceFeatureValueContainingFeature)) {
 			// attention: we need to remove the advice mm versions of the advice feature value and its contents from the list of elements to be added
 			boolean madeContent = currentAdviceEObjectsToBeAdded.remove(adviceFeatureValue);
 			if (madeContent) {
-				console.println("This reference change made '" + baseVersionOfAdviceFeatureValue + "' a new content of  '" + ((EObject) adviceFeatureValue).eContainer() + "'.");
+				console.println("This reference change made '" + baseVersionOfAdviceFeatureValue + "' a new content of  '" + adviceFeatureValue.eContainer() + "'.");
 				Set<EObject> adviceFeatureValueAllContentsSet = EMFAdapter.getAllContentsSet(adviceFeatureValue);
 				currentAdviceEObjectsToBeAdded.removeAll(adviceFeatureValueAllContentsSet);
 			}
 		}
 	}
-	
+
 	private void replaceReferencesToMergedBaseEObjects() {
 		for (Entry<EObject,EObject> merged2KeptBaseEObjectEntry : merged2KeptBaseEObjectMap.entrySet()) {
 			EObject mergedBaseEObject = merged2KeptBaseEObjectEntry.getKey();
@@ -480,7 +484,7 @@ public class Merger {
 			}
 		}
 	}
-	
+
 	private boolean allBaseWithBaseMergeFeatureConflictsResolved() {
 		for (Set<EStructuralFeature> conflicts : baseEObjects2FeatureConflictsMap.values()) {
 			if (conflicts != null && !conflicts.isEmpty()) {

@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -32,18 +32,18 @@ public class MainAdder {
 		final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = adderParameters.third;
 		final FeatureCorresponder featureCorresponder = adderParameters.fourth;
 		final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adderParameters.fifth;
-		
+
 		List<Pair<SimpleAdderExt, Integer>> simpleAdders = EclipseAdapter.getRegisteredExecutablesWithPriority(SimpleAdderExt.ID, "class", SimpleAdderExt.class);
 		List<Pair<MightyAdderExt, Integer>> mightyAdders = EclipseAdapter.getRegisteredExecutablesWithPriority(MightyAdderExt.ID, "class", MightyAdderExt.class);
-		
+
 		// wrap all the simple resource loaders in order to make them sophisticated
 		for (Pair<SimpleAdderExt, Integer> simpleAdderPair : simpleAdders) {
 			MightyAdderExt mightyAdder = new SimpleAdderWrapper(simpleAdderPair.first);
 			mightyAdders.add(new Pair<MightyAdderExt, Integer>(mightyAdder, simpleAdderPair.second));
 		}
-		
+
 		EclipseAdapter.sortExectuablesDescByPriority(MightyAdderExt.ID, mightyAdders);
-		
+
 		for (final Pair<MightyAdderExt, Integer> adderPair : mightyAdders) {
 			Runnable runnable = new Runnable() {
 				@Override
@@ -54,7 +54,8 @@ public class MainAdder {
 			EclipseAdapter.runInProtectedMode(runnable);
 		}
 		if (adviceEObjectsToBeAdded.size() > 0) {
-			// FIXME MK gently handle the case were not all elements could be added by checking in advance if this will happen
+            // TODO MK gently handle the case were not all elements could be
+            // added by checking in advance if this will happen
 			throw new RuntimeException("There are still " + adviceEObjectsToBeAdded.size() + " advice elements that are not contained in any element of the woven model " +
 					"but that do not have the type of the unique containment reference that could serve as container for these elements:\n" + adviceEObjectsToBeAdded);
 		}

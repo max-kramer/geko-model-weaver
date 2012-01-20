@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -24,13 +24,13 @@ import org.eclipse.emf.ecore.EObject;
 
 public class DefaultCopier extends Advice2BaseCopier implements Copier {
 	private static final long serialVersionUID = -4631517304088959864L;
-	
+
 	private BiN2NMap<EObject, EObject> currentBase2AdviceMergeBiMap = null;
 	private Map<EObject, AdviceInstantiationScope> currentAdviceEObjects2ScopeMap = null;
-	
-	private Map<BiN2NMap<EObject, EObject>, Map<EObject, EObject>> perJoinPointMaps = new HashMap<BiN2NMap<EObject,EObject>, Map<EObject,EObject>>();
-	private Map<EObject, EObject> globalMap = new HashMap<EObject, EObject>();
-	
+
+	private final Map<BiN2NMap<EObject, EObject>, Map<EObject, EObject>> perJoinPointMaps = new HashMap<BiN2NMap<EObject,EObject>, Map<EObject,EObject>>();
+	private final Map<EObject, EObject> globalMap = new HashMap<EObject, EObject>();
+
 	@Override
 	public EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
 		currentBase2AdviceMergeBiMap = base2AdviceMergeBiMap;
@@ -52,12 +52,12 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 			switch (scopeType) {
 				case GlobalScope : return getGlobalCopy(adviceEObject);
 				case PerJoinPointScope : return getPerJoinPointCopy(adviceEObject);
-				// FIXME MK SCOPE implement dynamic and custom scope handling
+                // MAYDO MK SCOPE implement dynamic and custom scope handling
 				default : return getPerJoinPointCopy(adviceEObject);
 			}
 		}
 	}
-	
+
 	private EObject getGlobalCopy(EObject adviceEObject) {
 		EObject existingCopy = globalMap.get(adviceEObject);
 		if (existingCopy == null) {
@@ -68,7 +68,7 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 		}
 		return existingCopy;
 	}
-	
+
 	private EObject getBaseElementToBeMerged(EObject adviceEObject) {
 		Set<EObject> baseElementsToBeMergedWithAdviceElement = currentBase2AdviceMergeBiMap.getAllKeysForValue(adviceEObject);
 		if (baseElementsToBeMergedWithAdviceElement != null && baseElementsToBeMergedWithAdviceElement.size() > 0) {
@@ -95,7 +95,7 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 		}
 		return existingCopy;
 	}
-	
+
 	@Override
 	public void registerCopy(EObject sourceAdviceEObject, EObject copy) {
 		if (currentAdviceEObjects2ScopeMap == null) {
@@ -106,19 +106,19 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 			switch (scopeType) {
 				case GlobalScope : registerGlobalCopy(sourceAdviceEObject, copy); break;
 				case PerJoinPointScope : registerPerJoinPointCopy(sourceAdviceEObject, copy); break;
-				// FIXME MK SCOPE implement dynamic and custom scope handling
+            // MAYDO MK SCOPE implement dynamic and custom scope handling
 				default : registerPerJoinPointCopy(sourceAdviceEObject, copy); break;
 			}
 		}
 	}
-	
+
 	private void registerGlobalCopy(EObject sourceAdviceEObject, EObject copy) {
 		EObject registeredCopy = globalMap.put(sourceAdviceEObject, copy);
 		if (registeredCopy != null && registeredCopy != copy) {
 			throw new RuntimeException("Illegal call to registerGlobalCopy(" + sourceAdviceEObject + ", " + copy + ")!");
 		}
 	}
-	
+
 	private void registerPerJoinPointCopy(EObject sourceAdviceEObject, EObject copy) {
 		Map<EObject, EObject> currentPerJointPointMap = perJoinPointMaps.get(currentBase2AdviceMergeBiMap);
 		EObject registeredCopy = currentPerJointPointMap.put(sourceAdviceEObject, copy);

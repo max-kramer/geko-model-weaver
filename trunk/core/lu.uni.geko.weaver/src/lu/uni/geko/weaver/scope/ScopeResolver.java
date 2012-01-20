@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -45,7 +45,8 @@ public class ScopeResolver {
 				} else if (nextContentClassName.equals(GeKoConstants.SCOPE_MM_PER_JOIN_POINT_CLASS_NAME)) {
 					scope = ScopeFactory.createPerJoinPointScope();
 				}
-				// FIXME MK SCOPE implement scope resolution for dynamic and custom scope
+                // MAYDO MK SCOPE implement scope resolution for dynamic and
+                // custom scope
 				if (scope != null) {
 					EStructuralFeature scopeReference = nextContentClass.getEStructuralFeature(GeKoConstants.SCOPE_MM_REFERENCE_NAME);
 					Object scopedObject = EMFAdapter.getFeatureValueIfNotManyTyped(nextContent, scopeReference);
@@ -62,7 +63,7 @@ public class ScopeResolver {
 							}
 						}
 					}
-				}	
+				}
 			} else {
 				adviceElements.add(nextContent);
 			}

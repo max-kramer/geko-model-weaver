@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -38,7 +38,9 @@ public class WeaveAsymmetricallyInferPc2AvMappingHandler extends
 		} else if (fileExt.endsWith(GeKoConstants.ADVICE_FILE_EXT_SUFFIX)) {
 			return ADVICE_FILE_TYPE;
 		} else {
-			// FIXME MK exclude files that are not base files for the selected pointcuts (e.g. based on the file extension or by looking at the mm referenced in the file)
+            // TODO MK exclude files that are not base files for the selected
+            // pointcuts (e.g. based on the file extension or by looking at the
+            // mm referenced in the file)
 			return BASE_FILE_TYPE;
 		}
 	}
@@ -56,7 +58,8 @@ public class WeaveAsymmetricallyInferPc2AvMappingHandler extends
 					final URI adviceMURI = adviceMURIs.get(0);
 					Runnable runnable = getRunnable(baseMURI, pointcutMURI, adviceMURI, uris);
 					runnables.add(runnable);
-				} // TODO MK support selecting more than one pointcut and advice for asymmetric weaving
+                } // MAYDO MK support selecting more than one pointcut and
+                  // advice for asymmetric weaving
 			}
 			return runnables;
 		} else {
@@ -65,7 +68,7 @@ public class WeaveAsymmetricallyInferPc2AvMappingHandler extends
 	}
 
 	protected Runnable getRunnable(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final List<List<URI>> uris) {
-		return new Runnable() {	
+		return new Runnable() {
 			@Override
 			public void run() {
 				ActionsFacade.weaveAsymmetricallyInferPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);

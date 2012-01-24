@@ -148,7 +148,7 @@ public final class ActionsFacade {
      *            whether the result of the weaving should be saved or not
      * @return the URI of the woven model
      */
-    public static URI weaveAsymmetricallyInferPc2AvMapping(final URI baseMURI,
+    public static URI weaveInferringPc2AvMapping(final URI baseMURI,
             final URI pointcutMURI, final URI adviceMURI,
             final boolean inPlace, final boolean persist) {
         N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(
@@ -181,7 +181,7 @@ public final class ActionsFacade {
      *            whether the result of the weaving should be saved or not
      * @return the URI of the woven model
      */
-    public static URI weaveAsymmetricallyWithPc2AvMappingModel(
+    public static URI weaveWithPc2AvMappingModel(
             final URI baseMURI, final URI pointcutMURI, final URI adviceMURI,
             final URI pc2AvMappingMURI, final boolean inPlace,
             final boolean persist) {

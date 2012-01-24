@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -23,43 +23,66 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.StructuredSelection;
 
+/**
+ * An abstract handler for commands that discriminate selected files based on their type and create a {@link java.lang.Runnable}
+ * for the selected files.
+ *
+ * @author Max E. Kramer
+ */
 public abstract class AbstractFileHandler extends AbstractHandler {
-	protected abstract int getTypeCount();
-	
-	/**
-	 * returns a type number between 0 (including) and the result of getTypeCount() (excluding) if this file should be selectable and -1 otherwise
-	 */
-	protected abstract int getTypeNoIfSelectable(IFile iFile);
-	
-	protected abstract List<Runnable> getRunnables(List<List<URI>> uris);
-	
-	@Override
-	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		List<List<URI>> selectedFileURIs = getSelectedFileURIs(event);
-		for (Runnable runnable : getRunnables(selectedFileURIs)) {
-			new Thread(runnable).start();
-		}
-		return null;
-	}
-	
-	public List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {
-		StructuredSelection structuredSelection = EclipseAdapter.getCurrentStructuredSelection(event);
-		List<List<URI>> selectedFileURIs = new ArrayList<List<URI>>();
-		for (int type = 0; type < getTypeCount(); type++) {
-			selectedFileURIs.add(new ArrayList<URI>());
-		}
-		for (Object selectedElement : structuredSelection.toArray()) {
-			if (selectedElement instanceof IFile) {
-				IFile selectedFile = ((IFile) selectedElement);
-				int type = getTypeNoIfSelectable(selectedFile);
-				if (type >= 0 && type < getTypeCount()) {
-					if (selectedFile.exists()) {
-						URI selectedURI = EMFAdapter.getEMFUriForIResource(selectedFile);
-						selectedFileURIs.get(type).add(selectedURI);
-					}
-				}
-			}
-		}
-		return selectedFileURIs;
-	}
+   /**
+    * Returns the number of distinct file types that are used to handle a command.
+    * @return number of distinct file types
+    */
+   protected abstract int getTypeCount();
+
+   /**
+    * Returns a type number between 0 (including) and the result of getTypeCount() (excluding) if this file should be selectable
+    * and -1 otherwise.
+    * @param iFile a selected file
+    * @return the type number for the given file
+    */
+   protected abstract int getTypeNoIfSelectable(IFile iFile);
+
+   /**
+    * Returns a list of runnables that were created for the current selection of files based on their file types.
+    * @param uris a list containing a list of URIs for each file type
+    * @return a list of runnables for the selected file URIs of different type
+    */
+   protected abstract List<Runnable> getRunnables(List<List<URI>> uris);
+
+   @Override
+   public Object execute(final ExecutionEvent event) throws ExecutionException {
+      List<List<URI>> selectedFileURIs = getSelectedFileURIs(event);
+      for (Runnable runnable : getRunnables(selectedFileURIs)) {
+         new Thread(runnable).start();
+      }
+      return null;
+   }
+
+   /**
+    * Returns a list containing lists of URIs that contain the selected files that correspond to each file type.
+    * @param event the execution event
+    * @return a list containing a list of URIs for each file type
+    */
+   public List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {
+      StructuredSelection structuredSelection = EclipseAdapter.getCurrentStructuredSelection(event);
+      List<List<URI>> selectedFileURIs = new ArrayList<List<URI>>();
+      for (int type = 0; type < getTypeCount(); type++) {
+         selectedFileURIs.add(new ArrayList<URI>());
+      }
+      for (Object selectedElement : structuredSelection.toArray()) {
+         if (selectedElement instanceof IFile) {
+            IFile selectedFile = ((IFile) selectedElement);
+            int type = getTypeNoIfSelectable(selectedFile);
+            if (type >= 0 && type < getTypeCount()) {
+               if (selectedFile.exists()) {
+                  URI selectedURI = EMFAdapter.getEMFUriForIResource(selectedFile);
+                  selectedFileURIs.get(type).add(selectedURI);
+               }
+            }
+         }
+      }
+      return selectedFileURIs;
+   }
 }

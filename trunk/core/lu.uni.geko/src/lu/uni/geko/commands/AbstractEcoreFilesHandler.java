@@ -14,8 +14,13 @@ import lu.uni.geko.common.GeKoConstants;
 
 import org.eclipse.core.resources.IFile;
 
+/**
+ * An abstract handler for commands that are only available if Ecore metamodels have been selected.
+ *
+ * @author Max E. Kramer
+ */
 public abstract class AbstractEcoreFilesHandler extends
-        AbstractSingleFileTypeCommandHandler {
+        AbstractSingleFileTypeHandler {
     @Override
     protected boolean isSelectableFile(final IFile iFile) {
         String fileExt = iFile.getFileExtension();

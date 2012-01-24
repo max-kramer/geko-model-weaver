@@ -19,7 +19,7 @@ import lu.uni.geko.common.GeKoConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
-public class WeaveAsymmetricallyInferPc2AvMappingHandler extends
+public class WeaveInferringPc2AvMappingHandler extends
 		AbstractFileHandler {
 	private static final int BASE_FILE_TYPE = 0;
 	private static final int PC_FILE_TYPE = 1;
@@ -71,7 +71,7 @@ public class WeaveAsymmetricallyInferPc2AvMappingHandler extends
 		return new Runnable() {
 			@Override
 			public void run() {
-				ActionsFacade.weaveAsymmetricallyInferPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+				ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
 			}
 		};
 	}

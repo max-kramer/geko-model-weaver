@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
 public class GeneratePointcutRulesHandler extends
-		AbstractSingleFileTypeCommandHandler {
+		AbstractSingleFileTypeHandler {
 
 	@Override
 	protected Runnable getRunnable(final URI uri) {

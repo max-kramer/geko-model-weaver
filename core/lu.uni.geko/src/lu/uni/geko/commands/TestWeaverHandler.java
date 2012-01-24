@@ -22,7 +22,7 @@ import lu.uni.geko.util.datastructures.Quintuple;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
-public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
+public class TestWeaverHandler extends AbstractFolderHandler {
    private static final int TEST_COUNT = 42;
 
 	@Override
@@ -41,9 +41,9 @@ public class TestAsymmetricWeaverHandler extends AbstractFolderHandler {
 						URI wovenArchetypeMURI = modelURIs.fifth;
 						URI wovenMURI;
 						if (pc2AvMappingMURI == null) {
-							wovenMURI = ActionsFacade.weaveAsymmetricallyInferPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+							wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
 						} else {
-							wovenMURI = ActionsFacade.weaveAsymmetricallyWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
+							wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
 						}
 						wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
 						Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);

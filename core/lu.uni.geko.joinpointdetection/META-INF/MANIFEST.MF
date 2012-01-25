@@ -1,42 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Join point detection for GeKo Generic Weaver
-Bundle-SymbolicName: lu.uni.geko.joinpointdetection
+Bundle-SymbolicName: lu.uni.geko.joinpointdetection;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: lu.uni
 Require-Bundle: org.eclipse.core.runtime,
  lu.uni.geko.util,
  org.eclipse.emf.common,
- org.eclipse.emf.ecore;bundle-version="1.0.0",
- lu.uni.geko.common,
- lu.uni.geko.resources,
- lu.uni.geko.examples.lts.model,
- lu.uni.geko.examples.bsd.model
+ org.eclipse.emf.ecore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: .,
- lib/antlr-runtime.jar,
- lib/drools-api.jar,
- lib/drools-bpmn2.jar,
- lib/drools-compiler.jar,
- lib/drools-core.jar,
- lib/drools-decisiontables.jar,
- lib/drools-flow-compiler.jar,
- lib/drools-flow-core.jar,
- lib/drools-ide-common.jar,
- lib/drools-jsr94.jar,
- lib/drools-templates.jar,
- lib/jsr94.jar,
- lib/jxl.jar,
- lib/log4j.jar,
- lib/mvel2.jar,
- lib/org.eclipse.jdt.core_3.6.1.v_A68_R36x.jar,
- lib/xpp3_min.jar,
- lib/xstream.jar
 Bundle-ActivationPolicy: lazy
 Export-Package: lu.uni.geko.joinpointdetection
-Import-Package:  lts,
- lts.impl,
- lts.util,
- bsd,
- bsd.impl,
- bsd.util

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="lu.uni.geko.joinpointdetection.joinpointdetector">
+      <client
+            class="lu.uni.geko.joinpointdetection.drools.DroolsJoinpointDetector">
+      </client>
+   </extension>
+
+</plugin>

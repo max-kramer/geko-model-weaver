@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.pointcutrules;
+package lu.uni.geko.joinpointdetection.drools;
 
 import java.util.Collection;
 import java.util.HashMap;

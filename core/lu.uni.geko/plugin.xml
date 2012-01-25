@@ -146,12 +146,6 @@
             name="InstallAndStartGeneratedEditorPlugin">
       </command>
       <command
-            defaultHandler="lu.uni.geko.commands.GeneratePointcutRulesHandler"
-            description="Generate Pointcut Rules"
-            id="lu.uni.geko.commands.GeneratePointcutRules"
-            name="GeneratePointcutRules">
-      </command>
-      <command
             defaultHandler="lu.uni.geko.commands.DetectJoinpointsHandler"
             description="Detect Joinpoints"
             id="lu.uni.geko.commands.DetectJoinpoints"
@@ -228,18 +222,6 @@
                      checkEnabled="false">
                   <reference
                         definitionId="hasGenmodelFileExt">
-                  </reference>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="lu.uni.geko.commands.GeneratePointcutRules"
-                  label="Generate Pointcut Rules"
-                  style="push"
-                  tooltip="Generates and displays the pointcut rules that are used to detect joinpoints for the selected pointcut.">
-               <visibleWhen
-                     checkEnabled="false">
-                  <reference
-                        definitionId="hasPcFileExt">
                   </reference>
                </visibleWhen>
             </command>

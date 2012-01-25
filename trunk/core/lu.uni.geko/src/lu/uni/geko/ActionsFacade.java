@@ -13,10 +13,9 @@ package lu.uni.geko;
 import java.util.List;
 import java.util.Map;
 
-import lu.uni.geko.joinpointdetection.JoinpointDetector;
+import lu.uni.geko.joinpointdetection.MainJoinpointDetector;
 import lu.uni.geko.mmtransformer.MMTransformer;
 import lu.uni.geko.mmtransformer.PluginStarter;
-import lu.uni.geko.pointcutrules.PointcutRulesGenerator;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.weaver.AsymmetricWeaver;
@@ -76,20 +75,6 @@ public final class ActionsFacade {
     }
 
     /**
-     * Generates the pointcut rules for the model at the given URI and returns
-     * them together with a mapping from the used IDs to the corresponding
-     * pointcut elements.
-     *
-     * @param pointcutMURI
-     *            the URI of the base model
-     * @return (pointcut rules, usedIDs2CorrespondingEObjectsMap)
-     */
-    public static Pair<String, Map<Integer, EObject>> generatePointcutRulesAndIDs(
-            final URI pointcutMURI) {
-        return (new PointcutRulesGenerator(pointcutMURI)).generate();
-    }
-
-    /**
      * Detects the joinpoints for the pointcut and base model at the given URIs
      * and returns them in form of a list of mappings from pointcut elements to
      * base elements.
@@ -103,32 +88,7 @@ public final class ActionsFacade {
      */
     public static List<Map<EObject, EObject>> detectJoinpoints(
             final URI pointcutMURI, final URI baseMURI) {
-        Pair<String, Map<Integer, EObject>> pointcutRulesAndIDs = generatePointcutRulesAndIDs(pointcutMURI);
-        String pointcutRules = pointcutRulesAndIDs.first;
-        Map<Integer, EObject> pcID2PcEObjectMap = pointcutRulesAndIDs.second;
-        return detectJoinpoints(pointcutRules, pcID2PcEObjectMap, baseMURI);
-    }
-
-    /**
-     * Detects the joinpoints for the base model at the given URI using the
-     * given pointcut rules together with the given mapping from pointcut IDs to
-     * pointcut elements and returns them in form of a list of mappings from
-     * pointcut elements to base elements.
-     *
-     * @param pointcutRules
-     *            the pointcut rules
-     * @param pcID2PcEObjectMap
-     *            the mapping from pointcut IDs to pointcut elements
-     * @param baseMURI
-     *            the URI of the base model
-     * @return pointcut2BaseMaps a list of mappings from pointcut EObjects to
-     *         base EObjects
-     */
-    private static List<Map<EObject, EObject>> detectJoinpoints(
-            final String pointcutRules,
-            final Map<Integer, EObject> pcID2PcEObjectMap, final URI baseMURI) {
-        return (new JoinpointDetector(pointcutRules, pcID2PcEObjectMap,
-                baseMURI)).generate();
+        return MainJoinpointDetector.detectJoinpoints(pointcutMURI, baseMURI);
     }
 
     /**

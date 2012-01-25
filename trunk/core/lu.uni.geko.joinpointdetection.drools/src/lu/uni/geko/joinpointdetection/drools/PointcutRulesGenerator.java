@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.pointcutrules;
+package lu.uni.geko.joinpointdetection.drools;
 
 import java.util.Map;
 
@@ -25,6 +25,12 @@ public class PointcutRulesGenerator extends AbstractTransformer<Pair<String,Map<
 		super(pointcutMURI);
 	}
 
+	/** Generates the pointcut rules for the model at the URI of this generator and returns
+     * them together with a mapping from the used IDs to the corresponding
+     * pointcut elements.
+     *
+     * @return (pointcut rules, usedIDs2CorrespondingEObjectsMap)
+     */
 	@Override
 	public Pair<String, Map<Integer, EObject>> generate() {
 		console. println("Generating pointcut rules for '" + this.uri + "' ...");

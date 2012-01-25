@@ -48,7 +48,7 @@ public class InstallAndStartGeneratedEditorPluginHandler extends AbstractFileHan
                }
                SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).confirm(
                      "Sorry but up to now you have to perform a last manual step to use the weaving functionality:\n"
-                           + "Open the MANIFEST.MF of GeKo's joinpointdetection plug-in,\n"
+                           + "Open the MANIFEST.MF of the plug-in lu.uni.geko.joinpointdetection.drools,\n"
                            + "add your generated model code plug-in to the required bundles\n"
                            + "and add its packages to the imported packages.\n" + "We apologize for the inconvenience.");
             }

@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.joinpointdetection;
+package lu.uni.geko.joinpointdetection.drools;
 
 import java.util.ArrayList;
 
@@ -28,9 +28,9 @@ import org.drools.runtime.StatelessKnowledgeSession;
 import org.eclipse.emf.ecore.EObject;
 
 public class DroolsAdapter {
-	
+
 	public static void detectJoinpoints(
-			String pointcutRules, 
+			String pointcutRules,
 			Iterable<EObject> baseContentIteratable,
 			ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists,
 			ArrayList<ArrayList<String>> pcIDsPerMatchLists) {
@@ -43,7 +43,7 @@ public class DroolsAdapter {
 		// execute the joinpoint detection knowledge session
 		knowledgeSession.execute(baseContentIteratable);
 	}
-	
+
 	private static StatelessKnowledgeSession prepareKnowledgeSession(
 			Resource pointcutRulesResource) {
 //		Collection<URL> classpathURLs = GeKoVariables.INSTANCE.getClasspathURLs();
@@ -64,7 +64,7 @@ public class DroolsAdapter {
 			SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).confirm("The joinpoint detection was errorneous:\n" +
 					knowledgeBuilder.getErrors().toString() +
 					"The most likely reason is that you did not perform the following manual step:\n" +
-					"Open the MANIFEST.MF of GeKo's joinpointdetection plug-in,\n" +
+					"Open the MANIFEST.MF of the plug-in lu.uni.geko.joinpointdetection.drools ,\n" +
 					"add your generated model code plug-in to the required bundles\n" +
 					"and add its packages to the imported packages!");
 		}

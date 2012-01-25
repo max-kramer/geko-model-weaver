@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 
 
 public class Tester {
-	
+
 	public static Quintuple<URI, URI, URI, URI, URI> getModelURIsFromFolder(IFolder folder) {
 		try {
 			URI baseMURI = null;
@@ -71,19 +71,20 @@ public class Tester {
 					}
 				}
 			}
-			boolean allRequiredModelURIsSet = baseMURI != null && pointcutMURI != null && adviceMURI != null && wovenArchetypeMURI != null;
-			boolean allFileExtCorrespond = baseFileExt.equals(trimmedPcFileExt) && baseFileExt.equals(trimmedAvFileExt) && baseFileExt.equals(wovenArchetypeFileExt);
-			if (allRequiredModelURIsSet && allFileExtCorrespond) {
-				return new Quintuple<URI, URI, URI, URI, URI>(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, wovenArchetypeMURI);
-			} else {
-				throw new RuntimeException("Test cannot be run as not all required model URIs are set or their file extensions do not correspond!");
+			boolean allRequiredModelURIsSet = baseMURI != null && pointcutMURI != null && adviceMURI != null && wovenArchetypeMURI != null && baseFileExt != null;
+			if (allRequiredModelURIsSet) {
+   			boolean allFileExtCorrespond = baseFileExt.equals(trimmedPcFileExt) && baseFileExt.equals(trimmedAvFileExt) && baseFileExt.equals(wovenArchetypeFileExt);
+   			if (allFileExtCorrespond) {
+   				return new Quintuple<URI, URI, URI, URI, URI>(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, wovenArchetypeMURI);
+   			}
 			}
+			throw new RuntimeException("Test cannot be run as not all required model URIs are set or their file extensions do not correspond!");
 		} catch (CoreException e) {
 			// soften
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	private static URI getUriIfNotSetYet(URI uri, IResource resource, IFolder folder, String modelName) {
 		if (uri == null) {
 			return EMFAdapter.getEMFUriForIResource(resource);

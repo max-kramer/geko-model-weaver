@@ -31,7 +31,7 @@ public abstract class AbstractFolderHandler extends AbstractHandler {
     * Returns a list of runnables for the list of folders corresponding to the selection.
     *
     * @param folders a list of selected folders
-    * @return a list of runnables
+    * @return a list of runnables handling the selected folders
     */
    protected abstract List<Runnable> getRunnables(List<IFolder> folders);
 

@@ -158,22 +158,22 @@
             name="DetectJoinpoints">
       </command>
       <command
-            defaultHandler="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMappingHandler"
-            description="Weave Asymmetrically (Infer Pointcut 2 Advice Mapping)"
-            id="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMapping"
-            name="WeaveAsymmetricallyInferPc2AvMapping">
+            defaultHandler="lu.uni.geko.commands.WeaveInferringPc2AvMappingHandler"
+            description="Weave (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
+            name="WeaveInferringPc2AvMapping">
       </command>
       <command
-            defaultHandler="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMappingHandler"
-            description="Weave Asymmetrically (Infering Completion of Pointcut 2 Advice Mapping)"
-            id="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMapping"
-            name="WeaveAsymmetricallyWithPc2AvMapping">
+            defaultHandler="lu.uni.geko.commands.WeaveWithPc2AvMappingHandler"
+            description="Weave (Inferring Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveWithPc2AvMapping"
+            name="WeaveWithPc2AvMapping">
       </command>
       <command
-            defaultHandler="lu.uni.geko.commands.TestAsymmetricWeaverHandler"
-            description="Run Asymmetric Weaver Tests in Subfolders"
-            id="lu.uni.geko.commands.TestAsymmetricWeaver"
-            name="TestAsymmetricWeaver">
+            defaultHandler="lu.uni.geko.commands.TestWeaverHandler"
+            description="Run Weaver Tests in Subfolders"
+            id="lu.uni.geko.commands.TestWeaver"
+            name="TestWeaver">
       </command>
    </extension>
    <extension
@@ -261,8 +261,8 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="lu.uni.geko.commands.WeaveAsymmetricallyInferPc2AvMapping"
-                  label="Weave Asymmetrically (Infer Pointcut 2 Advice Mapping)"
+                  commandId="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
+                  label="Weave (Inferring Pointcut 2 Advice Mapping)"
                   style="push"
                   tooltip="Weaves the selected base, pointcut and advice models to a new woven model by inferring the mapping from pointcut to advice.">
                <visibleWhen
@@ -281,8 +281,8 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="lu.uni.geko.commands.WeaveAsymmetricallyWithPc2AvMapping"
-                  label="Weave Asymmetrically (Infering Completion of Pointcut 2 Adivce Mapping)"
+                  commandId="lu.uni.geko.commands.WeaveWithPc2AvMapping"
+                  label="Weave (Inferring Completion of Pointcut 2 Advice Mapping)"
                   style="push"
                   tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
                <visibleWhen
@@ -304,7 +304,7 @@
                </visibleWhen>
             </command>
             <command
-                  commandId="lu.uni.geko.commands.TestAsymmetricWeaver"
+                  commandId="lu.uni.geko.commands.TestWeaver"
                   label="Run Asymmetric Weaver Tests in selected Folders"
                   style="push"
                   tooltip="Compares the weaving result to the woven archetype in all selected folders">

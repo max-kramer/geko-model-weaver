@@ -31,9 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author Max E. Kramer
  */
 public final class ActionsFacade {
-    /**
-     * Utility classes should not have a public or default constructor.
-     */
+    /** Utility classes should not have a public or default constructor. */
     private ActionsFacade() {
     }
 

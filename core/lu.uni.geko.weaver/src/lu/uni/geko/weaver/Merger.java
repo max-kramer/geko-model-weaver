@@ -111,7 +111,7 @@ public class Merger {
 	}
 
 	/**
-	 * ATTENTION SIDE-EFFECT
+	 * ATTENTION SIDE-EFFECT: the base2AdviceMergeBiMap will be changed to correctly map the base element duplicates to the advice element
 	 * @param adviceEObjects
 	 * @param baseEObject
 	 */

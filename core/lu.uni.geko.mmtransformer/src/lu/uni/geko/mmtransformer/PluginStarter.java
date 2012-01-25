@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -32,9 +32,9 @@ public class PluginStarter {
 			int genModelSegmentCount = genModelURI.segmentCount();
 			URI mmPluginURI = genModelURI.trimSegments(genModelSegmentCount - 2);
 			URI absoluteMMPluginURI = CommonPlugin.resolve(mmPluginURI);
-			// TODO MK make sure that there is no shorter (and perhaps more robust way) to get the absolute file path where the generated plug-ins reside
+			// MAYDO MK make sure that there is no shorter (and perhaps more robust way) to get the absolute file path where the generated plug-ins reside
 			URI absoluteRootPluginURI = absoluteMMPluginURI.trimSegments(1);
-			
+
 			String modelPluginID = genModel.getModelPluginID();
 			installAndStartGeneratedPlugin(absoluteRootPluginURI, modelPluginID);
 			if (!onlyModelCode) {

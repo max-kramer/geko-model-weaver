@@ -54,8 +54,7 @@ public class MainAdder {
 			EclipseAdapter.runInProtectedMode(runnable);
 		}
 		if (adviceEObjectsToBeAdded.size() > 0) {
-            // TODO MK gently handle the case were not all elements could be
-            // added by checking in advance if this will happen
+            // TODO MK gently handle the case were not all elements could be added by checking in advance if this will happen
 			throw new RuntimeException("There are still " + adviceEObjectsToBeAdded.size() + " advice elements that are not contained in any element of the woven model " +
 					"but that do not have the type of the unique containment reference that could serve as container for these elements:\n" + adviceEObjectsToBeAdded);
 		}

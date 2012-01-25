@@ -83,7 +83,7 @@ public class FeatureCorresponder {
       if (equalFeatures) {
          return baseFeature;
       }
-      else { // TODO MK support objects with ambiguous structural feature names
+      else { // MAYDO MK support objects with ambiguous structural feature names (does ECore allow more than one feature for a given name?)
       	throw new RuntimeException("The base feature '" + baseFeature + "' and the advice feature '" + sourceFeature + "'" +
       			   "of the base object '" + baseEObject + "' and the advice object '" + adviceEObject + "'" +
       			   "have the same name but are not structurally equal!");

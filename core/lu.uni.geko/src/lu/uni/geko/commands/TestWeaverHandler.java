@@ -22,35 +22,42 @@ import lu.uni.geko.util.datastructures.Quintuple;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
+/**
+ * A handler for the command that compares the weaving result to the woven archetype in all selected folders.
+ *
+ * @author Max E. Kramer
+ */
 public class TestWeaverHandler extends AbstractFolderHandler {
+   /** the overall number of repetitions to be performed for each test case. */
    private static final int TEST_COUNT = 42;
 
-	@Override
-	protected List<Runnable> getRunnables(List<IFolder> folders) {
-		List<Runnable> runnables = new ArrayList<Runnable>(folders.size());
-		for (final IFolder folder : folders) {
-			runnables.add(new Runnable() {
-				@Override
-				public void run() {
-					for (int i = 0; i < TEST_COUNT; i++) {
-						Quintuple<URI, URI, URI, URI, URI> modelURIs = Tester.getModelURIsFromFolder(folder);
-						URI baseMURI = modelURIs.first;
-						URI pointcutMURI = modelURIs.second;
-						URI adviceMURI = modelURIs.third;
-						URI pc2AvMappingMURI = modelURIs.fourth;
-						URI wovenArchetypeMURI = modelURIs.fifth;
-						URI wovenMURI;
-						if (pc2AvMappingMURI == null) {
-							wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
-						} else {
-							wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
-						}
-						wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
-						Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
-					}
-				}
-			});
-		}
-		return runnables;
-	}
+   @Override
+   protected List<Runnable> getRunnables(final List<IFolder> folders) {
+      List<Runnable> runnables = new ArrayList<Runnable>(folders.size());
+      for (final IFolder folder : folders) {
+         runnables.add(new Runnable() {
+            @Override
+            public void run() {
+               for (int i = 0; i < TEST_COUNT; i++) {
+                  Quintuple<URI, URI, URI, URI, URI> modelURIs = Tester.getModelURIsFromFolder(folder);
+                  URI baseMURI = modelURIs.first;
+                  URI pointcutMURI = modelURIs.second;
+                  URI adviceMURI = modelURIs.third;
+                  URI pc2AvMappingMURI = modelURIs.fourth;
+                  URI wovenArchetypeMURI = modelURIs.fifth;
+                  URI wovenMURI;
+                  if (pc2AvMappingMURI == null) {
+                     wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+                  } else {
+                     wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI,
+                           false, true);
+                  }
+                  wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
+                  Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
+               }
+            }
+         });
+      }
+      return runnables;
+   }
 }

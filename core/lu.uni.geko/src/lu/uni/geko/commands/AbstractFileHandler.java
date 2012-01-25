@@ -45,9 +45,9 @@ public abstract class AbstractFileHandler extends AbstractHandler {
    protected abstract int getTypeNoIfSelectable(IFile iFile);
 
    /**
-    * Returns a list of runnables that were created for the current selection of files based on their file types.
+    * Returns a list of runnables that handler the current selection of files based on their file types.
     * @param uris a list containing a list of URIs for each file type
-    * @return a list of runnables for the selected file URIs of different type
+    * @return a list of runnables handling the selected file URIs of different type
     */
    protected abstract List<Runnable> getRunnables(List<List<URI>> uris);
 

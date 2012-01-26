@@ -34,6 +34,7 @@
     <module name="UnusedImports"/>
     <module name="LineLength">
       <property name="severity" value="info"/>
+      <property name="max" value="130"/>
     </module>
     <module name="MethodLength"/>
     <module name="ParameterNumber"/>

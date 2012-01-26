@@ -46,14 +46,14 @@ public class Tester {
 				if (folderMember.exists()) {
 					if (folderMember instanceof IFile) {
 						String fileExt = folderMember.getFileExtension();
-						if (fileExt.equals(GeKoConstants.PC2AVMAPPING_FILE_EXT)) {
+						if (fileExt.equals(GeKoConstants.getPc2AvMappingFileExt())) {
 							pc2AvMappingMURI = getUriIfNotSetYet(pc2AvMappingMURI, folderMember, folder, "pointcut to advice mapping");
-						} else if (fileExt.endsWith(GeKoConstants.POINTCUT_FILE_EXT_SUFFIX)) {
+						} else if (fileExt.endsWith(GeKoConstants.getPcFileExtSuffix())) {
 							pointcutMURI = getUriIfNotSetYet(pointcutMURI, folderMember, folder, "pointcut");
-							trimmedPcFileExt = JavaAdapter.trim(fileExt, GeKoConstants.POINTCUT_FILE_EXT_SUFFIX);
-						} else if (fileExt.endsWith(GeKoConstants.ADVICE_FILE_EXT_SUFFIX)) {
+							trimmedPcFileExt = JavaAdapter.trim(fileExt, GeKoConstants.getPcFileExtSuffix());
+						} else if (fileExt.endsWith(GeKoConstants.getAvFileExtSuffix())) {
 							adviceMURI = getUriIfNotSetYet(adviceMURI, folderMember, folder, "advice");
-							trimmedAvFileExt = JavaAdapter.trim(fileExt, GeKoConstants.ADVICE_FILE_EXT_SUFFIX);
+							trimmedAvFileExt = JavaAdapter.trim(fileExt, GeKoConstants.getAvFileExtSuffix());
 						} else {
 							// now folderMember can only be the base or the woven archetype
 							IPath memberPath = folderMember.getFullPath();
@@ -61,7 +61,7 @@ public class Tester {
 							if (memberName.endsWith(GeKoConstants.ARCHETYPE_M_FILENAME_APPENDAGE)) {
 								wovenArchetypeMURI = getUriIfNotSetYet(wovenArchetypeMURI, folderMember, folder, "woven archetype");
 								wovenArchetypeFileExt = fileExt;
-							} else if (memberName.endsWith(GeKoConstants.WOVEN_M_FILENAME_APPENDAGE)) {
+							} else if (memberName.endsWith(GeKoConstants.getWovenMFilenameAppendage())) {
 								// ignore old woven files
 							} else {
 								baseMURI = getUriIfNotSetYet(baseMURI, folderMember, folder, "base");
@@ -101,7 +101,7 @@ public class Tester {
 		boolean equals = equalityHelper.equals(wovenRootElement, wovenArchetypeRootElement);
 		if (equals) {
 			String successMessage = "Sucessfully completed asymmetric weaver test in '" + wovenMURI.trimSegments(1).lastSegment() + "'.";
-			SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).println(successMessage);
+			SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
 			System.out.println(successMessage);
 		} else {
 			throw new RuntimeException("The woven model root element '" + EMFToStringAdapter.INSTANCE.toString(wovenRootElement)

@@ -25,14 +25,18 @@ import org.eclipse.emf.common.util.URI;
 public abstract class AbstractSingleFileTypeHandler extends AbstractFileHandler {
    /**
     * Returns the runnable for the given URI of the selected file.
-    * @param uri the URI of a selected file
+    *
+    * @param uri
+    *           the URI of a selected file
     * @return the runnable handling the selected file
     */
    protected abstract Runnable getRunnable(URI uri);
 
    /**
     * Returns <code>true</code> when the given file should be selectable for this command handler.
-    * @param iFile a file
+    *
+    * @param iFile
+    *           a file
     * @return whether or not this file is selectable
     */
    protected abstract boolean isSelectableFile(IFile iFile);

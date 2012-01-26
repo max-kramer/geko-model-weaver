@@ -34,7 +34,7 @@ public class PointcutRulesGenerator extends AbstractTransformer<Pair<String,Map<
 	@Override
 	public Pair<String, Map<Integer, EObject>> generate() {
 		console. println("Generating pointcut rules for '" + this.uri + "' ...");
-		EObject rootModelElement = GeKoAdapter.getPointcutRootElementIfCorrectlyTyped(this.uri);
+		EObject rootModelElement = GeKoAdapter.getPcRootElementIfCorrectlyTyped(this.uri);
 		if (rootModelElement != null) {
 			PointcutRulesVisitor pointcutRulesVisitor = new PointcutRulesVisitor();
 			pointcutRulesVisitor.visitPointcut(rootModelElement);

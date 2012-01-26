@@ -34,60 +34,80 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public final class GeKoAdapter {
    /** The GeKo message console used for output to the user. */
-   private static final SimpleMessageConsole CONSOLE = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+   private static final SimpleMessageConsole CONSOLE = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 
    /** Utility classes should not have a public or default constructor. */
    private GeKoAdapter() {
    }
 
-   public static EObject getPointcutRootElementIfCorrectlyTyped(final URI pointcutURI) {
-      EObject rootObject = MainResourceLoader.getUniqueResourceContentRoot(pointcutURI, "pointcut model");
+   /**
+    * Returns the root element of the pointcut model at the given URI if it has the right type (i.e. the pointcut root element
+    * class introduced during the metamodel generation).
+    *
+    * @param pcMURI
+    *           the URI of a pointcut model
+    * @return the root element of the pointcut model if it has the right type and <code>null</code> otherwise
+    */
+   public static EObject getPcRootElementIfCorrectlyTyped(final URI pcMURI) {
+      EObject rootObject = MainResourceLoader.getUniqueResourceContentRoot(pcMURI, "pointcut model");
       if (rootObject != null) {
-         if (rootObject.eClass().getName().equals(GeKoConstants.POINTCUT_MM_ROOT_ELEMENT_NAME)) {
-            // MAYDO MK when additional properties are introduced into the
-            // pointcut metamodel
-            // it should be checked whether all these properties are present
+         if (rootObject.eClass().getName().equals(GeKoConstants.getPcMMRootElementName())) {
+            // MAYDO MK when additional properties are introduced into the pointcut metamodel it should be checked whether all
+            // these properties are present
             return rootObject;
          } else {
-            CONSOLE.printErrorln("The root element of the pointcut model '" + pointcutURI + "' is not '"
-                  + GeKoConstants.POINTCUT_MM_ROOT_ELEMENT_NAME + "!");
+            CONSOLE.printErrorln("The root element of the pointcut model '" + pcMURI + "' is not '"
+                  + GeKoConstants.getPcMMRootElementName() + "!");
          }
       }
       return null;
    }
 
    /**
-    * Gets all EObjects that are contained in the pointcut resource except for the elements that were introduced using the
-    * pointcut mm
+    * Returns all pointcut elements that are contained in the pointcut resource except for elements that are pointcut-specific
+    * (i.e. elements that have a type that was introduced into the pointcut version of the metamodel).
     *
-    * @param pointcutMURI
-    * @return
+    * @param pcMURI
+    *           the URI of a pointcut model
+    * @return all elements of the model at the given URI except for those that are pointcut-specific
     */
-   public static Set<EObject> getPointcutElements(URI pointcutURI) {
-      return getPointcutOrAdviceElements(pointcutURI, true);
+   public static Set<EObject> getUnspecificPcElements(final URI pcMURI) {
+      return getUnspecificPcOrAvElements(pcMURI, true);
    }
 
    /**
-    * Gets all EObjects that are contained in the advice resource except for the elements that were introduced using the advice mm
+    * Returns all advice elements that are contained in the advice resource except for elements that are advice-specific (i.e.
+    * elements that have a type that was introduced into the advice version of the metamodel).
     *
-    * @param adviceMURI
-    * @return
+    * @param avMURI
+    *           the URI of an advice model
+    * @return all elements of the model at the given URI except for those that are advice-specific
     */
-   public static Set<EObject> getAdviceElements(URI adviceURI) {
-      return getPointcutOrAdviceElements(adviceURI, false);
+   public static Set<EObject> getUnspecificAvElements(final URI avMURI) {
+      return getUnspecificPcOrAvElements(avMURI, false);
    }
 
-   private static Set<EObject> getPointcutOrAdviceElements(URI uri, boolean pointcut) {
+   /**
+    * Returns all elements that are contained in the resource except for elements that are weaving-specific (i.e. elements that
+    * have a type that was introduced into the pointcut or advice version of the metamodel).
+    *
+    * @param mURI
+    *           the URI of a model
+    * @param isPointcut
+    *           whether a pointcut model is inspected (i.e. <code>false</code> means advice)
+    * @return all elements of the model at the given URI except for those that are weaving-specific
+    */
+   private static Set<EObject> getUnspecificPcOrAvElements(final URI mURI, final boolean isPointcut) {
       Set<EObject> resourceContentsSet = new HashSet<EObject>();
-      Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(uri);
+      Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(mURI);
       while (allResourceContentsIterator.hasNext()) {
          EObject nextContent = allResourceContentsIterator.next();
-         if (pointcut) {
-            if (!skipPointcutElementForWeaving(nextContent)) {
+         if (isPointcut) {
+            if (!skipPcSpecificElement(nextContent)) {
                resourceContentsSet.add(nextContent);
             }
          } else {
-            if (!skipAdviceElementForWeaving(nextContent)) {
+            if (!skipAvSpecificElement(nextContent)) {
                resourceContentsSet.add(nextContent);
             }
          }
@@ -95,37 +115,57 @@ public final class GeKoAdapter {
       return resourceContentsSet;
    }
 
-   private static boolean skipPointcutElementForWeaving(EObject eObject) {
+   /**
+    * Returns true when the given element is a pointcut-specific element and should therefore be skipped during weaving.
+    *
+    * @param eObject
+    *           an element of a pointcut model
+    * @return whether the given element is a pointcut-specific element or not
+    */
+   private static boolean skipPcSpecificElement(final EObject eObject) {
       String eObjectClassName = eObject.eClass().getInstanceClass().getSimpleName();
-      if (eObjectClassName.equals(GeKoConstants.POINTCUT_MM_ROOT_ELEMENT_NAME)) {
-         return true;
-      } else {
-         // TODO MK as soon as further elements and / or properties are introduced into the pointcut mm this skipping of these
-         // pointcut elements for the weaving has to be updated
-         return false;
-      }
+      return eObjectClassName.equals(GeKoConstants.getPcMMRootElementName());
+      // MAYDO MK as soon as further elements and / or properties are introduced into the pointcut mm this skipping of these
+      // pointcut elements for the weaving has to be updated
    }
 
-   public static boolean skipAdviceElementForWeaving(EObject eObject) {
+   /**
+    * Returns true when the given element is a advice-specific element and should therefore be skipped during weaving.
+    *
+    * @param eObject
+    *           an element of an advice model
+    * @return whether the given element is a advice-specific element or not
+    */
+   public static boolean skipAvSpecificElement(final EObject eObject) {
       String eObjectClassName = eObject.eClass().getInstanceClass().getSimpleName();
-      if (eObjectClassName.equals(GeKoConstants.ADVICE_MM_ROOT_ELEMENT_NAME)) {
-         return true;
-      } else if (eObjectClassName.equals(GeKoConstants.SCOPE_MM_GLOBAL_CLASS_NAME)) {
-         return true;
-      } else if (eObjectClassName.equals(GeKoConstants.SCOPE_MM_PER_JOIN_POINT_CLASS_NAME)) {
-         return true;
-      } else {
-         // TODO MK as soon as further elements and / or properties are introduced into the advice mm this skipping of these
-         // advice elements for the weaving has to be updated
-         return false;
-      }
+      return eObjectClassName.equals(GeKoConstants.getAvMMRootElementName())
+            || eObjectClassName.equals(GeKoConstants.getAvMMGlobalScopeClassName())
+            || eObjectClassName.equals(GeKoConstants.getAvMMPerJoinPointScopeClassName());
+      // MAYDO MK as soon as further elements and / or properties are introduced into the advice mm this skipping of these
+      // advice elements for the weaving has to be updated
    }
 
-   public static boolean isAdviceEObject(EObject eObject) {
-      return eObject.eClass().getEPackage().getNsURI().endsWith(GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE);
+   /**
+    * Returns true when the given EObject is an instance of a class of an advice metamodel that was generated using GeKo.
+    *
+    * @param eObject
+    *           the eObject to check
+    * @return whether the given EObject is an advice element
+    */
+   public static boolean isAdviceEObject(final EObject eObject) {
+      return eObject.eClass().getEPackage().getNsURI().endsWith(GeKoConstants.getAvMMPackageNsuriAppendage());
    }
 
-   public static List<EAttribute> getAvAttributesForPcAttributes(EClass avEClass, List<EAttribute> pcAttributes) {
+   /**
+    * Returns a list of attributes of the given advice EClass that correspond to the given attributes of a pointcut EClass.
+    *
+    * @param avEClass
+    *           the EClass of an advice element from which the attributes should be taken
+    * @param pcAttributes
+    *           the list of attributes of a pointcut EClass
+    * @return the corresponding pointcut attributes
+    */
+   public static List<EAttribute> getAvAttributesForPcAttributes(final EClass avEClass, final List<EAttribute> pcAttributes) {
       List<EAttribute> adviceAttributes = new ArrayList<EAttribute>(pcAttributes.size());
       for (EAttribute pointcutAttribute : pcAttributes) {
          EStructuralFeature adviceFeature = avEClass.getEStructuralFeature(pointcutAttribute.getName());

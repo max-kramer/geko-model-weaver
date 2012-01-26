@@ -192,6 +192,6 @@ public class PointcutRulesVisitor {
 	}
 	
 	private String getCanonicalBaseClassName(EObject eObject) {
-		return EMFAdapter.getCanonicalClassNameWithTrimmedPackageName(eObject, GeKoConstants.POINTCUT_MM_PACKAGE_NAME_APPENDAGE);
+		return EMFAdapter.getCanonicalClassNameWithTrimmedPackageName(eObject, GeKoConstants.getPcMMPackageNameAppendage());
 	}
 }

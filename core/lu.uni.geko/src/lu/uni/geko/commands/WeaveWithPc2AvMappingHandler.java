@@ -37,7 +37,7 @@ public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHand
    @Override
    protected int getTypeNoIfSelectable(final IFile iFile) {
       String fileExt = iFile.getFileExtension();
-      if (fileExt.equals(GeKoConstants.PC2AVMAPPING_FILE_EXT)) {
+      if (fileExt.equals(GeKoConstants.getPc2AvMappingFileExt())) {
          return PC2AVMAPPING_FILE_TYPE;
       } else {
          return super.getTypeNoIfSelectable(iFile);

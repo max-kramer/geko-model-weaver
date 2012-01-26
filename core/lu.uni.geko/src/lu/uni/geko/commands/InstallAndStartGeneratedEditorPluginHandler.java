@@ -33,7 +33,7 @@ public class InstallAndStartGeneratedEditorPluginHandler extends AbstractFileHan
 
    @Override
    protected int getTypeNoIfSelectable(final IFile iFile) {
-      return (iFile.getFileExtension().equals(GeKoConstants.GENMODEL_FILE_EXT) ? 0 : -1);
+      return (iFile.getFileExtension().equals(GeKoConstants.getGenmodelFileExt()) ? 0 : -1);
    }
 
    // RATIONALE MK avoid problems with plug-in state changes in different threads by starting all plug-ins stepwise
@@ -46,7 +46,7 @@ public class InstallAndStartGeneratedEditorPluginHandler extends AbstractFileHan
                for (URI uri : uris.get(0)) {
                   ActionsFacade.installAndStartGeneratedEditorPlugin(uri);
                }
-               SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).confirm(
+               SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).confirm(
                      "Sorry but up to now you have to perform a last manual step to use the weaving functionality:\n"
                            + "Open the MANIFEST.MF of the plug-in lu.uni.geko.joinpointdetection.drools,\n"
                            + "add your generated model code plug-in to the required bundles\n"

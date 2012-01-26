@@ -35,20 +35,20 @@ public class ScopeResolver {
 		Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(adviceMURI);
 		while (allResourceContentsIterator.hasNext()) {
 			EObject nextContent = allResourceContentsIterator.next();
-			boolean isAdviceSpecificElement = GeKoAdapter.skipAdviceElementForWeaving(nextContent);
+			boolean isAdviceSpecificElement = GeKoAdapter.skipAvSpecificElement(nextContent);
 			if (isAdviceSpecificElement) {
 				EClass nextContentClass = nextContent.eClass();
 				String nextContentClassName = nextContentClass.getInstanceClass().getSimpleName();
 				AdviceInstantiationScope scope = null;
-				if (nextContentClassName.equals(GeKoConstants.SCOPE_MM_GLOBAL_CLASS_NAME)) {
+				if (nextContentClassName.equals(GeKoConstants.getAvMMGlobalScopeClassName())) {
 					scope = ScopeFactory.createGlobalScope();
-				} else if (nextContentClassName.equals(GeKoConstants.SCOPE_MM_PER_JOIN_POINT_CLASS_NAME)) {
+				} else if (nextContentClassName.equals(GeKoConstants.getAvMMPerJoinPointScopeClassName())) {
 					scope = ScopeFactory.createPerJoinPointScope();
 				}
                 // MAYDO MK SCOPE implement scope resolution for dynamic and
                 // custom scope
 				if (scope != null) {
-					EStructuralFeature scopeReference = nextContentClass.getEStructuralFeature(GeKoConstants.SCOPE_MM_REFERENCE_NAME);
+					EStructuralFeature scopeReference = nextContentClass.getEStructuralFeature(GeKoConstants.getAvMMScopeReferenceName());
 					Object scopedObject = EMFAdapter.getFeatureValueIfNotManyTyped(nextContent, scopeReference);
 					if (scopedObject == null || !(scopedObject instanceof EObject)) {
 						throw new RuntimeException("The scope element '" + nextContent + "' of the advice model '" + adviceMURI + "' has to reference an EObject!");

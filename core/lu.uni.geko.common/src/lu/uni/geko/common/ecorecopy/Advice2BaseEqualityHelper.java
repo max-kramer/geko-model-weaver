@@ -34,19 +34,19 @@ public class Advice2BaseEqualityHelper extends UnorderedReferencesRespectingEqua
 				for (int i = 1; i < splitClassName.length - 1; i++) {
 					packageName += "." + splitClassName[i];
 				}
-				if (packageName.endsWith(GeKoConstants.ADVICE_MM_PACKAGE_NAME_APPENDAGE)) {
-					adviceValueString = JavaAdapter.removePackageSuffixFromCanonicalClassName(adviceValueString, GeKoConstants.ADVICE_MM_PACKAGE_NAME_APPENDAGE);
+				if (packageName.endsWith(GeKoConstants.getAvMMPackageNameAppendage())) {
+					adviceValueString = JavaAdapter.removePackageSuffixFromCanonicalClassName(adviceValueString, GeKoConstants.getAvMMPackageNameAppendage());
 				}
 				return baseValue.equals(adviceValueString);
 			} else if (baseValue instanceof EPackage && adviceValue instanceof EPackage) {
 				EPackage basePackage = ((EPackage) baseValue);
 				EPackage advicePackage = ((EPackage) adviceValue);
 				String baseName = basePackage.getName();
-				String adviceName = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getName(), GeKoConstants.ADVICE_MM_PACKAGE_NAME_APPENDAGE);
+				String adviceName = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getName(), GeKoConstants.getAvMMPackageNameAppendage());
 				String baseNsURI = basePackage.getNsURI();
-				String adviceNsURI = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getNsURI(), GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE);
+				String adviceNsURI = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getNsURI(), GeKoConstants.getAvMMPackageNsuriAppendage());
 				String baseNsPrefix = basePackage.getNsPrefix();
-				String adviceNsPrefix = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getNsPrefix(), GeKoConstants.ADVICE_MM_PACKAGE_NSPREFIX_APPENDAGE);
+				String adviceNsPrefix = JavaAdapter.removePackageSuffixFromPackageName(advicePackage.getNsPrefix(), GeKoConstants.getAvMMPackageNsprefixAppendage());
 				return baseName.equals(adviceName) && baseNsURI.equals(adviceNsURI) && baseNsPrefix.equals(adviceNsPrefix);
 			}
 		} else if (featureName.equals("lowerBound")) {

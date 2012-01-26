@@ -19,11 +19,10 @@ import org.eclipse.core.resources.IFile;
  *
  * @author Max E. Kramer
  */
-public abstract class AbstractEcoreFilesHandler extends
-        AbstractSingleFileTypeHandler {
-    @Override
-    protected boolean isSelectableFile(final IFile iFile) {
-        String fileExt = iFile.getFileExtension();
-        return fileExt.equals(GeKoConstants.MM_FILE_EXT);
-    }
+public abstract class AbstractEcoreFilesHandler extends AbstractSingleFileTypeHandler {
+   @Override
+   protected boolean isSelectableFile(final IFile iFile) {
+      String fileExt = iFile.getFileExtension();
+      return fileExt.equals(GeKoConstants.getMMFileExt());
+   }
 }

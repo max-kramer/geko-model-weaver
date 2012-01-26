@@ -10,8 +10,10 @@
  ******************************************************************************/
 package lu.uni.geko.common;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import lu.uni.geko.resources.MainResourceLoader;
@@ -19,7 +21,10 @@ import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * A utility class containing methods that are used by multiple GeKo plug-ins and that are GeKo specific (so they do not belong to
@@ -118,5 +123,19 @@ public final class GeKoAdapter {
 
    public static boolean isAdviceEObject(EObject eObject) {
       return eObject.eClass().getEPackage().getNsURI().endsWith(GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE);
+   }
+
+   public static List<EAttribute> getAvAttributesForPcAttributes(EClass avEClass, List<EAttribute> pcAttributes) {
+      List<EAttribute> adviceAttributes = new ArrayList<EAttribute>(pcAttributes.size());
+      for (EAttribute pointcutAttribute : pcAttributes) {
+         EStructuralFeature adviceFeature = avEClass.getEStructuralFeature(pointcutAttribute.getName());
+         if (adviceFeature instanceof EAttribute) {
+            adviceAttributes.add((EAttribute) adviceFeature);
+         } else {
+            throw new RuntimeException("The advice feature '" + adviceFeature + "' corresponding to the pointcut attribute '"
+                  + pointcutAttribute + "' has to be an EAttribute!");
+         }
+      }
+      return adviceAttributes;
    }
 }

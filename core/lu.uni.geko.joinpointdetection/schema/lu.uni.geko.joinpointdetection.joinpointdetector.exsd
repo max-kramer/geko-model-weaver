@@ -6,7 +6,7 @@
          <meta.schema plugin="lu.uni.geko.joinpointdetection" id="lu.uni.geko.joinpointdetection.joinpointdetector" name="JoinpointDetector"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         An extension point for different implementations of the join point detection phase during weaving. Take care: This extension point requires exactly one registered extension!
       </documentation>
    </annotation>
 

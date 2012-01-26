@@ -26,7 +26,7 @@ public abstract class AbstractTransformer<T> {
 	public AbstractTransformer(URI uri) {
 		super();
 		this.uri = uri;
-		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 	}
 	
 	public abstract T generate();

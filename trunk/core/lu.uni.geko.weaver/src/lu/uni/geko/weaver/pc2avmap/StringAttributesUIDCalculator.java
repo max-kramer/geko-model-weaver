@@ -57,7 +57,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    public Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EMFAdapter.getEClassByReplacingAPackageNsURISuffix(pcElementClass,
-            GeKoConstants.POINTCUT_MM_PACKAGE_NSURI_APPENDAGE, GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE);
+            GeKoConstants.getPcMMPackageNsuriAppendage(), GeKoConstants.getAvMMPackageNsuriAppendage());
       return EcoreUtil.getObjectsByType(avElements, avElementClass);
    }
 

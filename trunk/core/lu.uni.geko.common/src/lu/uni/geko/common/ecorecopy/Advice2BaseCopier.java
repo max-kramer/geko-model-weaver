@@ -25,7 +25,7 @@ public abstract class Advice2BaseCopier extends Abstract2BaseCopier {
 
 	@Override
 	protected String getPackageNameSuffixToBeRemoved() {
-		return GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE;
+		return GeKoConstants.getAvMMPackageNsuriAppendage();
 	}
 	
 	private EObject getIfNoNewCopyNeededAndCopyRegisterAndReferenceOtherwise(Object adviceObject) {

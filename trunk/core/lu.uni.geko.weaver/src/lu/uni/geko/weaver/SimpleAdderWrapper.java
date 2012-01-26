@@ -41,7 +41,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
          FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
       EObject uniqueWovenRoot = MainResourceLoader.getUniqueResourceContentRoot(wovenMURI, "woven model");
-      SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+      SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
       if (adviceEObjectsToBeAdded.isEmpty()) {
          console.println("There are no remaining advice elements that would have to be added to the woven model");
       } else {
@@ -116,7 +116,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
       if (featureCorresponder.isSameOrSuperType(adviceEObjectToBeAdded.eClass(), uniqueRootContainmentReferenceType)) {
          List<EObject> rootElementContents = EMFAdapter.getFeatureValuesIfManyTyped(possibleContainer, containmentReference);
          rootElementContents.add(baseVersionOfAdviceEObjectToBeAdded);
-         SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+         SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
          console.println("Added the advice element '" + baseVersionOfAdviceEObjectToBeAdded + "' to the containment reference '"
                + containmentReference.getName() + "' of the unique root element '" + possibleContainer + "' of the woven model.");
          // register the contained elements of the base version of the added advice element

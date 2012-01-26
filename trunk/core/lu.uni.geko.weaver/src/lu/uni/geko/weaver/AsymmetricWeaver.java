@@ -53,7 +53,7 @@ public class AsymmetricWeaver extends AbstractTransformer<URI> {
 	 */
 	public AsymmetricWeaver(URI baseMURI, URI adviceMURI, N2NMap<EObject, EObject> pointcut2AdviceMap, boolean inPlace) {
 		super(baseMURI);
-		this.wovenMURI = inPlace ? baseMURI : EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.WOVEN_M_FILENAME_APPENDAGE);
+		this.wovenMURI = inPlace ? baseMURI : EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
 		this.adviceMURI = adviceMURI;
 		this.pointcut2AdviceMap = pointcut2AdviceMap;
 	}

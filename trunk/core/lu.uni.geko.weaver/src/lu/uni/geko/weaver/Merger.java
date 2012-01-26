@@ -70,7 +70,7 @@ public class Merger {
 		this.featureCorresponder = new FeatureCorresponder();
 		this.baseEObjects2FeatureConflictsMap = new HashMap<EObject, Set<EStructuralFeature>>();
 		this.merged2KeptBaseEObjectMap = new HashMap<EObject, EObject>();
-		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 	}
 
 	public Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject> , FeatureCorresponder, Map<EObject, AdviceInstantiationScope>> performMergesAndReturnAdderParameters() {

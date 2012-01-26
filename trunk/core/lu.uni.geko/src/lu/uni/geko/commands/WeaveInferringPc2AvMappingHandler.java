@@ -20,7 +20,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * A handler for the command that weaves the selected base, pointcut and advice models to a new woven model by inferring the mapping from pointcut to advice.
+ * A handler for the command that weaves the selected base, pointcut and advice models to a new woven model by inferring the
+ * mapping from pointcut to advice.
  *
  * @author Max E. Kramer
  */
@@ -42,14 +43,13 @@ public class WeaveInferringPc2AvMappingHandler extends AbstractFileHandler {
    @Override
    protected int getTypeNoIfSelectable(final IFile iFile) {
       String fileExt = iFile.getFileExtension();
-      if (fileExt.endsWith(GeKoConstants.POINTCUT_FILE_EXT_SUFFIX)) {
+      if (fileExt.endsWith(GeKoConstants.getPcFileExtSuffix())) {
          return PC_FILE_TYPE;
-      } else if (fileExt.endsWith(GeKoConstants.ADVICE_FILE_EXT_SUFFIX)) {
+      } else if (fileExt.endsWith(GeKoConstants.getAvFileExtSuffix())) {
          return ADVICE_FILE_TYPE;
       } else {
-         // TODO MK exclude files that are not base files for the selected
-         // pointcuts (e.g. based on the file extension or by looking at the
-         // mm referenced in the file)
+         // TODO MK exclude files that are not base files for the selected pointcuts (e.g. based on the file extension or by
+         // looking at the mm referenced in the file)
          return BASE_FILE_TYPE;
       }
    }
@@ -78,10 +78,15 @@ public class WeaveInferringPc2AvMappingHandler extends AbstractFileHandler {
 
    /**
     * Returns a runnable handling the files at the given URIs.
-    * @param baseMURI base model URI
-    * @param pointcutMURI pointcut model URI
-    * @param adviceMURI advice model URI
-    * @param uris all selected URIs
+    *
+    * @param baseMURI
+    *           base model URI
+    * @param pointcutMURI
+    *           pointcut model URI
+    * @param adviceMURI
+    *           advice model URI
+    * @param uris
+    *           all selected URIs
     * @return a runnable handling the given files
     */
    protected Runnable getRunnable(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final List<List<URI>> uris) {

@@ -18,6 +18,6 @@ public class Pointcut2BaseCopier extends Abstract2BaseCopier {
 
 	@Override
 	protected String getPackageNameSuffixToBeRemoved() {
-		return GeKoConstants.POINTCUT_MM_PACKAGE_NSURI_APPENDAGE;
+		return GeKoConstants.getPcMMPackageNsuriAppendage();
 	}
 }

@@ -30,7 +30,7 @@ public class Remover {
 	private final SimpleMessageConsole console;
 	
 	public Remover() {
-		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 	}
 	
 	public void performRemovals(Set<EObject> baseEObjectsToBeRemoved) {

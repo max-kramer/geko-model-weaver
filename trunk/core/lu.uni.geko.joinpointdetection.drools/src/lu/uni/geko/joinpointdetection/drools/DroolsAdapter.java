@@ -56,12 +56,12 @@ public class DroolsAdapter {
 		knowledgeBuilder.add(pointcutRulesResource, ResourceType.DRL);
 		if ( knowledgeBuilder.hasErrors() ) {
 			for (KnowledgeBuilderError knowledgeBuilderError : knowledgeBuilder.getErrors()) {
-				SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).printErrorln(knowledgeBuilderError.getErrorLines().toString());
-				SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).printErrorln(knowledgeBuilderError.getMessage());
+				SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).printErrorln(knowledgeBuilderError.getErrorLines().toString());
+				SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).printErrorln(knowledgeBuilderError.getMessage());
 			}
 			// FIXME MK find out why putting the generated model code classes on the classpath (commented code) is not enough for Drools to avoid to declare a dependency to the model code plugin
 			System.err.println();
-			SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME).confirm("The joinpoint detection was errorneous:\n" +
+			SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).confirm("The joinpoint detection was errorneous:\n" +
 					knowledgeBuilder.getErrors().toString() +
 					"The most likely reason is that you did not perform the following manual step:\n" +
 					"Open the MANIFEST.MF of the plug-in lu.uni.geko.joinpointdetection.drools ,\n" +

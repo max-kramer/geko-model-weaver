@@ -40,7 +40,7 @@ public class DetectJoinpointsHandler extends AbstractFileHandler {
    @Override
    protected int getTypeNoIfSelectable(final IFile iFile) {
       String fileExt = iFile.getFileExtension();
-      if (fileExt.endsWith(GeKoConstants.POINTCUT_FILE_EXT_SUFFIX)) {
+      if (fileExt.endsWith(GeKoConstants.getPcFileExtSuffix())) {
          return PC_FILE_TYPE;
       } else {
          // TODO MK exclude files that are not base files for the selected pointcuts (e.g. based on the file extension or by

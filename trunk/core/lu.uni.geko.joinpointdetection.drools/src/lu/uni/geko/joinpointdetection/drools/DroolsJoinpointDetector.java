@@ -54,7 +54,7 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
 
    private List<Map<EObject, EObject>> populateResultMaps(ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists,
          ArrayList<ArrayList<String>> pcIDsPerMatchLists, Map<Integer, EObject> pcID2PcEObjectMap) {
-      SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
+      SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
       int matchCount = baseEObjectsPerMatchLists.size();
       if (matchCount == pcIDsPerMatchLists.size()) {
          console.println("\nDetected " + matchCount + " joinpoints:");

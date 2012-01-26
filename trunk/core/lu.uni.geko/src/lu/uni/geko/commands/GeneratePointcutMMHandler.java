@@ -30,5 +30,4 @@ public class GeneratePointcutMMHandler extends AbstractEcoreFilesHandler {
          }
       };
    }
-
 }

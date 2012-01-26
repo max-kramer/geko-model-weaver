@@ -32,6 +32,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 public abstract class AbstractFileHandler extends AbstractHandler {
    /**
     * Returns the number of distinct file types that are used to handle a command.
+    *
     * @return number of distinct file types
     */
    protected abstract int getTypeCount();
@@ -39,14 +40,18 @@ public abstract class AbstractFileHandler extends AbstractHandler {
    /**
     * Returns a type number between 0 (including) and the result of getTypeCount() (excluding) if this file should be selectable
     * and -1 otherwise.
-    * @param iFile a selected file
+    *
+    * @param iFile
+    *           a selected file
     * @return the type number for the given file
     */
    protected abstract int getTypeNoIfSelectable(IFile iFile);
 
    /**
     * Returns a list of runnables that handler the current selection of files based on their file types.
-    * @param uris a list containing a list of URIs for each file type
+    *
+    * @param uris
+    *           a list containing a list of URIs for each file type
     * @return a list of runnables handling the selected file URIs of different type
     */
    protected abstract List<Runnable> getRunnables(List<List<URI>> uris);
@@ -62,7 +67,9 @@ public abstract class AbstractFileHandler extends AbstractHandler {
 
    /**
     * Returns a list containing lists of URIs that contain the selected files that correspond to each file type.
-    * @param event the execution event
+    *
+    * @param event
+    *           the execution event
     * @return a list containing a list of URIs for each file type
     */
    public List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {

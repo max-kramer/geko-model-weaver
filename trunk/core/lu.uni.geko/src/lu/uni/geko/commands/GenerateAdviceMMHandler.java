@@ -30,5 +30,4 @@ public class GenerateAdviceMMHandler extends AbstractEcoreFilesHandler {
          }
       };
    }
-
 }

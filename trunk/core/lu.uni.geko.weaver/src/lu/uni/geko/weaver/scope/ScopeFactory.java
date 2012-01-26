@@ -55,7 +55,7 @@ public class ScopeFactory {
 	}
 	
 	public static AdviceInstantiationScope createDefaultScope() {
-		String defaultTypeName = GeKoConstants.DEFAULT_ADVICE_INSTANTIATION_SCOPE_TYPE;
+		String defaultTypeName = GeKoConstants.getDefaultAvInstantiationScopeType();
 		ScopeType defaultType = ScopeType.valueOf(defaultTypeName);
 		switch (defaultType) {
 			case GlobalScope : return createGlobalScope();

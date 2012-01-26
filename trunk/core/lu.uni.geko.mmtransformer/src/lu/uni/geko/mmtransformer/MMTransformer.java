@@ -90,9 +90,9 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	private URI generatePointcutMM(EPackage mmPackage, boolean onlyModelCode) {
 		console. println("Generating a pointcut metamodel from '" + this.uri + "' ...");
 		EPackage pointcutMMPackage = createPointcutMMPackage(mmPackage);
-		URI pointcutMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.POINTCUT_MM_FILENAME_APPENDAGE);
+		URI pointcutMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.getPcMMFilenameAppendage());
 		MainResourceLoader.saveEObjectAsOnlyContent(pointcutMMPackage, pointcutMMUri);
-		generateAndStartPlugins(pointcutMMUri, GeKoConstants.POINTCUT_MM_PACKAGE_NAME_APPENDAGE, onlyModelCode);
+		generateAndStartPlugins(pointcutMMUri, GeKoConstants.getPcMMPackageNameAppendage(), onlyModelCode);
 		console.println("Finished generating a pointcut metamodel from '" + this.uri + "'.");
 		return pointcutMMUri;
 	}
@@ -100,9 +100,9 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	private URI generateAdviceMM(EPackage mmPackage, boolean onlyModelCode) {
 		console. println("Generating an advice metamodel from '" + this.uri + "' ...");
 		EPackage adviceMMPackage = createAdviceMMPackage(mmPackage);
-		URI adviceMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.ADVICE_MM_FILENAME_APPENDAGE);
+		URI adviceMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.getAvMMFilenameAppendage());
 		MainResourceLoader.saveEObjectAsOnlyContent(adviceMMPackage, adviceMMUri);
-		generateAndStartPlugins(adviceMMUri, GeKoConstants.ADVICE_MM_PACKAGE_NAME_APPENDAGE, onlyModelCode);
+		generateAndStartPlugins(adviceMMUri, GeKoConstants.getAvMMPackageNameAppendage(), onlyModelCode);
 		console.println("Finished generating an advice metamodel from '" + this.uri + "'.");
 		return adviceMMUri;
 	}
@@ -113,18 +113,18 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	}
 
 	private EPackage createPointcutMMPackage(EPackage mmPackage) {
-		String mmName = mmPackage.getName() + GeKoConstants.POINTCUT_MM_PACKAGE_NAME_APPENDAGE;
-		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.POINTCUT_MM_PACKAGE_NSPREFIX_APPENDAGE;
-		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.POINTCUT_MM_PACKAGE_NSURI_APPENDAGE;
-		String rootElementName = GeKoConstants.POINTCUT_MM_ROOT_ELEMENT_NAME;
+		String mmName = mmPackage.getName() + GeKoConstants.getPcMMPackageNameAppendage();
+		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getPcMMPackageNsprefixAppendage();
+		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getPcMMPackageNsuriAppendage();
+		String rootElementName = GeKoConstants.getPcMMRootElementName();
 		return createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
 	}
 
 	private EPackage createAdviceMMPackage(EPackage mmPackage) {
-		String mmName = mmPackage.getName() + GeKoConstants.ADVICE_MM_PACKAGE_NAME_APPENDAGE;
-		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.ADVICE_MM_PACKAGE_NSPREFIX_APPENDAGE;
-		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.ADVICE_MM_PACKAGE_NSURI_APPENDAGE;
-		String rootElementName = GeKoConstants.ADVICE_MM_ROOT_ELEMENT_NAME;
+		String mmName = mmPackage.getName() + GeKoConstants.getAvMMPackageNameAppendage();
+		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getAvMMPackageNsprefixAppendage();
+		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getAvMMPackageNsuriAppendage();
+		String rootElementName = GeKoConstants.getAvMMRootElementName();
 		EPackage adviceMMPackage = createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
 		addScopeElementsToAdviceMM(adviceMMPackage);
 		return adviceMMPackage;
@@ -152,15 +152,15 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	}
 
 	private void addScopeElementsToAdviceMM(EPackage adviceMMPackage) {
-		addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.SCOPE_MM_GLOBAL_CLASS_NAME);
-		addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.SCOPE_MM_PER_JOIN_POINT_CLASS_NAME);
+		addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.getAvMMGlobalScopeClassName());
+		addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.getAvMMPerJoinPointScopeClassName());
         // MAYDO MK SCOPE add classes for dynamic and custom scope to advice mm
 	}
 
 	public void addScopeClassToAdviceMM(EPackage adviceMMPackage, String scopeClassName) {
 		EClass scopeClass = EMFFactoryAdapter.addNewClassToPackage(scopeClassName, adviceMMPackage, "advice metamodel");
 		EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
-		EMFFactoryAdapter.addNewReferenceToEClass(scopeClass, GeKoConstants.SCOPE_MM_REFERENCE_NAME, referenceType, 1, 1, false);
+		EMFFactoryAdapter.addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1, false);
 	}
 
 	private GenModel generateCodeAndGetGenModel(URI mmURI, String directoryAndIDMarker, boolean onlyModelCode) {
@@ -193,7 +193,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 
 			GenModel genModel = ecoreImporter.getGenModel();
 
-			String modelDirectoryAndIDAppendage = GeKoConstants.MODEL_CODE_PLUGIN_APPENDAGE;
+			String modelDirectoryAndIDAppendage = GeKoConstants.getModelCodePluginAppendage();
 
 			if (directoryAndIDMarker == null) {
 				directoryAndIDMarker = "";

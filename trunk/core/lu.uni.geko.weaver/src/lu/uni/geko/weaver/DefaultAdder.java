@@ -30,7 +30,7 @@ public class DefaultAdder implements SimpleAdderExt {
          FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap)  {
 	   EObject adviceContainer = adviceEObjectToBeAdded.eContainer();
-      if (GeKoAdapter.skipAdviceElementForWeaving(adviceContainer)) {
+      if (GeKoAdapter.skipAvSpecificElement(adviceContainer)) {
          EReference containmentReference = guessContainmentReferenceForAdviceEObjectAndContainer(rootEObject,
                adviceEObjectToBeAdded, featureCorresponder);
          if (containmentReference == null) {

@@ -8,17 +8,25 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.joinpointdetection;
 
-import java.util.List;
-import java.util.Map;
+package lu.uni.geko.weaver.pc2avmap;
 
-import org.eclipse.emf.common.util.URI;
+import java.util.Collection;
+
+import lu.uni.geko.util.datastructures.Pair;
+
 import org.eclipse.emf.ecore.EObject;
 
-public interface JoinpointDetectorExt {
+/**
+ * @author Max E. Kramer
+ */
+public interface UIDCalculatorExt {
    /** extension point ID **/
-   String ID = "lu.uni.geko.joinpointdetection.joinpointdetectorext";
+   String ID = "lu.uni.geko.weaver.pc2avmap.uidcalculatorext";
 
-   List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI);
+   Pair<String, Object> calculatePcElementUID(EObject pcElement, String currentUID);
+
+   Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement);
+
+   boolean isCorresponding(EObject avElement, EObject pcElement, String pcElementUID, Object uIDHelper);
 }

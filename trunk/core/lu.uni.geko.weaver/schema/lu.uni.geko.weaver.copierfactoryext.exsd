@@ -6,7 +6,9 @@
          <meta.schema plugin="lu.uni.geko.weaver" id="lu.uni.geko.weaver.copierfactoryext" name="CopierFactoryExt"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         An extension point for the customization of the copying process that creates new base elements corresponding to existing advice elements.
+
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the highest integer value) while passing on the initial result to the next extension.
       </documentation>
    </annotation>
 

@@ -19,7 +19,7 @@ import lu.uni.geko.mmtransformer.PluginStarter;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.weaver.AsymmetricWeaver;
-import lu.uni.geko.weaver.Pc2AvMapResolver;
+import lu.uni.geko.weaver.pc2avmap.Pc2AvMapResolver;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;

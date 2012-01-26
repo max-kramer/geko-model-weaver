@@ -3,10 +3,10 @@
 <schema targetNamespace="lu.uni.geko.resources" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="lu.uni.geko.resources" id="lu.uni.geko.resources.loader" name="ResourcesLoaderExt"/>
+         <meta.schema plugin="lu.uni.geko.resources" id="lu.uni.geko.resources.refinedresourceloaderext" name="RefinedResourceLoaderExt"/>
       </appinfo>
       <documentation>
-         This extension point allows you to provide your own code to load models for the Generic Model Weaver GeKo.
+         An extension point for the customized loading and storing of model resources. In contrast to the extension point SimpleResourceLoaderExt it gives extensions full control over the whole process of loading and storing model resources.
       </documentation>
    </annotation>
 

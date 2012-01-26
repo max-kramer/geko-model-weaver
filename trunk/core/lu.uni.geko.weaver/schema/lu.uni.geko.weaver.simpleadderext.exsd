@@ -6,7 +6,9 @@
          <meta.schema plugin="lu.uni.geko.weaver" id="lu.uni.geko.simpleadderext" name="SimpleAdderExt"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         An extension point for the simple customization of the addition of new elements during the weaving. In contrast to the extension point MightyAdderExt it faciliates extension by giving only control over parts of the process of adding new elements.
+
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the highest integer value). Addition attempts for an element will be performed until an extension is found that succeeded. This means that if an extension succeeded in adding a new element it will not be added by an extension with lower priority. Likewise for an element that could not be added using a certain extension a new attempt for addition will performed using the next extension with lower priority.
       </documentation>
    </annotation>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="lu.uni.geko.joinpointdetection.joinpointdetector" name="JoinpointDetector" schema="schema/lu.uni.geko.joinpointdetection.joinpointdetector.exsd"/>
+   <extension-point id="lu.uni.geko.joinpointdetection.joinpointdetectorext" name="JoinpointDetector" schema="schema/lu.uni.geko.joinpointdetection.joinpointdetector.exsd"/>
 
 </plugin>

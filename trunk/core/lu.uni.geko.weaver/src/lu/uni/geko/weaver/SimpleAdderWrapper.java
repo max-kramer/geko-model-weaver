@@ -20,6 +20,7 @@ import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
+import lu.uni.geko.util.ecore.FeatureCorresponder;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;

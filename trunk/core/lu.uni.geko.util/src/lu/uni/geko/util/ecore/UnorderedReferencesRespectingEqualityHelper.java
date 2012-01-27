@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.common.ecorecopy;
+package lu.uni.geko.util.ecore;
 
 import java.util.HashMap;
 import java.util.HashSet;

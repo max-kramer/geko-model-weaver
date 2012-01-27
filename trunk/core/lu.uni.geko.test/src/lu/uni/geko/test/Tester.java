@@ -11,12 +11,12 @@
 package lu.uni.geko.test;
 
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.common.ecorecopy.UnorderedReferencesRespectingEqualityHelper;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.adapters.EMFToStringAdapter;
 import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.Quintuple;
+import lu.uni.geko.util.ecore.UnorderedReferencesRespectingEqualityHelper;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
 import org.eclipse.core.resources.IFile;
@@ -58,7 +58,7 @@ public class Tester {
 							// now folderMember can only be the base or the woven archetype
 							IPath memberPath = folderMember.getFullPath();
 							String memberName = memberPath.removeFileExtension().lastSegment();
-							if (memberName.endsWith(GeKoConstants.ARCHETYPE_M_FILENAME_APPENDAGE)) {
+							if (memberName.endsWith(GeKoConstants.getArchetypeMFilenameAppendage())) {
 								wovenArchetypeMURI = getUriIfNotSetYet(wovenArchetypeMURI, folderMember, folder, "woven archetype");
 								wovenArchetypeFileExt = fileExt;
 							} else if (memberName.endsWith(GeKoConstants.getWovenMFilenameAppendage())) {

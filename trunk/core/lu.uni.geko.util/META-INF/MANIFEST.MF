@@ -15,5 +15,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: lu.uni.geko.util.adapters,
  lu.uni.geko.util.datastructures,
- lu.uni.geko.util.ecorecopy,
+ lu.uni.geko.util.ecore,
  lu.uni.geko.util.ui

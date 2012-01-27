@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import lu.uni.geko.common.Av2BaseEqualityHelper;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
@@ -26,7 +27,8 @@ import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
-import lu.uni.geko.util.ecorecopy.BaseCopier;
+import lu.uni.geko.util.ecore.BidirectionalReferencesCopyingCopier;
+import lu.uni.geko.util.ecore.FeatureCorresponder;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
@@ -66,8 +68,8 @@ public class Merger {
 		this.adviceEObjects2ScopeMap = adviceEObjects2ScopeMap;
 		this.wovenMURI = wovenMURI;
 		this.wovenMRoot = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(wovenMURI, "wove model", EObject.class);
-		this.baseCopier = new BaseCopier();
-		this.featureCorresponder = new FeatureCorresponder();
+		this.baseCopier = new BidirectionalReferencesCopyingCopier();
+		this.featureCorresponder = new FeatureCorresponder(new Av2BaseEqualityHelper());
 		this.baseEObjects2FeatureConflictsMap = new HashMap<EObject, Set<EStructuralFeature>>();
 		this.merged2KeptBaseEObjectMap = new HashMap<EObject, EObject>();
 		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());

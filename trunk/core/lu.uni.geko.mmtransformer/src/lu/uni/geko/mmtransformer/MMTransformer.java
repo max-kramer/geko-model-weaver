@@ -10,8 +10,8 @@
  ******************************************************************************/
 package lu.uni.geko.mmtransformer;
 
+import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.adapters.EMFFactoryAdapter;
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.importer.ecore.EcoreImporter;
 
-public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
+public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 	public MMTransformer(URI mmURI) {
 		super(mmURI);
 	}
@@ -46,14 +46,14 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	public Pair<URI, URI> generate() {
 		EPackage mmPackage = getMMPackage();
 		repairMMIfNecessary(mmPackage);
-		generateAndStartPlugins(this.uri, "", false);
+		generateAndStartPlugins(this.getMUri(), "", false);
 		URI pointcutMMUri = generatePointcutMM(mmPackage, false);
 		URI adviceMMUri = generateAdviceMM(mmPackage, false);
 		return new Pair<URI, URI>(pointcutMMUri, adviceMMUri);
 	}
 
 	private EPackage getMMPackage() {
-		EPackage rootMMObject = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.uri, "metamodel", EPackage.class);
+		EPackage rootMMObject = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.getMUri(), "metamodel", EPackage.class);
 		return rootMMObject;
 	}
 
@@ -68,13 +68,13 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 					if (!firstChar.equals(firstCharLowerCase)) {
 						String newName = firstCharLowerCase + name.substring(1);
 						feature.setName(newName);
-						console.printWarningln("The structural feature '" + name + "' of the metaclass '" + metaclass.getName() + "' "
+						getConsole().printWarningln("The structural feature '" + name + "' of the metaclass '" + metaclass.getName() + "' "
 											+ "did not obey the Java Beans standard so its first character was converted to lowercase!");
 					}
 				}
 			}
 		}
-		MainResourceLoader.saveResource(this.uri);
+		MainResourceLoader.saveResource(this.getMUri());
 	}
 
 	public URI generatePointcutMM() {
@@ -88,22 +88,22 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	}
 
 	private URI generatePointcutMM(EPackage mmPackage, boolean onlyModelCode) {
-		console. println("Generating a pointcut metamodel from '" + this.uri + "' ...");
+		getConsole(). println("Generating a pointcut metamodel from '" + this.getMUri() + "' ...");
 		EPackage pointcutMMPackage = createPointcutMMPackage(mmPackage);
-		URI pointcutMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.getPcMMFilenameAppendage());
+		URI pointcutMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.getMUri(), GeKoConstants.getPcMMFilenameAppendage());
 		MainResourceLoader.saveEObjectAsOnlyContent(pointcutMMPackage, pointcutMMUri);
-		generateAndStartPlugins(pointcutMMUri, GeKoConstants.getPcMMPackageNameAppendage(), onlyModelCode);
-		console.println("Finished generating a pointcut metamodel from '" + this.uri + "'.");
+		generateAndStartPlugins(pointcutMMUri, GeKoConstants.getPcMMPkgNameAppendage(), onlyModelCode);
+		getConsole().println("Finished generating a pointcut metamodel from '" + this.getMUri() + "'.");
 		return pointcutMMUri;
 	}
 
 	private URI generateAdviceMM(EPackage mmPackage, boolean onlyModelCode) {
-		console. println("Generating an advice metamodel from '" + this.uri + "' ...");
+		getConsole(). println("Generating an advice metamodel from '" + this.getMUri() + "' ...");
 		EPackage adviceMMPackage = createAdviceMMPackage(mmPackage);
-		URI adviceMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.uri, GeKoConstants.getAvMMFilenameAppendage());
+		URI adviceMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.getMUri(), GeKoConstants.getAvMMFilenameAppendage());
 		MainResourceLoader.saveEObjectAsOnlyContent(adviceMMPackage, adviceMMUri);
-		generateAndStartPlugins(adviceMMUri, GeKoConstants.getAvMMPackageNameAppendage(), onlyModelCode);
-		console.println("Finished generating an advice metamodel from '" + this.uri + "'.");
+		generateAndStartPlugins(adviceMMUri, GeKoConstants.getAvMMPkgNameAppendage(), onlyModelCode);
+		getConsole().println("Finished generating an advice metamodel from '" + this.getMUri() + "'.");
 		return adviceMMUri;
 	}
 
@@ -113,17 +113,17 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 	}
 
 	private EPackage createPointcutMMPackage(EPackage mmPackage) {
-		String mmName = mmPackage.getName() + GeKoConstants.getPcMMPackageNameAppendage();
-		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getPcMMPackageNsprefixAppendage();
-		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getPcMMPackageNsuriAppendage();
+		String mmName = mmPackage.getName() + GeKoConstants.getPcMMPkgNameAppendage();
+		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getPcMMPkgNsPrefixAppendage();
+		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getPcMMPkgNsURIAppendage();
 		String rootElementName = GeKoConstants.getPcMMRootElementName();
 		return createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
 	}
 
 	private EPackage createAdviceMMPackage(EPackage mmPackage) {
-		String mmName = mmPackage.getName() + GeKoConstants.getAvMMPackageNameAppendage();
-		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getAvMMPackageNsprefixAppendage();
-		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getAvMMPackageNsuriAppendage();
+		String mmName = mmPackage.getName() + GeKoConstants.getAvMMPkgNameAppendage();
+		String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getAvMMPkgNsPrefixAppendage();
+		String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getAvMMPkgNsURIAppendage();
 		String rootElementName = GeKoConstants.getAvMMRootElementName();
 		EPackage adviceMMPackage = createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
 		addScopeElementsToAdviceMM(adviceMMPackage);
@@ -135,7 +135,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 		newMMPackage.setName(newName);
 		newMMPackage.setNsPrefix(newNsPrefix);
 		newMMPackage.setNsURI(newNsURI);
-		EClass rootClass = EMFFactoryAdapter.addNewClassToPackage(rootElementName, newMMPackage, "metamodel '" + this.uri + "'");
+		EClass rootClass = EMFFactoryAdapter.addNewClassToPackage(rootElementName, newMMPackage, "metamodel '" + this.getMUri() + "'");
 		EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
 		EMFFactoryAdapter.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
 		for (EObject mmContent : EMFAdapter.getAllContents(newMMPackage)) {
@@ -172,7 +172,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 
 	private GenModel generateGenModelForMetamodel(URI mmURI, String directoryAndIDMarker, Monitor monitor) {
 		try {
-			console. println("Generating a code generator for the metamodel '" + mmURI + "' ...");
+			getConsole(). println("Generating a code generator for the metamodel '" + mmURI + "' ...");
 			EcoreImporter ecoreImporter = new EcoreImporter();
 
 			URI genModelContainerURI = mmURI.trimFileExtension().trimSegments(1);
@@ -232,7 +232,7 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 			ecoreImporter.saveGenModelAndEPackages(monitor);
 
 			ecoreImporter.dispose();
-			console. println("Finished generating a code generator for the metamodel '" + mmURI + "' ...");
+			getConsole(). println("Finished generating a code generator for the metamodel '" + mmURI + "' ...");
 			return genModel;
 		} catch (Exception e) {
 			// soften
@@ -250,23 +250,23 @@ public class MMTransformer extends AbstractTransformer<Pair<URI, URI>> {
 			generator.setInput(genModel);
 			boolean autoBuildWasOn = EclipseAdapter.turnOffAutoBuildIfOn();
 			if (autoBuildWasOn) {
-				console. println("Temporarily disabling auto-build.");
+				getConsole(). println("Temporarily disabling auto-build.");
 			}
-			console. println("Generating model code for the metamodel '" + genModel.getModelName() + "' ...");
+			getConsole(). println("Generating model code for the metamodel '" + genModel.getModelName() + "' ...");
 			generator.generate(genModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, "model project", monitor);
-			console. println("Finished generating model code for the metamodel '" + genModel.getModelName() + "' ...");
+			getConsole(). println("Finished generating model code for the metamodel '" + genModel.getModelName() + "' ...");
 			if (!onlyModelCode) {
-				console. println("Generating edit code for the metamodel '" + genModel.getModelName() + "' ...");
+				getConsole(). println("Generating edit code for the metamodel '" + genModel.getModelName() + "' ...");
 				generator.generate(genModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, "model project", monitor);
-				console. println("Finished generating edit code for the metamodel '" + genModel.getModelName() + "' ...");
+				getConsole(). println("Finished generating edit code for the metamodel '" + genModel.getModelName() + "' ...");
 
-				console. println("Generating editor code for the metamodel '" + genModel.getModelName() + "' ...");
+				getConsole(). println("Generating editor code for the metamodel '" + genModel.getModelName() + "' ...");
 				generator.generate(genModel, GenBaseGeneratorAdapter.EDITOR_PROJECT_TYPE, "model project", monitor);
-				console. println("Finished generating editor code for the metamodel '" + genModel.getModelName() + "' ...");
+				getConsole(). println("Finished generating editor code for the metamodel '" + genModel.getModelName() + "' ...");
 			}
 			if (autoBuildWasOn) {
 				EclipseAdapter.turnOnAutoBuild();
-				console.println("Reenabling auto-build.");
+				getConsole().println("Reenabling auto-build.");
 			}
 		} catch (CoreException e) {
 			// soften

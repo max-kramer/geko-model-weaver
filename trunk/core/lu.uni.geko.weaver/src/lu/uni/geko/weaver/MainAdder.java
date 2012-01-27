@@ -18,6 +18,7 @@ import lu.uni.geko.util.adapters.EclipseAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
+import lu.uni.geko.util.ecore.FeatureCorresponder;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.common.util.URI;

@@ -12,14 +12,14 @@ package lu.uni.geko.joinpointdetection.drools;
 
 import java.util.Map;
 
+import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoAdapter;
-import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
-public class PointcutRulesGenerator extends AbstractTransformer<Pair<String,Map<Integer,EObject>>> {
+public class PointcutRulesGenerator extends AbstractModelTransformer<Pair<String,Map<Integer,EObject>>> {
 
 	public PointcutRulesGenerator(URI pointcutMURI) {
 		super(pointcutMURI);
@@ -33,15 +33,15 @@ public class PointcutRulesGenerator extends AbstractTransformer<Pair<String,Map<
      */
 	@Override
 	public Pair<String, Map<Integer, EObject>> generate() {
-		console. println("Generating pointcut rules for '" + this.uri + "' ...");
-		EObject rootModelElement = GeKoAdapter.getPcRootElementIfCorrectlyTyped(this.uri);
+		getConsole(). println("Generating pointcut rules for '" + this.getMUri() + "' ...");
+		EObject rootModelElement = GeKoAdapter.getPcRootElementIfCorrectlyTyped(this.getMUri());
 		if (rootModelElement != null) {
 			PointcutRulesVisitor pointcutRulesVisitor = new PointcutRulesVisitor();
 			pointcutRulesVisitor.visitPointcut(rootModelElement);
 			String pointcutRules = pointcutRulesVisitor.getPointcutRules();
-			console.println("\nPointcut rules:\n" + pointcutRules);
+			getConsole().println("\nPointcut rules:\n" + pointcutRules);
 			Map<Integer, EObject> pcID2PcEObjectMap = pointcutRulesVisitor.getPcID2PcEObjectMap();
-			console.println("\nMapping from unique IDs to pointcut objects:\n" + pcID2PcEObjectMap);
+			getConsole().println("\nMapping from unique IDs to pointcut objects:\n" + pcID2PcEObjectMap);
 			return new Pair<String, Map<Integer, EObject>>(pointcutRules, pcID2PcEObjectMap);
 		} else {
 			return null;

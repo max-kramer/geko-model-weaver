@@ -15,7 +15,7 @@ public class NameUIDCalculator implements UIDCalculatorExt {
 
    @Override
    public Pair<String, Object> calculatePcElementUID(EObject pcElement, String currentID) {
-      EStructuralFeature pcUIDFeature = pcElement.eClass().getEStructuralFeature(GeKoConstants.UID_FEATURE_NAME);
+      EStructuralFeature pcUIDFeature = pcElement.eClass().getEStructuralFeature(GeKoConstants.getUidFeatureName());
       boolean pcUIDIsNameString = pcUIDFeature != null && EMFAdapter.isStringAttribute(pcUIDFeature);
       String pcElementUID = null;
       if (pcUIDIsNameString) {
@@ -28,13 +28,13 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    public Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EMFAdapter.getEClassByReplacingAPackageNsURISuffix(pcElementClass,
-            GeKoConstants.getPcMMPackageNsuriAppendage(), GeKoConstants.getAvMMPackageNsuriAppendage());
+            GeKoConstants.getPcMMPkgNsURIAppendage(), GeKoConstants.getAvMMPkgNsURIAppendage());
       return EcoreUtil.getObjectsByType(avElements, avElementClass);
    }
 
    @Override
    public boolean isCorresponding(EObject avElement, EObject pcElement, String pcElementUID, Object uIDHelper) {
-      String avElementUID = (String) EMFAdapter.eGetForFeatureName(avElement, GeKoConstants.UID_FEATURE_NAME);
+      String avElementUID = (String) EMFAdapter.eGetForFeatureName(avElement, GeKoConstants.getUidFeatureName());
       return EMFAdapter.equals(pcElementUID, avElementUID);
    }
 }

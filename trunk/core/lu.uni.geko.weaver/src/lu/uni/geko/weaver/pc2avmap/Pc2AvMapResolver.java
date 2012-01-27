@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoAdapter;
-import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFToStringAdapter;
 import lu.uni.geko.util.adapters.JavaAdapter;
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 import Pc2AvMapping.Mapping;
 import Pc2AvMapping.MappingEntry;
 
-public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObject>> {
+public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, EObject>> {
    private final URI adviceMURI;
    private URI pc2AvMappingMURI; // if the Java compiler would realize that we never assign two times this field would have a
                                  // final modifier
@@ -55,7 +55,7 @@ public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObjec
          pc2AvMap = loadPc2AvMap();
          completeMapByGuessing(pc2AvMap);
       }
-      boolean doContinue = console.confirm("\nThis is the mapping from pointcut to advice that will be used:\n" + pc2AvMap
+      boolean doContinue = getConsole().confirm("\nThis is the mapping from pointcut to advice that will be used:\n" + pc2AvMap
             + "\n\nDo you want to continue with this mapping?");
       if (doContinue) {
          return pc2AvMap;
@@ -66,7 +66,7 @@ public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObjec
 
    private N2NMap<EObject, EObject> guessPc2AvMap() {
       N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>();
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.uri);
+      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMUri());
       Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
       return guessPc2AvMap(pc2AvMap, pointcutElements, adviceElements);
    }
@@ -101,10 +101,10 @@ public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObjec
       Set<EObject> mappedPointcutElements = pc2AvMap.keySet();
       int notMappedCount = pcElements.size() - mappedPointcutElements.size();
       if (notMappedCount > 0) {
-         console.println("Warning: " + notMappedCount + " elements of the pointcut are not mapped to any advice elements!\n");
+         getConsole().println("Warning: " + notMappedCount + " elements of the pointcut are not mapped to any advice elements!\n");
          for (EObject pointcutElement : pcElements) {
             if (!mappedPointcutElements.contains(pointcutElement)) {
-               console.println(EMFToStringAdapter.INSTANCE.toString(pointcutElement));
+               getConsole().println(EMFToStringAdapter.INSTANCE.toString(pointcutElement));
             }
          }
       }
@@ -123,7 +123,7 @@ public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObjec
             Set<EObject> targetsSet = JavaAdapter.toHashSet(targets);
             pc2AvMap.put(sourcesSet, targetsSet);
          } else {
-            console
+            getConsole()
                   .printErrorln("A mapping entry of the pointcut to advice mapping model has to map at least one EObject to at least one EObject!");
          }
       }
@@ -131,7 +131,7 @@ public class Pc2AvMapResolver extends AbstractTransformer<N2NMap<EObject, EObjec
    }
 
    private void completeMapByGuessing(N2NMap<EObject, EObject> pc2AvMap) {
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.uri);
+      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMUri());
       Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
       for (Entry<Set<EObject>, Set<EObject>> mappingEntry : pc2AvMap.entrySet()) {
          Set<EObject> mappedPcElements = mappingEntry.getKey();

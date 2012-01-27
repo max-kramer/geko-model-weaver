@@ -26,7 +26,7 @@ public class GenerateBasePCAndAVEditorsHandler extends AbstractEcoreFilesHandler
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.generateBasePCAndAVEditors(uri);
+            ActionsFacade.generateBasePcAndAvEditors(uri);
          }
       };
    }

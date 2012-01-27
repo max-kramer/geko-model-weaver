@@ -16,9 +16,27 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * The interface to be implemented by clients that extend the extension point lu.uni.geko.joinpointdetection.joinpointdetectorext.
+ * The extension point allows for different implementations of the join point detection phase during weaving.<br/>
+ * <br/>
+ * <b>Attention:</b> This extension point requires exactly one registered extension!
+ *
+ * @author Max E. Kramer
+ */
 public interface JoinpointDetectorExt {
-   /** extension point ID **/
+   /** The extension point ID. **/
    String ID = "lu.uni.geko.joinpointdetection.joinpointdetectorext";
 
+   /**
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
+    * pointcut elements to base elements.
+    *
+    * @param pointcutMURI
+    *           the URI of the pointcut model
+    * @param baseMURI
+    *           the URI of the base model
+    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    */
    List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI);
 }

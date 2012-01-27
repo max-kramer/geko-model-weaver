@@ -27,22 +27,35 @@ import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * An extension of the extension point lu.uni.geko.joinpointdetection.joinpointdetectorext that implements the joinpoint detection
+ * phase using Drools (www.jboss.org/drools).
+ *
+ * @author Max E. Kramer
+ */
 public class DroolsJoinpointDetector implements JoinpointDetectorExt {
    @Override
-   public List<Map<EObject, EObject>> detectJoinpoints(URI pointcutMURI, URI baseMURI) {
-      Pair<String, Map<Integer, EObject>> pointcutRulesAndIDs = (new PointcutRulesGenerator(pointcutMURI)).generate();
-      String pointcutRules = pointcutRulesAndIDs.first;
-      Map<Integer, EObject> pcID2PcEObjectMap = pointcutRulesAndIDs.second;
+   public List<Map<EObject, EObject>> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
+      Pair<String, Map<Integer, EObject>> pcRulesAndIDs = (new PcRulesGenerator(pcMURI)).transform();
+      String pointcutRules = pcRulesAndIDs.first;
+      Map<Integer, EObject> pcID2PcEObjectMap = pcRulesAndIDs.second;
       // prepare lists that will contain the result of the joinpoint detection
       ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists = new ArrayList<ArrayList<EObject>>();
       ArrayList<ArrayList<String>> pcIDsPerMatchLists = new ArrayList<ArrayList<String>>();
       // prepare an iterable for the contents of the base model
-      Iterable<EObject> baseContentIterable = createBaseContentIterable(baseMURI);
+      Iterable<EObject> baseContentIterable = createBaseMIterable(baseMURI);
       DroolsAdapter.detectJoinpoints(pointcutRules, baseContentIterable, baseEObjectsPerMatchLists, pcIDsPerMatchLists);
       return populateResultMaps(baseEObjectsPerMatchLists, pcIDsPerMatchLists, pcID2PcEObjectMap);
    }
 
-   private Iterable<EObject> createBaseContentIterable(final URI baseMURI) {
+   /**
+    * Creates an iterable for (all contents of) the base model at the given URI.
+    *
+    * @param baseMURI
+    *           base model URI
+    * @return the iterable
+    */
+   private Iterable<EObject> createBaseMIterable(final URI baseMURI) {
       Iterable<EObject> baseContentIterable = new Iterable<EObject>() {
          @Override
          public Iterator<EObject> iterator() {
@@ -52,8 +65,20 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
       return baseContentIterable;
    }
 
-   private List<Map<EObject, EObject>> populateResultMaps(ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists,
-         ArrayList<ArrayList<String>> pcIDsPerMatchLists, Map<Integer, EObject> pcID2PcEObjectMap) {
+   /**
+    * Populates the mappings from pointcut EObjects to base EObjects for each join point. Analyses the matched pointcut elements
+    * and IDs lists and the mapping from IDs to pointcut elements to.
+    *
+    * @param baseEObjectsPerMatchLists
+    *           a list containing a list of matched base elements for each matched join point
+    * @param pcIDsPerMatchLists
+    *           a list containing lists that contain the IDs of the matched base elements for each matched join point
+    * @param pcID2PcEObjectMap
+    *           a mapping from IDs to the pointcut elements
+    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    */
+   private List<Map<EObject, EObject>> populateResultMaps(final ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists,
+         final ArrayList<ArrayList<String>> pcIDsPerMatchLists, final Map<Integer, EObject> pcID2PcEObjectMap) {
       SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
       int matchCount = baseEObjectsPerMatchLists.size();
       if (matchCount == pcIDsPerMatchLists.size()) {
@@ -61,7 +86,7 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
          List<Map<EObject, EObject>> pcEObject2BaseEObjectMaps = new ArrayList<Map<EObject, EObject>>(matchCount);
          // RATIONALE MK we want to get rid of the temporary IDs as soon as possible and only reason about real EObjects so we
          // return "shortcut" maps
-         // The IDs should not be used anywhere outside the pointcutrules and joinpointdetection packages.
+         // The IDs should not be used anywhere outside this plug-in.
          for (int match = 0; match < matchCount; match++) {
             ArrayList<String> matchedPcIDs = pcIDsPerMatchLists.get(match);
             int matchedElementCount = matchedPcIDs.size();

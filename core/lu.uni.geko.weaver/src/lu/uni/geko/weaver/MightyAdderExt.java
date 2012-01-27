@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import lu.uni.geko.util.datastructures.BiN2NMap;
+import lu.uni.geko.util.ecore.FeatureCorresponder;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.common.util.URI;

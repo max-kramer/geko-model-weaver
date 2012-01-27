@@ -56,7 +56,7 @@ public class PluginStarter {
 		try {
 			URI absoluteModelPluginURI = absoluteRootPluginURI.appendSegment(pluginID);
 			String modelPluginLocation = "reference:" + absoluteModelPluginURI.toString();
-			EclipseAdapter.installAndStartNewPluginFromInstalledPlugin(GeKoConstants.MMTRANSFORMER_PLUGIN_ID, pluginID, modelPluginLocation);
+			EclipseAdapter.installAndStartNewPluginFromInstalledPlugin(GeKoConstants.getMmtransformerPluginId(), pluginID, modelPluginLocation);
 		} catch (BundleException e) {
 			System.err.println("Could not install and start the plug-in '" + pluginID + "'!\n" +
 								"Make sure that you started GeKo with the program argument '-dev bin'!");
@@ -70,7 +70,7 @@ public class PluginStarter {
 			URI absoluteModelCodeURI = absoluteRootPluginURI.appendSegment(modelPluginID).appendSegment("bin");
 			String absoluteModelCodePath = absoluteModelCodeURI.toFileString();
 			Collection<URL> classpathURLs = JavaAdapter.getAllDirURLsWithinPath(absoluteModelCodePath);
-			GeKoVariables.INSTANCE.addClasspathURLs(classpathURLs);
+			GeKoVariables.getInstance().addClasspathURLs(classpathURLs);
 		} catch (MalformedURLException e) {
 			// soften
 			throw new RuntimeException(e);

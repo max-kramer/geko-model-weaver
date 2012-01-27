@@ -4,21 +4,21 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.util.ecorecopy;
+package lu.uni.geko.util.ecore;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 
-public class BaseCopier extends Copier {
+public class BidirectionalReferencesCopyingCopier extends Copier {
 	private static final long serialVersionUID = 1828218323998614540L;
-	
-	public BaseCopier() {
-		// resolveProxies useOriginalReferences
+
+	public BidirectionalReferencesCopyingCopier() {
+		// resolveProxies = true, useOriginalReferences = true
 		super(true, true);
 	}
 

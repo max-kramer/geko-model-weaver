@@ -14,15 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import lu.uni.geko.common.ecorecopy.Advice2BaseCopier;
+import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
+import lu.uni.geko.util.ecore.AbstractDeferringReferenceCopyDelegatingRecursivePkgVariantCopier;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeType;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class DefaultCopier extends Advice2BaseCopier implements Copier {
+public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecursivePkgVariantCopier implements Copier {
 	private static final long serialVersionUID = -4631517304088959864L;
 
 	private BiN2NMap<EObject, EObject> currentBase2AdviceMergeBiMap = null;
@@ -30,6 +31,11 @@ public class DefaultCopier extends Advice2BaseCopier implements Copier {
 
 	private final Map<BiN2NMap<EObject, EObject>, Map<EObject, EObject>> perJoinPointMaps = new HashMap<BiN2NMap<EObject,EObject>, Map<EObject,EObject>>();
 	private final Map<EObject, EObject> globalMap = new HashMap<EObject, EObject>();
+
+   @Override
+   protected String getPackageNameSuffixToBeRemoved() {
+      return GeKoConstants.getAvMMPkgNsURIAppendage();
+   }
 
 	@Override
 	public EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {

@@ -8,15 +8,13 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.util.ecore;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import lu.uni.geko.common.GeKoAdapter;
-import lu.uni.geko.common.ecorecopy.Advice2BaseEqualityHelper;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.datastructures.Pair;
 
@@ -25,16 +23,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 
 public class FeatureCorresponder {
-	private final Advice2BaseEqualityHelper advice2BaseEqualityHelper;
+	private final EqualityHelper equalityHelper;
 
-	public FeatureCorresponder() {
-		this.advice2BaseEqualityHelper = new Advice2BaseEqualityHelper();
+	public FeatureCorresponder(EqualityHelper equalityHelper) {
+		this.equalityHelper = equalityHelper;
 	}
 
 	public boolean isSameOrSuperType(EClassifier possiblySuperType, EClassifier possiblyExtendingType) {
-		boolean sameType = advice2BaseEqualityHelper.equals(possiblySuperType, possiblyExtendingType);
+		boolean sameType = equalityHelper.equals(possiblySuperType, possiblyExtendingType);
 		if (sameType) {
 			return true;
 		} else {
@@ -53,12 +52,9 @@ public class FeatureCorresponder {
 		if (equalClasses) {
 			return getCorrespondingFeaturesForEqualClasses(targetEObject, sourceEObject);
 		} else {
-			boolean sourceIsAnAdvice = GeKoAdapter.isAdviceEObject(sourceEObject);
-			if (sourceIsAnAdvice) {
-				boolean equivalentClasses = advice2BaseEqualityHelper.equals(targetEObject.eClass(), sourceEObject.eClass());
-				if (equivalentClasses) {
-					return getCorrespondingFeaturesForEquivalentClasses(targetEObject, sourceEObject);
-				}
+			boolean equivalentClasses = equalityHelper.equals(targetEObject.eClass(), sourceEObject.eClass());
+			if (equivalentClasses) {
+				return getCorrespondingFeaturesForEquivalentClasses(targetEObject, sourceEObject);
 			}
 			return getCorrespondingFeaturesForCommonSupertype(targetEObject, sourceEObject);
 		}
@@ -79,7 +75,7 @@ public class FeatureCorresponder {
          EStructuralFeature sourceFeature) {
       String featureName = sourceFeature.getName();
       EStructuralFeature baseFeature = baseEObject.eClass().getEStructuralFeature(featureName);
-      boolean equalFeatures =  advice2BaseEqualityHelper.equals(baseFeature, sourceFeature);
+      boolean equalFeatures =  equalityHelper.equals(baseFeature, sourceFeature);
       if (equalFeatures) {
          return baseFeature;
       }

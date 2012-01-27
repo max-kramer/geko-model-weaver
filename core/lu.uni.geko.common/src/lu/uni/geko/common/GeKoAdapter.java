@@ -153,7 +153,7 @@ public final class GeKoAdapter {
     * @return whether the given EObject is an advice element
     */
    public static boolean isAdviceEObject(final EObject eObject) {
-      return eObject.eClass().getEPackage().getNsURI().endsWith(GeKoConstants.getAvMMPackageNsuriAppendage());
+      return eObject.eClass().getEPackage().getNsURI().endsWith(GeKoConstants.getAvMMPkgNsURIAppendage());
    }
 
    /**

@@ -14,14 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.common.modeltransform.AbstractTransformer;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.adapters.EMFAdapter;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
+import lu.uni.geko.util.ecore.FeatureCorresponder;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeResolver;
 
@@ -29,7 +30,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-public class AsymmetricWeaver extends AbstractTransformer<URI> {
+public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 	private final URI adviceMURI;
 	private final URI wovenMURI;
 	private final N2NMap<EObject, EObject> pointcut2AdviceMap;
@@ -65,7 +66,7 @@ public class AsymmetricWeaver extends AbstractTransformer<URI> {
 	 * @return URI of the woven model that contains a copy of the base (until generate() is called)
 	 */
 	public URI copyBaseToWovenMURI() {
-		EObject baseRootElement = MainResourceLoader.getUniqueResourceContentRoot(this.uri, "base model");
+		EObject baseRootElement = MainResourceLoader.getUniqueResourceContentRoot(this.getMUri(), "base model");
 		EObject wovenRootElement = EcoreUtil.copy(baseRootElement);
 		MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
 		return wovenMURI;
@@ -88,21 +89,21 @@ public class AsymmetricWeaver extends AbstractTransformer<URI> {
 			Set<EObject> adviceEObjects = adviceAndScopePair.first;
 			Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adviceAndScopePair.second;
 			Set<EObject> adviceEObjectsToBeAdded = SetCalculator.calculateAdviceEObjectsToBeAdded(adviceEObjects, pointcut2AdviceMap);
-			console.println("\nInspecting join point: " + pointcut2BaseMap + "\n");
-			console.println("baseEObjectsToBeRemoved:\n" + baseEObjectsToBeRemoved + "\n");
-			console.println("base2AdviceMergeBiMap:\n" + base2AdviceMergeBiMap + "\n");
-			console.println("adviceEObjectsToBeAdded:\n" + adviceEObjectsToBeAdded + "\n");
+			getConsole().println("\nInspecting join point: " + pointcut2BaseMap + "\n");
+			getConsole().println("baseEObjectsToBeRemoved:\n" + baseEObjectsToBeRemoved + "\n");
+			getConsole().println("base2AdviceMergeBiMap:\n" + base2AdviceMergeBiMap + "\n");
+			getConsole().println("adviceEObjectsToBeAdded:\n" + adviceEObjectsToBeAdded + "\n");
 			Merger merger = new Merger(base2AdviceMergeBiMap, adviceEObjectsToBeAdded, adviceEObjects2ScopeMap, this.wovenMURI);
 			Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject>, FeatureCorresponder, Map<EObject, AdviceInstantiationScope>> adderParameters = merger.performMergesAndReturnAdderParameters();
 			MainAdder.performAdditions(adderParameters);
 			Remover remover = new Remover();
 			remover.performRemovals(baseEObjectsToBeRemoved);
 		}
-		console.println("\nFinished weaving at all " + pointcut2BaseMaps.size() + " join points.\n");
+		getConsole().println("\nFinished weaving at all " + pointcut2BaseMaps.size() + " join points.\n");
 		if (persist) {
-			console.print("Saving woven model ...");
+			getConsole().print("Saving woven model ...");
 			MainResourceLoader.saveResource(wovenMURI);
-			console.println(" done");
+			getConsole().println(" done");
 		}
 		return this.wovenMURI;
 	}

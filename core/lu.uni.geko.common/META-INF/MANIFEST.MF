@@ -9,6 +9,4 @@ Require-Bundle: org.eclipse.core.runtime,
  lu.uni.geko.resources;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: lu.uni.geko.common,
- lu.uni.geko.common.ecorecopy,
- lu.uni.geko.common.modeltransform
+Export-Package: lu.uni.geko.common

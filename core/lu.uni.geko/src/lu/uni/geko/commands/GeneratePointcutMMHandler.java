@@ -26,7 +26,7 @@ public class GeneratePointcutMMHandler extends AbstractEcoreFilesHandler {
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.generatePointcutMM(uri);
+            ActionsFacade.generatePcMMAndModelCode(uri);
          }
       };
    }

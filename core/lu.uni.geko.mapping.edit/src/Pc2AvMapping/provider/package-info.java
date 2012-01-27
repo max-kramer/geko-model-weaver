@@ -10,8 +10,8 @@
  ******************************************************************************/
 
 /**
- * The base package of the common plug-in for GeKo, a generic model weaver.
- * It contains GeKo-specific concepts that are used by multiple GeKo plug-ins.
+ * The base package of the edit plug-in for the pointcut to advice mapping for GeKo, a generic model weaver.
+ * All code except for this package information was generated from the metamodel.
  */
-package lu.uni.geko.common;
+package Pc2AvMapping.provider;
 

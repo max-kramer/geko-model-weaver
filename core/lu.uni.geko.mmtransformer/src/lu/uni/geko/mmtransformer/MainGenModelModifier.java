@@ -17,19 +17,36 @@ import lu.uni.geko.util.adapters.EclipseAdapter;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 
-public class MainGenModelModifier {
+/**
+ * A utility class to access the functionality provided by extensions of the GenModelModifier extension point.
+ *
+ * @see GenModelModifierExt
+ */
+public final class MainGenModelModifier {
+   /** Utility classes should not have a public or default constructor. */
+   private MainGenModelModifier() {
+   }
 
-	public static void modifyGenModelForMMURI(final GenModel genModel, final URI mmURI) {
-		List<GenModelModifierExt> genModelModifiers = EclipseAdapter.getRegisteredExecutablesInDescPriority(GenModelModifierExt.ID, "class", GenModelModifierExt.class);
+   /**
+    * Modifies the generator model generated from the metamodel for a base, pointcut or advice metamodel.
+    *
+    * @param genModel
+    *           the generator model to be modified in-place
+    * @param mmURI
+    *           the URI of the metamodel for which the generator was created
+    */
+   public static void modifyGenModelForMMURI(final GenModel genModel, final URI mmURI) {
+      List<GenModelModifierExt> genModelModifiers = EclipseAdapter.getRegisteredExecutablesInDescPriority(GenModelModifierExt.ID,
+            "class", GenModelModifierExt.class);
 
-		for (final GenModelModifierExt genModelModifier : genModelModifiers) {
-			Runnable runnable = new Runnable() {
-				@Override
-				public void run() {
-					genModelModifier.modifyGenModelForMMURI(genModel, mmURI);
-				}
-			};
-			EclipseAdapter.runInProtectedMode(runnable);
-		}
-	}
+      for (final GenModelModifierExt genModelModifier : genModelModifiers) {
+         Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+               genModelModifier.modifyGenModelForMMURI(genModel, mmURI);
+            }
+         };
+         EclipseAdapter.runInProtectedMode(runnable);
+      }
+   }
 }

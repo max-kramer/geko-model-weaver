@@ -19,7 +19,30 @@ import lu.uni.geko.util.adapters.EclipseAdapter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
-public class MainJoinpointDetector {
+/**
+ * A utility class to access the functionality provided by extensions of the JoinpointDetector extension point.
+ *
+ * @see JoinpointDetectorExt
+ *
+ * @author Max E. Kramer
+ */
+public final class MainJoinpointDetector {
+   /** Utility classes should not have a public or default constructor. */
+   private MainJoinpointDetector() {
+   }
+
+   /**
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
+    * pointcut elements to base elements. The execution is performed by the registered mandatory and unique extension of the
+    * JoinpointDetector extension point. Throws a {@link java.lang.RuntimeException} if no extension or more than one extensions
+    * are registered.
+    *
+    * @param pointcutMURI
+    *           the URI of the pointcut model
+    * @param baseMURI
+    *           the URI of the base model
+    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    */
    public static List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
       final JoinpointDetectorExt joinpointDetector = EclipseAdapter.getUniqueRegisteredExecutableExtension(
             JoinpointDetectorExt.ID, "class", JoinpointDetectorExt.class);

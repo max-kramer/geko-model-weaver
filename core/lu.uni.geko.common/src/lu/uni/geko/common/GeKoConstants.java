@@ -300,7 +300,7 @@ public final class GeKoConstants {
     * @return the string that is appended to the name of plug-in that contains a metamodel to form the name of the plug-in
     *         containing the generated model code.
     */
-   public static String getModelCodePluginAppendage() {
+   public static String getModelCodePluginDirAndIDAppendage() {
       return MODEL_CODE_PLUGIN_APPENDAGE;
    }
 

@@ -26,7 +26,7 @@ public class GenerateAdviceMMHandler extends AbstractEcoreFilesHandler {
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.generateAdviceMM(uri);
+            ActionsFacade.generateAvMMAndModelCode(uri);
          }
       };
    }

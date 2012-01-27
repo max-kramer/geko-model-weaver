@@ -10,8 +10,7 @@
  ******************************************************************************/
 
 /**
- * The base package of the common plug-in for GeKo, a generic model weaver.
- * It contains GeKo-specific concepts that are used by multiple GeKo plug-ins.
+ * The base package of a Drools implementation of the join point detection plug-in for GeKo, a generic model weaver.
  */
-package lu.uni.geko.common;
+package lu.uni.geko.joinpointdetection.drools;
 

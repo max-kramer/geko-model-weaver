@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -59,7 +59,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 		this.pointcut2AdviceMap = pointcut2AdviceMap;
 	}
 
-	
+
 	/**
 	 * RATIONALE MK by copying the base model before the joinpoint detection we avoid trouble with invalid mappings
 	 * (that would point to elements of the base model instead of the woven model if we would copy afterwards)
@@ -71,17 +71,17 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 		MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
 		return wovenMURI;
 	}
-	
+
 	public void setPointcut2BaseMaps(List<Map<EObject, EObject>> pointcut2BaseMaps) {
 		this.pointcut2BaseMaps = pointcut2BaseMaps;
 	}
 
 	@Override
-	public URI generate() {
-		return generate(true);
+	public URI transform() {
+		return transform(true);
 	}
-	
-	public URI generate(boolean persist) {	
+
+	public URI transform(boolean persist) {
 		for (Map<EObject, EObject> pointcut2BaseMap: this.pointcut2BaseMaps) {
 			Set<EObject> baseEObjectsToBeRemoved = SetCalculator.calculateBaseEObjectsToBeRemoved(pointcut2BaseMap, this.pointcut2AdviceMap);
 			BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = SetCalculator.calculateBase2AdviceMergeMap(pointcut2BaseMap, this.pointcut2AdviceMap);

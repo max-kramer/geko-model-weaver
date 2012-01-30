@@ -6,7 +6,7 @@
          <meta.schema plugin="lu.uni.geko.resources" id="lu.uni.geko.resources.simpleresourceloaderext" name="SimpleResourceLoaderExt"/>
       </appinfo>
       <documentation>
-         An extension point for simple customization of the loading and storing process of model resources. In contrast to the extension point RefinedResourceLoaderExt it faciliates extension by giving only control over parts of the process of loading and storing model resources.
+         An extension point for simple customisation of the loading and storing process of model resources. In contrast to the extension point RefinedResourceLoaderExt it facilitates extension by giving only control over parts of the process of loading and storing model resources.
       </documentation>
    </annotation>
 

@@ -112,7 +112,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
    }
 
    private N2NMap<EObject, EObject> loadPc2AvMap() {
-      Mapping mapping = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.pc2AvMappingMURI,
+      Mapping mapping = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(this.pc2AvMappingMURI,
             "pointcut to advice mapping model", Mapping.class);
       N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>(mapping.getEntries().size());
       for (MappingEntry mappingEntry : mapping.getEntries()) {

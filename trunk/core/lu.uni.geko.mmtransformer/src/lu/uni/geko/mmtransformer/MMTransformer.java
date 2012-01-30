@@ -71,7 +71,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     * @return the root package of the metamodel located at the URI of this transformer
     */
    private EPackage getMMPackage() {
-      EPackage rootMMObject = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.getMURI(), "metamodel",
+      EPackage rootMMObject = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(this.getMURI(), "metamodel",
             EPackage.class);
       return rootMMObject;
    }
@@ -100,7 +100,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
             }
          }
       }
-      MainResourceLoader.saveResource(this.getMURI());
+      MainResourceLoader.save(this.getMURI());
    }
 
    /**

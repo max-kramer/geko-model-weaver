@@ -49,7 +49,7 @@ public final class GeKoAdapter {
     * @return the root element of the pointcut model if it has the right type and <code>null</code> otherwise
     */
    public static EObject getPcRootElementIfCorrectlyTyped(final URI pcMURI) {
-      EObject rootObject = MainResourceLoader.getUniqueResourceContentRoot(pcMURI, "pointcut model");
+      EObject rootObject = MainResourceLoader.getUniqueContentRoot(pcMURI, "pointcut model");
       if (rootObject != null) {
          if (rootObject.eClass().getName().equals(GeKoConstants.getPcMMRootElementName())) {
             // MAYDO MK when additional properties are introduced into the pointcut metamodel it should be checked whether all

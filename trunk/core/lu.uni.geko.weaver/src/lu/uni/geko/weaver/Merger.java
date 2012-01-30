@@ -67,7 +67,7 @@ public class Merger {
 		this.currentAdviceEObjectsToBeAdded = adviceEObjectsToBeAdded;
 		this.adviceEObjects2ScopeMap = adviceEObjects2ScopeMap;
 		this.wovenMURI = wovenMURI;
-		this.wovenMRoot = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(wovenMURI, "wove model", EObject.class);
+		this.wovenMRoot = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(wovenMURI, "wove model", EObject.class);
 		this.baseCopier = new BidirectionalReferencesCopyingCopier();
 		this.featureCorresponder = new FeatureCorresponder(new Av2BaseEqualityHelper());
 		this.baseEObjects2FeatureConflictsMap = new HashMap<EObject, Set<EStructuralFeature>>();

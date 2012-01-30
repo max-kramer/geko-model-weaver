@@ -68,7 +68,7 @@ public final class PluginStarter {
     *           the URI of the metamodel for which the model, edit, and editor plug-ins were already created
     */
    public static void installAndStartGeneratedEditorPlugin(final URI mmURI) {
-      GenModel genModel = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(mmURI, "genmodel", GenModel.class);
+      GenModel genModel = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(mmURI, "genmodel", GenModel.class);
       installAndStartGeneratedPlugins(genModel, false);
    }
 

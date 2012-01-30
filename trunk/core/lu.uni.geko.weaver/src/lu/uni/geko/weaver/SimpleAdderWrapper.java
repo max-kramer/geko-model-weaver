@@ -41,7 +41,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
    public void addAdviceEObjectsToWovenModel(Set<EObject> adviceEObjectsToBeAdded, URI wovenMURI,
          FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
-      EObject uniqueWovenRoot = MainResourceLoader.getUniqueResourceContentRoot(wovenMURI, "woven model");
+      EObject uniqueWovenRoot = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");
       SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
       if (adviceEObjectsToBeAdded.isEmpty()) {
          console.println("There are no remaining advice elements that would have to be added to the woven model");

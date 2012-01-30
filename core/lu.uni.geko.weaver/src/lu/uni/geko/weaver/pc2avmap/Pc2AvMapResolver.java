@@ -66,7 +66,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
 
    private N2NMap<EObject, EObject> guessPc2AvMap() {
       N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>();
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMUri());
+      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMURI());
       Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
       return guessPc2AvMap(pc2AvMap, pointcutElements, adviceElements);
    }
@@ -131,7 +131,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
    }
 
    private void completeMapByGuessing(N2NMap<EObject, EObject> pc2AvMap) {
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMUri());
+      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMURI());
       Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
       for (Entry<Set<EObject>, Set<EObject>> mappingEntry : pc2AvMap.entrySet()) {
          Set<EObject> mappedPcElements = mappingEntry.getKey();

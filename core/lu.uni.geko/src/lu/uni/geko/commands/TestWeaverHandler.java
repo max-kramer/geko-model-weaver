@@ -52,7 +52,7 @@ public class TestWeaverHandler extends AbstractFolderHandler {
                      wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI,
                            false, true);
                   }
-                  wovenMURI = EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+                  wovenMURI = EMFAdapter.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
                   Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
                }
             }

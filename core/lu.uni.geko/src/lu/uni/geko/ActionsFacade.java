@@ -43,7 +43,7 @@ public final class ActionsFacade {
     *
     * @param mmURI
     *           the URI of the base metamodel
-    * @return (pointcutMMUri, adviceMMUri)
+    * @return (pointcutMMURI, adviceMMURI)
     */
    public static Pair<URI, URI> generateBasePcAndAvEditors(final URI mmURI) {
       return (new MMTransformer(mmURI)).transform();
@@ -168,12 +168,12 @@ public final class ActionsFacade {
    }
 
    /**
-    * Installs and starts the editor plugin that was created for the metamodel at the given URI.
+    * Installs and starts the model, edit, and editor plug-ins that were created for the metamodel at the given URI.
     *
-    * @param uri
-    *           the URI of the metamodel for which an editor was already created
+    * @param mmURI
+    *           the URI of the metamodel for which the model, edit, and editor plug-ins were already created
     */
-   public static void installAndStartGeneratedEditorPlugin(final URI uri) {
-      PluginStarter.installAndStartGeneratedEditorPluginForUri(uri);
+   public static void installAndStartGeneratedEditorPlugin(final URI mmURI) {
+      PluginStarter.installAndStartGeneratedEditorPlugin(mmURI);
    }
 }

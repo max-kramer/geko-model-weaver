@@ -4,12 +4,7 @@ Bundle-Name: Metamodel transformer for GeKo Generic Weaver
 Bundle-SymbolicName: lu.uni.geko.mmtransformer;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: lu.uni
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- lu.uni.geko.util;bundle-version="1.0.0",
- org.eclipse.emf.common;bundle-version="2.7.0",
- org.eclipse.emf.ecore;bundle-version="2.7.0",
- org.eclipse.core.resources;bundle-version="3.7.100",
+Require-Bundle: lu.uni.geko.util;bundle-version="1.0.0",
  org.eclipse.emf.importer;bundle-version="2.6.0",
  org.eclipse.emf.importer.ecore;bundle-version="2.6.0",
  lu.uni.geko.common,

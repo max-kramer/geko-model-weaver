@@ -54,7 +54,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 	 */
 	public AsymmetricWeaver(URI baseMURI, URI adviceMURI, N2NMap<EObject, EObject> pointcut2AdviceMap, boolean inPlace) {
 		super(baseMURI);
-		this.wovenMURI = inPlace ? baseMURI : EMFAdapter.newUriWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+		this.wovenMURI = inPlace ? baseMURI : EMFAdapter.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
 		this.adviceMURI = adviceMURI;
 		this.pointcut2AdviceMap = pointcut2AdviceMap;
 	}
@@ -66,7 +66,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 	 * @return URI of the woven model that contains a copy of the base (until generate() is called)
 	 */
 	public URI copyBaseToWovenMURI() {
-		EObject baseRootElement = MainResourceLoader.getUniqueResourceContentRoot(this.getMUri(), "base model");
+		EObject baseRootElement = MainResourceLoader.getUniqueResourceContentRoot(this.getMURI(), "base model");
 		EObject wovenRootElement = EcoreUtil.copy(baseRootElement);
 		MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
 		return wovenMURI;

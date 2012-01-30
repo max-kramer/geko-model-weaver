@@ -19,9 +19,7 @@ import lu.uni.geko.util.adapters.EclipseAdapter;
 import lu.uni.geko.util.adapters.JavaAdapter;
 import lu.uni.geko.util.datastructures.Pair;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.codegen.ecore.generator.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
@@ -56,24 +54,24 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    @Override
    /**
     * Makes the metamodel of the transformer suitable for weaving (if necessary), derives an advice and pointcut
-    * metamodel from it and generates and registers plug-ins with model, edit and editor code for all three metamodels.
+    * metamodel from it and generates and installs plug-ins with model, edit and editor code for all three metamodels.
     *
-    * @return (pointcutMMUri, adviceMMUri)
+    * @return (pointcutMMURI, adviceMMURI)
     */
    public Pair<URI, URI> transform() {
       EPackage mmPackage = getMMPackage();
       adjustMMIfNecessary(mmPackage);
-      generateAndStartPlugins(this.getMUri(), "", false);
-      URI pcMMUri = generatePcMMAndPlugins(mmPackage, false);
-      URI avMMUri = generateAvMMAndPlugins(mmPackage, false);
-      return new Pair<URI, URI>(pcMMUri, avMMUri);
+      generateAndStartPlugins(this.getMURI(), "", false);
+      URI pcMMURI = generatePcMMAndPlugins(mmPackage, false);
+      URI avMMURI = generateAvMMAndPlugins(mmPackage, false);
+      return new Pair<URI, URI>(pcMMURI, avMMURI);
    }
 
    /**
     * @return the root package of the metamodel located at the URI of this transformer
     */
    private EPackage getMMPackage() {
-      EPackage rootMMObject = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.getMUri(), "metamodel",
+      EPackage rootMMObject = MainResourceLoader.getResourceContentRootIfCorrectlyTyped(this.getMURI(), "metamodel",
             EPackage.class);
       return rootMMObject;
    }
@@ -102,7 +100,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
             }
          }
       }
-      MainResourceLoader.saveResource(this.getMUri());
+      MainResourceLoader.saveResource(this.getMURI());
    }
 
    /**
@@ -126,8 +124,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    }
 
    /**
-    * Generates a pointcut metamodel from the given root package of a metamodel and generates and registers a plug-in with model
-    * code. Plug-ins with edit and editor code are only generated and registered if <code>onlyModelCode</code> is
+    * Generates a pointcut metamodel from the given root package of a metamodel and generates and installs a plug-in with model
+    * code. Plug-ins with edit and editor code are only generated and installed if <code>onlyModelCode</code> is
     * <code>false</code>.
     *
     * @param mmPackage
@@ -137,18 +135,18 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     * @return the URI of the generated pointcut metamodel
     */
    private URI generatePcMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
-      getConsole().println("Generating a pointcut metamodel from '" + this.getMUri() + "' ...");
+      getConsole().println("Generating a pointcut metamodel from '" + this.getMURI() + "' ...");
       EPackage pcMMPackage = createPointcutMMPackage(mmPackage);
-      URI pcMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.getMUri(), GeKoConstants.getPcMMFilenameAppendage());
-      MainResourceLoader.saveEObjectAsOnlyContent(pcMMPackage, pcMMUri);
-      generateAndStartPlugins(pcMMUri, GeKoConstants.getPcMMPkgNameAppendage(), onlyModelCode);
-      getConsole().println("Finished generating a pointcut metamodel from '" + this.getMUri() + "'.");
-      return pcMMUri;
+      URI pcMMURI = EMFAdapter.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getPcMMFilenameAppendage());
+      MainResourceLoader.saveEObjectAsOnlyContent(pcMMPackage, pcMMURI);
+      generateAndStartPlugins(pcMMURI, GeKoConstants.getPcMMPkgNameAppendage(), onlyModelCode);
+      getConsole().println("Finished generating a pointcut metamodel from '" + this.getMURI() + "'.");
+      return pcMMURI;
    }
 
    /**
-    * Generates an advice metamodel from the given root package of a metamodel and generates and registers a plug-in with model
-    * code. Plug-ins with edit and editor code are only generated and registered if <code>onlyModelCode</code> is
+    * Generates an advice metamodel from the given root package of a metamodel and generates and installs a plug-in with model
+    * code. Plug-ins with edit and editor code are only generated and installed if <code>onlyModelCode</code> is
     * <code>false</code>.
     *
     * @param mmPackage
@@ -158,33 +156,40 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     * @return the URI of the generated advice metamodel
     */
    private URI generateAvMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
-      getConsole().println("Generating an advice metamodel from '" + this.getMUri() + "' ...");
+      getConsole().println("Generating an advice metamodel from '" + this.getMURI() + "' ...");
       EPackage avMMPackage = createAdviceMMPackage(mmPackage);
-      URI avMMUri = EMFAdapter.newUriWithStringAppendedToFilename(this.getMUri(), GeKoConstants.getAvMMFilenameAppendage());
-      MainResourceLoader.saveEObjectAsOnlyContent(avMMPackage, avMMUri);
+      URI avMMURI = EMFAdapter.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getAvMMFilenameAppendage());
+      MainResourceLoader.saveEObjectAsOnlyContent(avMMPackage, avMMURI);
       String pluginsDirAndIDAppendage = GeKoConstants.getAvMMPkgNameAppendage();
-      generateAndStartPlugins(avMMUri, pluginsDirAndIDAppendage, onlyModelCode);
-      getConsole().println("Finished generating an advice metamodel from '" + this.getMUri() + "'.");
-      return avMMUri;
+      generateAndStartPlugins(avMMURI, pluginsDirAndIDAppendage, onlyModelCode);
+      getConsole().println("Finished generating an advice metamodel from '" + this.getMURI() + "'.");
+      return avMMURI;
    }
 
    /**
-    * Generates and registers a plug-in with model code for the metamodel at the given URI. Plug-ins with edit and editor code are
-    * only generated and registered if <code>onlyModelCode</code> is <code>false</code>.
+    * Generates and installs a plug-in with model code for the metamodel at the given URI. Plug-ins with edit and editor code are
+    * only generated and installed if <code>onlyModelCode</code> is <code>false</code>.
     *
-    * @param mmUri
+    * @param mmURI
     *           the URI of a metamodel
     * @param pluginsDirAndIDAppendage
     *           the string to be appended to the original plug-in directory and ID
     * @param onlyModelCode
     *           whether to generate only model or also edit and editor code
     */
-   private void generateAndStartPlugins(final URI mmUri, final String pluginsDirAndIDAppendage, final boolean onlyModelCode) {
-      GenModel genModel = generateCodeAndGetGenModel(mmUri, pluginsDirAndIDAppendage, onlyModelCode);
+   private void generateAndStartPlugins(final URI mmURI, final String pluginsDirAndIDAppendage, final boolean onlyModelCode) {
+      GenModel genModel = generateCodeAndGetGenModel(mmURI, pluginsDirAndIDAppendage, onlyModelCode);
       PluginStarter.installAndStartGeneratedPlugins(genModel, onlyModelCode);
    }
 
-   private EPackage createPointcutMMPackage(EPackage mmPackage) {
+   /**
+    * Creates a root package of a new pointcut metamodel that is derived from the given root package of a metamodel.
+    *
+    * @param mmPackage
+    *           the root package of a metamodel
+    * @return the root package of the derived pointcut metamodel
+    */
+   private EPackage createPointcutMMPackage(final EPackage mmPackage) {
       String mmName = mmPackage.getName() + GeKoConstants.getPcMMPkgNameAppendage();
       String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getPcMMPkgNsPrefixAppendage();
       String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getPcMMPkgNsURIAppendage();
@@ -192,24 +197,48 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       return createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
    }
 
-   private EPackage createAdviceMMPackage(EPackage mmPackage) {
+   /**
+    * Creates a root package of a new advice metamodel that is derived from the given root package of a metamodel.
+    *
+    * @param mmPackage
+    *           the root package of a metamodel
+    * @return the root package of the derived advice metamodel
+    */
+   private EPackage createAdviceMMPackage(final EPackage mmPackage) {
       String mmName = mmPackage.getName() + GeKoConstants.getAvMMPkgNameAppendage();
       String mmNsPrefix = mmPackage.getNsPrefix() + GeKoConstants.getAvMMPkgNsPrefixAppendage();
       String mmNsURI = mmPackage.getNsURI() + GeKoConstants.getAvMMPkgNsURIAppendage();
       String rootElementName = GeKoConstants.getAvMMRootElementName();
       EPackage adviceMMPackage = createMMPackage(mmPackage, mmName, mmNsPrefix, mmNsURI, rootElementName);
-      addScopeElementsToAdviceMM(adviceMMPackage);
+      addScopeClassesToAdviceMM(adviceMMPackage);
       return adviceMMPackage;
    }
 
-   private EPackage createMMPackage(EPackage originalPackage, String newName, String newNsPrefix, String newNsURI,
-         String rootElementName) {
+   /**
+    * Creates a root package of a new metamodel that is derived from the given root package of a metamodel. The name, the
+    * namespace prefix and the namespace URI of the new package are set according to the parameters and a new container metaclass
+    * bearing the given name is introduced.
+    *
+    * @param originalPackage
+    *           the root package of a metamodel
+    * @param newName
+    *           the name for the root package of the new metamodel
+    * @param newNsPrefix
+    *           the namespace prefix for the root package of the new metamodel
+    * @param newNsURI
+    *           the namespace URI for the root package of the new metamodel
+    * @param containerName
+    *           the name for the container metaclass that is introduced into the new metamodel
+    * @return the root package of the derived metamodel
+    */
+   private EPackage createMMPackage(final EPackage originalPackage, final String newName, final String newNsPrefix,
+         final String newNsURI, final String containerName) {
       EPackage newMMPackage = EcoreUtil.copy(originalPackage);
       newMMPackage.setName(newName);
       newMMPackage.setNsPrefix(newNsPrefix);
       newMMPackage.setNsURI(newNsURI);
-      EClass rootClass = EMFFactoryAdapter.addNewClassToPackage(rootElementName, newMMPackage, "metamodel '" + this.getMUri()
-            + "'");
+      EClass rootClass = EMFFactoryAdapter
+            .addNewClassToPackage(containerName, newMMPackage, "metamodel '" + this.getMURI() + "'");
       EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
       EMFFactoryAdapter.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
       for (EObject mmContent : EMFAdapter.getAllContents(newMMPackage)) {
@@ -225,89 +254,75 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       return newMMPackage;
    }
 
-   private void addScopeElementsToAdviceMM(EPackage adviceMMPackage) {
+   /**
+    * Adds metaclasses for defining advice instantiation scope to the given root package of an advice metamodel.
+    *
+    * @param adviceMMPackage
+    *           the root package of an advice metamodel
+    */
+   private void addScopeClassesToAdviceMM(final EPackage adviceMMPackage) {
       addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.getAvMMGlobalScopeClassName());
       addScopeClassToAdviceMM(adviceMMPackage, GeKoConstants.getAvMMPerJoinPointScopeClassName());
       // MAYDO MK SCOPE add classes for dynamic and custom scope to advice mm
    }
 
-   public void addScopeClassToAdviceMM(EPackage adviceMMPackage, String scopeClassName) {
+   /**
+    * Adds a advice instantiation scope metaclass with the given name to the given root package of an advice metamodel.
+    *
+    * @param adviceMMPackage
+    *           the root package of an advice metamodel
+    * @param scopeClassName
+    *           the name of the scope metaclass
+    */
+   public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
       EClass scopeClass = EMFFactoryAdapter.addNewClassToPackage(scopeClassName, adviceMMPackage, "advice metamodel");
       EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
       EMFFactoryAdapter
             .addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1, false);
    }
 
-   private GenModel generateCodeAndGetGenModel(URI mmURI, String pluginsDirAndIDAppendage, boolean onlyModelCode) {
+   /**
+    * Generates a plug-in with model code for the metamodel at the given URI and returns the used generator model. Plug-ins with
+    * edit and editor code are only generated if <code>onlyModelCode</code> is <code>false</code>.
+    *
+    * @param mmURI
+    *           the URI of a metamodel
+    * @param pluginsDirAndIDAppendage
+    *           the string to be appended to the default plug-in directory and ID
+    * @param onlyModelCode
+    *           whether to generate only model or also edit and editor code
+    * @return the generator model used for code generation
+    */
+   private GenModel generateCodeAndGetGenModel(final URI mmURI, final String pluginsDirAndIDAppendage, final boolean onlyModelCode) {
       Monitor monitor = new BasicMonitor.Printing(System.out);
-      GenModel genModel = generateGenModelForMetamodel(mmURI, pluginsDirAndIDAppendage, monitor);
+      GenModel genModel = generateAndModifyGenModel(mmURI, pluginsDirAndIDAppendage, monitor);
       generateModelEditAndEditorCode(genModel, monitor, onlyModelCode);
       return genModel;
    }
 
-   private GenModel generateGenModelForMetamodel(URI mmURI, String pluginsDirAndIDAppendage, Monitor monitor) {
+   /**
+    * Generates and modifies a generator model for generating code for the metamodel at the given URI and returns it. First, the
+    * parameter pluginsDirAndIDAppendage is appended to the default IDs and directories of the plug-ins that can be generated
+    * using this generator model. Second, the generator models is modified by executing all installed extensions for the
+    * corresponding extension point.
+    *
+    * @param mmURI
+    *           the URI of a metamodel
+    * @param pluginsDirAndIDAppendage
+    *           the string to be appended to the default plug-in directory and ID
+    * @param monitor
+    *           the monitor to be used for logging output during code generation
+    * @return the generator model used for code generation
+    */
+   private GenModel generateAndModifyGenModel(final URI mmURI, final String pluginsDirAndIDAppendage, final Monitor monitor) {
       try {
          getConsole().println("Generating a code generator for the metamodel '" + mmURI + "' ...");
-         EcoreImporter ecoreImporter = new EcoreImporter();
 
-         URI genModelContainerURI = mmURI.trimFileExtension().trimSegments(1);
-         IPath genModelContainerPath = EMFAdapter.getIPathForEMFUri(genModelContainerURI);
-         ecoreImporter.setGenModelContainerPath(genModelContainerPath);
+         Pair<GenModel, EcoreImporter> genModelAndImporter = EMFAdapter.getGenModelAndEcoreImporer(mmURI, monitor);
+         GenModel genModel = genModelAndImporter.first;
+         EcoreImporter ecoreImporter = genModelAndImporter.second;
 
-         String genModelFileName = mmURI.trimFileExtension().lastSegment() + ".genmodel";
-         ecoreImporter.setGenModelFileName(genModelFileName);
-
-         IFile modelFile = EMFAdapter.getIFileForEMFUri(mmURI);
-         ecoreImporter.setModelFile(modelFile);
-
-         ecoreImporter.computeEPackages(monitor);
-
-         ecoreImporter.adjustEPackages(monitor);
-
-         ecoreImporter.prepareGenModelAndEPackages(monitor);
-
-         GenModel genModel = ecoreImporter.getGenModel();
-
-         String modelCodePluginDirAndIDAppendage = GeKoConstants.getModelCodePluginDirAndIDAppendage();
-
-         if (pluginsDirAndIDAppendage == null) {
-            pluginsDirAndIDAppendage = "";
-         }
-
-         // RATIONALE MK in order to have all generated code in newly generated plug-ins we append modelDirectoryAndIDAppendage to
-         // the name of model code directory and model code plug-in id metamodel
-         // EMF however automatically adds this appendage to the directories and plug-in ids for the edit and editor code so we
-         // have to remove it from these
-         String modelDirectory = genModel.getModelDirectory();
-         String newModelDirectory = JavaAdapter.insertBeforeUniqueSubstring(modelDirectory, "/src", pluginsDirAndIDAppendage
-               + modelCodePluginDirAndIDAppendage);
-         genModel.setModelDirectory(newModelDirectory);
-
-         String modelPluginID = genModel.getModelPluginID();
-         String newModelPluginID = modelPluginID + pluginsDirAndIDAppendage + modelCodePluginDirAndIDAppendage;
-         genModel.setModelPluginID(newModelPluginID);
-
-         String editDirectory = genModel.getEditDirectory();
-         String newEditDirectory = JavaAdapter.replaceUniqueSubstring(editDirectory, pluginsDirAndIDAppendage
-               + modelCodePluginDirAndIDAppendage + ".edit/src", pluginsDirAndIDAppendage + ".edit/src");
-         genModel.setEditDirectory(newEditDirectory);
-
-         String editPluginID = genModel.getEditPluginID();
-         String newEditPluginID = JavaAdapter.replaceUniqueSubstring(editPluginID, pluginsDirAndIDAppendage
-               + modelCodePluginDirAndIDAppendage + ".edit", pluginsDirAndIDAppendage + ".edit");
-         genModel.setEditPluginID(newEditPluginID);
-
-         String editorDirectory = genModel.getEditorDirectory();
-         String newEditorDirectory = JavaAdapter.replaceUniqueSubstring(editorDirectory, pluginsDirAndIDAppendage
-               + modelCodePluginDirAndIDAppendage + ".editor/src", pluginsDirAndIDAppendage + ".editor/src");
-         genModel.setEditorDirectory(newEditorDirectory);
-
-         String editorPluginID = genModel.getEditorPluginID();
-         String newEditorPluginID = JavaAdapter.replaceUniqueSubstring(editorPluginID, pluginsDirAndIDAppendage
-               + modelCodePluginDirAndIDAppendage + ".editor", pluginsDirAndIDAppendage + ".editor");
-         genModel.setEditorPluginID(newEditorPluginID);
-
-         genModel.setGenerateSchema(false);
+         changePluginIDsAndDirs(pluginsDirAndIDAppendage, genModel);
 
          MainGenModelModifier.modifyGenModelForMMURI(genModel, mmURI);
 
@@ -322,7 +337,84 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       }
    }
 
-   private void generateModelEditAndEditorCode(GenModel genModel, Monitor monitor, boolean onlyModelCode) {
+   /**
+    * Appends the given parameter pluginsDirAndIDAppendage to the default IDs and directories of the plug-ins that can be
+    * generated using the given generator model.
+    *
+    * @param pluginsDirAndIDAppendage
+    *           the string to be appended to the default plug-in directory and ID
+    * @param genModel
+    *           a generator model used for code generation
+    */
+   private void changePluginIDsAndDirs(final String pluginsDirAndIDAppendage, final GenModel genModel) {
+      String modelCodePluginDirAndIDAppendage = GeKoConstants.getModelCodePluginDirAndIDAppendage();
+
+      // RATIONALE MK in order to have all generated code in newly generated plug-ins we append modelDirectoryAndIDAppendage to
+      // the name of model code directory and model code plug-in id metamodel
+      // EMF however automatically adds this appendage to the directories and plug-in ids for the edit and editor code so we
+      // have to remove it from these
+      String modelDirectory = genModel.getModelDirectory();
+      String newModelDirectory = JavaAdapter.insertBeforeUniqueSubstring(modelDirectory, "/src", pluginsDirAndIDAppendage
+            + modelCodePluginDirAndIDAppendage);
+      genModel.setModelDirectory(newModelDirectory);
+
+      String modelPluginID = genModel.getModelPluginID();
+      String newModelPluginID = modelPluginID + pluginsDirAndIDAppendage + modelCodePluginDirAndIDAppendage;
+      genModel.setModelPluginID(newModelPluginID);
+
+      String editDirectory = genModel.getEditDirectory();
+      String newEditDirectory = calculateNewPluginIDOrDir(".edit/src", editDirectory, pluginsDirAndIDAppendage,
+            modelCodePluginDirAndIDAppendage);
+      genModel.setEditDirectory(newEditDirectory);
+
+      String editPluginID = genModel.getEditPluginID();
+      String newEditPluginID = calculateNewPluginIDOrDir(".edit", editPluginID, pluginsDirAndIDAppendage,
+            modelCodePluginDirAndIDAppendage);
+      genModel.setEditPluginID(newEditPluginID);
+
+      String editorDirectory = genModel.getEditorDirectory();
+      String newEditorDirectory = calculateNewPluginIDOrDir(".editor/src", editorDirectory, pluginsDirAndIDAppendage,
+            modelCodePluginDirAndIDAppendage);
+      genModel.setEditorDirectory(newEditorDirectory);
+
+      String editorPluginID = genModel.getEditorPluginID();
+      String newEditorPluginID = calculateNewPluginIDOrDir(".editor", editorPluginID, pluginsDirAndIDAppendage,
+            modelCodePluginDirAndIDAppendage);
+      genModel.setEditorPluginID(newEditorPluginID);
+   }
+
+   /**
+    * Calculates a new plug-in IDs or directory of a plug-ins by inserting a new appendage between the original ID or directory
+    * and the default appendage. Removes the given modelCodePluginDirAndIDAppendage that was wrongly added by EMF to all plug-in
+    * IDs and directories (and not only to the ID and directory of the model plug-in).
+    *
+    * @param keptAppendage
+    *           the default appendage to be kept
+    * @param pluginIDOrDir
+    *           the default plug-in ID or directory
+    * @param pluginsDirAndIDAppendage
+    *           the string to be appended to the default plug-in directory and ID
+    * @param modelCodePluginDirAndIDAppendage
+    *           the appendage from the model code plug-in to be removed
+    * @return the new plug-in ID or directory
+    */
+   private String calculateNewPluginIDOrDir(final String keptAppendage, final String pluginIDOrDir,
+         final String pluginsDirAndIDAppendage, final String modelCodePluginDirAndIDAppendage) {
+      return JavaAdapter.replaceUniqueSubstring(pluginIDOrDir, pluginsDirAndIDAppendage + modelCodePluginDirAndIDAppendage
+            + keptAppendage, pluginsDirAndIDAppendage + keptAppendage);
+   }
+
+   /**
+    * Generates model edit and editor code using the given generator model and monitor. Edit and editor code are only generated if <code>onlyModelCode</code> is <code>false</code>.
+    *
+    * @param genModel
+    *           the generator model
+    * @param monitor
+    *           the monitor to be used for logging output
+    * @param onlyModelCode
+    *           whether to generate only model or also edit and editor code
+    */
+   private void generateModelEditAndEditorCode(final GenModel genModel, final Monitor monitor, final boolean onlyModelCode) {
       try {
          genModel.reconcile();
          genModel.setCanGenerate(true);

@@ -52,7 +52,7 @@ public abstract class AbstractModelTransformer<T> {
    /**
     * @return the URI of the model to be transformed.
     */
-   protected URI getMUri() {
+   protected URI getMURI() {
       return mURI;
    }
 

@@ -66,7 +66,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 	 * @return URI of the woven model that contains a copy of the base (until generate() is called)
 	 */
 	public URI copyBaseToWovenMURI() {
-		EObject baseRootElement = MainResourceLoader.getUniqueResourceContentRoot(this.getMURI(), "base model");
+		EObject baseRootElement = MainResourceLoader.getUniqueContentRoot(this.getMURI(), "base model");
 		EObject wovenRootElement = EcoreUtil.copy(baseRootElement);
 		MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
 		return wovenMURI;
@@ -102,7 +102,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 		getConsole().println("\nFinished weaving at all " + pointcut2BaseMaps.size() + " join points.\n");
 		if (persist) {
 			getConsole().print("Saving woven model ...");
-			MainResourceLoader.saveResource(wovenMURI);
+			MainResourceLoader.save(wovenMURI);
 			getConsole().println(" done");
 		}
 		return this.wovenMURI;

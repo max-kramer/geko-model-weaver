@@ -29,7 +29,7 @@ public class EMFResourceAdapter {
 		}
 	}
 	
-	public static EObject getUniqueResourceContentRoot(Resource resource, String modelName) {
+	public static EObject getUniqueContentRoot(Resource resource, String modelName) {
 		EObject uniqueResourceContentRootElement = getResourceContentRootIfUnique(resource);
 		if (uniqueResourceContentRootElement != null) {
 			return uniqueResourceContentRootElement;
@@ -38,8 +38,8 @@ public class EMFResourceAdapter {
 		}
 	}
 	
-	public static <T extends EObject> T getResourceContentRootIfCorrectlyTyped(Resource resource, String modelName, Class<T> rootElementClass) {
-		EObject rootElement = getUniqueResourceContentRoot(resource, modelName);
+	public static <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(Resource resource, String modelName, Class<T> rootElementClass) {
+		EObject rootElement = getUniqueContentRoot(resource, modelName);
 		return JavaAdapter.dynamicCast(rootElement, rootElementClass, "root element '" + rootElement + "' of the " + modelName + " '" + resource + "'");
 	}
 	

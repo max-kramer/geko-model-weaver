@@ -95,8 +95,8 @@ public class Tester {
 
 	public static void assertWovenMRootEqualsWovenArchetypeMRoot(URI wovenMURI,
 			URI wovenArchetypeMURI) {
-		EObject wovenRootElement = MainResourceLoader.getUniqueResourceContentRoot(wovenMURI, "woven model");
-		EObject wovenArchetypeRootElement = MainResourceLoader.getUniqueResourceContentRoot(wovenArchetypeMURI, "woven archetype model");
+		EObject wovenRootElement = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");
+		EObject wovenArchetypeRootElement = MainResourceLoader.getUniqueContentRoot(wovenArchetypeMURI, "woven archetype model");
 		UnorderedReferencesRespectingEqualityHelper equalityHelper = new UnorderedReferencesRespectingEqualityHelper();
 		boolean equals = equalityHelper.equals(wovenRootElement, wovenArchetypeRootElement);
 		if (equals) {

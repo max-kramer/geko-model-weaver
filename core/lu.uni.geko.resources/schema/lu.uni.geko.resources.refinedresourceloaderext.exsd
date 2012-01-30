@@ -6,7 +6,7 @@
          <meta.schema plugin="lu.uni.geko.resources" id="lu.uni.geko.resources.refinedresourceloaderext" name="RefinedResourceLoaderExt"/>
       </appinfo>
       <documentation>
-         An extension point for the customized loading and storing of model resources. In contrast to the extension point SimpleResourceLoaderExt it gives extensions full control over the whole process of loading and storing model resources.
+         An extension point for the customised loading and storing of model resources. In contrast to the extension point SimpleResourceLoaderExt it gives extensions full control over the whole process of loading and storing model resources.
       </documentation>
    </annotation>
 

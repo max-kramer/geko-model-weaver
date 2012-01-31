@@ -138,7 +138,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    private URI generatePcMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
       getConsole().println("Generating a pointcut metamodel from '" + this.getMURI() + "' ...");
       EPackage pcMMPackage = createPointcutMMPackage(mmPackage);
-      URI pcMMURI = EcoreBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getPcMMFilenameAppendage());
+      URI pcMMURI = EMFBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getPcMMFilenameAppendage());
       MainResourceLoader.saveEObjectAsOnlyContent(pcMMPackage, pcMMURI);
       generateAndStartPlugins(pcMMURI, GeKoConstants.getPcMMPkgNameAppendage(), onlyModelCode);
       getConsole().println("Finished generating a pointcut metamodel from '" + this.getMURI() + "'.");
@@ -159,7 +159,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    private URI generateAvMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
       getConsole().println("Generating an advice metamodel from '" + this.getMURI() + "' ...");
       EPackage avMMPackage = createAdviceMMPackage(mmPackage);
-      URI avMMURI = EcoreBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getAvMMFilenameAppendage());
+      URI avMMURI = EMFBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getAvMMFilenameAppendage());
       MainResourceLoader.saveEObjectAsOnlyContent(avMMPackage, avMMURI);
       String pluginsDirAndIDAppendage = GeKoConstants.getAvMMPkgNameAppendage();
       generateAndStartPlugins(avMMURI, pluginsDirAndIDAppendage, onlyModelCode);
@@ -239,8 +239,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       newMMPackage.setNsPrefix(newNsPrefix);
       newMMPackage.setNsURI(newNsURI);
       EClass rootClass = EcoreFactoryBridge
-            .addNewClassToPackage(containerName, newMMPackage, "metamodel '" + this.getMURI() + "'");
-      EClassifier referenceType = EcoreBridge.getEClassifierForName("EObject");
+            .addNewClassToPkg(containerName, newMMPackage);
+      EClassifier referenceType = EcoreBridge.getEObjectClassifier();
       EcoreFactoryBridge.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
       for (EObject mmContent : EcoreBridge.getAllContents(newMMPackage)) {
          if (mmContent instanceof EClass) {
@@ -276,8 +276,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *           the name of the scope metaclass
     */
    public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
-      EClass scopeClass = EcoreFactoryBridge.addNewClassToPackage(scopeClassName, adviceMMPackage, "advice metamodel");
-      EClassifier referenceType = EcoreBridge.getEClassifierForName("EObject");
+      EClass scopeClass = EcoreFactoryBridge.addNewClassToPkg(scopeClassName, adviceMMPackage);
+      EClassifier referenceType = EcoreBridge.getEObjectClassifier();
       EcoreFactoryBridge
             .addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1, false);
    }

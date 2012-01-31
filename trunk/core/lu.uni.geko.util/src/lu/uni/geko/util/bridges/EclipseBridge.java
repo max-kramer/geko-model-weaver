@@ -80,8 +80,8 @@ public final class EclipseBridge {
    /**
     * Returns the registered extension for the given property of the given extension point ID if the registered extension is
     * unique (i.e. no other extension extends this extension point) and the property is an instance of the given class. Throws a
-    * {@link java.lang.RuntimeException} if no extension or more than one extensions are registered or if the registered extension
-    * is not an instance of the given class.
+    * {@link java.lang.RuntimeException RuntimeException} if no extension or more than one extensions are registered or if the
+    * registered extension is not an instance of the given class.
     *
     * @param <T>
     *           the type of the extension point property
@@ -230,7 +230,7 @@ public final class EclipseBridge {
    /**
     * Calls the given callable in a protected mode and returns the result (waiting for the result to be computed). Exceptions
     * thrown in the callable are printed to the default error console and softened (i.e. rethrown as
-    * {@link java.lang.RuntimeException}).
+    * {@link java.lang.RuntimeException RuntimeException}).
     *
     * @param <T>
     *           the return type of the callable
@@ -271,7 +271,7 @@ public final class EclipseBridge {
    /**
     * Runs the given runnable in a protected mode and waits for the corresponding thread to finish this computation. Exceptions
     * thrown in the runnable are printed to the default error console and softened (i.e. rethrown as
-    * {@link java.lang.RuntimeException}).
+    * {@link java.lang.RuntimeException RuntimeException}).
     *
     * @param runnable
     *           the runnable to be run in protected mode

@@ -17,7 +17,7 @@ import java.util.Set;
 import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
@@ -54,7 +54,7 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 	 */
 	public AsymmetricWeaver(URI baseMURI, URI adviceMURI, N2NMap<EObject, EObject> pointcut2AdviceMap, boolean inPlace) {
 		super(baseMURI);
-		this.wovenMURI = inPlace ? baseMURI : EcoreBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+		this.wovenMURI = inPlace ? baseMURI : EMFBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
 		this.adviceMURI = adviceMURI;
 		this.pointcut2AdviceMap = pointcut2AdviceMap;
 	}

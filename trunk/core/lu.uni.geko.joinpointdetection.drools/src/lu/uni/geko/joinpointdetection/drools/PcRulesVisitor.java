@@ -284,6 +284,6 @@ public class PcRulesVisitor {
     * @return the canonical name of the base version of the class of the given pointcut element
     */
    private String getCanonicalBaseClassName(final EObject eObject) {
-      return EcorePkgVariantsBridge.getCanonicalClassNameWithTrimmedPackageName(eObject, GeKoConstants.getPcMMPkgNameAppendage());
+      return EcorePkgVariantsBridge.getPkgNameTrimmedCanonicalClassName(eObject, GeKoConstants.getPcMMPkgNameAppendage());
    }
 }

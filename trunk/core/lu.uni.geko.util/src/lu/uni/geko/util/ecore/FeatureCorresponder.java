@@ -39,7 +39,7 @@ public class FeatureCorresponder {
 		} else {
 			if (possiblySuperType instanceof EClass && possiblyExtendingType instanceof EClass) {
 				EList<EClass> eAllSuperTypes = ((EClass) possiblySuperType).getEAllSuperTypes();
-				EClassifier eObjectClassifier = EcoreBridge.getEClassifierForName("EObject");
+				EClassifier eObjectClassifier = EcoreBridge.getEObjectClassifier();
 				return eAllSuperTypes.contains(possiblyExtendingType) || possiblyExtendingType.equals(eObjectClassifier);
 			} else {
 				return false;

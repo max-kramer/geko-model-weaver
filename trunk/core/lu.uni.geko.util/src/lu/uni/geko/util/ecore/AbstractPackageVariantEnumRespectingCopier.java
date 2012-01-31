@@ -23,7 +23,7 @@ public abstract class AbstractPackageVariantEnumRespectingCopier extends EnumRes
 	@Override
 	protected EClass getTarget(
 			EClass eClass) {
-		return EcorePkgVariantsBridge.getEClassByRemovingAPackageSuffix(eClass, getPackageNameSuffixToBeRemoved());
+		return EcorePkgVariantsBridge.getEClassByRemovingAPkgSuffix(eClass, getPackageNameSuffixToBeRemoved());
 	}
 
 	@Override

@@ -121,7 +121,7 @@ public final class GeKoBridge {
    }
 
    /**
-    * Returns true when the given element is a pointcut-specific element and should therefore be skipped during weaving.
+    * Returns {@code true} when the given element is a pointcut-specific element and should therefore be skipped during weaving.
     *
     * @param eObject
     *           an element of a pointcut model
@@ -135,7 +135,7 @@ public final class GeKoBridge {
    }
 
    /**
-    * Returns true when the given element is a advice-specific element and should therefore be skipped during weaving.
+    * Returns {@code true} when the given element is a advice-specific element and should therefore be skipped during weaving.
     *
     * @param eObject
     *           an element of an advice model
@@ -151,7 +151,7 @@ public final class GeKoBridge {
    }
 
    /**
-    * Returns true when the given EObject is an instance of a class of an advice metamodel that was generated using GeKo.
+    * Returns {@code true} when the given EObject is an instance of a class of an advice metamodel that was generated using GeKo.
     *
     * @param eObject
     *           the eObject to check

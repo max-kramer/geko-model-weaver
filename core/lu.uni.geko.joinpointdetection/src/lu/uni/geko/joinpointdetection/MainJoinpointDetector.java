@@ -34,8 +34,8 @@ public final class MainJoinpointDetector {
    /**
     * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
     * pointcut elements to base elements. The execution is performed by the registered mandatory and unique extension of the
-    * JoinpointDetector extension point. Throws a {@link java.lang.RuntimeException} if no extension or more than one extensions
-    * are registered.
+    * JoinpointDetector extension point. Throws a {@link java.lang.RuntimeException RuntimeException} if no extension or more than
+    * one extensions are registered.
     *
     * @param pointcutMURI
     *           the URI of the pointcut model

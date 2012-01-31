@@ -13,7 +13,7 @@ package lu.uni.geko.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -84,7 +84,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
             int type = getTypeNoIfSelectable(selectedFile);
             if (type >= 0 && type < getTypeCount()) {
                if (selectedFile.exists()) {
-                  URI selectedURI = EcoreBridge.getEMFUriForIResource(selectedFile);
+                  URI selectedURI = EMFBridge.getEMFUriForIResource(selectedFile);
                   selectedFileURIs.get(type).add(selectedURI);
                }
             }

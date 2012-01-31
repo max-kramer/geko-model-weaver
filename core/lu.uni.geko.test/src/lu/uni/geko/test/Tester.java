@@ -12,7 +12,7 @@ package lu.uni.geko.test;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
 import lu.uni.geko.util.ecore.UnorderedReferencesRespectingEqualityHelper;
@@ -108,7 +108,7 @@ public final class Tester {
 
    /**
     * Determines whether the given URI variable is not yet set. Returns the URI of the model for the given resource if this is the
-    * case and throws a {@link java.lang.RuntimeException} otherwise.
+    * case and throws a {@link java.lang.RuntimeException RuntimeException} otherwise.
     *
     * @param uri
     *           a URI variable to be checked whether set or not
@@ -122,14 +122,14 @@ public final class Tester {
     */
    private static URI getURIIfNotYetSet(final URI uri, final IResource resource, final IFolder folder, final String modelName) {
       if (uri == null) {
-         return EcoreBridge.getEMFUriForIResource(resource);
+         return EMFBridge.getEMFUriForIResource(resource);
       } else {
          throw new RuntimeException("Found more than one " + modelName + " model in folder '" + folder + "'!");
       }
    }
 
    /**
-    * Asserts that the models at the given URI are equivalent by throwing a {@link java.lang.RuntimeException} if this is not the
+    * Asserts that the models at the given URI are equivalent by throwing a {@link java.lang.RuntimeException RuntimeException} if this is not the
     * case. The equivalence considers unordered references as equal even if they contain the same elements in different order.
     *
     * @param wovenMURI

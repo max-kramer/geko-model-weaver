@@ -11,6 +11,7 @@
 package lu.uni.geko.weaver.pc2avmap;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -18,7 +19,6 @@ import java.util.Set;
 import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.HashN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Triple;
@@ -47,24 +47,24 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
 
    @Override
    public N2NMap<EObject, EObject> transform() {
-      N2NMap<EObject, EObject> pc2AvMap;
+      N2NMap<EObject, EObject> pc2AvN2NMap;
       if (this.pc2AvMappingMURI == null) {
-         pc2AvMap = guessPc2AvMap();
-         letUserCompleteMap(pc2AvMap);
+         pc2AvN2NMap = guessPc2AvMapping();
+         letUserCompleteMap(pc2AvN2NMap);
       } else {
-         pc2AvMap = loadPc2AvMap();
-         completeMapByGuessing(pc2AvMap);
+         pc2AvN2NMap = loadPc2AvMapping();
+         completeMappingByGuessing(pc2AvN2NMap);
       }
-      boolean doContinue = getConsole().confirm("\nThis is the mapping from pointcut to advice that will be used:\n" + pc2AvMap
+      boolean doContinue = getConsole().confirm("\nThis is the mapping from pointcut to advice that will be used:\n" + pc2AvN2NMap
             + "\n\nDo you want to continue with this mapping?");
       if (doContinue) {
-         return pc2AvMap;
+         return pc2AvN2NMap;
       } else {
          return null;
       }
    }
 
-   private N2NMap<EObject, EObject> guessPc2AvMap() {
+   private N2NMap<EObject, EObject> guessPc2AvMapping() {
       N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>();
       Set<EObject> pointcutElements = GeKoBridge.getUnspecificPcElements(this.getMURI());
       Set<EObject> adviceElements = GeKoBridge.getUnspecificAvElements(this.adviceMURI);
@@ -111,38 +111,38 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
       return pc2AvMap;
    }
 
-   private N2NMap<EObject, EObject> loadPc2AvMap() {
+   private N2NMap<EObject, EObject> loadPc2AvMapping() {
       Mapping mapping = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(this.pc2AvMappingMURI,
             "pointcut to advice mapping model", Mapping.class);
-      N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>(mapping.getEntries().size());
+      N2NMap<EObject, EObject> pc2AvN2NMap = new HashN2NMap<EObject, EObject>(mapping.getEntries().size());
       for (MappingEntry mappingEntry : mapping.getEntries()) {
          List<EObject> sources = mappingEntry.getSource();
          List<EObject> targets = mappingEntry.getTarget();
          if (sources != null && sources.size() > 0 && targets != null && targets.size() > 0) {
-            Set<EObject> sourcesSet = JavaBridge.toHashSet(sources);
-            Set<EObject> targetsSet = JavaBridge.toHashSet(targets);
-            pc2AvMap.put(sourcesSet, targetsSet);
+            Set<EObject> sourcesSet = new HashSet<EObject>(sources);
+            Set<EObject> targetsSet = new HashSet<EObject>(targets);
+            pc2AvN2NMap.put(sourcesSet, targetsSet);
          } else {
             getConsole()
                   .printErrorln("A mapping entry of the pointcut to advice mapping model has to map at least one EObject to at least one EObject!");
          }
       }
-      return pc2AvMap;
+      return pc2AvN2NMap;
    }
 
-   private void completeMapByGuessing(N2NMap<EObject, EObject> pc2AvMap) {
+   private void completeMappingByGuessing(N2NMap<EObject, EObject> pc2AvN2NMap) {
       Set<EObject> pointcutElements = GeKoBridge.getUnspecificPcElements(this.getMURI());
       Set<EObject> adviceElements = GeKoBridge.getUnspecificAvElements(this.adviceMURI);
-      for (Entry<Set<EObject>, Set<EObject>> mappingEntry : pc2AvMap.entrySet()) {
-         Set<EObject> mappedPcElements = mappingEntry.getKey();
+      for (Entry<Set<EObject>, Set<EObject>> n2NMapEntry : pc2AvN2NMap.entrySet()) {
+         Set<EObject> mappedPcElements = n2NMapEntry.getKey();
          pointcutElements.removeAll(mappedPcElements);
-         Set<EObject> mappedAvElements = mappingEntry.getValue();
+         Set<EObject> mappedAvElements = n2NMapEntry.getValue();
          adviceElements.removeAll(mappedAvElements);
       }
-      guessPc2AvMap(pc2AvMap, pointcutElements, adviceElements);
+      guessPc2AvMap(pc2AvN2NMap, pointcutElements, adviceElements);
    }
 
-   private void letUserCompleteMap(N2NMap<EObject, EObject> pc2AvMap) {
+   private void letUserCompleteMap(N2NMap<EObject, EObject> pc2AvN2NMap) {
       // TODO MK implement a way that let's a user complete a guessed mapping
    }
 }

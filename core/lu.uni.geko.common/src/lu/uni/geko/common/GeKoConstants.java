@@ -71,7 +71,9 @@ public final class GeKoConstants {
    /*
     * constants for naming elements of generated metamodels
     */
-   /** The string that is appended to the package name of a original metamodel to form the package name of a pointcut metamodel. */
+   /**
+    * The string that is appended to the package name of a original metamodel to form the package name of a pointcut metamodel.
+    */
    private static final String PC_MM_PKG_NAME_APPENDAGE = "_pc";
    /**
     * The string that is appended to the namespace prefix of a package of an original metamodel to form the namespace prefix of a

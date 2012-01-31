@@ -103,11 +103,11 @@ public final class ActionsFacade {
     */
    public static URI weaveInferringPc2AvMapping(final URI baseMURI, final URI pcMURI, final URI avMURI, final boolean inPlace,
          final boolean persist) {
-      N2NMap<EObject, EObject> pointcut2AdviceMapping = (new Pc2AvMapResolver(pcMURI, avMURI)).transform();
-      if (pointcut2AdviceMapping == null) {
+      N2NMap<EObject, EObject> pointcut2AdviceN2NMap = (new Pc2AvMapResolver(pcMURI, avMURI)).transform();
+      if (pointcut2AdviceN2NMap == null) {
          return null;
       } else {
-         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pointcut2AdviceMapping, inPlace, persist);
+         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pointcut2AdviceN2NMap, inPlace, persist);
       }
    }
 
@@ -131,11 +131,11 @@ public final class ActionsFacade {
     */
    public static URI weaveWithPc2AvMappingModel(final URI baseMURI, final URI pcMURI, final URI avMURI,
          final URI pc2AvMappingMURI, final boolean inPlace, final boolean persist) {
-      N2NMap<EObject, EObject> pc2AvMapping = (new Pc2AvMapResolver(pcMURI, avMURI, pc2AvMappingMURI)).transform();
-      if (pc2AvMapping == null) {
+      N2NMap<EObject, EObject> pc2AvN2NMap = (new Pc2AvMapResolver(pcMURI, avMURI, pc2AvMappingMURI)).transform();
+      if (pc2AvN2NMap == null) {
          return null;
       } else {
-         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pc2AvMapping, inPlace, persist);
+         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pc2AvN2NMap, inPlace, persist);
       }
    }
 
@@ -149,7 +149,7 @@ public final class ActionsFacade {
     *           the URI of the pointcut model
     * @param avMURI
     *           the URI of the advice model
-    * @param pc2AvMapping
+    * @param pc2AvN2NMap
     *           the mapping from pointcut to advice elements
     * @param inPlace
     *           whether the weaving should be done in-place or using a new copy of the model
@@ -158,8 +158,8 @@ public final class ActionsFacade {
     * @return the URI of the woven model
     */
    private static URI weaveAsymmetrically(final URI baseMURI, final URI pcMURI, final URI avMURI,
-         final N2NMap<EObject, EObject> pc2AvMapping, final boolean inPlace, final boolean persist) {
-      AsymmetricWeaver asymmetricWeaver = new AsymmetricWeaver(baseMURI, avMURI, pc2AvMapping, inPlace);
+         final N2NMap<EObject, EObject> pc2AvN2NMap, final boolean inPlace, final boolean persist) {
+      AsymmetricWeaver asymmetricWeaver = new AsymmetricWeaver(baseMURI, avMURI, pc2AvN2NMap, inPlace);
       URI wovenMURI = inPlace ? baseMURI : asymmetricWeaver.copyBaseToWovenMURI();
       List<Map<EObject, EObject>> pc2BaseMaps = detectJoinpoints(pcMURI, wovenMURI);
       asymmetricWeaver.setPointcut2BaseMaps(pc2BaseMaps);

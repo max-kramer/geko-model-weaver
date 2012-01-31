@@ -12,7 +12,8 @@ package lu.uni.geko.mmtransformer;
 
 import java.util.List;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.common.GeKoBridge;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
@@ -36,8 +37,8 @@ public final class MainGenModelModifier {
     *           the URI of the metamodel for which the generator was created
     */
    public static void modifyGenModelForMMURI(final GenModel genModel, final URI mmURI) {
-      List<GenModelModifierExt> genModelModifiers = EclipseAdapter.getRegisteredExecutablesInDescPriority(GenModelModifierExt.ID,
-            "class", GenModelModifierExt.class);
+      List<GenModelModifierExt> genModelModifiers = GeKoBridge.getRegisteredExtensionsInDescPriority(GenModelModifierExt.ID,
+            GenModelModifierExt.class);
 
       for (final GenModelModifierExt genModelModifier : genModelModifiers) {
          Runnable runnable = new Runnable() {
@@ -46,7 +47,7 @@ public final class MainGenModelModifier {
                genModelModifier.modifyGenModelForMMURI(genModel, mmURI);
             }
          };
-         EclipseAdapter.runInProtectedMode(runnable);
+         EclipseBridge.runInProtectedMode(runnable);
       }
    }
 }

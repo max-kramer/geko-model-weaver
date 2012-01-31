@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.util.adapters;
+package lu.uni.geko.util.bridges;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 
-public class EMFFactoryAdapter {
+public class EcoreFactoryBridge {
 	
 	public static EClass addNewClassToPackage(String className, EPackage ePackage, String packageName) {
 		EList<EClassifier> classifiers = ePackage.getEClassifiers();

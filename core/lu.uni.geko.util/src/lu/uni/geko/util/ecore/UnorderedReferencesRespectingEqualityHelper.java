@@ -25,6 +25,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 
+/**
+ * An implementation of {@link org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper} ensuring that unordered references are considered equal even if they contain the same elements in different order.
+ * @author Max E. Kramer
+ */
 public class UnorderedReferencesRespectingEqualityHelper extends EqualityHelper {
    private static final long serialVersionUID = 9124541003082741985L;
    private final Map<EObject, Set<EObject>> eObject2EqualEObjectsMap = new HashMap<EObject, Set<EObject>>();

@@ -8,9 +8,11 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.util.adapters;
+package lu.uni.geko.util.tostring;
 
 import java.util.List;
+
+import lu.uni.geko.util.bridges.EcoreBridge;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -75,11 +77,11 @@ public class EMFToStringAdapter extends ToStringAdapter {
 		StringBuilder s = new StringBuilder();
 		EStructuralFeature feature = eAllStructuralFeatures.get(featureIndex);
 		s.append(feature.getName() + "=");
-		Object featureValue = EMFAdapter.getFeatureValueIfNotManyTyped(eObject, feature);
+		Object featureValue = EcoreBridge.getFeatureValueIfNotManyTyped(eObject, feature);
 		if (feature instanceof EReference) {
 			s.append("EReference->");
 			if (feature.isMany())  {
-				List<EObject> featureValues = EMFAdapter.getFeatureValuesIfManyTyped(eObject, feature);
+				List<EObject> featureValues = EcoreBridge.getFeatureValuesIfManyTyped(eObject, feature);
 				s.append("{");
 				int referenceCount = featureValues.size();
 				if (referenceCount > 0) {

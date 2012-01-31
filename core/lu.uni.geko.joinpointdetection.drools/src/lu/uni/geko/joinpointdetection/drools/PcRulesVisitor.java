@@ -19,7 +19,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EcorePkgVariantsBridge;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
@@ -150,7 +151,7 @@ public class PcRulesVisitor {
             }
          }
          rules.append(")\n");
-         allContainedObjects.addAll(EMFAdapter.getAllContentsSet(eObject));
+         allContainedObjects.addAll(EcoreBridge.getAllContentsSet(eObject));
       }
       // RATIONALE MK avoid infinite recursion
       if (!allContainedObjects.isEmpty()) {
@@ -283,6 +284,6 @@ public class PcRulesVisitor {
     * @return the canonical name of the base version of the class of the given pointcut element
     */
    private String getCanonicalBaseClassName(final EObject eObject) {
-      return EMFAdapter.getCanonicalClassNameWithTrimmedPackageName(eObject, GeKoConstants.getPcMMPkgNameAppendage());
+      return EcorePkgVariantsBridge.getCanonicalClassNameWithTrimmedPackageName(eObject, GeKoConstants.getPcMMPkgNameAppendage());
    }
 }

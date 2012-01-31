@@ -13,7 +13,7 @@ package lu.uni.geko.joinpointdetection.drools;
 import java.util.Map;
 
 import lu.uni.geko.common.AbstractModelTransformer;
-import lu.uni.geko.common.GeKoAdapter;
+import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.emf.common.util.URI;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 public class PcRulesGenerator extends AbstractModelTransformer<Pair<String, Map<Integer, EObject>>> {
 
    /**
-    * @see lu.uni.geko.common.AbstractModelTransformer
+    * @see lu.uni.geko.common.AbstractModelTransformer AbstractModelTransformer
     * @param pointcutMURI the URI of the pointcut model
     */
    public PcRulesGenerator(final URI pointcutMURI) {
@@ -43,7 +43,7 @@ public class PcRulesGenerator extends AbstractModelTransformer<Pair<String, Map<
    @Override
    public Pair<String, Map<Integer, EObject>> transform() {
       getConsole().println("Generating pointcut rules for '" + this.getMURI() + "' ...");
-      EObject rootModelElement = GeKoAdapter.getPcRootElementIfCorrectlyTyped(this.getMURI());
+      EObject rootModelElement = GeKoBridge.getPcRootElementIfCorrectlyTyped(this.getMURI());
       if (rootModelElement != null) {
          PcRulesVisitor pcRulesVisitor = new PcRulesVisitor();
          pcRulesVisitor.visitPointcut(rootModelElement);

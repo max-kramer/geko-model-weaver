@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.util.adapters;
+package lu.uni.geko.util.tostring;
 
 import java.util.Iterator;
 import java.util.Map;

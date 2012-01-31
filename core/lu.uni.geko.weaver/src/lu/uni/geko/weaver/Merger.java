@@ -22,8 +22,8 @@ import java.util.Set;
 import lu.uni.geko.common.Av2BaseEqualityHelper;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
@@ -93,16 +93,16 @@ public class Merger {
 			Set<EObject> baseEObjects = base2AdviceMergeEntry.getKey();
 			Set<EObject> adviceEObjects = base2AdviceMergeEntry.getValue();
 			if (baseEObjects.size() == 1) {
-				EObject baseEObject = JavaAdapter.one(baseEObjects);
+				EObject baseEObject = JavaBridge.one(baseEObjects);
 				if (adviceEObjects.size() == 1) {
-					EObject adviceEObject = JavaAdapter.one(adviceEObjects);
+					EObject adviceEObject = JavaBridge.one(adviceEObjects);
 					merge1BaseWith1AdviceEObject(baseEObject, adviceEObject);
 				} else {
 					merge1BaseWithNAdviceEObjects(adviceEObjects, baseEObject);
 				}
 			} else { // baseEObjects.size() != 1
 				if (baseEObjects.size() >= 1 && adviceEObjects.size() == 1) {
-					EObject adviceEObject = JavaAdapter.one(adviceEObjects);
+					EObject adviceEObject = JavaBridge.one(adviceEObjects);
 					mergeNBaseWith1AdviceEObject(baseEObjects, adviceEObject);
 				} else {
 					// TODO MK decide what to do with mappings that map multiple pointcut elements to multiple advice elements
@@ -120,7 +120,7 @@ public class Merger {
 	private void merge1BaseWithNAdviceEObjects(Set<EObject> base2AdviceMergeBiMapValueEntry, EObject baseEObject) {
 		// copy the advice elements set as it is the real entry in the map and should not be changed accidentally
 		Set<EObject> adviceEObjects = new HashSet<EObject>(base2AdviceMergeBiMapValueEntry);
-		EObject directlyMergedAdviceEObject = JavaAdapter.pop(adviceEObjects);
+		EObject directlyMergedAdviceEObject = JavaBridge.pop(adviceEObjects);
 		List<EObject> baseEObjectCopies = new ArrayList<EObject>(adviceEObjects.size());
 		for (EObject adviceEObject : adviceEObjects) {
 			EObject baseEObjectCopy = baseCopier.copy(baseEObject);
@@ -138,12 +138,12 @@ public class Merger {
 			console.println("Copied the base object '" + baseEObject + "' and merged it with the advice object'" +
 					adviceEObject + "': '" + baseEObjectCopy + "'");
 		}
-		Collection<Setting> referencesToBaseEObject = EMFAdapter.getReferencesTo(baseEObject);
+		Collection<Setting> referencesToBaseEObject = EcoreBridge.getReferencesTo(baseEObject);
 		for (Setting oldReferenceToBaseEObject : referencesToBaseEObject) {
 			EStructuralFeature referencingFeature = oldReferenceToBaseEObject.getEStructuralFeature();
 			EObject oldReferencingEObject = oldReferenceToBaseEObject.getEObject();
 			if (referencingFeature.isMany()) {
-				List<EObject> referencedValues = EMFAdapter.getFeatureValuesIfManyTyped(oldReferencingEObject, referencingFeature);
+				List<EObject> referencedValues = EcoreBridge.getFeatureValuesIfManyTyped(oldReferencingEObject, referencingFeature);
 				int currentSize = referencedValues.size();
 				boolean upperBoundReached = upperBoundReached(currentSize, referencingFeature, baseEObject, baseEObjectCopies);
 				if (!upperBoundReached) {
@@ -159,7 +159,7 @@ public class Merger {
 				boolean containedInCopyTarget = containedIn(referenceContainer, baseEObjectCopies);
 				if (!containedInCopySource && !containedInCopyTarget) {
                if (referencingEObjectContainmentFeature.isMany()) {
-                  List<EObject> referencingEObjectSiblings = EMFAdapter.getFeatureValuesIfManyTyped(referenceContainer,
+                  List<EObject> referencingEObjectSiblings = EcoreBridge.getFeatureValuesIfManyTyped(referenceContainer,
                         referencingEObjectContainmentFeature);
 						int currentSize = referencingEObjectSiblings.size();
                   boolean upperBoundReached = upperBoundReachedForReferencingEObjectContainer(currentSize,
@@ -246,7 +246,7 @@ public class Merger {
 	}
 
 	private void mergeNBaseWith1AdviceEObject(Set<EObject> baseEObjects, EObject adviceEObject) {
-		EObject keptBaseEObject = JavaAdapter.pop(baseEObjects);
+		EObject keptBaseEObject = JavaBridge.pop(baseEObjects);
 		for (EObject disappearingBaseEObject : baseEObjects) {
 			merge1BaseWith1BaseEObject(keptBaseEObject, disappearingBaseEObject);
 			this.merged2KeptBaseEObjectMap.put(disappearingBaseEObject, keptBaseEObject);
@@ -266,8 +266,8 @@ public class Merger {
 	}
 
 	private void baseMergeCorrespondingManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject, EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
-		List<EObject> keptFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(keptBaseEObject, keptFeature);
-		List<EObject> disappearingFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(disappearingBaseEObject, disappearingFeature);
+		List<EObject> keptFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(keptBaseEObject, keptFeature);
+		List<EObject> disappearingFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(disappearingBaseEObject, disappearingFeature);
 		// RATIONALE MK avoid a ConcurrentModificationException for disappearingFeatureValues as adding elements of it to keptFeatureValues removes them from disappearingFeatureValues!
 		int currentSize = disappearingFeatureValues.size();
 		List<EObject> featureValuesToBeAdded = new ArrayList<EObject>();
@@ -299,8 +299,8 @@ public class Merger {
 	}
 
 	private void baseMergeCorrespondingNotManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject, EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
-		Object keptFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(keptBaseEObject, keptFeature);
-		Object disappearingFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(disappearingBaseEObject, disappearingFeature);
+		Object keptFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(keptBaseEObject, keptFeature);
+		Object disappearingFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(disappearingBaseEObject, disappearingFeature);
 		if (keptFeatureValue instanceof EObject) {
 			if (disappearingFeatureValue instanceof EObject) {
 				if (keptFeatureValue.equals(disappearingFeatureValue)) {
@@ -337,8 +337,8 @@ public class Merger {
 	}
 
 	private void adviceMergeCorrespondingManyFeature(EObject baseEObject, EObject adviceEObject, EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
-		List<EObject> baseFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(baseEObject, baseFeature);
-		List<EObject> adviceFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(adviceEObject, adviceFeature);
+		List<EObject> baseFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(baseEObject, baseFeature);
+		List<EObject> adviceFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(adviceEObject, adviceFeature);
 		for (EObject adviceFeatureValue : adviceFeatureValues) {
 			// check whether the advice feature value element will be merged
 			// with a feature value element of the base
@@ -379,7 +379,7 @@ public class Merger {
 			if (baseElementsToBeMergedWithAdviceElement.size() == 1) {
 				// we are inspecting a reference to an element that will be merged anyways
 				// so we simply need to add a reference to this base element
-				EObject baseElementToBeMergedWithAdviceElement = JavaAdapter.one(baseElementsToBeMergedWithAdviceElement);
+				EObject baseElementToBeMergedWithAdviceElement = JavaBridge.one(baseElementsToBeMergedWithAdviceElement);
 				console.println("Using '" + baseElementToBeMergedWithAdviceElement + "' as a placeholder for '" + adviceElement);
 				return baseElementToBeMergedWithAdviceElement;
 			}
@@ -388,8 +388,8 @@ public class Merger {
 	}
 
 	private void adviceMergeCorrespondingNotManyFeature(EObject baseEObject, EObject adviceEObject, EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
-		Object baseFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(baseEObject, baseFeature);
-		Object adviceFeatureValue = EMFAdapter.getFeatureValueIfNotManyTyped(adviceEObject, adviceFeature);
+		Object baseFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(baseEObject, baseFeature);
+		Object adviceFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(adviceEObject, adviceFeature);
 		if (baseFeatureValue instanceof EObject) {
 			if (adviceFeatureValue instanceof EObject) {
 				// check whether our base feature value shall be merged with something
@@ -460,7 +460,7 @@ public class Merger {
 			boolean madeContent = currentAdviceEObjectsToBeAdded.remove(adviceFeatureValue);
 			if (madeContent) {
 				console.println("This reference change made '" + baseVersionOfAdviceFeatureValue + "' a new content of  '" + adviceFeatureValue.eContainer() + "'.");
-				Set<EObject> adviceFeatureValueAllContentsSet = EMFAdapter.getAllContentsSet(adviceFeatureValue);
+				Set<EObject> adviceFeatureValueAllContentsSet = EcoreBridge.getAllContentsSet(adviceFeatureValue);
 				currentAdviceEObjectsToBeAdded.removeAll(adviceFeatureValueAllContentsSet);
 			}
 		}
@@ -470,12 +470,12 @@ public class Merger {
 		for (Entry<EObject,EObject> merged2KeptBaseEObjectEntry : merged2KeptBaseEObjectMap.entrySet()) {
 			EObject mergedBaseEObject = merged2KeptBaseEObjectEntry.getKey();
 			EObject keptBaseEObject = merged2KeptBaseEObjectEntry.getValue();
-			Collection<Setting> references = EMFAdapter.getReferencesTo(mergedBaseEObject);
+			Collection<Setting> references = EcoreBridge.getReferencesTo(mergedBaseEObject);
 			for (Setting reference : references) {
 				EStructuralFeature referencingFeature = reference.getEStructuralFeature();
 				EObject referencingEObject = reference.getEObject();
 				if (referencingFeature.isMany()) {
-					List<EObject> referencedFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(referencingEObject, referencingFeature);
+					List<EObject> referencedFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(referencingEObject, referencingFeature);
 					referencedFeatureValues.remove(mergedBaseEObject);
 					referencedFeatureValues.add(keptBaseEObject);
 					// TODO MK ensure that we do not have to perform another iteration of cleanup when we changed a reference to a base object that was merged with another base object

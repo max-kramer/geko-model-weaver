@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -36,9 +36,9 @@ public final class MainResourceLoader {
    private static Map<String, RefinedResourceLoaderExt> fileExt2ResourceLoaderMap;
 
    static {
-      Collection<SimpleResourceLoaderExt> simpleResourceLoaders = EclipseAdapter.getRegisteredExecutableExtensions(
+      Collection<SimpleResourceLoaderExt> simpleResourceLoaders = EclipseBridge.getRegisteredExtensions(
             SimpleResourceLoaderExt.ID, "class", SimpleResourceLoaderExt.class);
-      Collection<RefinedResourceLoaderExt> refinedResourceLoaders = EclipseAdapter.getRegisteredExecutableExtensions(
+      Collection<RefinedResourceLoaderExt> refinedResourceLoaders = EclipseBridge.getRegisteredExtensions(
             RefinedResourceLoaderExt.ID, "class", RefinedResourceLoaderExt.class);
 
       // wrap all the simple resource loaders in order to make them sophisticated
@@ -97,7 +97,7 @@ public final class MainResourceLoader {
             return resourceLoader.getAllContentsIterator(uri);
          }
       };
-      return EclipseAdapter.callInProtectedMode(callable);
+      return EclipseBridge.callInProtectedMode(callable);
    }
 
    /**
@@ -117,7 +117,7 @@ public final class MainResourceLoader {
             return resourceLoader.getUniqueContentRoot(uri, modelName);
          }
       };
-      return EclipseAdapter.callInProtectedMode(callable);
+      return EclipseBridge.callInProtectedMode(callable);
    }
 
    /**
@@ -142,7 +142,7 @@ public final class MainResourceLoader {
             return resourceLoader.getUniqueContentRootIfCorrectlyTyped(uri, modelName, rootElementClass);
          }
       };
-      return EclipseAdapter.callInProtectedMode(callable);
+      return EclipseBridge.callInProtectedMode(callable);
    }
 
    /**
@@ -158,7 +158,7 @@ public final class MainResourceLoader {
             resourceLoader.saveEObjectAsOnlyContent(eObject, uri);
          }
       };
-      EclipseAdapter.runInProtectedMode(runnable);
+      EclipseBridge.runInProtectedMode(runnable);
    }
 
    /**
@@ -173,7 +173,7 @@ public final class MainResourceLoader {
             resourceLoader.saveResource(uri);
          }
       };
-      EclipseAdapter.runInProtectedMode(runnable);
+      EclipseBridge.runInProtectedMode(runnable);
    }
 
    /**
@@ -189,6 +189,6 @@ public final class MainResourceLoader {
             return resourceLoader.isExistingResource(uri);
          }
       };
-      return EclipseAdapter.callInProtectedMode(callable);
+      return EclipseBridge.callInProtectedMode(callable);
    }
 }

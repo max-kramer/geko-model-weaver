@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.ecore.AbstractDeferringReferenceCopyDelegatingRecursivePkgVariantCopier;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
@@ -79,7 +79,7 @@ public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecur
 		Set<EObject> baseElementsToBeMergedWithAdviceElement = currentBase2AdviceMergeBiMap.getAllKeysForValue(adviceEObject);
 		if (baseElementsToBeMergedWithAdviceElement != null && baseElementsToBeMergedWithAdviceElement.size() > 0) {
 			// if more than one base element is merged with this advice element it does not matter which one we return as references are corrected afterwards anyway
-			return JavaAdapter.one(baseElementsToBeMergedWithAdviceElement);
+			return JavaBridge.one(baseElementsToBeMergedWithAdviceElement);
 		}
 		return null;
 	}

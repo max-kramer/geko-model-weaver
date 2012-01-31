@@ -8,7 +8,7 @@
       <documentation>
          An extension point for the customisation of generator models used to generate code and editors for pointcut and advice metamodels.
 
-All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the highest integer value) while passing on the initial result to the next extension.
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) while passing on the initial result to the next extension.
       </documentation>
    </annotation>
 

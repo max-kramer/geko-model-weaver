@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.util.adapters;
+package lu.uni.geko.util.bridges;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class EMFResourceAdapter {
+public class EcoreResourceBridge {
 	
 	public static EObject getResourceContentRootIfUnique(Resource resource) {
 		List<EObject> resourceContents = resource.getContents();
@@ -40,11 +40,11 @@ public class EMFResourceAdapter {
 	
 	public static <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(Resource resource, String modelName, Class<T> rootElementClass) {
 		EObject rootElement = getUniqueContentRoot(resource, modelName);
-		return JavaAdapter.dynamicCast(rootElement, rootElementClass, "root element '" + rootElement + "' of the " + modelName + " '" + resource + "'");
+		return JavaBridge.dynamicCast(rootElement, rootElementClass, "root element '" + rootElement + "' of the " + modelName + " '" + resource + "'");
 	}
 	
 	public static Set<EObject> getAllContentsSet(Resource resource) {
-		return EMFAdapter.getAllContentsSet(resource.getAllContents());
+		return EcoreBridge.getAllContentsSet(resource.getAllContents());
 	}
 	
 	public static void saveEObjectAsOnlyContent(EObject eObject, Resource resource) throws IOException {

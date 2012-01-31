@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.importer.ecore;bundle-version="2.6.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: lu.uni.geko.util.adapters,
+Export-Package: lu.uni.geko.util.bridges,
  lu.uni.geko.util.datastructures,
  lu.uni.geko.util.ecore,
+ lu.uni.geko.util.tostring,
  lu.uni.geko.util.ui

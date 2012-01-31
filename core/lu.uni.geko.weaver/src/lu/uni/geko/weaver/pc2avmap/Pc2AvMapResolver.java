@@ -16,13 +16,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import lu.uni.geko.common.AbstractModelTransformer;
-import lu.uni.geko.common.GeKoAdapter;
+import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFToStringAdapter;
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.HashN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Triple;
+import lu.uni.geko.util.tostring.EMFToStringAdapter;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -66,8 +66,8 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
 
    private N2NMap<EObject, EObject> guessPc2AvMap() {
       N2NMap<EObject, EObject> pc2AvMap = new HashN2NMap<EObject, EObject>();
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMURI());
-      Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
+      Set<EObject> pointcutElements = GeKoBridge.getUnspecificPcElements(this.getMURI());
+      Set<EObject> adviceElements = GeKoBridge.getUnspecificAvElements(this.adviceMURI);
       return guessPc2AvMap(pc2AvMap, pointcutElements, adviceElements);
    }
 
@@ -119,8 +119,8 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
          List<EObject> sources = mappingEntry.getSource();
          List<EObject> targets = mappingEntry.getTarget();
          if (sources != null && sources.size() > 0 && targets != null && targets.size() > 0) {
-            Set<EObject> sourcesSet = JavaAdapter.toHashSet(sources);
-            Set<EObject> targetsSet = JavaAdapter.toHashSet(targets);
+            Set<EObject> sourcesSet = JavaBridge.toHashSet(sources);
+            Set<EObject> targetsSet = JavaBridge.toHashSet(targets);
             pc2AvMap.put(sourcesSet, targetsSet);
          } else {
             getConsole()
@@ -131,8 +131,8 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
    }
 
    private void completeMapByGuessing(N2NMap<EObject, EObject> pc2AvMap) {
-      Set<EObject> pointcutElements = GeKoAdapter.getUnspecificPcElements(this.getMURI());
-      Set<EObject> adviceElements = GeKoAdapter.getUnspecificAvElements(this.adviceMURI);
+      Set<EObject> pointcutElements = GeKoBridge.getUnspecificPcElements(this.getMURI());
+      Set<EObject> adviceElements = GeKoBridge.getUnspecificAvElements(this.adviceMURI);
       for (Entry<Set<EObject>, Set<EObject>> mappingEntry : pc2AvMap.entrySet()) {
          Set<EObject> mappedPcElements = mappingEntry.getKey();
          pointcutElements.removeAll(mappedPcElements);

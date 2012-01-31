@@ -12,7 +12,7 @@ package lu.uni.geko.mmtransformer;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.CommonPlugin;
@@ -82,7 +82,7 @@ public final class PluginStarter {
       try {
          URI absoluteModelPluginURI = absolutePluginURI.appendSegment(pluginID);
          String modelPluginLocation = "reference:" + absoluteModelPluginURI.toString();
-         EclipseAdapter.installAndStartNewPluginFromInstalledPlugin(GeKoConstants.getMmtransformerPluginId(), pluginID,
+         EclipseBridge.installAndStartNewPluginFromInstalledPlugin(GeKoConstants.getMmtransformerPluginId(), pluginID,
                modelPluginLocation);
       } catch (BundleException e) {
          System.err.println("Could not install and start the plug-in '" + pluginID + "'!\n"

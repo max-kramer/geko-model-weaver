@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -44,7 +44,7 @@ public final class MainJoinpointDetector {
     * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
     */
    public static List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
-      final JoinpointDetectorExt joinpointDetector = EclipseAdapter.getUniqueRegisteredExecutableExtension(
+      final JoinpointDetectorExt joinpointDetector = EclipseBridge.getUniqueRegisteredExtension(
             JoinpointDetectorExt.ID, "class", JoinpointDetectorExt.class);
 
       Callable<List<Map<EObject, EObject>>> callable = new Callable<List<Map<EObject, EObject>>>() {
@@ -53,6 +53,6 @@ public final class MainJoinpointDetector {
             return joinpointDetector.detectJoinpoints(pointcutMURI, baseMURI);
          }
       };
-      return EclipseAdapter.callInProtectedMode(callable);
+      return EclipseBridge.callInProtectedMode(callable);
    }
 }

@@ -19,7 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  * The implementation is based on {@link org.eclipse.emf.ecore.util.EcoreUtil.Copier} with various modifications to change the
  * default copying behaviour.
  *
- * @see  lu.uni.geko.util.ecore.AbstractReferenceCopyDelegatingRecursivePkgVariantCopier
+ * @see lu.uni.geko.util.ecore.AbstractReferenceCopyDelegatingRecursivePkgVariantCopier
+ *      AbstractReferenceCopyDelegatingRecursivePkgVariantCopier
  *
  * @author Max E. Kramer
  */

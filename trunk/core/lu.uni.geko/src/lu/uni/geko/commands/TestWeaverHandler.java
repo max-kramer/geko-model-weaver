@@ -16,7 +16,7 @@ import java.util.List;
 import lu.uni.geko.ActionsFacade;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.test.Tester;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
 
 import org.eclipse.core.resources.IFolder;
@@ -52,7 +52,7 @@ public class TestWeaverHandler extends AbstractFolderHandler {
                      wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI,
                            false, true);
                   }
-                  wovenMURI = EMFAdapter.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+                  wovenMURI = EcoreBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
                   Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
                }
             }

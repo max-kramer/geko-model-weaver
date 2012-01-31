@@ -16,11 +16,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
- * A class for determining whether advice elements are equivalent to base elements. Its implementations uses {@see
- * org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper} with two modifications to remove suffixes from package variants and to
- * respect unordered references.
+ * A class for determining whether advice elements are equivalent to base elements. Its implementations uses
+ * {@link org.eclipse.emf.ecore.util.EcoreUtil#EqualityHelper EcoreUtil.EqualityHelper} with two modifications to remove suffixes
+ * from package variants and to respect unordered references.
  *
  * @see lu.uni.geko.util.ecore.AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper
+ *      AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper
  *
  * @author Max E. Kramer
  */

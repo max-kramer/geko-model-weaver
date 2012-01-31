@@ -13,7 +13,7 @@ package lu.uni.geko.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -53,7 +53,7 @@ public abstract class AbstractFolderHandler extends AbstractHandler {
     * @return list of folders
     */
    public List<IFolder> getSelectedFolders(final ExecutionEvent event) {
-      StructuredSelection structuredSelection = EclipseAdapter.getCurrentStructuredSelection(event);
+      StructuredSelection structuredSelection = EclipseBridge.getCurrentStructuredSelection(event);
       List<IFolder> selectedFolders = new ArrayList<IFolder>();
       for (Object selectedElement : structuredSelection.toArray()) {
          if (selectedElement instanceof IFolder) {

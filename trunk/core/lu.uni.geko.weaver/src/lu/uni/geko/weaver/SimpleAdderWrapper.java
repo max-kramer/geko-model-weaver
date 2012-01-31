@@ -17,7 +17,7 @@ import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ecore.FeatureCorresponder;
@@ -91,10 +91,10 @@ public class SimpleAdderWrapper implements MightyAdderExt {
                         EReference containmentReference = containmentPair.first;
                         EObject possibleContainer = containmentPair.second;
                         // do not add advice elements that will indirectly be added anyways during the first iteration
-                        boolean isReallyIndirectlyContained = EMFAdapter.isReallyIndirectlyContained(adviceEObjectToBeAdded,
+                        boolean isReallyIndirectlyContained = EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded,
                               adviceEObjectsToBeAdded);
                         isReallyIndirectlyContained = isReallyIndirectlyContained
-                              || EMFAdapter.isReallyIndirectlyContained(adviceEObjectToBeAdded,
+                              || EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded,
                               adviceEObjectsAlreadyAdded);
                         if (possibleContainer == uniqueWovenRoot || !isReallyIndirectlyContained || i > 0) {
                            addToContainmentIfPossible(featureCorresponder, possibleContainer, adviceEObjectsAlreadyAdded,
@@ -115,13 +115,13 @@ public class SimpleAdderWrapper implements MightyAdderExt {
          EObject adviceEObjectToBeAdded, EObject baseVersionOfAdviceEObjectToBeAdded, EReference containmentReference) {
       EClassifier uniqueRootContainmentReferenceType = containmentReference.getEType();
       if (featureCorresponder.isSameOrSuperType(adviceEObjectToBeAdded.eClass(), uniqueRootContainmentReferenceType)) {
-         List<EObject> rootElementContents = EMFAdapter.getFeatureValuesIfManyTyped(possibleContainer, containmentReference);
+         List<EObject> rootElementContents = EcoreBridge.getFeatureValuesIfManyTyped(possibleContainer, containmentReference);
          rootElementContents.add(baseVersionOfAdviceEObjectToBeAdded);
          SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
          console.println("Added the advice element '" + baseVersionOfAdviceEObjectToBeAdded + "' to the containment reference '"
                + containmentReference.getName() + "' of the unique root element '" + possibleContainer + "' of the woven model.");
          // register the contained elements of the base version of the added advice element
-         for (EObject baseVersionOfAdviceContent : EMFAdapter.getAllContents(baseVersionOfAdviceEObjectToBeAdded)) {
+         for (EObject baseVersionOfAdviceContent : EcoreBridge.getAllContents(baseVersionOfAdviceEObjectToBeAdded)) {
             baseVersionsOfAlreadyContainedAdviceElements.add(baseVersionOfAdviceContent);
          }
          adviceEObjectsAlreadyAdded.add(adviceEObjectToBeAdded);

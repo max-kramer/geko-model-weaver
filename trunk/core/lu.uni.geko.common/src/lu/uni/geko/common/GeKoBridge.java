@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 import lu.uni.geko.resources.MainResourceLoader;
+import lu.uni.geko.util.bridges.EclipseBridge;
+import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
@@ -28,16 +30,19 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * A utility class containing methods that are used by multiple GeKo plug-ins and that are GeKo specific (so they do not belong to
- * an adapter class of {@link lu.uni.geko.util.adapters}).
+ * an adapter class of {@link lu.uni.geko.util.bridges}).<br/>
+ * <br/>
+ * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently only providing one
+ * implementation and the "abstractions" can be regarded as low-level.)
  *
  * @author Max E. Kramer
  */
-public final class GeKoAdapter {
+public final class GeKoBridge {
    /** The GeKo message console used for output to the user. */
    private static final SimpleMessageConsole CONSOLE = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 
    /** Utility classes should not have a public or default constructor. */
-   private GeKoAdapter() {
+   private GeKoBridge() {
    }
 
    /**
@@ -177,5 +182,43 @@ public final class GeKoAdapter {
          }
       }
       return adviceAttributes;
+   }
+
+   /**
+    * Returns a list that contains all registered extensions for the default GeKo class property of the given extension point ID
+    * if the property is an instance of the given class for all registered extensions and if the default GeKo priority property
+    * exists. The list is ordered by decreasing priority (i.e. starting with the extension having the highest integer value
+    * priority).
+    *
+    * @param <T>
+    *           the type of the extension point property
+    * @param extensionPointID
+    *           the ID of the extension point to be inspected
+    * @param extensionClass
+    *           the class of the extension point property
+    * @return a list containing the registered extensions ordered by decreasing priority
+    */
+   public static <T> List<T> getRegisteredExtensionsInDescPriority(final String extensionPointID, final Class<T> extensionClass) {
+      return EclipseBridge.getRegisteredExtensionsInDescPriority(extensionPointID, GeKoConstants.getExtClassPropertyName(),
+            GeKoConstants.getExtPriorityPropertyName(), extensionClass);
+   }
+
+   /**
+    * Returns a list that contains all registered extensions for the default GeKo class property of the given extension point ID
+    * together with their priority property if the property is an instance of the given class for all registered extensions and if
+    * the default GeKo priority property exists. The list is not sorted in any particular order.
+    *
+    * @param <T>
+    *           the type of the extension point property
+    * @param extensionPointID
+    *           the ID of the extension point to be inspected
+    * @param extensionClass
+    *           the class of the extension point property
+    * @return a list containing the registered extensions together with their priority
+    */
+   public static <T> List<Pair<T, Integer>> getRegisteredExtensionsWithPriority(final String extensionPointID,
+         final Class<T> extensionClass) {
+      return EclipseBridge.getRegisteredExtensionsWithPriority(extensionPointID, GeKoConstants.getExtClassPropertyName(),
+            GeKoConstants.getExtPriorityPropertyName(), extensionClass);
    }
 }

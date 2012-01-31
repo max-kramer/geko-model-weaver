@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.emf.common.util.EList;
@@ -39,7 +39,7 @@ public class FeatureCorresponder {
 		} else {
 			if (possiblySuperType instanceof EClass && possiblyExtendingType instanceof EClass) {
 				EList<EClass> eAllSuperTypes = ((EClass) possiblySuperType).getEAllSuperTypes();
-				EClassifier eObjectClassifier = EMFAdapter.getEClassifierForName("EObject");
+				EClassifier eObjectClassifier = EcoreBridge.getEClassifierForName("EObject");
 				return eAllSuperTypes.contains(possiblyExtendingType) || possiblyExtendingType.equals(eObjectClassifier);
 			} else {
 				return false;

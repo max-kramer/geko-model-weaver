@@ -16,10 +16,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import lu.uni.geko.common.GeKoAdapter;
+import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.emf.common.util.URI;
@@ -35,7 +35,7 @@ public class ScopeResolver {
 		Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(adviceMURI);
 		while (allResourceContentsIterator.hasNext()) {
 			EObject nextContent = allResourceContentsIterator.next();
-			boolean isAdviceSpecificElement = GeKoAdapter.skipAvSpecificElement(nextContent);
+			boolean isAdviceSpecificElement = GeKoBridge.skipAvSpecificElement(nextContent);
 			if (isAdviceSpecificElement) {
 				EClass nextContentClass = nextContent.eClass();
 				String nextContentClassName = nextContentClass.getInstanceClass().getSimpleName();
@@ -49,14 +49,14 @@ public class ScopeResolver {
                 // custom scope
 				if (scope != null) {
 					EStructuralFeature scopeReference = nextContentClass.getEStructuralFeature(GeKoConstants.getAvMMScopeReferenceName());
-					Object scopedObject = EMFAdapter.getFeatureValueIfNotManyTyped(nextContent, scopeReference);
+					Object scopedObject = EcoreBridge.getFeatureValueIfNotManyTyped(nextContent, scopeReference);
 					if (scopedObject == null || !(scopedObject instanceof EObject)) {
 						throw new RuntimeException("The scope element '" + nextContent + "' of the advice model '" + adviceMURI + "' has to reference an EObject!");
 					} else {
 						EObject scopedEObject = (EObject) scopedObject;
 						adviceEObjects2ScopeMap.put(scopedEObject, scope);
 						// inherit scope for contained objects but do not overwrite specified scope
-						for (EObject scopedContent : EMFAdapter.getAllContents(scopedEObject)) {
+						for (EObject scopedContent : EcoreBridge.getAllContents(scopedEObject)) {
 							AdviceInstantiationScope contentScope = adviceEObjects2ScopeMap.get(scopedObject);
 							if (contentScope == null) {
 								adviceEObjects2ScopeMap.put(scopedContent, scope);

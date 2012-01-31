@@ -19,8 +19,8 @@ import java.util.Map;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.joinpointdetection.JoinpointDetectorExt;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFToStringAdapter;
 import lu.uni.geko.util.datastructures.Pair;
+import lu.uni.geko.util.tostring.EMFToStringAdapter;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 

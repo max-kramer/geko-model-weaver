@@ -154,6 +154,20 @@ public final class GeKoConstants {
     */
    private static final String MMTRANSFORMER_PLUGIN_ID = "lu.uni.geko.mmtransformer";
 
+   /*
+    * constants for extension points
+    */
+   /**
+    * The name of the class property of extension points.<br>
+    * <b>Attention</b>: this name is set manually in the plugin.xml of each plug-in that defines extension points!
+    */
+   private static final String EXT_CLASS_PROPERTY_NAME = "class";
+   /**
+    * The name of the priority property of extension points.<br>
+    * <b>Attention</b>: this name is set manually in the plugin.xml of each plug-in that defines extension points!
+    */
+   private static final String EXT_PRIORITY_PROPERTY_NAME = "priority";
+
    /** Utility classes should not have a public or default constructor. */
    private GeKoConstants() {
    }
@@ -358,5 +372,19 @@ public final class GeKoConstants {
     */
    public static String getMmtransformerPluginId() {
       return MMTRANSFORMER_PLUGIN_ID;
+   }
+
+   /**
+    * @return the name of the class property of extension points
+    */
+   public static String getExtClassPropertyName() {
+      return EXT_CLASS_PROPERTY_NAME;
+   }
+
+   /**
+    * @return the name of the priority property of extension points
+    */
+   public static String getExtPriorityPropertyName() {
+      return EXT_PRIORITY_PROPERTY_NAME;
    }
 }

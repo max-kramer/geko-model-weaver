@@ -13,7 +13,7 @@ package lu.uni.geko.weaver;
 import java.util.List;
 import java.util.Map;
 
-import lu.uni.geko.common.GeKoAdapter;
+import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ecore.FeatureCorresponder;
@@ -31,7 +31,7 @@ public class DefaultAdder implements SimpleAdderExt {
          FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap)  {
 	   EObject adviceContainer = adviceEObjectToBeAdded.eContainer();
-      if (GeKoAdapter.skipAvSpecificElement(adviceContainer)) {
+      if (GeKoBridge.skipAvSpecificElement(adviceContainer)) {
          EReference containmentReference = guessContainmentReferenceForAdviceEObjectAndContainer(rootEObject,
                adviceEObjectToBeAdded, featureCorresponder);
          if (containmentReference == null) {

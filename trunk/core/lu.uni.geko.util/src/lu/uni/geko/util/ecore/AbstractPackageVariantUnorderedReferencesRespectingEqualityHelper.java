@@ -10,7 +10,7 @@
  ******************************************************************************/
 package lu.uni.geko.util.ecore;
 
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.PackageNameBridge;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -49,18 +49,18 @@ public abstract class AbstractPackageVariantUnorderedReferencesRespectingEqualit
                packageName += "." + splitClassName[i];
             }
             if (packageName.endsWith(getMMPkgNameAppendage())) {
-               variantValueString = JavaAdapter.removePackageSuffixFromCanonicalClassName(variantValueString, getMMPkgNameAppendage());
+               variantValueString = PackageNameBridge.removePackageSuffixFromCanonicalClassName(variantValueString, getMMPkgNameAppendage());
             }
             return value.equals(variantValueString);
          } else if (value instanceof EPackage && variantValue instanceof EPackage) {
             EPackage ePackage = ((EPackage) value);
             EPackage variantEPackage = ((EPackage) variantValue);
             String name = ePackage.getName();
-            String variantName = JavaAdapter.removePackageSuffixFromPackageName(variantEPackage.getName(), getMMPkgNameAppendage());
+            String variantName = PackageNameBridge.removePackageSuffixFromPackageName(variantEPackage.getName(), getMMPkgNameAppendage());
             String nsURI = ePackage.getNsURI();
-            String variantNsURI = JavaAdapter.removePackageSuffixFromPackageName(variantEPackage.getNsURI(), getMMPkgNsURIAppendage());
+            String variantNsURI = PackageNameBridge.removePackageSuffixFromPackageName(variantEPackage.getNsURI(), getMMPkgNsURIAppendage());
             String nsPrefix = ePackage.getNsPrefix();
-            String variantNsPrefix = JavaAdapter.removePackageSuffixFromPackageName(variantEPackage.getNsPrefix(), getMMPkgNsPrefixAppendage());
+            String variantNsPrefix = PackageNameBridge.removePackageSuffixFromPackageName(variantEPackage.getNsPrefix(), getMMPkgNsPrefixAppendage());
             return name.equals(variantName) && nsURI.equals(variantNsURI) && nsPrefix.equals(variantNsPrefix);
          }
       }

@@ -14,7 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.common.GeKoBridge;
+import lu.uni.geko.util.bridges.EclipseBridge;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Triple;
 
@@ -25,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class MainUIDCalculator {
    public static Triple<String, UIDCalculatorExt, Object> calculatePcElementUID(final EObject eObject) {
-      List<UIDCalculatorExt> uIDCalculators = EclipseAdapter.getRegisteredExecutablesInDescPriority(UIDCalculatorExt.ID, "class", UIDCalculatorExt.class);
+      List<UIDCalculatorExt> uIDCalculators = GeKoBridge.getRegisteredExtensionsInDescPriority(UIDCalculatorExt.ID, UIDCalculatorExt.class);
 
       String currentUID = null;
       Iterator<UIDCalculatorExt> uIDCaluclatorIterator = uIDCalculators.iterator();
@@ -41,7 +42,7 @@ public class MainUIDCalculator {
                return finalCurrentUIDCalculator.calculatePcElementUID(eObject, finalCurrentUID);
             }
          };
-         Pair<String, Object> uIDAndHelper = EclipseAdapter.callInProtectedMode(callable);
+         Pair<String, Object> uIDAndHelper = EclipseBridge.callInProtectedMode(callable);
          currentUID = uIDAndHelper.first;
          currentUIDHelper = uIDAndHelper.second;
       }

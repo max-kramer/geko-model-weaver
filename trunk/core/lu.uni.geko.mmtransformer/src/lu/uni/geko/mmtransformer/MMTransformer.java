@@ -13,10 +13,11 @@ package lu.uni.geko.mmtransformer;
 import lu.uni.geko.common.AbstractModelTransformer;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.resources.MainResourceLoader;
-import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EMFFactoryAdapter;
-import lu.uni.geko.util.adapters.EclipseAdapter;
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.EMFBridge;
+import lu.uni.geko.util.bridges.EclipseBridge;
+import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EcoreFactoryBridge;
+import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.core.runtime.CoreException;
@@ -43,7 +44,7 @@ import org.eclipse.emf.importer.ecore.EcoreImporter;
  */
 public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    /**
-    * @see lu.uni.geko.common.AbstractModelTransformer
+    * @see lu.uni.geko.common.AbstractModelTransformer AbstractModelTransformer
     * @param mmURI
     *           the URI of the metamodel
     */
@@ -83,7 +84,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *           a root package of a metamodel
     */
    private void adjustMMIfNecessary(final EPackage mmPackage) {
-      for (EObject mmContent : EMFAdapter.getAllContents(mmPackage)) {
+      for (EObject mmContent : EcoreBridge.getAllContents(mmPackage)) {
          if (mmContent instanceof EClass) {
             EClass metaclass = (EClass) mmContent;
             for (EStructuralFeature feature : metaclass.getEStructuralFeatures()) {
@@ -137,7 +138,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    private URI generatePcMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
       getConsole().println("Generating a pointcut metamodel from '" + this.getMURI() + "' ...");
       EPackage pcMMPackage = createPointcutMMPackage(mmPackage);
-      URI pcMMURI = EMFAdapter.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getPcMMFilenameAppendage());
+      URI pcMMURI = EcoreBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getPcMMFilenameAppendage());
       MainResourceLoader.saveEObjectAsOnlyContent(pcMMPackage, pcMMURI);
       generateAndStartPlugins(pcMMURI, GeKoConstants.getPcMMPkgNameAppendage(), onlyModelCode);
       getConsole().println("Finished generating a pointcut metamodel from '" + this.getMURI() + "'.");
@@ -158,7 +159,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    private URI generateAvMMAndPlugins(final EPackage mmPackage, final boolean onlyModelCode) {
       getConsole().println("Generating an advice metamodel from '" + this.getMURI() + "' ...");
       EPackage avMMPackage = createAdviceMMPackage(mmPackage);
-      URI avMMURI = EMFAdapter.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getAvMMFilenameAppendage());
+      URI avMMURI = EcoreBridge.newURIWithStringAppendedToFilename(this.getMURI(), GeKoConstants.getAvMMFilenameAppendage());
       MainResourceLoader.saveEObjectAsOnlyContent(avMMPackage, avMMURI);
       String pluginsDirAndIDAppendage = GeKoConstants.getAvMMPkgNameAppendage();
       generateAndStartPlugins(avMMURI, pluginsDirAndIDAppendage, onlyModelCode);
@@ -237,11 +238,11 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       newMMPackage.setName(newName);
       newMMPackage.setNsPrefix(newNsPrefix);
       newMMPackage.setNsURI(newNsURI);
-      EClass rootClass = EMFFactoryAdapter
+      EClass rootClass = EcoreFactoryBridge
             .addNewClassToPackage(containerName, newMMPackage, "metamodel '" + this.getMURI() + "'");
-      EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
-      EMFFactoryAdapter.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
-      for (EObject mmContent : EMFAdapter.getAllContents(newMMPackage)) {
+      EClassifier referenceType = EcoreBridge.getEClassifierForName("EObject");
+      EcoreFactoryBridge.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
+      for (EObject mmContent : EcoreBridge.getAllContents(newMMPackage)) {
          if (mmContent instanceof EClass) {
             EClass metaclass = (EClass) mmContent;
             metaclass.setAbstract(false);
@@ -275,9 +276,9 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *           the name of the scope metaclass
     */
    public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
-      EClass scopeClass = EMFFactoryAdapter.addNewClassToPackage(scopeClassName, adviceMMPackage, "advice metamodel");
-      EClassifier referenceType = EMFAdapter.getEClassifierForName("EObject");
-      EMFFactoryAdapter
+      EClass scopeClass = EcoreFactoryBridge.addNewClassToPackage(scopeClassName, adviceMMPackage, "advice metamodel");
+      EClassifier referenceType = EcoreBridge.getEClassifierForName("EObject");
+      EcoreFactoryBridge
             .addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1, false);
    }
 
@@ -318,7 +319,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       try {
          getConsole().println("Generating a code generator for the metamodel '" + mmURI + "' ...");
 
-         Pair<GenModel, EcoreImporter> genModelAndImporter = EMFAdapter.getGenModelAndEcoreImporer(mmURI, monitor);
+         Pair<GenModel, EcoreImporter> genModelAndImporter = EMFBridge.getGenModelAndEcoreImporer(mmURI, monitor);
          GenModel genModel = genModelAndImporter.first;
          EcoreImporter ecoreImporter = genModelAndImporter.second;
 
@@ -354,7 +355,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       // EMF however automatically adds this appendage to the directories and plug-in ids for the edit and editor code so we
       // have to remove it from these
       String modelDirectory = genModel.getModelDirectory();
-      String newModelDirectory = JavaAdapter.insertBeforeUniqueSubstring(modelDirectory, "/src", pluginsDirAndIDAppendage
+      String newModelDirectory = JavaBridge.insertBeforeUniqueSubstring(modelDirectory, "/src", pluginsDirAndIDAppendage
             + modelCodePluginDirAndIDAppendage);
       genModel.setModelDirectory(newModelDirectory);
 
@@ -400,7 +401,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     */
    private String calculateNewPluginIDOrDir(final String keptAppendage, final String pluginIDOrDir,
          final String pluginsDirAndIDAppendage, final String modelCodePluginDirAndIDAppendage) {
-      return JavaAdapter.replaceUniqueSubstring(pluginIDOrDir, pluginsDirAndIDAppendage + modelCodePluginDirAndIDAppendage
+      return JavaBridge.replaceUniqueSubstring(pluginIDOrDir, pluginsDirAndIDAppendage + modelCodePluginDirAndIDAppendage
             + keptAppendage, pluginsDirAndIDAppendage + keptAppendage);
    }
 
@@ -422,7 +423,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 
          Generator generator = new Generator();
          generator.setInput(genModel);
-         boolean autoBuildWasOn = EclipseAdapter.turnOffAutoBuildIfOn();
+         boolean autoBuildWasOn = EclipseBridge.turnOffAutoBuildIfOn();
          if (autoBuildWasOn) {
             getConsole().println("Temporarily disabling auto-build.");
          }
@@ -439,7 +440,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
             getConsole().println("Finished generating editor code for the metamodel '" + genModel.getModelName() + "' ...");
          }
          if (autoBuildWasOn) {
-            EclipseAdapter.turnOnAutoBuild();
+            EclipseBridge.turnOnAutoBuild();
             getConsole().println("Reenabling auto-build.");
          }
       } catch (CoreException e) {

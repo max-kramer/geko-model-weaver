@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.common.GeKoBridge;
+import lu.uni.geko.util.bridges.EclipseBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
@@ -34,8 +35,8 @@ public class MainAdder {
 		final FeatureCorresponder featureCorresponder = adderParameters.fourth;
 		final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adderParameters.fifth;
 
-		List<Pair<SimpleAdderExt, Integer>> simpleAdders = EclipseAdapter.getRegisteredExecutablesWithPriority(SimpleAdderExt.ID, "class", SimpleAdderExt.class);
-		List<Pair<MightyAdderExt, Integer>> mightyAdders = EclipseAdapter.getRegisteredExecutablesWithPriority(MightyAdderExt.ID, "class", MightyAdderExt.class);
+		List<Pair<SimpleAdderExt, Integer>> simpleAdders = GeKoBridge.getRegisteredExtensionsWithPriority(SimpleAdderExt.ID, SimpleAdderExt.class);
+		List<Pair<MightyAdderExt, Integer>> mightyAdders = GeKoBridge.getRegisteredExtensionsWithPriority(MightyAdderExt.ID, MightyAdderExt.class);
 
 		// wrap all the simple resource loaders in order to make them sophisticated
 		for (Pair<SimpleAdderExt, Integer> simpleAdderPair : simpleAdders) {
@@ -43,7 +44,7 @@ public class MainAdder {
 			mightyAdders.add(new Pair<MightyAdderExt, Integer>(mightyAdder, simpleAdderPair.second));
 		}
 
-		EclipseAdapter.sortExectuablesDescByPriority(MightyAdderExt.ID, mightyAdders);
+		EclipseBridge.sortExtensionsDescByPriority(mightyAdders);
 
 		for (final Pair<MightyAdderExt, Integer> adderPair : mightyAdders) {
 			Runnable runnable = new Runnable() {
@@ -52,7 +53,7 @@ public class MainAdder {
 					adderPair.first.addAdviceEObjectsToWovenModel(adviceEObjectsToBeAdded, wovenMURI, featureCorresponder, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
 				}
 			};
-			EclipseAdapter.runInProtectedMode(runnable);
+			EclipseBridge.runInProtectedMode(runnable);
 		}
 		if (adviceEObjectsToBeAdded.size() > 0) {
             // TODO MK gently handle the case were not all elements could be added by checking in advance if this will happen

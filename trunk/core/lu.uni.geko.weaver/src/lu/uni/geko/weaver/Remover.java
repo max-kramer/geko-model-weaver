@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
@@ -37,7 +37,7 @@ public class Remover {
 		boolean additionalIterationNeeded = true;
 		while (additionalIterationNeeded && baseEObjectsToBeRemoved.size() > 0) {
 				additionalIterationNeeded = false;
-				Set<EObject> allBaseEObjectsToBeRemoved = EMFAdapter.getAllContentsSet(baseEObjectsToBeRemoved);
+				Set<EObject> allBaseEObjectsToBeRemoved = EcoreBridge.getAllContentsSet(baseEObjectsToBeRemoved);
 				Pair<Boolean, Set<EObject>> currentCleanupResult = removeReferencesAndInconsitencies(allBaseEObjectsToBeRemoved);
 				additionalIterationNeeded = currentCleanupResult.first;
 				baseEObjectsToBeRemoved = currentCleanupResult.second;
@@ -57,12 +57,12 @@ public class Remover {
 		boolean changed = false;
 		Set<EObject> inconsistentEObjectsToBeRemoved = new HashSet<EObject>();
 		for (EObject baseEObjectToBeRemoved : baseEObjectsToBeRemoved) {
-			Collection<Setting> references = EMFAdapter.getReferencesTo(baseEObjectToBeRemoved);
+			Collection<Setting> references = EcoreBridge.getReferencesTo(baseEObjectToBeRemoved);
 			for (Setting reference : references) {
 				EStructuralFeature referencingFeature = reference.getEStructuralFeature();
 				EObject referencingEObject = reference.getEObject();
 				if (referencingFeature.isMany()) {
-					List<EObject> referencedFeatureValues = EMFAdapter.getFeatureValuesIfManyTyped(referencingEObject, referencingFeature);
+					List<EObject> referencedFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(referencingEObject, referencingFeature);
 					referencedFeatureValues.remove(baseEObjectToBeRemoved);
 					console.println("The feature '" + referencingFeature.getName() + "' of the base object '" + referencingEObject + "' referenced " +
 									"the deleted object '" + baseEObjectToBeRemoved + "' so the reference had to be removed!");

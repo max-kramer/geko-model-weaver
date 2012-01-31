@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import lu.uni.geko.common.GeKoAdapter;
+import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EcorePkgVariantsBridge;
 import lu.uni.geko.util.datastructures.Pair;
 
 import org.eclipse.emf.common.util.EList;
@@ -29,7 +30,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
       List<EAttribute> stringAttributes = new ArrayList<EAttribute>();
       EList<EAttribute> allEAttributes = eClass.getEAllAttributes();
       for (EAttribute eAttribute : allEAttributes) {
-         if (EMFAdapter.isStringAttribute(eAttribute)) {
+         if (EcoreBridge.isStringAttribute(eAttribute)) {
             stringAttributes.add(eAttribute);
          }
       }
@@ -56,7 +57,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    @Override
    public Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
-      EClass avElementClass = EMFAdapter.getEClassByReplacingAPackageNsURISuffix(pcElementClass,
+      EClass avElementClass = EcorePkgVariantsBridge.getEClassByReplacingAPackageNsURISuffix(pcElementClass,
             GeKoConstants.getPcMMPkgNsURIAppendage(), GeKoConstants.getAvMMPkgNsURIAppendage());
       return EcoreUtil.getObjectsByType(avElements, avElementClass);
    }
@@ -66,7 +67,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
       if (uIDHelper instanceof List<?>) {
          EClass avEClass = avElement.eClass();
          @SuppressWarnings("unchecked")
-         List<EAttribute> avStringAttributes = GeKoAdapter.getAvAttributesForPcAttributes(avEClass, (List<EAttribute>) uIDHelper);
+         List<EAttribute> avStringAttributes = GeKoBridge.getAvAttributesForPcAttributes(avEClass, (List<EAttribute>) uIDHelper);
          String avElementUID = calculateUIDFromStringAttributes(avElement, avStringAttributes);
          return pcElementUID.equals(avElementUID);
       } else {

@@ -13,8 +13,8 @@ package lu.uni.geko.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import lu.uni.geko.util.adapters.EMFAdapter;
-import lu.uni.geko.util.adapters.EclipseAdapter;
+import lu.uni.geko.util.bridges.EcoreBridge;
+import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -73,7 +73,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
     * @return a list containing a list of URIs for each file type
     */
    public List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {
-      StructuredSelection structuredSelection = EclipseAdapter.getCurrentStructuredSelection(event);
+      StructuredSelection structuredSelection = EclipseBridge.getCurrentStructuredSelection(event);
       List<List<URI>> selectedFileURIs = new ArrayList<List<URI>>();
       for (int type = 0; type < getTypeCount(); type++) {
          selectedFileURIs.add(new ArrayList<URI>());
@@ -84,7 +84,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
             int type = getTypeNoIfSelectable(selectedFile);
             if (type >= 0 && type < getTypeCount()) {
                if (selectedFile.exists()) {
-                  URI selectedURI = EMFAdapter.getEMFUriForIResource(selectedFile);
+                  URI selectedURI = EcoreBridge.getEMFUriForIResource(selectedFile);
                   selectedFileURIs.get(type).add(selectedURI);
                }
             }

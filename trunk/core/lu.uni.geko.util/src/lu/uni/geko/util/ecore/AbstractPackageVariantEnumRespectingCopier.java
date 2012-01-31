@@ -10,7 +10,7 @@
  ******************************************************************************/
 package lu.uni.geko.util.ecore;
 
-import lu.uni.geko.util.adapters.EMFAdapter;
+import lu.uni.geko.util.bridges.EcorePkgVariantsBridge;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -23,7 +23,7 @@ public abstract class AbstractPackageVariantEnumRespectingCopier extends EnumRes
 	@Override
 	protected EClass getTarget(
 			EClass eClass) {
-		return EMFAdapter.getEClassByRemovingAPackageSuffix(eClass, getPackageNameSuffixToBeRemoved());
+		return EcorePkgVariantsBridge.getEClassByRemovingAPackageSuffix(eClass, getPackageNameSuffixToBeRemoved());
 	}
 
 	@Override

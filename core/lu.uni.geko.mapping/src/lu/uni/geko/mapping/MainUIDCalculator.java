@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver.pc2avmap;
+package lu.uni.geko.mapping;
 
 import java.util.Iterator;
 import java.util.List;
@@ -22,11 +22,28 @@ import lu.uni.geko.util.datastructures.Triple;
 import org.eclipse.emf.ecore.EObject;
 
 /**
+ * A utility class to access the functionality provided by extensions of the UIDCalculator extension point.
+ *
+ * @see UIDCalculatorExt
+ *
  * @author Max E. Kramer
  */
-public class MainUIDCalculator {
-   public static Triple<String, UIDCalculatorExt, Object> calculatePcElementUID(final EObject eObject) {
-      List<UIDCalculatorExt> uIDCalculators = GeKoBridge.getRegisteredExtensionsInDescPriority(UIDCalculatorExt.ID, UIDCalculatorExt.class);
+public final class MainUIDCalculator {
+   /** Utility classes should not have a public or default constructor. */
+   private MainUIDCalculator() {
+   }
+
+   /**
+    * Calculates the unique identifier for the given pointcut element using the current unique identifier that was calculated so
+    * far. Returns this identifier together with a helper that may contain information that was created during the calculation.
+    *
+    * @param pcElement
+    *           a pointcut element
+    * @return a pair containing the unique identifier and a helper containing information created during the calculation
+    */
+   public static Triple<String, UIDCalculatorExt, Object> calculatePcElementUID(final EObject pcElement) {
+      List<UIDCalculatorExt> uIDCalculators = GeKoBridge.getRegisteredExtensionsInDescPriority(UIDCalculatorExt.ID,
+            UIDCalculatorExt.class);
 
       String currentUID = null;
       Iterator<UIDCalculatorExt> uIDCaluclatorIterator = uIDCalculators.iterator();
@@ -39,7 +56,7 @@ public class MainUIDCalculator {
          Callable<Pair<String, Object>> callable = new Callable<Pair<String, Object>>() {
             @Override
             public Pair<String, Object> call() {
-               return finalCurrentUIDCalculator.calculatePcElementUID(eObject, finalCurrentUID);
+               return finalCurrentUIDCalculator.calculatePcElementUID(pcElement, finalCurrentUID);
             }
          };
          Pair<String, Object> uIDAndHelper = EclipseBridge.callInProtectedMode(callable);

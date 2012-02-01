@@ -1,6 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mapping
-Bundle-SymbolicName: lu.uni.geko.mapping
+Bundle-SymbolicName: lu.uni.geko.mapping;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: lu.uni.geko.common,
+ lu.uni.geko.util,
+ org.eclipse.emf.ecore,
+ lu.uni.geko.resources,
+ lu.uni.geko.mapping.model;bundle-version="1.0.0"
+Export-Package: lu.uni.geko.mapping

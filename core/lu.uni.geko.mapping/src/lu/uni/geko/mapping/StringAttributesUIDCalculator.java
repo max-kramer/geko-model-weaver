@@ -1,4 +1,4 @@
-package lu.uni.geko.weaver.pc2avmap;
+package lu.uni.geko.mapping;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,7 +63,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public boolean isCorresponding(EObject avElement, EObject pcElement, String pcElementUID, Object uIDHelper) {
+   public boolean isCorresponding(EObject avElement, String pcElementUID, Object uIDHelper) {
       if (uIDHelper instanceof List<?>) {
          EClass avEClass = avElement.eClass();
          @SuppressWarnings("unchecked")
@@ -71,7 +71,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
          String avElementUID = calculateUIDFromStringAttributes(avElement, avStringAttributes);
          return pcElementUID.equals(avElementUID);
       } else {
-         throw new RuntimeException("The unique identifier helper for the pointcut element '" + pcElement + "' with the UID '"
+         throw new RuntimeException("The unique identifier helper for the pointcut element with the UID '"
                + pcElementUID + "' and the advice element '" + avElement + "' has to be a List<EAttribute> but was '" + uIDHelper
                + "'!");
       }

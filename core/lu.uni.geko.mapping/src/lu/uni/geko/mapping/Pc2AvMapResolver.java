@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver.pc2avmap;
+package lu.uni.geko.mapping;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -85,7 +85,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
             EObject unambiguousMatch = null;
             boolean ambiguous = false;
             for (EObject avElement : potentiallyCorrespondingAvElements) {
-               if (uIDCalculator.isCorresponding(avElement, pcElement, pcElementUID, uIDHelper)) {
+               if (uIDCalculator.isCorresponding(avElement, pcElementUID, uIDHelper)) {
                   if (unambiguousMatch == null) {
                      unambiguousMatch = avElement;
                   } else {

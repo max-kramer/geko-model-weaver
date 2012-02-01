@@ -12,6 +12,5 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: lu.uni.geko.weaver,
- lu.uni.geko.weaver.pc2avmap,
  lu.uni.geko.weaver.scope
 Import-Package: Pc2AvMapping

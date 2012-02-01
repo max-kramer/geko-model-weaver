@@ -1,4 +1,4 @@
-package lu.uni.geko.weaver.pc2avmap;
+package lu.uni.geko.mapping;
 
 import java.util.Collection;
 
@@ -34,7 +34,7 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public boolean isCorresponding(EObject avElement, EObject pcElement, String pcElementUID, Object uIDHelper) {
+   public boolean isCorresponding(EObject avElement, String pcElementUID, Object uIDHelper) {
       String avElementUID = (String) EcoreBridge.getValueForFeatureName(avElement, GeKoConstants.getUidFeatureName());
       return EcoreBridge.equals(pcElementUID, avElementUID);
    }

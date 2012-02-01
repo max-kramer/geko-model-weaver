@@ -31,7 +31,7 @@ public abstract class AbstractModelTransformer<T> {
    private final SimpleMessageConsole console;
 
    /**
-    * Constructor initialising all fields.
+    * Constructs a new AbstractModelTransformer initialising all fields.
     *
     * @param mURI
     *           the URI of the model to be transformed

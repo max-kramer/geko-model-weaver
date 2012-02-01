@@ -22,7 +22,7 @@ import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.datastructures.HashN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Triple;
-import lu.uni.geko.util.tostring.EMFToStringAdapter;
+import lu.uni.geko.util.tostring.EMFToString;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -74,9 +74,9 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
    public N2NMap<EObject, EObject> guessPc2AvMap(N2NMap<EObject, EObject> pc2AvMap, Set<EObject> pcElements, Set<EObject> avElements) {
       for (EObject pcElement : pcElements) {
          Triple<String, UIDCalculatorExt, Object> uIDAndCalculatorAndHelper = MainUIDCalculator.calculatePcElementUID(pcElement);
-         String pcElementUID = uIDAndCalculatorAndHelper.first;
-         UIDCalculatorExt uIDCalculator = uIDAndCalculatorAndHelper.second;
-         Object uIDHelper = uIDAndCalculatorAndHelper.third;
+         String pcElementUID = uIDAndCalculatorAndHelper.getFirst();
+         UIDCalculatorExt uIDCalculator = uIDAndCalculatorAndHelper.getSecond();
+         Object uIDHelper = uIDAndCalculatorAndHelper.getThird();
 
          // RATIONALE MK we do not exclude the empty String "" as it might be a valid unique identifier
          // we only want to exclude the cases in which we were unable to calculate a unique identifier
@@ -104,7 +104,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
          getConsole().println("Warning: " + notMappedCount + " elements of the pointcut are not mapped to any advice elements!\n");
          for (EObject pointcutElement : pcElements) {
             if (!mappedPointcutElements.contains(pointcutElement)) {
-               getConsole().println(EMFToStringAdapter.INSTANCE.toString(pointcutElement));
+               getConsole().println(EMFToString.getInstance().toString(pointcutElement));
             }
          }
       }

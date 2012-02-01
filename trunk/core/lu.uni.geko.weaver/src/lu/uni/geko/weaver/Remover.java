@@ -39,8 +39,8 @@ public class Remover {
 				additionalIterationNeeded = false;
 				Set<EObject> allBaseEObjectsToBeRemoved = EcoreBridge.getAllContentsSet(baseEObjectsToBeRemoved);
 				Pair<Boolean, Set<EObject>> currentCleanupResult = removeReferencesAndInconsitencies(allBaseEObjectsToBeRemoved);
-				additionalIterationNeeded = currentCleanupResult.first;
-				baseEObjectsToBeRemoved = currentCleanupResult.second;
+				additionalIterationNeeded = currentCleanupResult.getFirst();
+				baseEObjectsToBeRemoved = currentCleanupResult.getSecond();
 				removeEObjects(allBaseEObjectsToBeRemoved);
 		}
 	}

@@ -16,9 +16,9 @@ import java.util.Set;
  * A bidirectional mapping from possibly multiple keys to possibly multiple values.
  *
  * @param <K>
- *           key type
+ *           the key type (the domain of the mapping)
  * @param <V>
- *           value type
+ *           the value type (the image of the mapping)
  * @author Max E. Kramer
  */
 public interface BiN2NMap<K, V> extends N2NMap<K, V> {

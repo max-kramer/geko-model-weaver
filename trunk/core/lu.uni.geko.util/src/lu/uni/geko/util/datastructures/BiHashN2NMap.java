@@ -19,13 +19,13 @@ import java.util.Set;
  * A bidirectional mapping from possibly multiple keys to possibly multiple values implemented using {@link java.util.HashMap
  * HashMaps}.<br/>
  * <br/>
- * <b>Attention:</b> The implementation is backed up by the returned sets. Changing these returned sets will change the mapping
+ * <b>Attention:</b> The implementation is backed by the returned sets. Changing these returned sets will change the mapping
  * and may result in inconsistent behaviour!
  *
  * @param <K>
- *           key type
+ *           the key type (the domain of the mapping)
  * @param <V>
- *           value type
+ *           the value type (the image of the mapping)
  * @author Max E. Kramer
  */
 public class BiHashN2NMap<K, V> extends HashN2NMap<K, V> implements BiN2NMap<K, V> {

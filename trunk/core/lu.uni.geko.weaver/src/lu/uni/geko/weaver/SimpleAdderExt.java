@@ -14,7 +14,7 @@ import java.util.Map;
 
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +25,6 @@ public interface SimpleAdderExt {
 	String ID = "lu.uni.geko.weaver.simpleadderext";
 
    Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject rootEObject, EObject adviceEObjectToBeAdded,
-         FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
+         FeatureEquivalenceHelper featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap);
 }

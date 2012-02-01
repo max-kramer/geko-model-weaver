@@ -20,14 +20,14 @@ import java.util.Set;
 /**
  * A mapping from possibly multiple keys to possibly multiple values implemented using {@link java.util.HashMap HashMaps}.<br/>
  * <br/>
- * <b>Attention:</b> The implementation is backed up by the returned sets. Changing these returned sets will change the mapping
+ * <b>Attention:</b> The implementation is backed by the returned sets. Changing these returned sets will change the mapping
  * and may result in inconsistent behaviour!
  *
- * @author Max E. Kramer
  * @param <K>
- *           key type
+ *           the key type (the domain of the mapping)
  * @param <V>
- *           value type
+ *           the value type (the image of the mapping)
+ * @author Max E. Kramer
  */
 public class HashN2NMap<K, V> implements N2NMap<K, V> {
    // RATIONALE MK do not disclose all functionality of the used map

@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import lu.uni.geko.util.datastructures.BiN2NMap;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.common.util.URI;
@@ -32,5 +32,5 @@ public interface MightyAdderExt {
 	 * @param advice2BaseCopier
 	 * @param featureCorresponder
 	 */
-	void addAdviceEObjectsToWovenModel(Set<EObject> adviceEObjectsToBeAdded, URI wovenMURI, FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap);
+	void addAdviceEObjectsToWovenModel(Set<EObject> adviceEObjectsToBeAdded, URI wovenMURI, FeatureEquivalenceHelper featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap);
 }

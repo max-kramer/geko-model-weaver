@@ -19,7 +19,7 @@ import lu.uni.geko.util.bridges.EclipseBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.common.util.URI;
@@ -28,20 +28,20 @@ import org.eclipse.emf.ecore.EObject;
 public class MainAdder {
 
 	public static void performAdditions(
-			Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject>, FeatureCorresponder, Map<EObject, AdviceInstantiationScope>> adderParameters) {
-		final Set<EObject> adviceEObjectsToBeAdded = adderParameters.first;
-		final URI wovenMURI = adderParameters.second;
-		final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = adderParameters.third;
-		final FeatureCorresponder featureCorresponder = adderParameters.fourth;
-		final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adderParameters.fifth;
+			Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject>, FeatureEquivalenceHelper, Map<EObject, AdviceInstantiationScope>> adderParameters) {
+		final Set<EObject> adviceEObjectsToBeAdded = adderParameters.getFirst();
+		final URI wovenMURI = adderParameters.getSecond();
+		final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = adderParameters.getThird();
+		final FeatureEquivalenceHelper featureCorresponder = adderParameters.getFourth();
+		final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adderParameters.getFifth();
 
 		List<Pair<SimpleAdderExt, Integer>> simpleAdders = GeKoBridge.getRegisteredExtensionsWithPriority(SimpleAdderExt.ID, SimpleAdderExt.class);
 		List<Pair<MightyAdderExt, Integer>> mightyAdders = GeKoBridge.getRegisteredExtensionsWithPriority(MightyAdderExt.ID, MightyAdderExt.class);
 
 		// wrap all the simple resource loaders in order to make them sophisticated
 		for (Pair<SimpleAdderExt, Integer> simpleAdderPair : simpleAdders) {
-			MightyAdderExt mightyAdder = new SimpleAdderWrapper(simpleAdderPair.first);
-			mightyAdders.add(new Pair<MightyAdderExt, Integer>(mightyAdder, simpleAdderPair.second));
+			MightyAdderExt mightyAdder = new SimpleAdderWrapper(simpleAdderPair.getFirst());
+			mightyAdders.add(new Pair<MightyAdderExt, Integer>(mightyAdder, simpleAdderPair.getSecond()));
 		}
 
 		EclipseBridge.sortExtensionsDescByPriority(mightyAdders);
@@ -50,7 +50,7 @@ public class MainAdder {
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-					adderPair.first.addAdviceEObjectsToWovenModel(adviceEObjectsToBeAdded, wovenMURI, featureCorresponder, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
+					adderPair.getFirst().addAdviceEObjectsToWovenModel(adviceEObjectsToBeAdded, wovenMURI, featureCorresponder, base2AdviceMergeBiMap, adviceEObjects2ScopeMap);
 				}
 			};
 			EclipseBridge.runInProtectedMode(runnable);

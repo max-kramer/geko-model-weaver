@@ -20,7 +20,7 @@ import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
@@ -39,7 +39,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
 
    @Override
    public void addAdviceEObjectsToWovenModel(Set<EObject> adviceEObjectsToBeAdded, URI wovenMURI,
-         FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
+         FeatureEquivalenceHelper featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
       EObject uniqueWovenRoot = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");
       SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
@@ -88,8 +88,8 @@ public class SimpleAdderWrapper implements MightyAdderExt {
                            uniqueWovenRoot, adviceEObjectToBeAdded, featureCorresponder, base2AdviceMergeBiMap,
                            adviceEObjects2ScopeMap);
                      if (containmentPair != null) {
-                        EReference containmentReference = containmentPair.first;
-                        EObject possibleContainer = containmentPair.second;
+                        EReference containmentReference = containmentPair.getFirst();
+                        EObject possibleContainer = containmentPair.getSecond();
                         // do not add advice elements that will indirectly be added anyways during the first iteration
                         boolean isReallyIndirectlyContained = EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded,
                               adviceEObjectsToBeAdded);
@@ -110,7 +110,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
       }
    }
 
-   private void addToContainmentIfPossible(FeatureCorresponder featureCorresponder, EObject possibleContainer,
+   private void addToContainmentIfPossible(FeatureEquivalenceHelper featureCorresponder, EObject possibleContainer,
          Set<EObject> adviceEObjectsAlreadyAdded, Set<EObject> baseVersionsOfAlreadyContainedAdviceElements,
          EObject adviceEObjectToBeAdded, EObject baseVersionOfAdviceEObjectToBeAdded, EReference containmentReference) {
       EClassifier uniqueRootContainmentReferenceType = containmentReference.getEType();

@@ -22,7 +22,7 @@ import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.datastructures.Quintuple;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeResolver;
 
@@ -86,15 +86,15 @@ public class AsymmetricWeaver extends AbstractModelTransformer<URI> {
 			Set<EObject> baseEObjectsToBeRemoved = SetCalculator.calculateBaseEObjectsToBeRemoved(pointcut2BaseMap, this.pointcut2AdviceMap);
 			BiN2NMap<EObject, EObject> base2AdviceMergeBiMap = SetCalculator.calculateBase2AdviceMergeMap(pointcut2BaseMap, this.pointcut2AdviceMap);
 			Pair<Set<EObject>, Map<EObject, AdviceInstantiationScope>> adviceAndScopePair = ScopeResolver.getAdviceElementsAndAdviceEObjects2ScopeMap(this.adviceMURI);
-			Set<EObject> adviceEObjects = adviceAndScopePair.first;
-			Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adviceAndScopePair.second;
+			Set<EObject> adviceEObjects = adviceAndScopePair.getFirst();
+			Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap = adviceAndScopePair.getSecond();
 			Set<EObject> adviceEObjectsToBeAdded = SetCalculator.calculateAdviceEObjectsToBeAdded(adviceEObjects, pointcut2AdviceMap);
 			getConsole().println("\nInspecting join point: " + pointcut2BaseMap + "\n");
 			getConsole().println("baseEObjectsToBeRemoved:\n" + baseEObjectsToBeRemoved + "\n");
 			getConsole().println("base2AdviceMergeBiMap:\n" + base2AdviceMergeBiMap + "\n");
 			getConsole().println("adviceEObjectsToBeAdded:\n" + adviceEObjectsToBeAdded + "\n");
 			Merger merger = new Merger(base2AdviceMergeBiMap, adviceEObjectsToBeAdded, adviceEObjects2ScopeMap, this.wovenMURI);
-			Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject>, FeatureCorresponder, Map<EObject, AdviceInstantiationScope>> adderParameters = merger.performMergesAndReturnAdderParameters();
+			Quintuple<Set<EObject>, URI, BiN2NMap<EObject, EObject>, FeatureEquivalenceHelper, Map<EObject, AdviceInstantiationScope>> adderParameters = merger.performMergesAndReturnAdderParameters();
 			MainAdder.performAdditions(adderParameters);
 			Remover remover = new Remover();
 			remover.performRemovals(baseEObjectsToBeRemoved);

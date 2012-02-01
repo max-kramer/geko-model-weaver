@@ -238,8 +238,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       newMMPackage.setName(newName);
       newMMPackage.setNsPrefix(newNsPrefix);
       newMMPackage.setNsURI(newNsURI);
-      EClass rootClass = EcoreFactoryBridge
-            .addNewClassToPkg(containerName, newMMPackage);
+      EClass rootClass = EcoreFactoryBridge.addNewClassToPkg(containerName, newMMPackage);
       EClassifier referenceType = EcoreBridge.getEObjectClassifier();
       EcoreFactoryBridge.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
       for (EObject mmContent : EcoreBridge.getAllContents(newMMPackage)) {
@@ -278,8 +277,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
       EClass scopeClass = EcoreFactoryBridge.addNewClassToPkg(scopeClassName, adviceMMPackage);
       EClassifier referenceType = EcoreBridge.getEObjectClassifier();
-      EcoreFactoryBridge
-            .addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1, false);
+      EcoreFactoryBridge.addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1,
+            false);
    }
 
    /**
@@ -294,7 +293,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *           whether to generate only model or also edit and editor code
     * @return the generator model used for code generation
     */
-   private GenModel generateCodeAndGetGenModel(final URI mmURI, final String pluginsDirAndIDAppendage, final boolean onlyModelCode) {
+   private GenModel generateCodeAndGetGenModel(final URI mmURI, final String pluginsDirAndIDAppendage,
+         final boolean onlyModelCode) {
       Monitor monitor = new BasicMonitor.Printing(System.out);
       GenModel genModel = generateAndModifyGenModel(mmURI, pluginsDirAndIDAppendage, monitor);
       generateModelEditAndEditorCode(genModel, monitor, onlyModelCode);
@@ -320,8 +320,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
          getConsole().println("Generating a code generator for the metamodel '" + mmURI + "' ...");
 
          Pair<GenModel, EcoreImporter> genModelAndImporter = EMFBridge.getGenModelAndEcoreImporer(mmURI, monitor);
-         GenModel genModel = genModelAndImporter.first;
-         EcoreImporter ecoreImporter = genModelAndImporter.second;
+         GenModel genModel = genModelAndImporter.getFirst();
+         EcoreImporter ecoreImporter = genModelAndImporter.getSecond();
 
          changePluginIDsAndDirs(pluginsDirAndIDAppendage, genModel);
 
@@ -406,7 +406,8 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
    }
 
    /**
-    * Generates model edit and editor code using the given generator model and monitor. Edit and editor code are only generated if <code>onlyModelCode</code> is <code>false</code>.
+    * Generates model edit and editor code using the given generator model and monitor. Edit and editor code are only generated if
+    * <code>onlyModelCode</code> is <code>false</code>.
     *
     * @param genModel
     *           the generator model

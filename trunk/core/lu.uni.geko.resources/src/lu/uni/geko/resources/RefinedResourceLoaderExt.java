@@ -56,21 +56,27 @@ public interface RefinedResourceLoaderExt extends ResourceLoader {
     *           the name of the model (for logging and error output)
     * @param rootElementClass
     *           the class of which the root element has to be an instance of
-    * @param <T> the type of the root element
+    * @param <T>
+    *           the type of the root element
     * @return the root element
     */
    <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(URI uri, String modelName, Class<T> rootElementClass);
 
    /**
-    * Saves the given EObjects as the only content of the model at the given URI.
-    * @param eObject the new root element
-    * @param uri the URI of the model to be replaced or created
+    * Saves the given EObject as the only content of the model at the given URI.
+    *
+    * @param eObject
+    *           the new root element
+    * @param uri
+    *           the URI of the model to be replaced or created
     */
    void saveEObjectAsOnlyContent(EObject eObject, URI uri);
 
    /**
     * Saves the model at the given URI.
-    * @param uri the URI of the model to be saved
+    *
+    * @param uri
+    *           the URI of the model to be saved
     */
    void saveResource(URI uri);
 }

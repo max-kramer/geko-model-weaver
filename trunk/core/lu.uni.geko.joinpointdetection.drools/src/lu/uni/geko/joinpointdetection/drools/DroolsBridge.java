@@ -28,23 +28,30 @@ import org.drools.runtime.StatelessKnowledgeSession;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * A utility class encapsulating access to the API of the drools plug-ins.
+ * A utility class encapsulating access to the API of the drools plug-ins.<br/>
+ * <br/>
+ * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently only providing one
+ * implementation and the "abstractions" can be regarded as low-level.)
  *
  * @author Max E. Kramer
  */
-public final class DroolsAdapter {
+public final class DroolsBridge {
    /** Utility classes should not have a public or default constructor. */
-   private DroolsAdapter() {
+   private DroolsBridge() {
    }
 
    /**
-    * Detects join points conforming to the pointcut (given as drools rules) within the base model (given as iterable) and
-    * stores the results in the lists of lists for matched EObjects and their IDs.
+    * Detects join points conforming to the pointcut (given as drools rules) within the base model (given as iterable) and stores
+    * the results in the lists of lists for matched EObjects and their IDs.
     *
-    * @param pcRules the pointcut in form of a string representation of drools rules
-    * @param baseMIteratable an iterable access to the base model
-    * @param baseEObjectsPerMatchLists a list containing a list of matched base elements for each matched join point
-    * @param pcIDsPerMatchLists a list containing lists that contain the IDs of the matched base elements for each matched join point
+    * @param pcRules
+    *           the pointcut in form of a string representation of drools rules
+    * @param baseMIteratable
+    *           an iterable access to the base model
+    * @param baseEObjectsPerMatchLists
+    *           a list containing a list of matched base elements for each matched join point
+    * @param pcIDsPerMatchLists
+    *           a list containing lists that contain the IDs of the matched base elements for each matched join point
     */
    public static void detectJoinpoints(final String pcRules, final Iterable<EObject> baseMIteratable,
          final ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists, final ArrayList<ArrayList<String>> pcIDsPerMatchLists) {
@@ -60,7 +67,9 @@ public final class DroolsAdapter {
 
    /**
     * Prepares a stateless knowledge session for the given drools rules resource.
-    * @param droolsRulesResource a resource for drools rules
+    *
+    * @param droolsRulesResource
+    *           a resource for drools rules
     * @return the created knowledge session
     */
    private static StatelessKnowledgeSession prepareKnowledgeSession(final Resource droolsRulesResource) {

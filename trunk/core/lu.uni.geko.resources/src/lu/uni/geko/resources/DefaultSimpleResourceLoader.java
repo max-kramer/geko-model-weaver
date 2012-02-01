@@ -47,11 +47,13 @@ public class DefaultSimpleResourceLoader implements SimpleResourceLoaderExt {
    private final ThreadLocalResourceSet threadLocalResourceSet = new ThreadLocalResourceSet();
 
    /**
-    * An empty constructor. Protected as it has to be instantiated by Eclipse's extension mechanism using the {@link DefaultSimpleResourceLoaderFactory}.
+    * An empty constructor. Protected as it has to be instantiated by Eclipse's extension mechanism using the
+    * {@link DefaultSimpleResourceLoaderFactory}.
     */
    protected DefaultSimpleResourceLoader() {
       // empty
    }
+
    // RATIONALE MK this class should be a singleton but as it is an eclipse extension we cannot use the standard singleton pattern
    /**
     * @return the singleton instance of this class

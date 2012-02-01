@@ -32,6 +32,14 @@ public final class EcoreResourceBridge {
    private EcoreResourceBridge() {
    }
 
+   /**
+    * Returns the root element of the content of the given resource if it is unique (exactly one root element) and {@code null}
+    * otherwise.
+    *
+    * @param resource
+    *           a resource
+    * @return the unique root element (if existing) otherwise {@code null}
+    */
    public static EObject getResourceContentRootIfUnique(final Resource resource) {
       List<EObject> resourceContents = resource.getContents();
       if (resourceContents.size() == 1) {
@@ -41,6 +49,16 @@ public final class EcoreResourceBridge {
       }
    }
 
+   /**
+    * Returns the root element of the content of the given resource if it is unique (exactly one root element) and throws a
+    * {@link java.lang.RuntimeException RuntimeException} otherwise.
+    *
+    * @param resource
+    *           a resource
+    * @param modelName
+    *           the name of the model represented by this resource (for logging and error output)
+    * @return the root content element of the given resource
+    */
    public static EObject getUniqueContentRoot(final Resource resource, final String modelName) {
       EObject uniqueResourceContentRootElement = getResourceContentRootIfUnique(resource);
       if (uniqueResourceContentRootElement != null) {
@@ -50,6 +68,20 @@ public final class EcoreResourceBridge {
       }
    }
 
+   /**
+    * Returns the root element of the content of the model at the given URI if it is unique (exactly one root element) and has the
+    * type of the given class.
+    *
+    * @param resource
+    *           a resource
+    * @param modelName
+    *           the name of the model represented by this resource (for logging and error output)
+    * @param rootElementClass
+    *           the class of which the root element has to be an instance of
+    * @param <T>
+    *           the type of the root element
+    * @return the root element
+    */
    public static <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(final Resource resource, final String modelName,
          final Class<T> rootElementClass) {
       EObject rootElement = getUniqueContentRoot(resource, modelName);
@@ -57,16 +89,41 @@ public final class EcoreResourceBridge {
             + " '" + resource + "'");
    }
 
+   /**
+    * Returns a set containing all contents of the given resource.
+    *
+    * @param resource
+    *           a resource
+    * @return a set containing all resource contents
+    */
    public static Set<EObject> getAllContentsSet(final Resource resource) {
       return EcoreBridge.getAllContentsSet(resource.getAllContents());
    }
 
+   /**
+    * Saves the given eObject as the only content of the model at the given URI.
+    *
+    * @param eObject
+    *           the new root element
+    * @param resource
+    *           the resource of which the content should be replaced or created
+    * @throws IOException
+    *            if an error occurred during saving
+    */
    public static void saveEObjectAsOnlyContent(final EObject eObject, final Resource resource) throws IOException {
       resource.getContents().clear();
       resource.getContents().add(eObject);
       saveResource(resource);
    }
 
+   /**
+    * Saves the given resource.
+    *
+    * @param resource
+    *           the resource to be saved
+    * @throws IOException
+    *            if an error occurred during saving
+    */
    public static void saveResource(final Resource resource) throws IOException {
       resource.save(Collections.EMPTY_MAP);
       resource.setModified(true);

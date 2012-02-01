@@ -17,13 +17,13 @@ import java.util.Set;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
-import lu.uni.geko.util.ecore.AbstractDeferringReferenceCopyDelegatingRecursivePkgVariantCopier;
+import lu.uni.geko.util.ecore.AbstractDeferringManuallyReferencingRecursivePkgVariantCopier;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeType;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecursivePkgVariantCopier implements Copier {
+public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursivePkgVariantCopier implements Copier {
 	private static final long serialVersionUID = -4631517304088959864L;
 
 	private BiN2NMap<EObject, EObject> currentBase2AdviceMergeBiMap = null;
@@ -33,7 +33,7 @@ public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecur
 	private final Map<EObject, EObject> globalMap = new HashMap<EObject, EObject>();
 
    @Override
-   protected String getPackageNameSuffixToBeRemoved() {
+   protected String getMMPackageNameSuffixToRemove() {
       return GeKoConstants.getAvMMPkgNsURIAppendage();
    }
 
@@ -49,7 +49,7 @@ public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecur
 	}
 
 	@Override
-	public EObject getIfNoNewCopyNeeded(EObject adviceEObject) {
+	public EObject getExistingVariant(EObject adviceEObject) {
 		if (currentAdviceEObjects2ScopeMap == null) {
 			throw new RuntimeException("Illegal call to getIfNoNewCopyNeeded(" + adviceEObject + ")!");
 		} else {
@@ -103,7 +103,7 @@ public class DefaultCopier extends AbstractDeferringReferenceCopyDelegatingRecur
 	}
 
 	@Override
-	public void registerCopy(EObject sourceAdviceEObject, EObject copy) {
+	public void registerVariant(EObject sourceAdviceEObject, EObject copy) {
 		if (currentAdviceEObjects2ScopeMap == null) {
 			throw new RuntimeException("Illegal call to registerCopy(" + sourceAdviceEObject + ", " + copy + ")!");
 		} else {

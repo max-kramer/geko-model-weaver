@@ -14,77 +14,95 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * TODO MK rewrite the JavaDoc for N2NMap and mention that we do not support removing or changing mapping entries
- *
- * NOTE THAT get(Set<K>) IS NOT SUPPORTED!
- *
- *
- * A mapping from possibly multiple keys to possibly multiple values. A {@code Map<Set<V>, Set<V>>} can be regarded as equivalent
- * but does not offer convenient functionality, caching and synchronization.
- *
+ * A mapping from possibly multiple keys to possibly multiple values. A {@code Map<Set<K>, Set<V>>} can be regarded as equivalent
+ * to a {@code N2NMap<K, V>} but does not offer convenient methods, caching and synchronisation.<br/>
+ * <br/>
  * Whereas instances of {@code Map<K, V>} should be named key2ValueMap, instances of {@code Mapping<K,V>} should be named
  * key2ValuesN2NMap (with an s after Value to emphasise that we map on possibly multiple elements). Note that we differentiate
  * between the words mapping, Map, N2NMap in order to distinguish between the concept of a mapping and the implementation of its
- * 1to1 and NtoN variant.\
+ * 1to1 and NtoN variant.
  *
  * @param <K>
  *           the key type (the domain of the mapping)
  * @param <V>
  *           the value type (the image of the mapping)
+ * @author Max E. Kramer
  */
 public interface N2NMap<K, V> {
 
    /**
-	 *
-	 */
+    * Returns a set containing all values to which the given key is mapped.
+    *
+    * @param key
+    *           a k
+    * @return all values mapped to the key
+    */
    Set<V> getAllValuesForKey(K key);
 
    /**
+    * Returns a set containing all the mapped keys.
+    *
+    * @return a set containing all keys that are mapped to at least one value
     * @see java.util.Map#keySet()
     */
    Set<K> keySet();
 
    /**
-    * Adds the value to the set of values that are the target of the key (if not contained yet).
+    * Maps the given key to the given value by adding the value to the set of mapped values (if not contained yet).
     *
     * @param key
-    * @param valuerget
-    *           values for the key (containing the given value)
+    *           a key
+    * @param value
+    *           a value
     */
    void put(K key, V value);
 
    /**
-    * Adds the values to the set of values that are the target of the keys (if not contained yet).
+    * Maps the given keys to the given values by adding the values to the sets of mapped values (if not contained yet).
     *
-    * @param keys
-    * @param values
+    * @param keySet
+    *           a set of keys
+    * @param valueSet
+    *           a set of values
     */
    void put(Set<K> keySet, Set<V> valueSet);
 
    /**
-    * Removes the mapping from the given key to the given value from the mapping.
+    * Removes the mapping from the given key to the given value.
     *
     * @param key
+    *           a key
     * @param value
-    * @return <code>true</code> if the key was mapped to the value and <code>false</code> otherwise.
+    *           a value
+    * @return {@code true} if the key was mapped to the value and {@code false} otherwise.
     */
    boolean remove(K key, V value);
 
    /**
-    * @see java.util.Map#containsKey(Object)
+    * Returns {@code true} if the given key is mapped to at least one value.
+    *
     * @param key
-    * @return
+    *           a key
+    * @return whether the given key is mapped or not
+    * @see java.util.Map#containsKey(Object)
     */
    boolean containsKey(K key);
 
    /**
+    * Returns {@code true} if at least one key is mapped to the given value.
+    *
+    * @param value
+    *           a value
+    * @return whether a key is mapped to the given value
     * @see java.util.Map#containsValue(Object)
     */
    boolean containsValue(V value);
 
    /**
+    * Returns a set containing all the mappings as conventional instances of {@code Entry<Set<K>, Set<V>>}.
+    *
     * @see java.util.Map#entrySet()
-    * @return
+    * @return a set containing all mapping entries
     */
    Set<Entry<Set<K>, Set<V>>> entrySet();
 }

@@ -4,7 +4,6 @@
    <extension-point id="lu.uni.geko.weaver.mightyadderext" name="MightyAdderExt" schema="schema/lu.uni.geko.weaver.mightyadderext.exsd"/>
    <extension-point id="lu.uni.geko.weaver.simpleadderext" name="SimpleAdderExt" schema="schema/lu.uni.geko.weaver.simpleadderext.exsd"/>
    <extension-point id="lu.uni.geko.weaver.copierfactoryext" name="CopierFactoryExt" schema="schema/lu.uni.geko.weaver.copierfactoryext.exsd"/>
-   <extension-point id="lu.uni.geko.weaver.pc2avmap.uidcalculatorext" name="UIDCalculator" schema="schema/lu.uni.geko.weaver.pc2avmap.uidcalculator.exsd"/>
    <extension
          point="lu.uni.geko.weaver.simpleadderext">
       <client
@@ -19,19 +18,4 @@
             priority="100">
       </client>
    </extension>
-   <extension
-         point="lu.uni.geko.weaver.pc2avmap.uidcalculatorext">
-      <client
-            class="lu.uni.geko.weaver.pc2avmap.NameUIDCalculator"
-            priority="2">
-      </client>
-   </extension>
-   <extension
-         point="lu.uni.geko.weaver.pc2avmap.uidcalculatorext">
-      <client
-            class="lu.uni.geko.weaver.pc2avmap.StringAttributesUIDCalculator"
-            priority="1">
-      </client>
-   </extension>
-
 </plugin>

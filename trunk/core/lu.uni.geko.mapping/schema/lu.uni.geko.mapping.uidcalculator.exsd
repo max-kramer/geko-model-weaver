@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="lu.uni.geko.weaver" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="lu.uni.geko.mapping" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="lu.uni.geko.weaver" id="lu.uni.geko.weaver.pc2avmap.uidcalculator" name="UIDCalculator"/>
+         <meta.schema plugin="lu.uni.geko.mapping" id="lu.uni.geko.mapping.uidcalculator" name="UIDCalculator"/>
       </appinfo>
       <documentation>
          An extension point for the calculation of unique identifiers during the resolution of a mapping from pointcut elements to advice elements.
 
-All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) until the first registered extension returns a unique identifier different than null for a pointcut element. As soon as this point is reached only the responsible extension that calculated this unique identifier different than null is used to find the matching pointcut element.An extension point for the customization of generator models used to generate code and editors for pointcut and advice metamodels.
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) until the first registered extension returns a unique identifier different than null for a pointcut element. As soon as this point is reached only the responsible extension that calculated this unique identifier different than null is used to find the matching pointcut element.
       </documentation>
    </annotation>
 

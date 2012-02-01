@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 /**
- * A utility class hiding details of the Ecore metamodel creation part of the Eclipse Modeling Framework API for recurring tasks that are
- * not project-specific.<br/>
+ * A utility class hiding details of the Ecore metamodel creation part of the Eclipse Modeling Framework API for recurring tasks
+ * that are not project-specific.<br/>
  * <br/>
  * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently only providing one
  * implementation and the "abstractions" can be regarded as low-level.)

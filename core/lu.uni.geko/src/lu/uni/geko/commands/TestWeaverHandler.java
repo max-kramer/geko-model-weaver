@@ -40,11 +40,11 @@ public class TestWeaverHandler extends AbstractFolderHandler {
             public void run() {
                for (int i = 0; i < TEST_COUNT; i++) {
                   Quintuple<URI, URI, URI, URI, URI> modelURIs = Tester.getModelURIsFromFolder(folder);
-                  URI baseMURI = modelURIs.first;
-                  URI pointcutMURI = modelURIs.second;
-                  URI adviceMURI = modelURIs.third;
-                  URI pc2AvMappingMURI = modelURIs.fourth;
-                  URI wovenArchetypeMURI = modelURIs.fifth;
+                  URI baseMURI = modelURIs.getFirst();
+                  URI pointcutMURI = modelURIs.getSecond();
+                  URI adviceMURI = modelURIs.getThird();
+                  URI pc2AvMappingMURI = modelURIs.getFourth();
+                  URI wovenArchetypeMURI = modelURIs.getFifth();
                   URI wovenMURI;
                   if (pc2AvMappingMURI == null) {
                      wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);

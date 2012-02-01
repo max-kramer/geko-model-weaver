@@ -161,7 +161,7 @@ public final class EclipseBridge {
       sortExtensionsDescByPriority(executableExtensionsWithPriority);
       List<T> executableExtensions = new ArrayList<T>(executableExtensionsWithPriority.size());
       for (Pair<T, Integer> extensionPriorityPair : executableExtensionsWithPriority) {
-         executableExtensions.add(extensionPriorityPair.first);
+         executableExtensions.add(extensionPriorityPair.getFirst());
       }
       return executableExtensions;
    }
@@ -216,10 +216,10 @@ public final class EclipseBridge {
          @Override
          public int compare(final Pair<T, Integer> arg0, final Pair<T, Integer> arg1) {
             int comparison;
-            comparison = arg1.second.compareTo(arg0.second);
+            comparison = arg1.getSecond().compareTo(arg0.getSecond());
             if (comparison == 0) {
-               throw new RuntimeException("The two extensions '" + arg0.first + "' and '" + arg1.first
-                     + "' both extend the same extension point using the same priority '" + arg0.second + "'!");
+               throw new RuntimeException("The two extensions '" + arg0.getFirst() + "' and '" + arg1.getFirst()
+                     + "' both extend the same extension point using the same priority '" + arg0.getSecond() + "'!");
             }
             return comparison;
          }

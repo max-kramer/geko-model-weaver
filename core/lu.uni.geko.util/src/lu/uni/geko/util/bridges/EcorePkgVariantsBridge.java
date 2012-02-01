@@ -52,10 +52,10 @@ public final class EcorePkgVariantsBridge {
     *           the suffix to be removed from the package name of the original classifier
     * @return the corresponding classifier variant
     */
-   public static EClassifier getEClassifierByRemovingAPkgSuffix(final EClassifier eClassifier, final String pkgNameSuffixToRemove) {
+   public static EClassifier getEClassifierByRemovingAPkgSuffix(final EClassifier eClassifier,
+         final String pkgNameSuffixToRemove) {
       String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
-      String variantPackageNsURI = JavaPkgNameBridge.removeSuffixFromPkgName(originalPackageNsURI,
-            pkgNameSuffixToRemove);
+      String variantPackageNsURI = JavaPkgNameBridge.removeSuffixFromPkgName(originalPackageNsURI, pkgNameSuffixToRemove);
       return getEClassifierInPkgVariant(eClassifier, variantPackageNsURI);
    }
 
@@ -93,8 +93,8 @@ public final class EcorePkgVariantsBridge {
    public static EClassifier getEClassifierByReplacingAPkgNsURISuffix(final EClassifier eClassifier,
          final String pkgNsURISuffixToReplace, final String pkgNsURISuffixReplacement) {
       String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
-      String variantPackageNsURI = JavaPkgNameBridge.replaceSuffixInPkgName(originalPackageNsURI,
-            pkgNsURISuffixToReplace, pkgNsURISuffixReplacement);
+      String variantPackageNsURI = JavaPkgNameBridge.replaceSuffixInPkgName(originalPackageNsURI, pkgNsURISuffixToReplace,
+            pkgNsURISuffixReplacement);
       return getEClassifierInPkgVariant(eClassifier, variantPackageNsURI);
    }
 

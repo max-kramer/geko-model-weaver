@@ -21,7 +21,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * A default implementation for wrapping simple resource loaders to use them like refined resource loaders (object adapter pattern).
+ * A default implementation for wrapping simple resource loaders to use them like refined resource loaders (object adapter
+ * pattern).
  *
  * @author Max E. Kramer
  */
@@ -30,7 +31,7 @@ public class SimpleResourceLoaderWrapper implements RefinedResourceLoaderExt {
    private final SimpleResourceLoaderExt wrappedResourceLoader;
 
    /**
-    * Constructor initialising all fields.
+    * Constructs a new SimpleResourceLoaderWrapper using the given SimpleResourceLoaderExt.
     *
     * @param wrappedResourceLoader
     *           the simple resource loader to be wrapped

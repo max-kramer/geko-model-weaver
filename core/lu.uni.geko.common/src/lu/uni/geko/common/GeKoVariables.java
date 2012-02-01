@@ -26,6 +26,17 @@ public final class GeKoVariables {
    /** The collection of URLs that should be added to the classpath. */
    private final Collection<URL> classpathURLs = new ArrayList<URL>();
 
+   /** Singleton classes should not have a public or default constructor. */
+   private GeKoVariables() {
+   }
+
+   /**
+    * @return the singleton instance of this class
+    */
+   public static GeKoVariables getInstance() {
+      return INSTANCE;
+   }
+
    /**
     * Adds the given classpath URLs to the overall collection of URLs that should be added to the classpath.
     *
@@ -40,12 +51,5 @@ public final class GeKoVariables {
     */
    public Collection<URL> getClasspathURLs() {
       return classpathURLs;
-   }
-
-   /**
-    * @return the singleton instance of this class
-    */
-   public static GeKoVariables getInstance() {
-      return INSTANCE;
    }
 }

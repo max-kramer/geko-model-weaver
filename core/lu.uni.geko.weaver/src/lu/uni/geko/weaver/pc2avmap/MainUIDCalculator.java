@@ -43,8 +43,8 @@ public class MainUIDCalculator {
             }
          };
          Pair<String, Object> uIDAndHelper = EclipseBridge.callInProtectedMode(callable);
-         currentUID = uIDAndHelper.first;
-         currentUIDHelper = uIDAndHelper.second;
+         currentUID = uIDAndHelper.getFirst();
+         currentUIDHelper = uIDAndHelper.getSecond();
       }
       if (currentUIDCalculator == null) {
          throw new RuntimeException("No extension for extension point '" + UIDCalculatorExt.ID + "' registered!");

@@ -20,7 +20,7 @@ import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.joinpointdetection.JoinpointDetectorExt;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.util.tostring.EMFToStringAdapter;
+import lu.uni.geko.util.tostring.EMFToString;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
@@ -37,14 +37,14 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
    @Override
    public List<Map<EObject, EObject>> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
       Pair<String, Map<Integer, EObject>> pcRulesAndIDs = (new PcRulesGenerator(pcMURI)).transform();
-      String pointcutRules = pcRulesAndIDs.first;
-      Map<Integer, EObject> pcID2PcEObjectMap = pcRulesAndIDs.second;
+      String pointcutRules = pcRulesAndIDs.getFirst();
+      Map<Integer, EObject> pcID2PcEObjectMap = pcRulesAndIDs.getSecond();
       // prepare lists that will contain the result of the joinpoint detection
       ArrayList<ArrayList<EObject>> baseEObjectsPerMatchLists = new ArrayList<ArrayList<EObject>>();
       ArrayList<ArrayList<String>> pcIDsPerMatchLists = new ArrayList<ArrayList<String>>();
       // prepare an iterable for the contents of the base model
       Iterable<EObject> baseContentIterable = createBaseMIterable(baseMURI);
-      DroolsAdapter.detectJoinpoints(pointcutRules, baseContentIterable, baseEObjectsPerMatchLists, pcIDsPerMatchLists);
+      DroolsBridge.detectJoinpoints(pointcutRules, baseContentIterable, baseEObjectsPerMatchLists, pcIDsPerMatchLists);
       return populateResultMaps(baseEObjectsPerMatchLists, pcIDsPerMatchLists, pcID2PcEObjectMap);
    }
 
@@ -101,11 +101,11 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
                   pcEObject2BaseEObjectMap.put(pcEObject, matchedBaseEObject);
                }
             } else {
-               console
-                     .printErrorln("The joinpoint detection returned a match that had not exactly as many matched base EObjects as pointcut ids!");
+               console.printErrorln("The joinpoint detection returned a match that had not exactly"
+                     + "as many matched base EObjects as pointcut ids!");
             }
          }
-         console.println(EMFToStringAdapter.INSTANCE.toString(pcEObject2BaseEObjectMaps));
+         console.println(EMFToString.getInstance().toString(pcEObject2BaseEObjectMaps));
          return pcEObject2BaseEObjectMaps;
       } else {
          console.printErrorln("The joinpoint detection returned not exactly as many matched locations as trace match mappings!");

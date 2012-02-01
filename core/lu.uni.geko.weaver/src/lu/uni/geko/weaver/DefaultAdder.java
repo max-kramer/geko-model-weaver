@@ -16,7 +16,7 @@ import java.util.Map;
 import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.util.ecore.FeatureCorresponder;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 public class DefaultAdder implements SimpleAdderExt {
    @Override
    public Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject rootEObject, EObject adviceEObjectToBeAdded,
-         FeatureCorresponder featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
+         FeatureEquivalenceHelper featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
          Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap)  {
 	   EObject adviceContainer = adviceEObjectToBeAdded.eContainer();
       if (GeKoBridge.skipAvSpecificElement(adviceContainer)) {
@@ -43,8 +43,8 @@ public class DefaultAdder implements SimpleAdderExt {
          EReference adviceContainmentReference = adviceEObjectToBeAdded.eContainmentFeature();
          EObject baseVersionOfAdviceContainer = MainCopier.copyAdviceEObject(adviceContainer, rootEObject, base2AdviceMergeBiMap,
                adviceEObjects2ScopeMap);
-         EStructuralFeature baseContainmentFeature = featureCorresponder.getCorrespondingBaseFeature(
-               baseVersionOfAdviceContainer, adviceContainer, adviceContainmentReference);
+         EStructuralFeature baseContainmentFeature = featureCorresponder.getTargetEquivalentFeature(
+               adviceContainer, baseVersionOfAdviceContainer, adviceContainmentReference);
          if (baseContainmentFeature instanceof EReference) {
             return new Pair<EReference, EObject>((EReference) baseContainmentFeature, baseVersionOfAdviceContainer);
          } else {
@@ -56,7 +56,7 @@ public class DefaultAdder implements SimpleAdderExt {
 	}
 
    private EReference guessContainmentReferenceForAdviceEObjectAndContainer(EObject possibleContainer,
-         EObject adviceEObjectToBeAdded, FeatureCorresponder featureCorresponder) {
+         EObject adviceEObjectToBeAdded, FeatureEquivalenceHelper featureCorresponder) {
       List<EReference> rootContainmentReferences = possibleContainer.eClass().getEAllContainments();
       // String errorMessage = "There is still an advice element '" + adviceEObjectToBeAdded +
       // "' that is not contained in any element of the woven model but the unique root element of the woven model";

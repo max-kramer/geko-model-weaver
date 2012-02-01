@@ -42,7 +42,7 @@ public class PcRulesVisitor {
    private final Map<EObject, Integer> pcEObject2IDMap;
 
    /**
-    * Constructor initialising all fields.
+    * Constructs a new PcRulesVisitor initialising all fields.
     */
    public PcRulesVisitor() {
       this.rules = new StringBuffer();

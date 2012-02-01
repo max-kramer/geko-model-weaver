@@ -16,7 +16,7 @@ import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
 import lu.uni.geko.util.ecore.UnorderedReferencesRespectingEqualityHelper;
-import lu.uni.geko.util.tostring.EMFToStringAdapter;
+import lu.uni.geko.util.tostring.EMFToString;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
 import org.eclipse.core.resources.IFile;
@@ -129,8 +129,9 @@ public final class Tester {
    }
 
    /**
-    * Asserts that the models at the given URI are equivalent by throwing a {@link java.lang.RuntimeException RuntimeException} if this is not the
-    * case. The equivalence considers unordered references as equal even if they contain the same elements in different order.
+    * Asserts that the models at the given URI are equivalent by throwing a {@link java.lang.RuntimeException RuntimeException} if
+    * this is not the case. The equivalence considers unordered references as equal even if they contain the same elements in
+    * different order.
     *
     * @param wovenMURI
     *           the URI of the newly woven model
@@ -148,9 +149,9 @@ public final class Tester {
          SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
          System.out.println(successMessage);
       } else {
-         throw new RuntimeException("The woven model root element '" + EMFToStringAdapter.INSTANCE.toString(wovenRootElement)
+         throw new RuntimeException("The woven model root element '" + EMFToString.getInstance().toString(wovenRootElement)
                + "' does not equal the woven archetype model root element '"
-               + EMFToStringAdapter.INSTANCE.toString(wovenArchetypeRootElement) + "'!");
+               + EMFToString.getInstance().toString(wovenArchetypeRootElement) + "'!");
       }
    }
 }

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package lu.uni.geko.common;
 
-import lu.uni.geko.util.ecore.AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper;
+import lu.uni.geko.util.ecore.AbstractPkgVariantUnorderedReferencesRespectingEqualityHelper;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * {@link org.eclipse.emf.ecore.util.EcoreUtil#EqualityHelper EcoreUtil.EqualityHelper} with two modifications to remove suffixes
  * from package variants and to respect unordered references.
  *
- * @see lu.uni.geko.util.ecore.AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper
+ * @see lu.uni.geko.util.ecore.AbstractPkgVariantUnorderedReferencesRespectingEqualityHelper
  *      AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper
  *
  * @author Max E. Kramer
  */
-public class Av2BaseEqualityHelper extends AbstractPackageVariantUnorderedReferencesRespectingEqualityHelper {
+public class Av2BaseEqualityHelper extends AbstractPkgVariantUnorderedReferencesRespectingEqualityHelper {
    /** Generated unique version ID for serialising. */
    private static final long serialVersionUID = 3881034521888762017L;
 

@@ -55,8 +55,9 @@ public final class PluginStarter {
             installAndStartGeneratedPlugin(absoluteRootPluginURI, editPluginID);
             String editorPluginID = genModel.getEditorPluginID();
             installAndStartGeneratedPlugin(absoluteRootPluginURI, editorPluginID);
-            // RATIONALE MK deactivated as the Drools joinpoint detection does not use the classpath correctly so putting the code there has no use at the moment
-//          addModelCodeToClasspath(absoluteRootPluginURI, modelPluginID);
+            // RATIONALE MK deactivated as the Drools joinpoint detection does not use the classpath correctly so putting the code
+            // there has no use at the moment
+            // addModelCodeToClasspath(absoluteRootPluginURI, modelPluginID);
          }
       }
    }
@@ -75,8 +76,10 @@ public final class PluginStarter {
    /**
     * Installs and starts the plug-in with the given ID that is located at the given absolute URI.
     *
-    * @param absolutePluginURI the absolute URI of the plug-in without its ID
-    * @param pluginID the ID of the plug-in
+    * @param absolutePluginURI
+    *           the absolute URI of the plug-in without its ID
+    * @param pluginID
+    *           the ID of the plug-in
     */
    private static void installAndStartGeneratedPlugin(final URI absolutePluginURI, final String pluginID) {
       try {
@@ -91,15 +94,15 @@ public final class PluginStarter {
       }
    }
 
-//   private static void addModelCodeToClasspath(final URI absoluteRootPluginURI, final String modelPluginID) {
-//      try {
-//         URI absoluteModelCodeURI = absoluteRootPluginURI.appendSegment(modelPluginID).appendSegment("bin");
-//         String absoluteModelCodePath = absoluteModelCodeURI.toFileString();
-//         Collection<URL> classpathURLs = JavaAdapter.getAllDirURLsWithinPath(absoluteModelCodePath);
-//          GeKoVariables.getInstance().addClasspathURLs(classpathURLs);
-//      } catch (MalformedURLException e) {
-//         // soften
-//         throw new RuntimeException(e);
-//      }
-//   }
+   // private static void addModelCodeToClasspath(final URI absoluteRootPluginURI, final String modelPluginID) {
+   // try {
+   // URI absoluteModelCodeURI = absoluteRootPluginURI.appendSegment(modelPluginID).appendSegment("bin");
+   // String absoluteModelCodePath = absoluteModelCodeURI.toFileString();
+   // Collection<URL> classpathURLs = JavaAdapter.getAllDirURLsWithinPath(absoluteModelCodePath);
+   // GeKoVariables.getInstance().addClasspathURLs(classpathURLs);
+   // } catch (MalformedURLException e) {
+   // // soften
+   // throw new RuntimeException(e);
+   // }
+   // }
 }

@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Pointcut to Advice Mapping plug-in for GeKo model weaver
+Bundle-SymbolicName: lu.uni.geko.mapping
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: uni.lu
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;bundle-version="2.7.0",
  lu.uni.geko.weaver;bundle-version="1.0.0",
  org.eclipse.ui;bundle-version="3.7.0",
- lu.uni.geko.mapping;bundle-version="1.0.0",
+ lu.uni.geko.mapping.model;bundle-version="1.0.0",
  lu.uni.geko.common;bundle-version="1.0.0",
  org.eclipse.core.expressions;bundle-version="3.4.300",
  lu.uni.geko.test;bundle-version="1.0.0"

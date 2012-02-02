@@ -47,12 +47,13 @@ public class TestWeaverHandler extends AbstractFolderHandler {
                   URI wovenArchetypeMURI = modelURIs.getFifth();
                   URI wovenMURI;
                   if (pc2AvMappingMURI == null) {
-                     wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+                     wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI);
                   } else {
-                     wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI,
-                           false, true);
+                     wovenMURI = ActionsFacade
+                           .weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI);
                   }
-                  wovenMURI = EMFBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+                  wovenMURI = EMFBridge.newURIWithStringAppendedToFilename(baseMURI,
+                        GeKoConstants.getWovenMFilenameAppendage());
                   Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
                }
             }

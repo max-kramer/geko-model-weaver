@@ -4,17 +4,24 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.weaver.add;
+
+import lu.uni.geko.util.datastructures.Pair;
+import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
+import lu.uni.geko.weaver.Advice;
+import lu.uni.geko.weaver.AdviceEffectuation;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 
-public interface CopierFactoryExt {
+public interface SimpleAdderExt {
 	/** extension point ID **/
-	String ID = "lu.uni.geko.weaver.copierfactoryext";
+	String ID = "lu.uni.geko.weaver.simpleadderext";
 
-	Copier getCopier(EObject rootEObject);
+   Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject uniqueWovenRoot, EObject adviceEObjectToBeAdded, Advice advice,
+         AdviceEffectuation avEffectuation, FeatureEquivalenceHelper featureEquivalenceHelper);
 }

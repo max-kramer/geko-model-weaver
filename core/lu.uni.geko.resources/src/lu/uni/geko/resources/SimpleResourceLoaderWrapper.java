@@ -21,8 +21,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 /**
- * A default implementation for wrapping simple resource loaders to use them like refined resource loaders (object adapter
- * pattern).
+ * A default implementation of the extension point {@link RefinedResourceLoaderExt lu.uni.geko.resources.refinedresourceloaderext}
+ * that wraps a simple resource loader to use it like a refined resource loader (object adapter pattern).
+ *
+ * @see SimpleResourceLoaderExt
+ * @see RefinedResourceLoaderExt
  *
  * @author Max E. Kramer
  */

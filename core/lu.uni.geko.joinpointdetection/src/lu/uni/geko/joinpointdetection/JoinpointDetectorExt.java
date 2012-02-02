@@ -11,10 +11,10 @@
 package lu.uni.geko.joinpointdetection;
 
 import java.util.List;
-import java.util.Map;
+
+import lu.uni.geko.common.JoinPoint;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * The interface to be implemented by clients that extend the extension point lu.uni.geko.joinpointdetection.joinpointdetectorext.
@@ -29,14 +29,13 @@ public interface JoinpointDetectorExt {
    String ID = "lu.uni.geko.joinpointdetection.joinpointdetectorext";
 
    /**
-    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
-    * pointcut elements to base elements.
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them.
     *
     * @param pointcutMURI
     *           the URI of the pointcut model
     * @param baseMURI
     *           the URI of the base model
-    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    * @return a list containing all detected join points
     */
-   List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI);
+   List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final URI baseMURI);
 }

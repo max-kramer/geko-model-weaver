@@ -51,7 +51,7 @@ public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHand
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false, true);
+            ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI);
          }
       };
    }

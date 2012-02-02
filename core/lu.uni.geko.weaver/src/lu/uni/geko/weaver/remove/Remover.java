@@ -4,11 +4,11 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.weaver.remove;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,6 +20,7 @@ import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
+import lu.uni.geko.weaver.AdviceEffectuation;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -28,12 +29,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class Remover {
 	private final SimpleMessageConsole console;
-	
+
 	public Remover() {
 		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
 	}
-	
-	public void performRemovals(Set<EObject> baseEObjectsToBeRemoved) {
+
+	public void performRemovals(AdviceEffectuation avEffectuation) {
+	   Set<EObject> baseEObjectsToBeRemoved = avEffectuation.getBaseElementsToRemove();
 		boolean additionalIterationNeeded = true;
 		while (additionalIterationNeeded && baseEObjectsToBeRemoved.size() > 0) {
 				additionalIterationNeeded = false;
@@ -44,7 +46,7 @@ public class Remover {
 				removeEObjects(allBaseEObjectsToBeRemoved);
 		}
 	}
-	
+
 	private void removeEObjects(Set<EObject> allBaseEObjectsToBeRemoved) {
 		for (EObject baseEObjectToBeRemoved : allBaseEObjectsToBeRemoved) {
 			// MAYDO MK if necessary skip objects during removal where the direct or an indirect parent will be removed

@@ -8,23 +8,20 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.weaver.copy;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 import lu.uni.geko.common.GeKoBridge;
 import lu.uni.geko.util.bridges.EclipseBridge;
-import lu.uni.geko.util.datastructures.BiN2NMap;
-import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
+import lu.uni.geko.weaver.Advice;
+import lu.uni.geko.weaver.AdviceEffectuation;
 
 import org.eclipse.emf.ecore.EObject;
 
 public class MainCopier {
-   public static EObject copyAdviceEObject(final EObject sourceAdviceEObject, final EObject rootEObject,
-         final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
-         final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
+   public static EObject copyAdviceEObject(final EObject sourceAdviceEObject, final EObject rootEObject, final Advice advice, final AdviceEffectuation avEffectuation) {
       List<CopierFactoryExt> copierFactories = GeKoBridge.getRegisteredExtensionsInDescPriority(CopierFactoryExt.ID,
             CopierFactoryExt.class);
 
@@ -34,9 +31,8 @@ public class MainCopier {
          Callable<EObject> callable = new Callable<EObject>() {
             @Override
             public EObject call() {
-               Copier copier = copierFactory.getCopier(rootEObject);
-               return copier.copyAdviceEObject(sourceAdviceEObject, finalCurrentCopyBaseEObject, base2AdviceMergeBiMap,
-                     adviceEObjects2ScopeMap);
+               Copier copier = copierFactory.getCopier(rootEObject, advice);
+               return copier.copyAdviceEObject(sourceAdviceEObject, finalCurrentCopyBaseEObject, avEffectuation);
             }
          };
          currentCopyBaseEObject = EclipseBridge.callInProtectedMode(callable);

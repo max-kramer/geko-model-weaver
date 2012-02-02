@@ -93,7 +93,7 @@ public class WeaveInferringPc2AvMappingHandler extends AbstractFileHandler {
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false, true);
+            ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI);
          }
       };
    }

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <b>Attention:</b> All registered extensions for this extension point are called in order of decreasing priority (i.e. starting
  * with the extension having the highest integer value priority) until the first registered extension returns a unique identifier
  * different than {@code null} for a pointcut element. As soon as this point is reached only the responsible extension that
- * calculated this unique identifier different than {@code null} is used to find the matching pointcut element.
+ * calculated this unique identifier different than {@code null} is used to find a matching pointcut element.
  *
  * @author Max E. Kramer
  */

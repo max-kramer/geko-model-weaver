@@ -12,10 +12,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+/**
+ * An extension of the extension point {@link UIDCalculatorExt lu.uni.geko.mapping.uidcalculatorext} that implements the
+ * calculation of unique identifiers for mappings from pointcut to advice elements based on a name attribute.
+ *
+ * @see UIDCalculatorExt
+ *
+ * @author Max E. Kramer
+ */
 public class NameUIDCalculator implements UIDCalculatorExt {
 
    @Override
-   public Pair<String, Object> calculatePcElementUID(EObject pcElement, String currentID) {
+   public Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentID) {
       EStructuralFeature pcUIDFeature = pcElement.eClass().getEStructuralFeature(GeKoConstants.getUidFeatureName());
       boolean pcUIDIsNameString = pcUIDFeature != null && EcoreBridge.isStringAttribute(pcUIDFeature);
       String pcElementUID = null;
@@ -26,7 +34,8 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement) {
+   public Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
+         final EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EcorePkgVariantsBridge.getEClassByReplacingAPkgNsURISuffix(pcElementClass,
             GeKoConstants.getPcMMPkgNsURIAppendage(), GeKoConstants.getAvMMPkgNsURIAppendage());
@@ -34,7 +43,7 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public boolean isCorresponding(EObject avElement, String pcElementUID, Object uIDHelper) {
+   public boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
       String avElementUID = (String) EcoreBridge.getValueForFeatureName(avElement, GeKoConstants.getUidFeatureName());
       return EcoreBridge.equals(pcElementUID, avElementUID);
    }

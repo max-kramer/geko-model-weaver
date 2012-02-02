@@ -7,7 +7,8 @@ Bundle-Vendor: lu.uni
 Require-Bundle: org.eclipse.core.runtime,
  lu.uni.geko.util,
  org.eclipse.emf.common,
- org.eclipse.emf.ecore
+ org.eclipse.emf.ecore,
+ lu.uni.geko.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: lu.uni.geko.joinpointdetection

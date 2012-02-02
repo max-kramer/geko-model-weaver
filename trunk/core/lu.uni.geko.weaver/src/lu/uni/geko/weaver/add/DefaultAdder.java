@@ -8,16 +8,16 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.weaver.add;
 
 import java.util.List;
-import java.util.Map;
 
 import lu.uni.geko.common.GeKoBridge;
-import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.datastructures.Pair;
 import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
-import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
+import lu.uni.geko.weaver.Advice;
+import lu.uni.geko.weaver.AdviceEffectuation;
+import lu.uni.geko.weaver.copy.MainCopier;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -27,13 +27,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class DefaultAdder implements SimpleAdderExt {
    @Override
-   public Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject rootEObject, EObject adviceEObjectToBeAdded,
-         FeatureEquivalenceHelper featureCorresponder, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap,
-         Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap)  {
+   public Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject rootEObject, EObject adviceEObjectToBeAdded, Advice advice,
+         AdviceEffectuation avEffectuation, FeatureEquivalenceHelper featureEquivalenceHelper) {
 	   EObject adviceContainer = adviceEObjectToBeAdded.eContainer();
       if (GeKoBridge.skipAvSpecificElement(adviceContainer)) {
          EReference containmentReference = guessContainmentReferenceForAdviceEObjectAndContainer(rootEObject,
-               adviceEObjectToBeAdded, featureCorresponder);
+               adviceEObjectToBeAdded, featureEquivalenceHelper);
          if (containmentReference == null) {
             return null;
          } else {
@@ -41,9 +40,8 @@ public class DefaultAdder implements SimpleAdderExt {
          }
 	   } else {
          EReference adviceContainmentReference = adviceEObjectToBeAdded.eContainmentFeature();
-         EObject baseVersionOfAdviceContainer = MainCopier.copyAdviceEObject(adviceContainer, rootEObject, base2AdviceMergeBiMap,
-               adviceEObjects2ScopeMap);
-         EStructuralFeature baseContainmentFeature = featureCorresponder.getTargetEquivalentFeature(
+         EObject baseVersionOfAdviceContainer = MainCopier.copyAdviceEObject(adviceContainer, rootEObject, advice, avEffectuation);
+         EStructuralFeature baseContainmentFeature = featureEquivalenceHelper.getTargetEquivalentFeature(
                adviceContainer, baseVersionOfAdviceContainer, adviceContainmentReference);
          if (baseContainmentFeature instanceof EReference) {
             return new Pair<EReference, EObject>((EReference) baseContainmentFeature, baseVersionOfAdviceContainer);

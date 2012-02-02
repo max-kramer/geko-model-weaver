@@ -16,17 +16,30 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+/**
+ * An extension of the extension point {@link UIDCalculatorExt lu.uni.geko.mapping.uidcalculatorext} that implements the
+ * calculation of unique identifiers for mappings from pointcut to advice elements based on all string attributes.
+ *
+ * @see UIDCalculatorExt
+ *
+ * @author Max E. Kramer
+ */
 public class StringAttributesUIDCalculator implements UIDCalculatorExt {
 
    @Override
-   public Pair<String, Object> calculatePcElementUID(EObject pcElement, String currentUID) {
+   public Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentUID) {
       EClass pcElementClass = pcElement.eClass();
       List<EAttribute> pcStringAttributes = getUIDStringAttributes(pcElementClass);
       String pcElementUID = calculateUIDFromStringAttributes(pcElement, pcStringAttributes);
       return new Pair<String, Object>(pcElementUID, pcStringAttributes);
    }
 
-   private List<EAttribute> getUIDStringAttributes(EClass eClass) {
+   /**
+    * @param eClass
+    *           a metaclass
+    * @return a list containing all string attributes of the given metaclass
+    */
+   private List<EAttribute> getUIDStringAttributes(final EClass eClass) {
       List<EAttribute> stringAttributes = new ArrayList<EAttribute>();
       EList<EAttribute> allEAttributes = eClass.getEAllAttributes();
       for (EAttribute eAttribute : allEAttributes) {
@@ -37,11 +50,20 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
       return stringAttributes;
    }
 
-   private String calculateUIDFromStringAttributes(EObject pointcutElement, List<EAttribute> stringAttributes) {
+   /**
+    * Calculates a unique identifier for the given pointcut element using the given string attributes.
+    *
+    * @param pcElement
+    *           a pointcut element
+    * @param stringAttributes
+    *           a list of string attributes of the given pointcut element
+    * @return the unique identifier
+    */
+   private String calculateUIDFromStringAttributes(final EObject pcElement, final List<EAttribute> stringAttributes) {
       StringBuilder uIDValue = new StringBuilder();
       for (EAttribute stringAttribute : stringAttributes) {
-         Object attributeValue = pointcutElement.eGet(stringAttribute);
-         // RATIONALE MK treat pointcut and advice string attributes with the value null the same way we treat the value ""
+         Object attributeValue = pcElement.eGet(stringAttribute);
+         // treat pointcut and advice string attributes with the value null the same way we treat the value ""
          if (attributeValue == null) {
             attributeValue = "";
          }
@@ -55,7 +77,8 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public Collection<EObject> getPotentiallyCorrespondingAvElements(Collection<EObject> avElements, EObject pcElement) {
+   public Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
+         final EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EcorePkgVariantsBridge.getEClassByReplacingAPkgNsURISuffix(pcElementClass,
             GeKoConstants.getPcMMPkgNsURIAppendage(), GeKoConstants.getAvMMPkgNsURIAppendage());
@@ -63,17 +86,17 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public boolean isCorresponding(EObject avElement, String pcElementUID, Object uIDHelper) {
+   public boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
       if (uIDHelper instanceof List<?>) {
          EClass avEClass = avElement.eClass();
          @SuppressWarnings("unchecked")
-         List<EAttribute> avStringAttributes = GeKoBridge.getAvAttributesForPcAttributes(avEClass, (List<EAttribute>) uIDHelper);
+         List<EAttribute> avStringAttributes = GeKoBridge.getAvAttributesForPcAttributes(avEClass,
+               (List<EAttribute>) uIDHelper);
          String avElementUID = calculateUIDFromStringAttributes(avElement, avStringAttributes);
          return pcElementUID.equals(avElementUID);
       } else {
-         throw new RuntimeException("The unique identifier helper for the pointcut element with the UID '"
-               + pcElementUID + "' and the advice element '" + avElement + "' has to be a List<EAttribute> but was '" + uIDHelper
-               + "'!");
+         throw new RuntimeException("The unique identifier helper for the pointcut element with the UID '" + pcElementUID
+               + "' and the advice element '" + avElement + "' has to be a List<EAttribute> but was '" + uIDHelper + "'!");
       }
    }
 }

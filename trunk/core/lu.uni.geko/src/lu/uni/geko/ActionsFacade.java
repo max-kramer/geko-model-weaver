@@ -11,15 +11,15 @@
 package lu.uni.geko;
 
 import java.util.List;
-import java.util.Map;
 
+import lu.uni.geko.common.JoinPoint;
 import lu.uni.geko.joinpointdetection.MainJoinpointDetector;
 import lu.uni.geko.mapping.Pc2AvMapResolver;
 import lu.uni.geko.mmtransformer.MMTransformer;
 import lu.uni.geko.mmtransformer.PluginStarter;
 import lu.uni.geko.util.datastructures.N2NMap;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.weaver.AsymmetricWeaver;
+import lu.uni.geko.weaver.Weaver;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -72,16 +72,15 @@ public final class ActionsFacade {
    }
 
    /**
-    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
-    * pointcut elements to base elements.
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them.
     *
     * @param pcMURI
     *           the URI of the pointcut model
     * @param baseMURI
     *           the URI of the base model
-    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    * @return a list containing all detected join points
     */
-   public static List<Map<EObject, EObject>> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
+   public static List<JoinPoint> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
       return MainJoinpointDetector.detectJoinpoints(pcMURI, baseMURI);
    }
 
@@ -101,13 +100,12 @@ public final class ActionsFacade {
     *           whether the result of the weaving should be saved or not
     * @return the URI of the woven model
     */
-   public static URI weaveInferringPc2AvMapping(final URI baseMURI, final URI pcMURI, final URI avMURI, final boolean inPlace,
-         final boolean persist) {
+   public static URI weaveInferringPc2AvMapping(final URI baseMURI, final URI pcMURI, final URI avMURI) {
       N2NMap<EObject, EObject> pointcut2AdviceN2NMap = (new Pc2AvMapResolver(pcMURI, avMURI)).transform();
       if (pointcut2AdviceN2NMap == null) {
          return null;
       } else {
-         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pointcut2AdviceN2NMap, inPlace, persist);
+         return weave(baseMURI, pcMURI, avMURI, pointcut2AdviceN2NMap);
       }
    }
 
@@ -123,19 +121,15 @@ public final class ActionsFacade {
     *           the URI of the advice model
     * @param pc2AvMappingMURI
     *           the URI of the mapping from pointcut to advice elements
-    * @param inPlace
-    *           whether the weaving should be done in-place or using a new copy of the model
-    * @param persist
-    *           whether the result of the weaving should be saved or not
     * @return the URI of the woven model
     */
    public static URI weaveWithPc2AvMappingModel(final URI baseMURI, final URI pcMURI, final URI avMURI,
-         final URI pc2AvMappingMURI, final boolean inPlace, final boolean persist) {
+         final URI pc2AvMappingMURI) {
       N2NMap<EObject, EObject> pc2AvN2NMap = (new Pc2AvMapResolver(pcMURI, avMURI, pc2AvMappingMURI)).transform();
       if (pc2AvN2NMap == null) {
          return null;
       } else {
-         return weaveAsymmetrically(baseMURI, pcMURI, avMURI, pc2AvN2NMap, inPlace, persist);
+         return weave(baseMURI, pcMURI, avMURI, pc2AvN2NMap);
       }
    }
 
@@ -151,19 +145,14 @@ public final class ActionsFacade {
     *           the URI of the advice model
     * @param pc2AvN2NMap
     *           the mapping from pointcut to advice elements
-    * @param inPlace
-    *           whether the weaving should be done in-place or using a new copy of the model
-    * @param persist
-    *           whether the result of the weaving should be saved or not
     * @return the URI of the woven model
     */
-   private static URI weaveAsymmetrically(final URI baseMURI, final URI pcMURI, final URI avMURI,
-         final N2NMap<EObject, EObject> pc2AvN2NMap, final boolean inPlace, final boolean persist) {
-      AsymmetricWeaver asymmetricWeaver = new AsymmetricWeaver(baseMURI, avMURI, pc2AvN2NMap, inPlace);
-      URI wovenMURI = inPlace ? baseMURI : asymmetricWeaver.copyBaseToWovenMURI();
-      List<Map<EObject, EObject>> pc2BaseMaps = detectJoinpoints(pcMURI, wovenMURI);
-      asymmetricWeaver.setPointcut2BaseMaps(pc2BaseMaps);
-      asymmetricWeaver.transform(persist);
+   private static URI weave(final URI baseMURI, final URI pcMURI, final URI avMURI, final N2NMap<EObject, EObject> pc2AvN2NMap) {
+      Weaver weaver = new Weaver(baseMURI, avMURI, pc2AvN2NMap);
+      URI wovenMURI = weaver.copyBaseToWovenMURI();
+      List<JoinPoint> joinPoints = detectJoinpoints(pcMURI, wovenMURI);
+      weaver.setJoinPoints(joinPoints);
+      weaver.transform();
       return wovenMURI;
    }
 

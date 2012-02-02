@@ -7,14 +7,14 @@
    <extension
          point="lu.uni.geko.weaver.simpleadderext">
       <client
-            class="lu.uni.geko.weaver.DefaultAdder"
+            class="lu.uni.geko.weaver.add.DefaultAdder"
             priority="100">
       </client>
    </extension>
    <extension
          point="lu.uni.geko.weaver.copierfactoryext">
       <client
-            class="lu.uni.geko.weaver.DefaultCopierFactory"
+            class="lu.uni.geko.weaver.copy.DefaultCopierFactory"
             priority="100">
       </client>
    </extension>

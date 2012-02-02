@@ -8,7 +8,7 @@
       <documentation>
          An extension point for the calculation of unique identifiers during the resolution of a mapping from pointcut elements to advice elements.
 
-All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) until the first registered extension returns a unique identifier different than null for a pointcut element. As soon as this point is reached only the responsible extension that calculated this unique identifier different than null is used to find the matching pointcut element.
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) until the first registered extension returns a unique identifier different than null for a pointcut element. As soon as this point is reached only the responsible extension that calculated this unique identifier different than null is used to find a matching pointcut element.
       </documentation>
    </annotation>
 

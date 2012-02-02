@@ -24,8 +24,10 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import Pc2AvMapping.Pc2AvMappingPackage;
 
 /**
- * The default implementation of the extension point lu.uni.geko.resources.simpleresourceloaderext using a thread local resource
- * set and the default XMI resource factory.
+ * The default implementation of the extension point {@link SimpleResourceLoaderExt lu.uni.geko.resources.simpleresourceloaderext}
+ * using a thread local resource set and the default XMI resource factory.
+ *
+ * @see SimpleResourceLoaderExt
  *
  * @author Max E. Kramer
  */

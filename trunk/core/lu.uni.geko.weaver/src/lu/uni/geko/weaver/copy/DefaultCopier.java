@@ -8,7 +8,7 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver;
+package lu.uni.geko.weaver.copy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,21 +16,29 @@ import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.bridges.JavaBridge;
-import lu.uni.geko.util.datastructures.BiN2NMap;
 import lu.uni.geko.util.ecore.AbstractDeferringManuallyReferencingRecursivePkgVariantCopier;
+import lu.uni.geko.weaver.Advice;
+import lu.uni.geko.weaver.AdviceEffectuation;
 import lu.uni.geko.weaver.scope.AdviceInstantiationScope;
 import lu.uni.geko.weaver.scope.ScopeType;
 
 import org.eclipse.emf.ecore.EObject;
 
 public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursivePkgVariantCopier implements Copier {
-	private static final long serialVersionUID = -4631517304088959864L;
+	private static final long serialVersionUID = 0L;
 
-	private BiN2NMap<EObject, EObject> currentBase2AdviceMergeBiMap = null;
-	private Map<EObject, AdviceInstantiationScope> currentAdviceEObjects2ScopeMap = null;
+	private final Advice advice;
+	private AdviceEffectuation currentAvEffectuation = null;
 
-	private final Map<BiN2NMap<EObject, EObject>, Map<EObject, EObject>> perJoinPointMaps = new HashMap<BiN2NMap<EObject,EObject>, Map<EObject,EObject>>();
-	private final Map<EObject, EObject> globalMap = new HashMap<EObject, EObject>();
+	private final Map<AdviceEffectuation, Map<EObject, EObject>> perJoinPointMaps;
+	private final Map<EObject, EObject> globalMap;
+
+
+   public DefaultCopier(Advice advice) {
+      this.advice = advice;
+      this.perJoinPointMaps = new HashMap<AdviceEffectuation, Map<EObject,EObject>>();
+      this.globalMap = new HashMap<EObject, EObject>();
+   }
 
    @Override
    protected String getMMPackageNameSuffixToRemove() {
@@ -38,22 +46,20 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
    }
 
 	@Override
-	public EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject, BiN2NMap<EObject, EObject> base2AdviceMergeBiMap, Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap) {
-		currentBase2AdviceMergeBiMap = base2AdviceMergeBiMap;
-		currentAdviceEObjects2ScopeMap = adviceEObjects2ScopeMap;
+	public EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject, final AdviceEffectuation avEffectuation) {
+		currentAvEffectuation = avEffectuation;
 		EObject copy = copy(sourceAdviceEObject);
 		copyReferences(sourceAdviceEObject, copy);
-		currentBase2AdviceMergeBiMap = null;
-		currentAdviceEObjects2ScopeMap = null;
+		currentAvEffectuation = null;
 		return copy;
 	}
 
 	@Override
 	public EObject getExistingVariant(EObject adviceEObject) {
-		if (currentAdviceEObjects2ScopeMap == null) {
+		if (currentAvEffectuation == null) {
 			throw new RuntimeException("Illegal call to getIfNoNewCopyNeeded(" + adviceEObject + ")!");
 		} else {
-			AdviceInstantiationScope scope = currentAdviceEObjects2ScopeMap.get(adviceEObject);
+			AdviceInstantiationScope scope = this.advice.getAvInstantiationScope(adviceEObject);
 			ScopeType scopeType = scope.getType();
 			switch (scopeType) {
 				case GlobalScope : return getGlobalCopy(adviceEObject);
@@ -76,7 +82,7 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
 	}
 
 	private EObject getBaseElementToBeMerged(EObject adviceEObject) {
-		Set<EObject> baseElementsToBeMergedWithAdviceElement = currentBase2AdviceMergeBiMap.getAllKeysForValue(adviceEObject);
+		Set<EObject> baseElementsToBeMergedWithAdviceElement = currentAvEffectuation.getAllBaseElementsToMerge(adviceEObject);
 		if (baseElementsToBeMergedWithAdviceElement != null && baseElementsToBeMergedWithAdviceElement.size() > 0) {
 			// if more than one base element is merged with this advice element it does not matter which one we return as references are corrected afterwards anyway
 			return JavaBridge.one(baseElementsToBeMergedWithAdviceElement);
@@ -86,10 +92,10 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
 
 	private EObject getPerJoinPointCopy(EObject adviceEObject) {
 		EObject existingCopy = null;
-		Map<EObject, EObject> currentPerJointPointMap = perJoinPointMaps.get(currentBase2AdviceMergeBiMap);
+		Map<EObject, EObject> currentPerJointPointMap = perJoinPointMaps.get(currentAvEffectuation);
 		if (currentPerJointPointMap == null) {
 			currentPerJointPointMap = new HashMap<EObject, EObject>();
-			perJoinPointMaps.put(currentBase2AdviceMergeBiMap, currentPerJointPointMap);
+			perJoinPointMaps.put(currentAvEffectuation, currentPerJointPointMap);
 		} else {
 			existingCopy = currentPerJointPointMap.get(adviceEObject);
 		}
@@ -104,10 +110,10 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
 
 	@Override
 	public void registerVariant(EObject sourceAdviceEObject, EObject copy) {
-		if (currentAdviceEObjects2ScopeMap == null) {
+		if (currentAvEffectuation == null) {
 			throw new RuntimeException("Illegal call to registerCopy(" + sourceAdviceEObject + ", " + copy + ")!");
 		} else {
-			AdviceInstantiationScope scope = currentAdviceEObjects2ScopeMap.get(sourceAdviceEObject);
+			AdviceInstantiationScope scope = advice.getAvInstantiationScope(sourceAdviceEObject);
 			ScopeType scopeType = scope.getType();
 			switch (scopeType) {
 				case GlobalScope : registerGlobalCopy(sourceAdviceEObject, copy); break;
@@ -126,7 +132,7 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
 	}
 
 	private void registerPerJoinPointCopy(EObject sourceAdviceEObject, EObject copy) {
-		Map<EObject, EObject> currentPerJointPointMap = perJoinPointMaps.get(currentBase2AdviceMergeBiMap);
+		Map<EObject, EObject> currentPerJointPointMap = perJoinPointMaps.get(currentAvEffectuation);
 		EObject registeredCopy = currentPerJointPointMap.put(sourceAdviceEObject, copy);
 		if (registeredCopy != null && registeredCopy != copy) {
 			throw new RuntimeException("Illegal call to registerPerJoinPointCopy(" + sourceAdviceEObject + ", " + copy + ")!");

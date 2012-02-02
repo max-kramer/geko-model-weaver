@@ -11,13 +11,12 @@
 package lu.uni.geko.joinpointdetection;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
+import lu.uni.geko.common.JoinPoint;
 import lu.uni.geko.util.bridges.EclipseBridge;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * A utility class to access the functionality provided by extensions of the JoinpointDetector extension point.
@@ -32,8 +31,7 @@ public final class MainJoinpointDetector {
    }
 
    /**
-    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them in form of a list of mappings from
-    * pointcut elements to base elements. The execution is performed by the registered mandatory and unique extension of the
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them. The execution is performed by the registered mandatory and unique extension of the
     * JoinpointDetector extension point. Throws a {@link java.lang.RuntimeException RuntimeException} if no extension or more than
     * one extensions are registered.
     *
@@ -41,15 +39,15 @@ public final class MainJoinpointDetector {
     *           the URI of the pointcut model
     * @param baseMURI
     *           the URI of the base model
-    * @return pointcut2BaseMaps: a list of mappings from pointcut EObjects to base EObjects
+    * @return a list containing all detected join points
     */
-   public static List<Map<EObject, EObject>> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
+   public static List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
       final JoinpointDetectorExt joinpointDetector = EclipseBridge.getUniqueRegisteredExtension(
             JoinpointDetectorExt.ID, "class", JoinpointDetectorExt.class);
 
-      Callable<List<Map<EObject, EObject>>> callable = new Callable<List<Map<EObject, EObject>>>() {
+      Callable<List<JoinPoint>> callable = new Callable<List<JoinPoint>>() {
          @Override
-         public List<Map<EObject, EObject>> call() {
+         public List<JoinPoint> call() {
             return joinpointDetector.detectJoinpoints(pointcutMURI, baseMURI);
          }
       };

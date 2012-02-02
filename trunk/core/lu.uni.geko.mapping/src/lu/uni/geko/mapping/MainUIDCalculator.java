@@ -34,17 +34,19 @@ public final class MainUIDCalculator {
    }
 
    /**
-    * Calculates the unique identifier for the given pointcut element using the current unique identifier that was calculated so
-    * far. Returns this identifier together with a helper that may contain information that was created during the calculation.
+    * Calculates the unique identifier for the given pointcut element. Returns this identifier in a triple together with the
+    * calculator that calculated it and a helper that may contain information that was created during the calculation.<br/>
+    * <br/>
+    * Throws a {@link java.lang.RuntimeException RuntimeException} if no unique identifier calculator extension is registered.
     *
     * @param pcElement
     *           a pointcut element
-    * @return a pair containing the unique identifier and a helper containing information created during the calculation
+    * @return a triple containing the unique identifier, the calculator and a helper containing information created during the
+    *         calculation
     */
    public static Triple<String, UIDCalculatorExt, Object> calculatePcElementUID(final EObject pcElement) {
       List<UIDCalculatorExt> uIDCalculators = GeKoBridge.getRegisteredExtensionsInDescPriority(UIDCalculatorExt.ID,
             UIDCalculatorExt.class);
-
       String currentUID = null;
       Iterator<UIDCalculatorExt> uIDCaluclatorIterator = uIDCalculators.iterator();
       UIDCalculatorExt currentUIDCalculator = null;

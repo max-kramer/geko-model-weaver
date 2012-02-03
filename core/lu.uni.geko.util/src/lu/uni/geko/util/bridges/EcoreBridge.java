@@ -258,4 +258,43 @@ public final class EcoreBridge {
       }
       return EcoreUtil.isAncestor(cleanedPossibleContainers, eObject);
    }
+
+   /**
+    * Returns whether the given EObject is directly or indirectly contained in one of the given possible containers.
+    *
+    * @param eObject
+    *           an EObject
+    * @param possibleContainers
+    *           a collection of possible container EObjects
+    * @return {@code true} when the given EObject is directly or indirectly contained in at least one of the given possible
+    *         containers and {@code false} otherwise
+    */
+   public static boolean containedIn(final EObject eObject, final Collection<EObject> possibleContainers) {
+      for (EObject possibleContainer : possibleContainers) {
+         if (containedIn(eObject, possibleContainer)) {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   /**
+    * Returns whether the given EObject is directly or indirectly contained in the given possible container.
+    *
+    * @param eObject
+    *           an EObject
+    * @param possibleContainer
+    *           a possible container EObjects
+    * @return {@code true} when the given EObject is directly or indirectly contained in the given possible container and
+    *         {@code false} otherwise
+    */
+   public static boolean containedIn(final EObject eObject, final EObject possibleContainer) {
+      if (eObject == null) {
+         return false;
+      } else if (eObject == possibleContainer) {
+         return true;
+      } else {
+         return containedIn(eObject.eContainer(), possibleContainer);
+      }
+   }
 }

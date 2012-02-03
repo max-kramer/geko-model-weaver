@@ -8,19 +8,10 @@
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
-package lu.uni.geko.weaver.scope;
 
 /**
- * A representation of the scope for which an advice element should be instantiated independent of other instantiations of the
- * same advice element.
- *
- * @author Max E. Kramer
+ * The add package of the weaver plug-in for GeKo, a generic model weaver.
+ * Responsible for adding advice elements to the woven model.
  */
-public interface AdviceInstantiationScope {
-   /**
-    * Returns the type of this advice instantiation scope.
-    *
-    * @return the type
-    */
-   ScopeType getType();
-}
+package lu.uni.geko.weaver.add;
+

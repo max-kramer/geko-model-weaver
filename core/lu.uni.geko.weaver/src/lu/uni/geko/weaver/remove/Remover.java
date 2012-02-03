@@ -18,7 +18,6 @@ import java.util.Set;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.datastructures.Pair;
-import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import lu.uni.geko.weaver.AdviceEffectuation;
 
@@ -27,71 +26,123 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-public class Remover {
-	private final SimpleMessageConsole console;
+/**
+ * A utility class for removing base elements and invalid references after weaving an advice.
+ *
+ * @author Max E. Kramer
+ */
+public final class Remover {
+   /** Utility classes should not have a public or default constructor. */
+   private Remover() {
+   }
 
-	public Remover() {
-		this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
-	}
+   /**
+    * Removes the base elements that have to be removed during the given advice effectuation from their containers and their
+    * model.
+    *
+    * @param avEffectuation
+    *           an advice effectuation
+    */
+   public static void performRemovals(final AdviceEffectuation avEffectuation) {
+      Set<EObject> baseElementsToRemove = avEffectuation.getBaseElementsToRemove();
+      boolean additionalIterationNeeded = true;
+      while (additionalIterationNeeded && baseElementsToRemove.size() > 0) {
+         additionalIterationNeeded = false;
+         Set<EObject> allBaseElementsToRemove = EcoreBridge.getAllContentsSet(baseElementsToRemove);
+         Pair<Boolean, Set<EObject>> currentCleanupResult = removeReferencesAndInconsitencies(allBaseElementsToRemove);
+         additionalIterationNeeded = currentCleanupResult.getFirst();
+         baseElementsToRemove = currentCleanupResult.getSecond();
+         removeElements(allBaseElementsToRemove);
+      }
+   }
 
-	public void performRemovals(AdviceEffectuation avEffectuation) {
-	   Set<EObject> baseEObjectsToBeRemoved = avEffectuation.getBaseElementsToRemove();
-		boolean additionalIterationNeeded = true;
-		while (additionalIterationNeeded && baseEObjectsToBeRemoved.size() > 0) {
-				additionalIterationNeeded = false;
-				Set<EObject> allBaseEObjectsToBeRemoved = EcoreBridge.getAllContentsSet(baseEObjectsToBeRemoved);
-				Pair<Boolean, Set<EObject>> currentCleanupResult = removeReferencesAndInconsitencies(allBaseEObjectsToBeRemoved);
-				additionalIterationNeeded = currentCleanupResult.getFirst();
-				baseEObjectsToBeRemoved = currentCleanupResult.getSecond();
-				removeEObjects(allBaseEObjectsToBeRemoved);
-		}
-	}
+   /**
+    * Removes the given base elements from their containers and their model.
+    *
+    * @param baseElementsToRemove
+    *           the base elements to be removed
+    */
+   private static void removeElements(final Set<EObject> baseElementsToRemove) {
+      for (EObject baseElementToRemove : baseElementsToRemove) {
+         // MAYDO MK if necessary skip objects during removal where the direct or an indirect parent will be removed
+         EcoreUtil.delete(baseElementToRemove);
+         SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(
+               "Removing the base object '" + baseElementToRemove + "' from the model.");
+      }
+   }
 
-	private void removeEObjects(Set<EObject> allBaseEObjectsToBeRemoved) {
-		for (EObject baseEObjectToBeRemoved : allBaseEObjectsToBeRemoved) {
-			// MAYDO MK if necessary skip objects during removal where the direct or an indirect parent will be removed
-			EcoreUtil.delete(baseEObjectToBeRemoved);
-			console.println("Removing the base object '" + baseEObjectToBeRemoved + "' from the model.");
-		}
-	}
+   /**
+    * Removes references to elements that have been removed and removes elements that do not conform to their metamodel anymore
+    * because of removed elements.
+    *
+    * @param baseElementsToRemove
+    *           the base elements to be removed
+    * @return a pair containing the information whether a change occured and a set containing the inconsistent elements to be
+    *         removed
+    */
+   private static Pair<Boolean, Set<EObject>> removeReferencesAndInconsitencies(final Set<EObject> baseElementsToRemove) {
+      boolean changed = false;
+      Set<EObject> inconsistentElementsToRemove = new HashSet<EObject>();
+      for (EObject baseElementToRemove : baseElementsToRemove) {
+         Collection<Setting> references = EcoreBridge.getReferencesTo(baseElementToRemove);
+         for (Setting reference : references) {
+            EStructuralFeature referencingFeature = reference.getEStructuralFeature();
+            EObject referencingBaseElement = reference.getEObject();
+            if (referencingFeature.isMany()) {
+               List<EObject> referencedFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(referencingBaseElement,
+                     referencingFeature);
+               referencedFeatureValues.remove(baseElementToRemove);
+               SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(
+                     "The feature '" + referencingFeature.getName() + "' of the base object '" + referencingBaseElement
+                           + "' referenced " + "the deleted object '" + baseElementToRemove
+                           + "' so the reference had to be removed!");
+               changed = true;
+               int size = referencedFeatureValues.size();
+               addToInconsistentObjectsIfLowerBoundViolated(referencingBaseElement, inconsistentElementsToRemove,
+                     referencingFeature, size);
+            } else {
+               reference.set(null);
+               SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName())
+                     .println(
+                           "The feature '" + referencingFeature.getName() + "' of the base object '" + referencingBaseElement
+                                 + "' referenced " + "the deleted object '" + baseElementToRemove
+                                 + "' so it had to be set to null!");
+               addToInconsistentObjectsIfLowerBoundViolated(referencingBaseElement, inconsistentElementsToRemove,
+                     referencingFeature, 0);
+               changed = true;
+            }
+         }
+      }
+      return new Pair<Boolean, Set<EObject>>(changed, inconsistentElementsToRemove);
+   }
 
-	private Pair<Boolean,Set<EObject>> removeReferencesAndInconsitencies(Set<EObject> baseEObjectsToBeRemoved) {
-		boolean changed = false;
-		Set<EObject> inconsistentEObjectsToBeRemoved = new HashSet<EObject>();
-		for (EObject baseEObjectToBeRemoved : baseEObjectsToBeRemoved) {
-			Collection<Setting> references = EcoreBridge.getReferencesTo(baseEObjectToBeRemoved);
-			for (Setting reference : references) {
-				EStructuralFeature referencingFeature = reference.getEStructuralFeature();
-				EObject referencingEObject = reference.getEObject();
-				if (referencingFeature.isMany()) {
-					List<EObject> referencedFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(referencingEObject, referencingFeature);
-					referencedFeatureValues.remove(baseEObjectToBeRemoved);
-					console.println("The feature '" + referencingFeature.getName() + "' of the base object '" + referencingEObject + "' referenced " +
-									"the deleted object '" + baseEObjectToBeRemoved + "' so the reference had to be removed!");
-					changed = true;
-					int size = referencedFeatureValues.size();
-					addToInconsistentObjectsIfLowerBoundViolated(referencingEObject, inconsistentEObjectsToBeRemoved, referencingFeature, size);
-				} else {
-					reference.set(null);
-					console.println("The feature '" + referencingFeature.getName() + "' of the base object '" + referencingEObject + "' referenced " +
-									"the deleted object '" + baseEObjectToBeRemoved + "' so it had to be set to null!");
-					addToInconsistentObjectsIfLowerBoundViolated(referencingEObject, inconsistentEObjectsToBeRemoved, referencingFeature, 0);
-					changed = true;
-				}
-			}
-		}
-		return new Pair<Boolean,Set<EObject>>(changed, inconsistentEObjectsToBeRemoved);
-	}
-
-	private boolean addToInconsistentObjectsIfLowerBoundViolated(EObject eObject, Set<EObject> inconsistentEObjectsToBeRemoved, EStructuralFeature contentStructuralFeature, int currentMultiplicity) {
-		boolean changed = false;
-		int lowerBound = contentStructuralFeature.getLowerBound();
-		if (currentMultiplicity < lowerBound) {
-			inconsistentEObjectsToBeRemoved.add(eObject);
-			console.println("The lower bound of the feature '" + contentStructuralFeature.getName() + "' is '" + lowerBound + "' but the base object '" + eObject + "' referenced " +
-					"only '" + currentMultiplicity + "' objects so it had to be removed!");
-			changed = true;
-		}
-		return changed;
-	}
+   /**
+    * Adds the given base element that references a removed element to the set containing all inconsistent elements to be removed
+    * if the given current multiplicity of the given reference violates the lower bound of the reference.
+    *
+    * @param referencingBaseElement
+    *           a base element referencing a removed base element
+    * @param inconsistentElementsToRemove
+    *           the set containing the inconsistent elements to be removed
+    * @param referencingFeature
+    *           the feature of the given base element that references the removed base element
+    * @param currentMultiplicity
+    *           the current multiplicity of the given reference
+    * @return whether a change occured (i.e. the referencing base element was identified as inconsistent)
+    */
+   private static boolean addToInconsistentObjectsIfLowerBoundViolated(final EObject referencingBaseElement,
+         final Set<EObject> inconsistentElementsToRemove, final EStructuralFeature referencingFeature,
+         final int currentMultiplicity) {
+      boolean changed = false;
+      int lowerBound = referencingFeature.getLowerBound();
+      if (currentMultiplicity < lowerBound) {
+         inconsistentElementsToRemove.add(referencingBaseElement);
+         SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(
+               "The lower bound of the feature '" + referencingFeature.getName() + "' is '" + lowerBound
+                     + "' but the base object '" + referencingBaseElement + "' referenced " + "only '" + currentMultiplicity
+                     + "' objects so it had to be removed!");
+         changed = true;
+      }
+      return changed;
+   }
 }

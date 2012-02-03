@@ -94,10 +94,6 @@ public final class ActionsFacade {
     *           the URI of the pointcut model
     * @param avMURI
     *           the URI of the advice model
-    * @param inPlace
-    *           whether the weaving should be done in-place or using a new copy of the model
-    * @param persist
-    *           whether the result of the weaving should be saved or not
     * @return the URI of the woven model
     */
    public static URI weaveInferringPc2AvMapping(final URI baseMURI, final URI pcMURI, final URI avMURI) {

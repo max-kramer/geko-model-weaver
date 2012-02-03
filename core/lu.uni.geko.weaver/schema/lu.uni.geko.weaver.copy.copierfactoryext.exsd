@@ -3,12 +3,12 @@
 <schema targetNamespace="lu.uni.geko.weaver" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="lu.uni.geko.weaver" id="lu.uni.geko.simpleadderext" name="SimpleAdderExt"/>
+         <meta.schema plugin="lu.uni.geko.weaver" id="lu.uni.geko.weaver.copierfactoryext" name="CopierFactoryExt"/>
       </appinfo>
       <documentation>
-         An extension point for the simple customization of the addition of new elements during the weaving. In contrast to the extension point MightyAdderExt it faciliates extension by giving only control over parts of the process of adding new elements.
+         An extension point for the customisation of the copying process that creates new base elements corresponding to existing advice elements.
 
-All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority). Addition attempts for an element will be performed until an extension is found that succeeded. This means that if an extension succeeded in adding a new element it will not be added by an extension with lower priority. Likewise for an element that could not be added using a certain extension a new attempt for addition will performed using the next extension with lower priority.
+All registered extensions for this extension point are called in order of decreasing priority (i.e. starting with the extension having the highest integer value priority) while passing on the initial result to the next extension.
       </documentation>
    </annotation>
 
@@ -57,7 +57,7 @@ All registered extensions for this extension point are called in order of decrea
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":lu.uni.geko.weaver.SimpleAdderExt"/>
+                  <meta.attribute kind="java" basedOn=":lu.uni.geko.weaver.CopierFactoryExt"/>
                </appinfo>
             </annotation>
          </attribute>

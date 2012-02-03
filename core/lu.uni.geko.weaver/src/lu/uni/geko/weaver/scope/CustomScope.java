@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -14,20 +14,38 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * Implementation of the custom advice instantiation scope type resulting in an instance for every match of a set of advice
+ * elements. CURRENTLY NOT USED.
+ *
+ * @author Max E. Kramer
+ */
 public class CustomScope implements AdviceInstantiationScope {
-	private final Set<EObject> adviceEObjectsInScope;
+   /** The set of advice elements in this scope. */
+   private final Set<EObject> avElementsInScope;
 
-	protected CustomScope(Set<EObject> adviceEObjectsInScope) {
-		super();
-		this.adviceEObjectsInScope = adviceEObjectsInScope;
-	}
+   /**
+    * Constructs a new CustomScope using the given set of advice elements in this scope.
+    *
+    * @param avElementsInScope
+    *           the set of advice elements in the scope
+    */
+   protected CustomScope(final Set<EObject> avElementsInScope) {
+      super();
+      this.avElementsInScope = avElementsInScope;
+   }
 
-	protected Set<EObject> getAdviceEObjectsInScope() {
-		return adviceEObjectsInScope;
-	}
+   /**
+    * Returns the set of advice elements in this scope.
+    *
+    * @return the set of advice elements in this scope
+    */
+   protected Set<EObject> getAvElementsInScope() {
+      return avElementsInScope;
+   }
 
-	@Override
-	public ScopeType getType() {
-		return ScopeType.CustomScope;
-	}
+   @Override
+   public ScopeType getType() {
+      return ScopeType.CustomScope;
+   }
 }

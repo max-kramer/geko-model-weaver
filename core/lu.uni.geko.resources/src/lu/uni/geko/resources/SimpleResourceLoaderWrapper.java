@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 /**
  * A default implementation of the extension point {@link RefinedResourceLoaderExt lu.uni.geko.resources.refinedresourceloaderext}
- * that wraps a simple resource loader to use it like a refined resource loader (object adapter pattern).
+ * that wraps a simple resource loader so that it can be used like a refined resource loader (object adapter pattern).
  *
  * @see SimpleResourceLoaderExt
  * @see RefinedResourceLoaderExt
@@ -34,7 +34,7 @@ public class SimpleResourceLoaderWrapper implements RefinedResourceLoaderExt {
    private final SimpleResourceLoaderExt wrappedResourceLoader;
 
    /**
-    * Constructs a new SimpleResourceLoaderWrapper using the given SimpleResourceLoaderExt.
+    * Constructs a new SimpleResourceLoaderWrapper using the given simple resource loader.
     *
     * @param wrappedResourceLoader
     *           the simple resource loader to be wrapped

@@ -22,7 +22,7 @@ import lu.uni.geko.util.ecore.FeatureEquivalenceHelper;
 import lu.uni.geko.weaver.add.MainAdder;
 import lu.uni.geko.weaver.merge.Merger;
 import lu.uni.geko.weaver.remove.Remover;
-import lu.uni.geko.weaver.scope.ScopeResolver;
+import lu.uni.geko.weaver.scope.AdviceAndScopeResolver;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -102,7 +102,7 @@ public class Weaver extends AbstractModelTransformer<URI> {
    @Override
    public URI transform() {
       for (JoinPoint joinPoint : this.joinPoints) {
-         Advice advice = ScopeResolver.resolveAvAndInstantiationScopes(this.adviceMURI);
+         Advice advice = AdviceAndScopeResolver.resolveAvAndInstantiationScopes(this.adviceMURI);
          AdviceEffectuation adviceEffectuation = AdviceEffectuationCalculator.calculateAdviceEffectuation(joinPoint, advice,
                this.pc2AvN2NMap);
          getConsole().println("\nInspecting join point: " + joinPoint + "\n");
@@ -111,8 +111,7 @@ public class Weaver extends AbstractModelTransformer<URI> {
          Merger merger = new Merger(advice, adviceEffectuation, this.wovenMURI);
          FeatureEquivalenceHelper featureEquivalenceHelper = merger.performMergesAndReturnFeatureEquivalenceHelper();
          MainAdder.performAdditions(advice, adviceEffectuation, featureEquivalenceHelper, this.wovenMURI);
-         Remover remover = new Remover();
-         remover.performRemovals(adviceEffectuation);
+         Remover.performRemovals(adviceEffectuation);
       }
       getConsole().println("\nFinished weaving at all " + joinPoints.size() + " join points.\n");
       getConsole().print("Saving woven model ...");

@@ -17,16 +17,25 @@ import lu.uni.geko.weaver.Advice;
 
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * The default implementation of the extension point {@link CopierFactoryExt lu.uni.geko.weaver.copy.copierfactoryext} returning a
+ * different copier for every new root element of a woven model.
+ *
+ * @see CopierFactoryExt
+ *
+ * @author Max E. Kramer
+ */
 public class DefaultCopierFactory implements CopierFactoryExt {
-	private static final Map<EObject,Copier> ROOT2COPIERMAP = new HashMap<EObject, Copier>();
+   /** The mapping from root elements of woven models to copiers. */
+   private static final Map<EObject, Copier> ROOT2COPIERMAP = new HashMap<EObject, Copier>();
 
-	@Override
-	public Copier getCopier(EObject rootEObject, Advice advice) {
-		Copier copier = ROOT2COPIERMAP.get(rootEObject);
-		if (copier == null) {
-			copier = new DefaultCopier(advice);
-			ROOT2COPIERMAP.put(rootEObject, copier);
-		}
-		return copier;
-	}
+   @Override
+   public Copier getCopier(final EObject rootEObject, final Advice advice) {
+      Copier copier = ROOT2COPIERMAP.get(rootEObject);
+      if (copier == null) {
+         copier = new DefaultCopier(advice);
+         ROOT2COPIERMAP.put(rootEObject, copier);
+      }
+      return copier;
+   }
 }

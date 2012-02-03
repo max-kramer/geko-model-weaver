@@ -41,44 +41,74 @@ import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 
+/**
+ * The class responsible for merging elements during the weaving. It stores the information of the advice and advice effectuation
+ * for which it is used and initiates all needed merges of base and advice elements.
+ *
+ * @author Max E. Kramer
+ */
 public class Merger {
-   // private final BiN2NMap<EObject, EObject> base2AdviceMergeBiMap;
-   // /** Attention: During the merge the advice elements that have been added are removed from this set! **/
-   // private final Set<EObject> currentAdviceEObjectsToBeAdded;
-   // private final Map<EObject, AdviceInstantiationScope> adviceEObjects2ScopeMap;
+   /** The advice for which this merger is used. */
    private final Advice advice;
+   /** The advice effectuation for which this merger is used. */
    private final AdviceEffectuation avEffectuation;
-   private final URI wovenMURI;
-   private final EObject wovenMRoot;
+   /** The root element of the woven model. */
+   private final EObject wovenRoot;
+   /** The copier used for duplicating base elements. */
    private final Copier baseCopier;
+   /** The feature equivalence helper for this merger. */
    private final FeatureEquivalenceHelper featureEquivalenceHelper;
-   // Whenever two or more base elements are mapped to an advice element this results in a merge of these base elements.
-   // One of the base elements will be kept and the attributes and references of all the other base elements are introduced to
-   // this kept base element.
-   // During these subsequent merge operations of two base elements it may happen that both have a feature value that allows for
-   // exactly one value.
-   // As all base elements are handled in the same way we cannot decide which feature value to keep.
-   // Therefore we register every conflicting feature value of every base object.
-   // Such a conflict can be resolved whenever an advice element sets such a feature value (as it means that whatever was set
-   // before is overwritten).
-   // When all registered conflicts are resolved like this at the end of the merge we are happy.
-   // Otherwise we issue an error.
-   private final Map<EObject, Set<EStructuralFeature>> baseEObjects2FeatureConflictsMap;
-   private final Map<EObject, EObject> merged2KeptBaseEObjectMap;
+   /**
+    * The mapping from base elements to the set of feature conflicts.
+    *
+    * Whenever two or more base elements are mapped to an advice element this results in a merge of these base elements.<br/>
+    * One of the base elements will be kept and the attributes and references of all the other base elements are introduced to
+    * this kept base element.<br/>
+    * During these subsequent merge operations of two base elements it may happen that both have a feature value that allows for
+    * exactly one value.<br/>
+    * As all base elements are handled in the same way we cannot decide which feature value to keep.<br/>
+    * Therefore we register every conflicting feature value of every base object.<br/>
+    * Such a conflict can be resolved whenever an advice element sets such a feature value (as it means that whatever was set
+    * before is overwritten).<br/>
+    * When all registered conflicts are resolved like this at the end of the merge we are happy. Otherwise we issue an error.<br/>
+    */
+   private final Map<EObject, Set<EStructuralFeature>> baseElements2FeatureConflictsMap;
+   /** The mapping from merged base elements to the base element that was kept for them. */
+   private final Map<EObject, EObject> merged2KeptBaseElementMap;
+   /** Convenient access to the message console. */
    private final SimpleMessageConsole console;
 
-   public Merger(Advice advice, AdviceEffectuation adviceEffectuation, URI wovenMURI) {
+   /**
+    * Creates a new Merger for the given advice, advice effectuation and URI of a woven model.
+    *
+    * @param advice
+    *           an advice
+    * @param avEffectuation
+    *           an advice effectuation
+    * @param wovenMURI
+    *           the URI of a woven model
+    */
+   public Merger(final Advice advice, final AdviceEffectuation avEffectuation, final URI wovenMURI) {
       this.advice = advice;
-      this.avEffectuation = adviceEffectuation;
-      this.wovenMURI = wovenMURI;
-      this.wovenMRoot = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(wovenMURI, "wove model", EObject.class);
+      this.avEffectuation = avEffectuation;
+      this.wovenRoot = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(wovenMURI, "wove model", EObject.class);
       this.baseCopier = new BidirectionalReferencesCopyingCopier();
       this.featureEquivalenceHelper = new FeatureEquivalenceHelper(new Av2BaseEqualityHelper());
-      this.baseEObjects2FeatureConflictsMap = new HashMap<EObject, Set<EStructuralFeature>>();
-      this.merged2KeptBaseEObjectMap = new HashMap<EObject, EObject>();
+      this.baseElements2FeatureConflictsMap = new HashMap<EObject, Set<EStructuralFeature>>();
+      this.merged2KeptBaseElementMap = new HashMap<EObject, EObject>();
       this.console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
    }
 
+   /**
+    * Performs all merges required for this merger and returns the feature equivalence helper that was used during the merge.
+    * Throws a {@link java.lang.RuntimeException RuntimeException} when not all feature value conflicts have been resolved after
+    * all merges have been performed.<br/>
+    * <br/>
+    * <b>Attention</b>: As a <b>side-effect</b>, the advice elements that became a content of a model element during a merge are
+    * removed from the set of remaining advice elements to be added of the advice effectuation of this merger.
+    *
+    * @return the feature equivalence helper
+    */
    public FeatureEquivalenceHelper performMergesAndReturnFeatureEquivalenceHelper() {
       performMerges();
       boolean resolved = allBaseWithBaseMergeFeatureConflictsResolved();
@@ -92,47 +122,48 @@ public class Merger {
    }
 
    /**
-    * ATTENTION SIDE-EFFECT: all elements that became a content of a model element during the merge are removed from
-    * adviceEObjectsToBeAdded
+    * Performs the merges for this merger by iterating over all base to advice merge entries of the advice effectuation of this
+    * merger.
     */
    private void performMerges() {
       for (Entry<Set<EObject>, Set<EObject>> base2AdviceMergeEntry : avEffectuation.getBase2AvMergeEntries()) {
-         Set<EObject> baseEObjects = base2AdviceMergeEntry.getKey();
-         Set<EObject> adviceEObjects = base2AdviceMergeEntry.getValue();
-         if (baseEObjects.size() == 1) {
-            EObject baseEObject = JavaBridge.one(baseEObjects);
-            if (adviceEObjects.size() == 1) {
-               EObject adviceEObject = JavaBridge.one(adviceEObjects);
-               merge1BaseWith1AdviceEObject(baseEObject, adviceEObject);
+         Set<EObject> baseElements = base2AdviceMergeEntry.getKey();
+         Set<EObject> avElements = base2AdviceMergeEntry.getValue();
+         if (baseElements.size() == 1) {
+            EObject baseElement = JavaBridge.one(baseElements);
+            if (avElements.size() == 1) {
+               EObject avElement = JavaBridge.one(avElements);
+               merge1BaseWith1AvElement(baseElement, avElement);
             } else {
-               merge1BaseWithNAdviceEObjects(adviceEObjects, baseEObject);
+               merge1BaseWithNAvElements(baseElement, avElements);
             }
-         } else { // baseEObjects.size() != 1
-            if (baseEObjects.size() >= 1 && adviceEObjects.size() == 1) {
-               EObject adviceEObject = JavaBridge.one(adviceEObjects);
-               mergeNBaseWith1AdviceEObject(baseEObjects, adviceEObject);
-            } else {
-               // TODO MK decide what to do with mappings that map multiple pointcut elements to multiple advice elements
+         } else { // baseElements.size() != 1
+            if (baseElements.size() >= 1 && avElements.size() == 1) {
+               EObject avElement = JavaBridge.one(avElements);
+               mergeNBaseWith1AvElement(baseElements, avElement);
             }
+            // TODO MK decide what to do with mappings that map multiple pointcut elements to multiple advice elements
          }
       }
-      replaceReferencesToMergedBaseEObjects();
+      replaceReferencesToMergedBaseElements();
    }
 
    /**
-    * ATTENTION SIDE-EFFECT: the base2AdviceMergeBiMap will be changed to correctly map the base element duplicates to the advice
-    * element
+    * Merges the given single base element with the given multiple advice elements.
     *
-    * @param adviceEObjects
-    * @param baseEObject
+    * @param baseElement
+    *           a base element
+    * @param avElementsMapEntrySet
+    *           the original set from the base to advice merge map containing the advice elements to be merged with the given base
+    *           element
     */
-   private void merge1BaseWithNAdviceEObjects(Set<EObject> base2AdviceMergeBiMapValueEntry, EObject baseEObject) {
+   private void merge1BaseWithNAvElements(final EObject baseElement, final Set<EObject> avElementsMapEntrySet) {
       // copy the advice elements set as it is the real entry in the map and should not be changed accidentally
-      Set<EObject> adviceEObjects = new HashSet<EObject>(base2AdviceMergeBiMapValueEntry);
-      EObject directlyMergedAdviceEObject = JavaBridge.pop(adviceEObjects);
-      List<EObject> baseEObjectCopies = new ArrayList<EObject>(adviceEObjects.size());
-      for (EObject adviceEObject : adviceEObjects) {
-         EObject baseEObjectCopy = baseCopier.copy(baseEObject);
+      Set<EObject> avElements = new HashSet<EObject>(avElementsMapEntrySet);
+      EObject directlyMergedAvEObject = JavaBridge.pop(avElements);
+      List<EObject> baseElementCopies = new ArrayList<EObject>(avElements.size());
+      for (EObject avElement : avElements) {
+         EObject baseElementCopy = baseCopier.copy(baseElement);
          // Now we have duplicated the base element that has to be merged with multiple advice elements.
          // This means our base2AdviceMergeBiMap should no longer map the original base element to all advice elements.
          // Instead every new duplicate of the base element should map to the corresponding advice elements (and the other way
@@ -140,51 +171,51 @@ public class Merger {
          // This change is realized in two steps. First we remove the mapping from the original base element to the advice
          // element.
          // Then we add a new mapping from the base duplicate to the advice element.
-         avEffectuation.removeBase2AvMerge(baseEObject, adviceEObject);
-         avEffectuation.addBase2AvMerge(baseEObjectCopy, adviceEObject);
+         avEffectuation.removeBase2AvMerge(baseElement, avElement);
+         avEffectuation.addBase2AvMerge(baseElementCopy, avElement);
          // We did this mapping change as early as possible and now we can go on with processing the copy and merging it.
          baseCopier.copyReferences();
-         baseEObjectCopies.add(baseEObjectCopy);
-         merge1BaseWith1AdviceEObject(baseEObjectCopy, adviceEObject);
-         console.println("Copied the base object '" + baseEObject + "' and merged it with the advice object'" + adviceEObject
-               + "': '" + baseEObjectCopy + "'");
+         baseElementCopies.add(baseElementCopy);
+         merge1BaseWith1AvElement(baseElementCopy, avElement);
+         console.println("Copied the base object '" + baseElement + "' and merged it with the advice object'" + avElement
+               + "': '" + baseElementCopy + "'");
       }
-      Collection<Setting> referencesToBaseEObject = EcoreBridge.getReferencesTo(baseEObject);
-      for (Setting oldReferenceToBaseEObject : referencesToBaseEObject) {
-         EStructuralFeature referencingFeature = oldReferenceToBaseEObject.getEStructuralFeature();
-         EObject oldReferencingEObject = oldReferenceToBaseEObject.getEObject();
+      Collection<Setting> referencesToBaseElement = EcoreBridge.getReferencesTo(baseElement);
+      for (Setting oldReferenceToBaseElement : referencesToBaseElement) {
+         EStructuralFeature referencingFeature = oldReferenceToBaseElement.getEStructuralFeature();
+         EObject oldReferencingElement = oldReferenceToBaseElement.getEObject();
          if (referencingFeature.isMany()) {
             List<EObject> referencedValues = EcoreBridge
-                  .getFeatureValuesIfManyTyped(oldReferencingEObject, referencingFeature);
+                  .getFeatureValuesIfManyTyped(oldReferencingElement, referencingFeature);
             int currentSize = referencedValues.size();
-            boolean upperBoundReached = upperBoundReached(currentSize, referencingFeature, baseEObject, baseEObjectCopies);
+            boolean upperBoundReached = upperBoundReached(currentSize, referencingFeature, baseElementCopies, baseElement);
             if (!upperBoundReached) {
-               referencedValues.addAll(baseEObjectCopies);
-               console.println("Added reference copies for the reference to '" + baseEObject + "' to the '"
-                     + referencingFeature.getName() + "' feature of the base object '" + oldReferencingEObject + "'");
+               referencedValues.addAll(baseElementCopies);
+               console.println("Added reference copies for the reference to '" + baseElement + "' to the '"
+                     + referencingFeature.getName() + "' feature of the base object '" + oldReferencingElement + "'");
 
             }
          } else { // !referencingFeature.isMany()
-            EStructuralFeature referencingEObjectContainmentFeature = oldReferencingEObject.eContainmentFeature();
-            EObject referenceContainer = oldReferencingEObject.eContainer();
-            boolean containedInCopySource = containedIn(referenceContainer, baseEObject);
-            boolean containedInCopyTarget = containedIn(referenceContainer, baseEObjectCopies);
+            EStructuralFeature referencingEObjectContainmentFeature = oldReferencingElement.eContainmentFeature();
+            EObject referenceContainer = oldReferencingElement.eContainer();
+            boolean containedInCopySource = EcoreBridge.containedIn(referenceContainer, baseElement);
+            boolean containedInCopyTarget = EcoreBridge.containedIn(referenceContainer, baseElementCopies);
             if (!containedInCopySource && !containedInCopyTarget) {
                if (referencingEObjectContainmentFeature.isMany()) {
                   List<EObject> referencingEObjectSiblings = EcoreBridge.getFeatureValuesIfManyTyped(referenceContainer,
                         referencingEObjectContainmentFeature);
                   int currentSize = referencingEObjectSiblings.size();
-                  boolean upperBoundReached = upperBoundReachedForReferencingEObjectContainer(currentSize,
-                        referencingEObjectContainmentFeature, baseEObject, baseEObjectCopies, oldReferencingEObject);
+                  boolean upperBoundReached = ensureUpperBoundNotExceeded(currentSize, referencingEObjectContainmentFeature,
+                        baseElementCopies, baseElement, oldReferencingElement);
                   if (!upperBoundReached) {
-                     for (EObject baseEObjectCopy : baseEObjectCopies) {
-                        EObject referencingEObjectCopy = baseCopier.copy(oldReferencingEObject);
+                     for (EObject baseEObjectCopy : baseElementCopies) {
+                        EObject referencingElementCopy = baseCopier.copy(oldReferencingElement);
                         baseCopier.copyReferences();
-                        referencingEObjectCopy.eSet(referencingFeature, baseEObjectCopy);
-                        referencingEObjectSiblings.add(referencingEObjectCopy);
-                        console.println("Added the copy '" + referencingEObjectCopy + "' of the referencing object '"
-                              + oldReferencingEObject + "' for the reference '" + referencingFeature.getName()
-                              + "' referencing the copy '" + baseEObjectCopy + "' of the base object '" + baseEObject
+                        referencingElementCopy.eSet(referencingFeature, baseEObjectCopy);
+                        referencingEObjectSiblings.add(referencingElementCopy);
+                        console.println("Added the copy '" + referencingElementCopy + "' of the referencing object '"
+                              + oldReferencingElement + "' for the reference '" + referencingFeature.getName()
+                              + "' referencing the copy '" + baseEObjectCopy + "' of the base object '" + baseElement
                               + "' to the container '" + referenceContainer + "'");
                      }
                   }
@@ -194,53 +225,46 @@ public class Merger {
          // TODO MK recursively continue copying referencing objects that reference base objects that have to be copied
          // until you reach a reference that can be copied
       }
-      merge1BaseWith1AdviceEObject(baseEObject, directlyMergedAdviceEObject);
+      merge1BaseWith1AvElement(baseElement, directlyMergedAvEObject);
    }
 
-   private boolean containedIn(EObject eObject, Collection<EObject> possibleContainers) {
-      for (EObject possibleContainer : possibleContainers) {
-         if (containedIn(eObject, possibleContainer)) {
-            return true;
-         }
-      }
-      return false;
+   /**
+    * Ensures that the given current size does not exceed the upper bound for the given referencing feature and the given elements
+    * to be referenced by throwing a {@link java.util.RuntimeException RuntimeException} if it is the case and returning
+    * {@code false} otherwise.
+    *
+    * @param currentSize
+    * @param referencingFeature
+    * @param elementsToBeReferenced
+    * @param referencedElement
+    * @param referencingElement
+    * @return
+    */
+   private boolean ensureUpperBoundNotExceeded(final int currentSize, final EStructuralFeature referencingFeature,
+         final List<EObject> elementsToBeReferenced, final EObject referencedElement, final EObject referencingElement) {
+      return upperBoundReached(currentSize, referencingFeature, elementsToBeReferenced, referencedElement,
+            "the referencing object '" + referencingElement + "' for ");
    }
 
-   private boolean containedIn(EObject eObject, EObject possibleContainer) {
-      if (eObject == null) {
-         return false;
-      } else if (eObject == possibleContainer) {
-         return true;
-      } else {
-         return containedIn(eObject.eContainer(), possibleContainer);
-      }
+   private boolean upperBoundReached(final int currentSize, final EStructuralFeature referencingFeature,
+         final List<EObject> elementsToBeReferenced, final EObject referencedElement) {
+      return upperBoundReached(currentSize, referencingFeature, elementsToBeReferenced, referencedElement, "");
    }
 
-   private boolean upperBoundReachedForReferencingEObjectContainer(int currentSize, EStructuralFeature referencingFeature,
-         EObject referencedEObject, List<EObject> objectsToBeReferenced, EObject referencingEObject) {
-      return upperBoundReached(currentSize, referencingFeature, referencedEObject, objectsToBeReferenced,
-            "the referencing object '" + referencingEObject + "' for ");
-   }
-
-   private boolean upperBoundReached(int currentSize, EStructuralFeature referencingFeature, EObject referencedEObject,
-         List<EObject> objectsToBeReferenced) {
-      return upperBoundReached(currentSize, referencingFeature, referencedEObject, objectsToBeReferenced, "");
-   }
-
-   private boolean upperBoundReached(int currentSize, EStructuralFeature referencingFeature, EObject referencedEObject,
-         List<EObject> objectsToBeReferenced, String indirectReferenceMessage) {
+   private boolean upperBoundReached(final int currentSize, final EStructuralFeature referencingFeature,
+         final List<EObject> elementsToBeReferenced, final EObject referencedElement, final String indirectReferenceMessage) {
       int upperBound = referencingFeature.getUpperBound();
-      int increase = objectsToBeReferenced.size();
+      int increase = elementsToBeReferenced.size();
       if (currentSize + increase <= upperBound || upperBound == -1) {
          return false;
       } else {
          throw new RuntimeException("Cannot duplicate " + indirectReferenceMessage + " the reference to the object '"
-               + referencedEObject + "' for the duplicates '" + objectsToBeReferenced + "'" + "because the '"
+               + referencedElement + "' for the duplicates '" + elementsToBeReferenced + "'" + "because the '"
                + referencingFeature.getName() + "' reference already would exceed the upper bound of '" + upperBound + "'!");
       }
    }
 
-   private void merge1BaseWith1AdviceEObject(EObject baseEObject, EObject adviceEObject) {
+   private void merge1BaseWith1AvElement(final EObject baseEObject, final EObject adviceEObject) {
       Collection<Pair<EStructuralFeature, EStructuralFeature>> correspondingFeatures = featureEquivalenceHelper
             .getEquivalentFeatures(baseEObject, adviceEObject);
       for (Pair<EStructuralFeature, EStructuralFeature> correspondingFeaturePair : correspondingFeatures) {
@@ -254,16 +278,16 @@ public class Merger {
       }
    }
 
-   private void mergeNBaseWith1AdviceEObject(Set<EObject> baseEObjects, EObject adviceEObject) {
-      EObject keptBaseEObject = JavaBridge.pop(baseEObjects);
-      for (EObject disappearingBaseEObject : baseEObjects) {
+   private void mergeNBaseWith1AvElement(final Set<EObject> baseElements, final EObject adviceEObject) {
+      EObject keptBaseEObject = JavaBridge.pop(baseElements);
+      for (EObject disappearingBaseEObject : baseElements) {
          merge1BaseWith1BaseEObject(keptBaseEObject, disappearingBaseEObject);
-         this.merged2KeptBaseEObjectMap.put(disappearingBaseEObject, keptBaseEObject);
+         this.merged2KeptBaseElementMap.put(disappearingBaseEObject, keptBaseEObject);
       }
-      merge1BaseWith1AdviceEObject(keptBaseEObject, adviceEObject);
+      merge1BaseWith1AvElement(keptBaseEObject, adviceEObject);
    }
 
-   private void merge1BaseWith1BaseEObject(EObject keptBaseEObject, EObject disappearingBaseEObject) {
+   private void merge1BaseWith1BaseEObject(final EObject keptBaseEObject, final EObject disappearingBaseEObject) {
       Collection<Pair<EStructuralFeature, EStructuralFeature>> correspondingFeatures = featureEquivalenceHelper
             .getEquivalentFeatures(keptBaseEObject, disappearingBaseEObject);
       for (Pair<EStructuralFeature, EStructuralFeature> correspondingFeaturePair : correspondingFeatures) {
@@ -277,8 +301,8 @@ public class Merger {
       }
    }
 
-   private void baseMergeCorrespondingManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject,
-         EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
+   private void baseMergeCorrespondingManyFeature(final EObject keptBaseEObject, final EObject disappearingBaseEObject,
+         final EStructuralFeature keptFeature, final EStructuralFeature disappearingFeature) {
       List<EObject> keptFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(keptBaseEObject, keptFeature);
       List<EObject> disappearingFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(disappearingBaseEObject,
             disappearingFeature);
@@ -299,14 +323,14 @@ public class Merger {
       keptFeatureValues.addAll(featureValuesToBeAdded);
    }
 
-   private boolean upperBoundReached(EObject targetEObject, EObject sourceEObject, EStructuralFeature targetFeature,
-         List<EObject> targetFeatureValues, EObject sourceFeatureValue) {
+   private boolean upperBoundReached(final EObject targetEObject, final EObject sourceEObject,
+         final EStructuralFeature targetFeature, final List<EObject> targetFeatureValues, final EObject sourceFeatureValue) {
       int currentSize = targetFeatureValues.size();
       return upperBoundReached(currentSize, targetEObject, sourceEObject, targetFeature, sourceFeatureValue);
    }
 
-   private boolean upperBoundReached(int currentSize, EObject targetEObject, EObject sourceEObject,
-         EStructuralFeature targetFeature, EObject sourceFeatureValue) {
+   private boolean upperBoundReached(final int currentSize, final EObject targetEObject, final EObject sourceEObject,
+         final EStructuralFeature targetFeature, final EObject sourceFeatureValue) {
       int upperBound = targetFeature.getUpperBound();
       if (currentSize < upperBound || upperBound == -1) {
          return false;
@@ -318,8 +342,8 @@ public class Merger {
       }
    }
 
-   private void baseMergeCorrespondingNotManyFeature(EObject keptBaseEObject, EObject disappearingBaseEObject,
-         EStructuralFeature keptFeature, EStructuralFeature disappearingFeature) {
+   private void baseMergeCorrespondingNotManyFeature(final EObject keptBaseEObject, final EObject disappearingBaseEObject,
+         final EStructuralFeature keptFeature, final EStructuralFeature disappearingFeature) {
       Object keptFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(keptBaseEObject, keptFeature);
       Object disappearingFeatureValue = EcoreBridge
             .getFeatureValueIfNotManyTyped(disappearingBaseEObject, disappearingFeature);
@@ -352,13 +376,13 @@ public class Merger {
       }
    }
 
-   private void registerBaseWithBaseFeatureConflict(EObject keptBaseEObject, EObject disappearingBaseEObject,
-         EStructuralFeature keptFeature, EStructuralFeature disappearingFeature, Object keptFeatureValue,
-         Object disappearingFeatureValue) {
-      Set<EStructuralFeature> conflictingFeatures = baseEObjects2FeatureConflictsMap.get(keptBaseEObject);
+   private void registerBaseWithBaseFeatureConflict(final EObject keptBaseEObject, final EObject disappearingBaseEObject,
+         final EStructuralFeature keptFeature, final EStructuralFeature disappearingFeature, final Object keptFeatureValue,
+         final Object disappearingFeatureValue) {
+      Set<EStructuralFeature> conflictingFeatures = baseElements2FeatureConflictsMap.get(keptBaseEObject);
       if (conflictingFeatures == null) {
          conflictingFeatures = new HashSet<EStructuralFeature>();
-         baseEObjects2FeatureConflictsMap.put(keptBaseEObject, conflictingFeatures);
+         baseElements2FeatureConflictsMap.put(keptBaseEObject, conflictingFeatures);
       }
       conflictingFeatures.add(keptFeature);
       console.println("Registered a base with base merge feature value conflict for " + keptBaseEObject + " . "
@@ -366,8 +390,8 @@ public class Merger {
             + disappearingFeature.getName() + " = " + disappearingFeatureValue + ".");
    }
 
-   private void adviceMergeCorrespondingManyFeature(EObject baseEObject, EObject adviceEObject,
-         EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
+   private void adviceMergeCorrespondingManyFeature(final EObject baseEObject, final EObject adviceEObject,
+         final EStructuralFeature baseFeature, final EStructuralFeature adviceFeature) {
       List<EObject> baseFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(baseEObject, baseFeature);
       List<EObject> adviceFeatureValues = EcoreBridge.getFeatureValuesIfManyTyped(adviceEObject, adviceFeature);
       for (EObject adviceFeatureValue : adviceFeatureValues) {
@@ -400,12 +424,13 @@ public class Merger {
       }
    }
 
-   private EObject getBaseElementForAdviceElement(EObject adviceElement) {
+   private EObject getBaseElementForAdviceElement(final EObject adviceElement) {
       Set<EObject> baseElementsToBeMergedWithAdviceElement = avEffectuation.getAllBaseElementsToMerge(adviceElement);
       if (baseElementsToBeMergedWithAdviceElement == null) {
          // we are inspecting a reference to a new element that has no correspondence in the pointcut
          // this is the only case were we actually need to copy something from the advice
-         EObject adviceFeatureValueElementCopy = MainCopier.copyAdviceEObject(adviceElement, wovenMRoot, this.advice, this.avEffectuation);
+         EObject adviceFeatureValueElementCopy = MainCopier.copyAvElement(adviceElement, wovenRoot, this.advice,
+               this.avEffectuation);
          console.println("Copied '" + adviceElement + "': '" + adviceFeatureValueElementCopy + "'");
          return adviceFeatureValueElementCopy;
       } else {
@@ -423,8 +448,8 @@ public class Merger {
       }
    }
 
-   private void adviceMergeCorrespondingNotManyFeature(EObject baseEObject, EObject adviceEObject,
-         EStructuralFeature baseFeature, EStructuralFeature adviceFeature) {
+   private void adviceMergeCorrespondingNotManyFeature(final EObject baseEObject, final EObject adviceEObject,
+         final EStructuralFeature baseFeature, final EStructuralFeature adviceFeature) {
       Object baseFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(baseEObject, baseFeature);
       Object avFeatureValue = EcoreBridge.getFeatureValueIfNotManyTyped(adviceEObject, adviceFeature);
       if (baseFeatureValue instanceof EObject) {
@@ -441,8 +466,7 @@ public class Merger {
                   // but the advice object does not reference this object
                   // so we are inspecting a reference that should be changed
                   // that is completely fine
-                  replaceEObjectFeatureValue(baseEObject, baseFeature, baseFeatureEValue,
-                        avFeatureEValue);
+                  replaceEObjectFeatureValue(baseEObject, baseFeature, baseFeatureEValue, avFeatureEValue);
                }
             } else { // the base feature value shall not be merged with anything
                replaceEObjectFeatureValue(baseEObject, baseFeature, baseFeatureEValue, avFeatureEValue);
@@ -466,23 +490,23 @@ public class Merger {
       }
    }
 
-   private void replaceEObjectFeatureValue(EObject baseEObject, EStructuralFeature baseFeature, EObject baseFeatureValue,
-         EObject adviceFeatureValue) {
+   private void replaceEObjectFeatureValue(final EObject baseEObject, final EStructuralFeature baseFeature,
+         final EObject baseFeatureValue, final EObject adviceFeatureValue) {
       EObject baseVersionOfAdviceFeatureValue = getBaseElementForAdviceElement(adviceFeatureValue);
       replaceObjectFeatureValue(baseEObject, baseFeature, baseFeatureValue, baseVersionOfAdviceFeatureValue);
       removeAdviceElementFromToAddListIfAlreadyDone(baseFeature, adviceFeatureValue, baseVersionOfAdviceFeatureValue);
    }
 
-   private void replaceObjectFeatureValue(EObject baseEObject, EStructuralFeature baseFeature, Object baseFeatureValue,
-         Object adviceFeatureValue) {
+   private void replaceObjectFeatureValue(final EObject baseEObject, final EStructuralFeature baseFeature,
+         final Object baseFeatureValue, final Object adviceFeatureValue) {
       EcoreUtil.replace(baseEObject, baseFeature, baseFeatureValue, adviceFeatureValue);
       console.println("Changed the '" + baseFeature.getName() + "' feature value of the base object '" + baseEObject
             + "' from '" + baseFeatureValue + "' to '" + adviceFeatureValue + "'.");
       removeBaseWithBaseFeatureConflict(baseEObject, baseFeature);
    }
 
-   public void removeBaseWithBaseFeatureConflict(EObject baseEObject, EStructuralFeature baseFeature) {
-      Set<EStructuralFeature> conflictingFeatures = baseEObjects2FeatureConflictsMap.get(baseEObject);
+   public void removeBaseWithBaseFeatureConflict(final EObject baseEObject, final EStructuralFeature baseFeature) {
+      Set<EStructuralFeature> conflictingFeatures = baseElements2FeatureConflictsMap.get(baseEObject);
       if (conflictingFeatures != null) {
          // RATIONALE MK avoid accessing the object two times for the contains and for the remove method
          boolean wasAConflict = conflictingFeatures.remove(baseFeature);
@@ -495,10 +519,10 @@ public class Merger {
 
    /**
     * ATTENTION SIDE-EFFECT: if the advice feature value became a content when it was referenced using the base feature then the
-    * advice feature will be removed from adviceEObjectsToBeAdded
+    * advice feature will be removed from adviceElementsToBeAdded
     */
-   private void removeAdviceElementFromToAddListIfAlreadyDone(EStructuralFeature baseFeature, EObject adviceFeatureValue,
-         EObject baseVersionOfAdviceFeatureValue) {
+   private void removeAdviceElementFromToAddListIfAlreadyDone(final EStructuralFeature baseFeature,
+         final EObject adviceFeatureValue, final EObject baseVersionOfAdviceFeatureValue) {
       // check whether by adding a reference to the advice feature element
       // this element also became a content of the base object (and thus of the overall model)
       // attention: we need to use the base mm version of the advice feature value to obtain the same feature
@@ -516,8 +540,8 @@ public class Merger {
       }
    }
 
-   private void replaceReferencesToMergedBaseEObjects() {
-      for (Entry<EObject, EObject> merged2KeptBaseEObjectEntry : merged2KeptBaseEObjectMap.entrySet()) {
+   private void replaceReferencesToMergedBaseElements() {
+      for (Entry<EObject, EObject> merged2KeptBaseEObjectEntry : merged2KeptBaseElementMap.entrySet()) {
          EObject mergedBaseEObject = merged2KeptBaseEObjectEntry.getKey();
          EObject keptBaseEObject = merged2KeptBaseEObjectEntry.getValue();
          Collection<Setting> references = EcoreBridge.getReferencesTo(mergedBaseEObject);
@@ -544,7 +568,7 @@ public class Merger {
    }
 
    private boolean allBaseWithBaseMergeFeatureConflictsResolved() {
-      for (Set<EStructuralFeature> conflicts : baseEObjects2FeatureConflictsMap.values()) {
+      for (Set<EStructuralFeature> conflicts : baseElements2FeatureConflictsMap.values()) {
          if (conflicts != null && !conflicts.isEmpty()) {
             return false;
          }

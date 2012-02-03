@@ -19,7 +19,7 @@ import lu.uni.geko.util.bridges.EclipseBridge;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * A utility class to access the functionality provided by extensions of the JoinpointDetector extension point.
+ * A utility class to access the functionality provided by extensions of the {@ link JoinpointDetector} extension point.
  *
  * @see JoinpointDetectorExt
  *

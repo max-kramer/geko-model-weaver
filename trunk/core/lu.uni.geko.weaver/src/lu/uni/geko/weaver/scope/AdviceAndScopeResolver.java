@@ -24,16 +24,35 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-public class ScopeResolver {
+/**
+ * Utility class for resolving the advice elements that represent base elements together with their advice instantiation scopes
+ * from advice models.
+ *
+ * @see Advice
+ * @see AdviceInstantiationScope
+ *
+ * @author Max E. Kramer
+ */
+public final class AdviceAndScopeResolver {
+   /** Utility classes should not have a public or default constructor. */
+   private AdviceAndScopeResolver() {
+   }
 
-   public static Advice resolveAvAndInstantiationScopes(
-         URI adviceMURI) {
+   /**
+    * Resolves the elements of the advice model at the given URI that represent base model elements together with their advice
+    * instantiation scopes.
+    *
+    * @param avMURI
+    *           the URI of an advice model
+    * @return the advice encapsulating elements and their scope
+    */
+   public static Advice resolveAvAndInstantiationScopes(final URI avMURI) {
       HashMappedAdvice advice = new HashMappedAdvice();
-      Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(adviceMURI);
+      Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(avMURI);
       while (allResourceContentsIterator.hasNext()) {
          EObject nextContent = allResourceContentsIterator.next();
-         boolean isAdviceSpecificElement = GeKoBridge.skipAvSpecificElement(nextContent);
-         if (isAdviceSpecificElement) {
+         boolean isAvSpecificElement = GeKoBridge.skipAvSpecificElement(nextContent);
+         if (isAvSpecificElement) {
             EClass nextContentClass = nextContent.eClass();
             String nextContentClassName = nextContentClass.getInstanceClass().getSimpleName();
             AdviceInstantiationScope scope = null;
@@ -49,7 +68,7 @@ public class ScopeResolver {
                      .getAvMMScopeReferenceName());
                Object scopedObject = EcoreBridge.getFeatureValueIfNotManyTyped(nextContent, scopeReference);
                if (scopedObject == null || !(scopedObject instanceof EObject)) {
-                  throw new RuntimeException("The scope element '" + nextContent + "' of the advice model '" + adviceMURI
+                  throw new RuntimeException("The scope element '" + nextContent + "' of the advice model '" + avMURI
                         + "' has to reference an EObject!");
                } else {
                   EObject scopedEObject = (EObject) scopedObject;
@@ -68,10 +87,10 @@ public class ScopeResolver {
          }
       }
       AdviceInstantiationScope defaultScope = ScopeFactory.createDefaultScope();
-      for (EObject adviceElement : advice.getAllAvElements()) {
-         AdviceInstantiationScope scope = advice.getAvInstantiationScope(adviceElement);
+      for (EObject avElement : advice.getAllAvElements()) {
+         AdviceInstantiationScope scope = advice.getAvInstantiationScope(avElement);
          if (scope == null) {
-            advice.addAvInstantiationScope(adviceElement, defaultScope);
+            advice.addAvInstantiationScope(avElement, defaultScope);
          }
       }
       return advice;

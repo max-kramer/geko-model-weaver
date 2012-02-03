@@ -22,8 +22,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * A utility class to access the functionality provided by extensions of the SimpleResourceLoader and RefinedResourceLoader
- * extension points.
+ * A utility class to access the functionality provided by extensions of the {@link SimpleResourceLoader} and
+ * {@link RefinedResourceLoader} extension points.
  *
  * @see SimpleResourceLoaderExt
  * @see RefinedResourceLoaderExt
@@ -130,7 +130,8 @@ public final class MainResourceLoader {
     *           the name of the model (for logging and error output)
     * @param rootElementClass
     *           the class of which the root element has to be an instance of
-    * @param <T> the type of the root element
+    * @param <T>
+    *           the type of the root element
     * @return the root element
     */
    public static <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(final URI uri, final String modelName,
@@ -147,8 +148,11 @@ public final class MainResourceLoader {
 
    /**
     * Saves the given EObjects as the only content of the model at the given URI.
-    * @param eObject the new root element
-    * @param uri the URI of the model to be replaced or created
+    *
+    * @param eObject
+    *           the new root element
+    * @param uri
+    *           the URI of the model to be replaced or created
     */
    public static void saveEObjectAsOnlyContent(final EObject eObject, final URI uri) {
       final RefinedResourceLoaderExt resourceLoader = getResourceLoaderForURI(uri);
@@ -163,7 +167,9 @@ public final class MainResourceLoader {
 
    /**
     * Saves the model at the given URI.
-    * @param uri the URI of the model to be saved
+    *
+    * @param uri
+    *           the URI of the model to be saved
     */
    public static void save(final URI uri) {
       final RefinedResourceLoaderExt resourceLoader = getResourceLoaderForURI(uri);
@@ -178,7 +184,9 @@ public final class MainResourceLoader {
 
    /**
     * Returns whether the model at the given URI is already existing or not.
-    * @param uri the URI of a model
+    *
+    * @param uri
+    *           the URI of a model
     * @return whether the model is existing
     */
    public static boolean isExisting(final URI uri) {

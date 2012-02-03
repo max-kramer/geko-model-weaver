@@ -26,24 +26,41 @@ import lu.uni.geko.weaver.AdviceEffectuation;
 import lu.uni.geko.weaver.copy.MainCopier;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * A default implementation of the extension point {@link MightyAdderExt lu.uni.geko.weaver.add.mightyadderext} that wraps a
+ * simple adder so that it can be used like a might adder (object adapter pattern).
+ *
+ * @see SimpleAdderExt
+ * @see MightyAdderExt
+ *
+ * @author Max E. Kramer
+ */
 public class SimpleAdderWrapper implements MightyAdderExt {
+   /** The wrapped simple adder. */
    private final SimpleAdderExt wrappedAdder;
 
-   public SimpleAdderWrapper(SimpleAdderExt wrappedAdder) {
+   /**
+    * Constructs a new SimpleAdderWrapper using the given simple adder.
+    *
+    * @param wrappedAdder
+    *           the simple adder to be wrapped
+    */
+   public SimpleAdderWrapper(final SimpleAdderExt wrappedAdder) {
       this.wrappedAdder = wrappedAdder;
    }
 
    @Override
-   public void addAdviceEObjectsToWovenModel(Advice advice, AdviceEffectuation adviceEffectuation,
-         FeatureEquivalenceHelper featureEquivalenceHelper, URI wovenMURI) {
-      Set<EObject> remainingAvElementsToAdd = adviceEffectuation.getRemainingAvElementsToAdd();
+   public void addAvElementsToWovenModel(final Advice advice, final AdviceEffectuation avffectuation,
+         final FeatureEquivalenceHelper featureEquivalenceHelper, final URI wovenMURI) {
+      Set<EObject> remainingAvElementsToAdd = avffectuation.getRemainingAvElementsToAdd();
       EObject uniqueWovenRoot = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");
       SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
-      if (adviceEffectuation.allAvElementsAdded()) {
+      if (avffectuation.allAvElementsAdded()) {
          console.println("There are no remaining advice elements that would have to be added to the woven model");
       } else {
          if (uniqueWovenRoot == null) {
@@ -64,28 +81,27 @@ public class SimpleAdderWrapper implements MightyAdderExt {
             // runtime.
             int iterationCount = remainingAvElementsToAdd.size();
             // RATIONALE MK do not directly remove elements from the list of elements to be added as this would cause a
-            // concurrent
-            // modification exception
-            Set<EObject> adviceEObjectsAlreadyAdded = new HashSet<EObject>();
+            // concurrent modification exception
+            Set<EObject> avElementsAlreadyAdded = new HashSet<EObject>();
             // RATIONALE MK We have to make sure that all advice elements that are contained in an advice element do not need
             // to be added anymore.
             // An easy way to do this would be to remove all contents of the advice version of the advice element from the list
             // of advice elements to be added.
             // This would, however, be incorrect as an advice element that is only introduced once globally for all join points
-            // may contain advice elements that are introduced per joinpoint.
+            // may contain advice elements that are introduced per join point.
             // So we have to make sure that these different base versions of the contained advice elements are all added.
-            Set<EObject> baseVersionsOfAlreadyContainedAdviceElements = new HashSet<EObject>();
+            Set<EObject> baseVariantsOfAlreadyContainedAvElements = new HashSet<EObject>();
             for (int i = 0; i < iterationCount; i++) {
                for (EObject adviceEObjectToBeAdded : remainingAvElementsToAdd) {
-                  EObject baseVersionOfAdviceEObjectToBeAdded = MainCopier.copyAdviceEObject(adviceEObjectToBeAdded,
-                        uniqueWovenRoot, advice, adviceEffectuation);
+                  EObject baseVersionOfAdviceEObjectToBeAdded = MainCopier.copyAvElement(adviceEObjectToBeAdded,
+                        uniqueWovenRoot, advice, avffectuation);
                   // make sure that we did not indirectly add this advice element as a content of an already added advice
                   // element
-                  if (baseVersionsOfAlreadyContainedAdviceElements.contains(baseVersionOfAdviceEObjectToBeAdded)) {
-                     adviceEObjectsAlreadyAdded.add(adviceEObjectToBeAdded);
+                  if (baseVariantsOfAlreadyContainedAvElements.contains(baseVersionOfAdviceEObjectToBeAdded)) {
+                     avElementsAlreadyAdded.add(adviceEObjectToBeAdded);
                   } else {
                      Pair<EReference, EObject> containmentPair = this.wrappedAdder.getContainmentReferenceAndContainer(
-                           uniqueWovenRoot, adviceEObjectToBeAdded, advice, adviceEffectuation, featureEquivalenceHelper);
+                           uniqueWovenRoot, adviceEObjectToBeAdded, advice, avffectuation, featureEquivalenceHelper);
                      if (containmentPair != null) {
                         EReference containmentReference = containmentPair.getFirst();
                         EObject possibleContainer = containmentPair.getSecond();
@@ -93,37 +109,58 @@ public class SimpleAdderWrapper implements MightyAdderExt {
                         boolean isReallyIndirectlyContained = EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded,
                               remainingAvElementsToAdd);
                         isReallyIndirectlyContained = isReallyIndirectlyContained
-                              || EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded, adviceEObjectsAlreadyAdded);
+                              || EcoreBridge.isReallyIndirectlyContained(adviceEObjectToBeAdded, avElementsAlreadyAdded);
                         if (possibleContainer == uniqueWovenRoot || !isReallyIndirectlyContained || i > 0) {
-                           addToContainmentIfPossible(featureEquivalenceHelper, possibleContainer, adviceEObjectsAlreadyAdded,
-                                 baseVersionsOfAlreadyContainedAdviceElements, adviceEObjectToBeAdded,
-                                 baseVersionOfAdviceEObjectToBeAdded, containmentReference);
+                           addToContainmentIfPossible(adviceEObjectToBeAdded, baseVersionOfAdviceEObjectToBeAdded,
+                                 containmentReference, possibleContainer, avElementsAlreadyAdded,
+                                 baseVariantsOfAlreadyContainedAvElements, featureEquivalenceHelper);
                         }
                      }
                   }
                }
-               remainingAvElementsToAdd.removeAll(adviceEObjectsAlreadyAdded);
+               remainingAvElementsToAdd.removeAll(avElementsAlreadyAdded);
             }
          }
       }
    }
 
-   private void addToContainmentIfPossible(FeatureEquivalenceHelper featureEquivalenceHelper, EObject possibleContainer,
-         Set<EObject> adviceEObjectsAlreadyAdded, Set<EObject> baseVersionsOfAlreadyContainedAdviceElements,
-         EObject adviceEObjectToBeAdded, EObject baseVersionOfAdviceEObjectToBeAdded, EReference containmentReference) {
+   /**
+    * Adds the given base variant of the given advice element to the given containment reference of the given container if the
+    * reference has the right type. If the addition was successful the elements that are contained in the added element are
+    * registered in the given sets of already contained elements.
+    *
+    * @param avElementoAdd
+    *           the advice element to add
+    * @param baseVariantOfAvElementToAdd
+    *           the base variant of the given advice element
+    * @param containmentReference
+    *           the containment reference to be used for the adddition
+    * @param possibleContainer
+    *           the container to be used for the addition
+    * @param avElementsAlreadyAdded
+    *           the set containing the advice elements that have been added
+    * @param baseVariantsOfAlreadyContainedAvElements
+    *           the set containing the base variants of the advice elements that have been added
+    * @param featureEquivalenceHelper
+    *           a feature equivalence helper
+    */
+   private void addToContainmentIfPossible(final EObject avElementoAdd, final EObject baseVariantOfAvElementToAdd,
+         final EReference containmentReference, final EObject possibleContainer, final Set<EObject> avElementsAlreadyAdded,
+         final Set<EObject> baseVariantsOfAlreadyContainedAvElements, final FeatureEquivalenceHelper featureEquivalenceHelper) {
       EClassifier uniqueRootContainmentReferenceType = containmentReference.getEType();
-      if (featureEquivalenceHelper.isSameOrSuperType(adviceEObjectToBeAdded.eClass(), uniqueRootContainmentReferenceType)) {
+      EClass avClass = avElementoAdd.eClass();
+      if (featureEquivalenceHelper.isSameOrSuperType(avClass, uniqueRootContainmentReferenceType)) {
          List<EObject> rootElementContents = EcoreBridge.getFeatureValuesIfManyTyped(possibleContainer, containmentReference);
-         rootElementContents.add(baseVersionOfAdviceEObjectToBeAdded);
+         rootElementContents.add(baseVariantOfAvElementToAdd);
          SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
-         console.println("Added the advice element '" + baseVersionOfAdviceEObjectToBeAdded
-               + "' to the containment reference '" + containmentReference.getName() + "' of the unique root element '"
-               + possibleContainer + "' of the woven model.");
+         console.println("Added the advice element '" + baseVariantOfAvElementToAdd + "' to the containment reference '"
+               + containmentReference.getName() + "' of the unique root element '" + possibleContainer
+               + "' of the woven model.");
          // register the contained elements of the base version of the added advice element
-         for (EObject baseVersionOfAdviceContent : EcoreBridge.getAllContents(baseVersionOfAdviceEObjectToBeAdded)) {
-            baseVersionsOfAlreadyContainedAdviceElements.add(baseVersionOfAdviceContent);
+         for (EObject baseVariantOfAvContent : EcoreBridge.getAllContents(baseVariantOfAvElementToAdd)) {
+            baseVariantsOfAlreadyContainedAvElements.add(baseVariantOfAvContent);
          }
-         adviceEObjectsAlreadyAdded.add(adviceEObjectToBeAdded);
+         avElementsAlreadyAdded.add(avElementoAdd);
       }
    }
 }

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Common
-Bundle-SymbolicName: lu.uni.geko.common
+Bundle-SymbolicName: lu.uni.geko.common;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  lu.uni.geko.util;bundle-version="1.0.0",

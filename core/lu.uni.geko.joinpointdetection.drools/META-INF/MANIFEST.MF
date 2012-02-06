@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  lu.uni.geko.joinpointdetection,
  lu.uni.geko.resources,
  lu.uni.geko.examples.lts.model,
- lu.uni.geko.examples.bsd.model
+ lu.uni.geko.examples.bsd.model,
+ qut.ifc
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/antlr-runtime.jar,
@@ -40,4 +41,7 @@ Import-Package:  lts,
  lts.util,
  bsd,
  bsd.impl,
- bsd.util
+ bsd.util,
+ IFC2X3,
+ IFC2X3.impl,
+ IFC2X3.util

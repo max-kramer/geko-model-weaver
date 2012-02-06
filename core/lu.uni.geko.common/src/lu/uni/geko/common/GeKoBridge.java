@@ -105,6 +105,15 @@ public final class GeKoBridge {
    private static Set<EObject> getUnspecificPcOrAvElements(final URI mURI, final boolean isPointcut) {
       Set<EObject> resourceContentsSet = new HashSet<EObject>();
       Iterator<EObject> allResourceContentsIterator = MainResourceLoader.getAllContentsIterator(mURI);
+      if (!allResourceContentsIterator.hasNext()) {
+         String message = " model at '" + mURI
+               + "' has no content!" + "Make sure that you registered the model code for the used metamodel.";
+         if (isPointcut) {
+            throw new RuntimeException("The pointcut" + message);
+         } else {
+            CONSOLE.printWarningln("The advice " + message);
+         }
+      }
       while (allResourceContentsIterator.hasNext()) {
          EObject nextContent = allResourceContentsIterator.next();
          if (isPointcut) {

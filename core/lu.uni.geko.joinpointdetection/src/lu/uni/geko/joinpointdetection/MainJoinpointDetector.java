@@ -19,7 +19,7 @@ import lu.uni.geko.util.bridges.EclipseBridge;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * A utility class to access the functionality provided by extensions of the {@ link JoinpointDetector} extension point.
+ * A utility class to access the functionality provided by extensions of the @ link JoinpointDetector} extension point.
  *
  * @see JoinpointDetectorExt
  *
@@ -31,9 +31,9 @@ public final class MainJoinpointDetector {
    }
 
    /**
-    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them. The execution is performed by the registered mandatory and unique extension of the
-    * JoinpointDetector extension point. Throws a {@link java.lang.RuntimeException RuntimeException} if no extension or more than
-    * one extensions are registered.
+    * Detects the joinpoints for the pointcut and base model at the given URIs and returns them. The execution is performed by the
+    * registered mandatory and unique extension of the JoinpointDetector extension point. Throws a
+    * {@link java.lang.RuntimeException RuntimeException} if no extension or more than one extensions are registered.
     *
     * @param pointcutMURI
     *           the URI of the pointcut model
@@ -42,8 +42,8 @@ public final class MainJoinpointDetector {
     * @return a list containing all detected join points
     */
    public static List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final URI baseMURI) {
-      final JoinpointDetectorExt joinpointDetector = EclipseBridge.getUniqueRegisteredExtension(
-            JoinpointDetectorExt.ID, "class", JoinpointDetectorExt.class);
+      final JoinpointDetectorExt joinpointDetector = EclipseBridge.getUniqueRegisteredExtension(JoinpointDetectorExt.ID,
+            "class", JoinpointDetectorExt.class);
 
       Callable<List<JoinPoint>> callable = new Callable<List<JoinPoint>>() {
          @Override

@@ -297,4 +297,53 @@ public final class EcoreBridge {
          return containedIn(eObject.eContainer(), possibleContainer);
       }
    }
+
+   /**
+    * Ensures that the upper bound of the given feature will not be exceed once the given elements are added to the the given
+    * current values. {@link java.util.RuntimeException RuntimeException} if the upper bound would be exceeded and returns
+    * {@code true} otherwise. The given action message is only used for output.
+    *
+    * @param currentValues
+    *           a list containing the current values of the given feature
+    * @param feature
+    *           a structural feature
+    * @param elementsToAdd
+    *           a list of elements to be newly added to the feature
+    * @param actionMessage
+    *           a message describing the action to be performed if the bound is not exceeded (only for error output)
+    * @return {@code true} if the upper bound of the given feature will not be exceeded once the given elements are added
+    */
+   public static boolean ensureUpperBoundNotExceeded(final List<EObject> currentValues, final EStructuralFeature feature,
+         final List<EObject> elementsToAdd, final String actionMessage) {
+      int currentSize = currentValues.size();
+      return ensureUpperBoundNotExceeded(currentSize, feature, elementsToAdd, actionMessage);
+   }
+
+   /**
+    * Ensures that the upper bound of the given feature will not be exceed once the given elements are added to it using the given
+    * current size (that may be different from the real current size (for convenience). Throws a
+    * {@link java.util.RuntimeException RuntimeException} if the upper bound would be exceeded and returns {@code true} otherwise.
+    * The given action message is only used for output.
+    *
+    * @param currentSize
+    *           the current total number of values of the given feature
+    * @param feature
+    *           a structural feature
+    * @param elementsToAdd
+    *           a list of elements to be newly added to the feature
+    * @param actionMessage
+    *           a message describing the action to be performed if the bound is not exceeded (only for error output)
+    * @return {@code true} if the upper bound of the given feature will not be exceeded once the given elements are added
+    */
+   public static boolean ensureUpperBoundNotExceeded(final int currentSize, final EStructuralFeature feature,
+         final List<EObject> elementsToAdd, final String actionMessage) {
+      int upperBound = feature.getUpperBound();
+      int increase = elementsToAdd.size();
+      if (currentSize + increase <= upperBound || upperBound == -1) {
+         return true;
+      } else {
+         throw new RuntimeException("Cannot " + actionMessage + "because the '" + feature.getName()
+               + "' reference would exceed the upper bound of '" + upperBound + "'!");
+      }
+   }
 }

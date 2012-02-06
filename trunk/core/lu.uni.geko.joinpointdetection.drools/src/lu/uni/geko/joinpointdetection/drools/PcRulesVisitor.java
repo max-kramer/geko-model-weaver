@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
+import lu.uni.geko.common.MainFeatureIgnorer;
 import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.bridges.EcorePkgVariantsBridge;
 
@@ -110,25 +111,28 @@ public class PcRulesVisitor {
     *           the direct children elements of the root pointcut element
     */
    private void declareFirstLayerElements(final List<EObject> firstLayerElements) {
-      for (EObject eObject : firstLayerElements) {
-         String varDecl = getVarDecl(eObject);
-         rules.append(varDecl + ": " + getCanonicalBaseClassName(eObject) + "(");
+      for (EObject pcElement : firstLayerElements) {
+         String varDecl = getVarDecl(pcElement);
+         rules.append(varDecl + ": " + getCanonicalBaseClassName(pcElement) + "(");
          boolean firstAttribute = true;
-         for (EAttribute attribute : eObject.eClass().getEAllAttributes()) {
-            Object attributeValue = eObject.eGet(attribute);
+         for (EAttribute attribute : pcElement.eClass().getEAllAttributes()) {
+            Object attributeValue = pcElement.eGet(attribute);
             // RATIONALE MK Attention this also ignores pointcuts that specified on purpose that an attribute is "" or "[]"!
             if (attributeValue != null && !attributeValue.equals("")
                   && !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
-               if (firstAttribute) {
-                  firstAttribute = false;
-               } else {
-                  rules.append(",");
+               boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue, pcElement);
+               if (!ignoreAttribute) {
+                  if (firstAttribute) {
+                     firstAttribute = false;
+                  } else {
+                     rules.append(",");
+                  }
+                  rules.append(attribute.getName() + " == \"" + attributeValue + "\"");
                }
-               rules.append(attribute.getName() + " == \"" + attributeValue + "\"");
             }
          }
          rules.append(")\n");
-         declareFirstLayerElements(eObject.eContents());
+         declareFirstLayerElements(pcElement.eContents());
       }
    }
 

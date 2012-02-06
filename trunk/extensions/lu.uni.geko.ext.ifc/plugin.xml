@@ -8,7 +8,7 @@
       </client>
    </extension>
    <extension
-         point="lu.uni.geko.weaver.simpleadderext">
+         point="lu.uni.geko.weaver.add.simpleadderext">
       <client
             class="lu.uni.geko.ext.ifc.IfcSimpleAdder"
             priority="MAX_VALUE">
@@ -22,10 +22,17 @@
       </client>
    </extension>
    <extension
-         point="lu.uni.geko.weaver.copierfactoryext">
+         point="lu.uni.geko.weaver.copy.copierfactoryext">
       <client
             class="lu.uni.geko.ext.ifc.IfcCopierFactory"
             priority="99">
+      </client>
+   </extension>
+   <extension
+         point="lu.uni.geko.common.featureignorerext">
+      <client
+            class="lu.uni.geko.ext.ifc.IfcFeatureIgnorer"
+            priority="100">
       </client>
    </extension>
 

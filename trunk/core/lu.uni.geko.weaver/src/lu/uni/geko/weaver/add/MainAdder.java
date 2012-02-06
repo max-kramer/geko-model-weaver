@@ -82,12 +82,10 @@ public final class MainAdder {
       if (!avEffectuation.allAvElementsAdded()) {
          Set<EObject> remainingAvElementsToAdd = avEffectuation.getRemainingAvElementsToAdd();
          // TODO MK gently handle the case were not all elements could be added by checking in advance if this will happen
-         throw new RuntimeException(
-               "There are still advice "
-                     + remainingAvElementsToAdd.size()
-                     + " elements that are not contained in any element of the woven model "
-                     + "but that do not have the type of the unique containment reference that could serve as container for these elements:\n"
-                     + remainingAvElementsToAdd);
+         throw new RuntimeException("There are still advice " + remainingAvElementsToAdd.size()
+               + " elements that are not contained in any element of the woven model but that do not "
+               + "have the type of the unique containment reference that could serve as container for these elements:\n"
+               + remainingAvElementsToAdd);
       }
    }
 }

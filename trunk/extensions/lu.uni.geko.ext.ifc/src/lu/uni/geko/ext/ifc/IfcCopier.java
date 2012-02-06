@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
  ******************************************************************************/
@@ -15,10 +15,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
-import lu.uni.geko.util.adapters.JavaAdapter;
+import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
-import lu.uni.geko.weaver.Copier;
+import lu.uni.geko.weaver.AdviceEffectuation;
+import lu.uni.geko.weaver.copy.Copier;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -26,80 +27,126 @@ import qut.part21.Model;
 import IFC2X3.IfcOwnerHistory;
 import IFC2X3.IfcRoot;
 
+/**
+ * An implementation of the interface {@link Copier} that is used by the extension point
+ * {@link lu.uni.geko.weaver.copy.CopierFactoryExt lu.uni.geko.weaver.copy.copierfactoryext} handling the generation of
+ * identifiers and setting of the owner history for IFC building models.
+ *
+ * @author Max E. Kramer
+ */
 public class IfcCopier implements Copier {
-	private final Set<String> idSet;
-	private final IfcOwnerHistory ownerHistory;
+   /** The set containing all identifiers that are currently used in the model for which this copier is used. */
+   private final Set<String> idSet;
+   /** The owner history of the model for which this copier is used. */
+   private final IfcOwnerHistory ownerHistory;
 
-	public IfcCopier(EObject rootEObject) {
-		this.idSet = populateIDSet(rootEObject);
-		this.ownerHistory = getOwnerHistory(rootEObject);
-	}
+   /**
+    * Creates a new IfcCopier for the given root element of an IFC building model and initialises the set of generated identifiers
+    * and the owner history.
+    *
+    * @param rootElement
+    *           a root element of an IFC building model
+    */
+   public IfcCopier(final EObject rootElement) {
+      this.idSet = populateIDSet(rootElement);
+      this.ownerHistory = getOwnerHistory(rootElement);
+   }
 
-	private Set<String> populateIDSet(EObject rootEObject) {
-		Set<String> idSet = new HashSet<String>();
-		Iterator<EObject> rootContentsIterator = rootEObject.eAllContents();
-		while (rootContentsIterator.hasNext()) {
-			EObject content = rootContentsIterator.next();
-			if (content instanceof IfcRoot) {
-				IfcRoot ifcContent = (IfcRoot) content;
-				String globalId = ifcContent.getGlobalId();
-				idSet.add(globalId);
-			}
-		}
-		return idSet;
-	}
+   /**
+    * Populates a set containing all identifiers that are used by iterating over all contents of the given root element of an IFC
+    * building model.
+    *
+    * @param rootElement
+    *           a root element of an IFC building model
+    * @return a set containing all identifiers that are used
+    */
+   private Set<String> populateIDSet(final EObject rootElement) {
+      Set<String> newIDSet = new HashSet<String>();
+      Iterator<EObject> rootContentsIterator = rootElement.eAllContents();
+      while (rootContentsIterator.hasNext()) {
+         EObject content = rootContentsIterator.next();
+         if (content instanceof IfcRoot) {
+            IfcRoot ifcContent = (IfcRoot) content;
+            String globalId = ifcContent.getGlobalId();
+            newIDSet.add(globalId);
+         }
+      }
+      return newIDSet;
+   }
 
-	private IfcOwnerHistory getOwnerHistory(EObject rootEObject) {
-		if (rootEObject instanceof Model) {
-			Model rootModel = (Model) rootEObject;
-			EObject rootModelRootEObject = rootModel.getRoot();
-			if (rootModelRootEObject instanceof IfcRoot) {
-				IfcRoot rootModelIfcRoot = (IfcRoot) rootModelRootEObject;
-				return rootModelIfcRoot.getOwnerHistory();
-			} else {
-				SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
-				console.printWarningln("The root object of the part21 model is not an IfcRoot.\n"
-										+ "Therefore all newly added IFC objects will have no owner history!");
-			}
-		} else {
-			SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.CONSOLE_NAME);
-			console.printWarningln("The root element of the IFC resource is not a part21 model.\n"
-									+ "Therefore all newly added IFC objects will have no owner history!");
-		}
-		return null;
-	}
+   /**
+    * Returnes the owner history of the given root element of an IFC building model.
+    *
+    * @param rootElement
+    *           a root element of an IFC building model
+    * @return the owner history
+    */
+   private IfcOwnerHistory getOwnerHistory(final EObject rootElement) {
+      if (rootElement instanceof Model) {
+         Model rootModel = (Model) rootElement;
+         EObject rootModelRootElement = rootModel.getRoot();
+         if (rootModelRootElement instanceof IfcRoot) {
+            IfcRoot rootModelIfcRoot = (IfcRoot) rootModelRootElement;
+            return rootModelIfcRoot.getOwnerHistory();
+         } else {
+            SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
+            console.printWarningln("The root object of the part21 model is not an IfcRoot.\n"
+                  + "Therefore all newly added IFC objects will have no owner history!");
+         }
+      } else {
+         SimpleMessageConsole console = SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName());
+         console.printWarningln("The root element of the IFC resource is not a part21 model.\n"
+               + "Therefore all newly added IFC objects will have no owner history!");
+      }
+      return null;
+   }
 
-	@Override
-	public EObject copyAdviceEObject(EObject sourceAdviceEObject, EObject currentCopyBaseEObject) {
-		if (currentCopyBaseEObject instanceof IfcRoot) {
-			IfcRoot copy = (IfcRoot) currentCopyBaseEObject;
-			createAndSetGlobalId(copy);
-			setOwnerHistory(copy);
-		}
-		return currentCopyBaseEObject;
-	}
+   @Override
+   public EObject copyAvElement(final EObject sourceAvElement, final EObject currentBaseVariant,
+         final AdviceEffectuation avEffectuation) {
+      if (currentBaseVariant instanceof IfcRoot) {
+         IfcRoot copy = (IfcRoot) currentBaseVariant;
+         createAndSetGlobalId(copy);
+         setOwnerHistory(copy);
+      }
+      return currentBaseVariant;
+   }
 
-	private void setOwnerHistory(IfcRoot copy) {
-		if (ownerHistory != null) {
-			copy.setOwnerHistory(ownerHistory);
-		}
-	}
+   /**
+    * Sets the owner history of the given copied IFC model element to the one used by this copier.
+    *
+    * @param copy
+    *           an IFC model element
+    */
+   private void setOwnerHistory(final IfcRoot copy) {
+      if (ownerHistory != null) {
+         copy.setOwnerHistory(ownerHistory);
+      }
+   }
 
-	private void createAndSetGlobalId(IfcRoot copy) {
-		String globalId = createNewGloballId();
-		idSet.add(globalId);
-		copy.setGlobalId(globalId);
-	}
+   /**
+    * Creates a new identifier for the given copied IFC model element and sets the corresponding feature.
+    *
+    * @param copy
+    *           an IFC model element
+    */
+   private void createAndSetGlobalId(final IfcRoot copy) {
+      String globalId = createNewGlobalId();
+      idSet.add(globalId);
+      copy.setGlobalId(globalId);
+   }
 
-	private String createNewGloballId() {
-		String globalId;
-		do {
-			globalId = guessNewGlobalId();
-		} while (idSet.contains(globalId));
-		return globalId;
-	}
-
-	private String guessNewGlobalId() {
-		return JavaAdapter.getRandomAlphaNumericalString(IfcConstants.IFC_ROOT_ID_LENGTH, IfcConstants.IFC_ROOT_ID_ADDITIONAL_CHARACTERS);
-	}
+   /**
+    * Creates a new random global identifier that is different from those that are already used by this copier.
+    *
+    * @return a new random global identifier
+    */
+   private String createNewGlobalId() {
+      String globalId;
+      do {
+         globalId = JavaBridge.getRandomAlphaNumericalString(IfcConstants.getIfcIDLength(),
+               IfcConstants.getIfcIDAdditionalCharacters());
+      } while (idSet.contains(globalId));
+      return globalId;
+   }
 }

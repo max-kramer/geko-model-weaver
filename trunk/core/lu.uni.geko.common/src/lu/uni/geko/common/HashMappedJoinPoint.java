@@ -17,8 +17,8 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * An implementation of the convenience representation (or proxy) of a {@link JoinPoint} using a {@link java.util.HashMap HashMap} for
- * the mapping from pointcut elements to matched base elements.
+ * An implementation of the convenience representation (or proxy) of a {@link JoinPoint} using a {@link java.util.HashMap HashMap}
+ * for the mapping from pointcut elements to matched base elements.
  *
  * @author Max E. Kramer
  */

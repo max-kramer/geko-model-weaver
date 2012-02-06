@@ -101,7 +101,9 @@ public final class EcoreResourceBridge {
    }
 
    /**
-    * Saves the given eObject as the only content of the model at the given URI.
+    * Saves the given eObject as the only content of the model at the given URI.<br/>
+    * <br/>
+    * <b>Attention</b>: If a resource already exists at the given URI it will be overwritten!
     *
     * @param eObject
     *           the new root element

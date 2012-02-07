@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IFC2X3_av:Advice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:IFC2X3_av="http://IFC2X3.ecore_advice">
+  <children xsi:type="IFC2X3_av:IfcWindow" isDefinedBy="//@children.4" containedInStructure="//@children.2"/>
+  <children xsi:type="IFC2X3_av:IfcBuildingStorey" containsElements="//@children.2" elevation="0.0"/>
+  <children xsi:type="IFC2X3_av:IfcRelContainedInSpatialStructure" relatedElements="//@children.0" relatingStructure="//@children.1"/>
+  <children xsi:type="IFC2X3_av:IfcWindowStyle" objectTypeOf="//@children.4" constructionType="HIGH_GRADE_STEEL"/>
+  <children xsi:type="IFC2X3_av:IfcRelDefinesByType" relatedObjects="//@children.0" relatingType="//@children.3"/>
+</IFC2X3_av:Advice>

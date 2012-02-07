@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IFC2X3_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:IFC2X3_pc="http://IFC2X3.ecore_pointcut">
+  <children xsi:type="IFC2X3_pc:IfcWindow" containedInStructure="//@children.2"/>
+  <children xsi:type="IFC2X3_pc:IfcBuildingStorey" containsElements="//@children.2" elevation="0.0"/>
+  <children xsi:type="IFC2X3_pc:IfcRelContainedInSpatialStructure" relatedElements="//@children.0" relatingStructure="//@children.1"/>
+</IFC2X3_pc:Pointcut>

@@ -22,12 +22,18 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import qut.part21.Model;
 
+/**
+ * An extension for the extension point {@link SimpleAdderExt} that returns the right containment reference of the part 21 model
+ * for model elements to be added.
+ *
+ * @author Max E. Kramer
+ */
 public class IfcSimpleAdder implements SimpleAdderExt {
 
    @Override
-   public Pair<EReference, EObject> getContainmentReferenceAndContainer(EObject uniqueWovenRoot,
-         EObject adviceEObjectToBeAdded, Advice advice, AdviceEffectuation avEffectuation,
-         FeatureEquivalenceHelper featureEquivalenceHelper) {
+   public Pair<EReference, EObject> getContainmentReferenceAndContainer(final EObject uniqueWovenRoot,
+         final EObject adviceEObjectToBeAdded, final Advice advice, final AdviceEffectuation avEffectuation,
+         final FeatureEquivalenceHelper featureEquivalenceHelper) {
       if (uniqueWovenRoot instanceof Model) {
          EStructuralFeature containmentFeature = uniqueWovenRoot.eClass().getEStructuralFeature("contents");
          if (containmentFeature instanceof EReference) {

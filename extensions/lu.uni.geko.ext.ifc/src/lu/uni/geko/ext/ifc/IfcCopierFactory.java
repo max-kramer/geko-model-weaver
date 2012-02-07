@@ -20,7 +20,7 @@ import lu.uni.geko.weaver.copy.CopierFactoryExt;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * An extension for the extension point {@link lu.uni.geko.weaver.copy.CopierFactoryExt CopierFactoryExt} that provides access to
+ * An extension for the extension point {@link CopierFactoryExt} that provides access to
  * {@link IfcCopier}.
  *
  * @author Max E. Kramer

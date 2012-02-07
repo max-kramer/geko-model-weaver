@@ -16,16 +16,29 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
- * An extension for the {@link FeatureIgnorerExt FeatureIgnorerExt} extension point that makes sure that some default feature
- * values are not taken into account during join point detection.
+ * An extension for the {@link FeatureIgnorerExt FeatureIgnorerExt} extension point that makes sure that some feature values are
+ * not taken into account during join point detection and model comparison.
  *
  * @author Max E. Kramer
  */
 public class IfcFeatureIgnorer implements FeatureIgnorerExt {
 
    @Override
-   public boolean ignoreDuringJoinPointDetection(final EStructuralFeature feature, final Object featureValue, final EObject pcElement) {
+   public boolean ignoreDuringJoinPointDetection(final EStructuralFeature feature, final Object featureValue,
+         final EObject pcElement) {
       if ("compositionType".equals(feature.getName()) && featureValue != null && "COMPLEX".equals(featureValue.toString())) {
+         return true;
+      }
+      return false;
+   }
+
+   @Override
+   public boolean ignoreDuringModelComparison(final EStructuralFeature feature) {
+      if ("globalId".equals(feature.getName())) {
+         return true;
+      } else if ("totalWork".equals(feature.getName())) {
+         return true;
+      } else if ("count".equals(feature.getName())) {
          return true;
       }
       return false;

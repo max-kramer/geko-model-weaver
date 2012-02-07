@@ -15,13 +15,16 @@ import java.util.Iterator;
 import java.util.Set;
 
 import lu.uni.geko.common.GeKoConstants;
+import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.ui.SimpleMessageConsole;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 import lu.uni.geko.weaver.AdviceEffectuation;
 import lu.uni.geko.weaver.copy.Copier;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import qut.part21.Model;
 import IFC2X3.IfcOwnerHistory;
@@ -108,20 +111,9 @@ public class IfcCopier implements Copier {
          IfcRoot copy = (IfcRoot) currentBaseVariant;
          createAndSetGlobalId(copy);
          setOwnerHistory(copy);
+         setDefaultValues(sourceAvElement, copy);
       }
       return currentBaseVariant;
-   }
-
-   /**
-    * Sets the owner history of the given copied IFC model element to the one used by this copier.
-    *
-    * @param copy
-    *           an IFC model element
-    */
-   private void setOwnerHistory(final IfcRoot copy) {
-      if (ownerHistory != null) {
-         copy.setOwnerHistory(ownerHistory);
-      }
    }
 
    /**
@@ -148,5 +140,43 @@ public class IfcCopier implements Copier {
                IfcConstants.getIfcIDAdditionalCharacters());
       } while (idSet.contains(globalId));
       return globalId;
+   }
+
+   /**
+    * Sets the owner history of the given copied IFC model element to the one used by this copier.
+    *
+    * @param copy
+    *           an IFC model element
+    */
+   private void setOwnerHistory(final IfcRoot copy) {
+      if (ownerHistory != null) {
+         copy.setOwnerHistory(ownerHistory);
+      }
+   }
+
+   /**
+    * Sets the values for features of the given copied IFC model element to default values if they are neither set in the source
+    * advice element nor in the copy.
+    *
+    * @param sourceAvElement
+    *           an advice element to used as copy source
+    * @param copy
+    *           a copy of the given advice element
+    */
+   private void setDefaultValues(final EObject sourceAvElement, final IfcRoot copy) {
+      EList<EStructuralFeature> avFeatures = sourceAvElement.eClass().getEAllStructuralFeatures();
+      for (EStructuralFeature avFeature : avFeatures) {
+         Object avFeatureValue = avFeature.eGet(avFeature);
+         if (avFeatureValue == null || avFeatureValue instanceof Boolean) {
+            if (EcoreBridge.isBooleanAttribute(avFeature)) {
+               EStructuralFeature copyFeature = EcoreBridge.getFeatureForName(copy, avFeature.getName());
+               Object copyFeatureValue = copy.eGet(copyFeature);
+               if (copyFeatureValue == null) {
+                  Boolean defaultValue = avFeatureValue instanceof Boolean ? (Boolean) avFeatureValue : false;
+                  copy.eSet(copyFeature, defaultValue);
+               }
+            }
+         }
+      }
    }
 }

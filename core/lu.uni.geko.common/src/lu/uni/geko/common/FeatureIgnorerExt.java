@@ -30,8 +30,8 @@ public interface FeatureIgnorerExt {
    String ID = "lu.uni.geko.common.featureignorerext";
 
    /**
-    * Returns whether the given feature with of the given pointcut element with the given value should be ignored during join
-    * point detection.
+    * Returns whether the given feature of the given pointcut element with the given value should be ignored during join point
+    * detection.
     *
     * @param feature
     *           a structural feature of a metaclass
@@ -39,8 +39,17 @@ public interface FeatureIgnorerExt {
     *           the value for the given feature and pointcut element
     * @param pcElement
     *           a pointcut element that is an instance of a metaclass that provides the given feature
-    * @return {@code true} if the values for the given feature should have no effect on join point detection and {@code false}
+    * @return {@code true} if the value for the given feature should have no effect on join point detection and {@code false}
     *         otherwise
     */
    boolean ignoreDuringJoinPointDetection(EStructuralFeature feature, Object featureValue, EObject pcElement);
+
+   /**
+    * Returns whether the given feature should be ignored during the comparison of models.
+    *
+    * @param feature
+    *           a structural feature of a metaclass
+    * @return {@code true} if the given feature should have no effect during model comparison and {@code false} otherwise
+    */
+   boolean ignoreDuringModelComparison(EStructuralFeature feature);
 }

@@ -1,0 +1,34 @@
+#summary This page explains the different ways of using GeKo - An extensible generic weaver for EMF based models.
+
+= Introduction =
+
+There are three different ways of using GeKo:
+
+ # You can download an Eclipse installation that has everything you need in it (including source code and examples).
+ # Or you download a jar containing all GeKo Eclipse plug-ins (including source code and plug-ins containing examples but excluding EMF dependencies).
+ # The last and most lightweight solution is to download a jar containing only the plug-ins needed to use GeKo with your models (including source-code but excluding examples, extensions and dependencies).
+
+
+= Simple Usage =
+
+Once you downloaded GeKo in any of the different ways the way to use it is always the same:
+
+ # Start an Eclipse instance that runs the GeKo plug-ins (either by dumping them in the plugins folder or by importing them as projects and running a new instance using a run / debug configuration).
+ # Select the `*`.ecore file of the metamodel used by the models you want to weave and right-click on it. In the appearing "GeKo Weaver" submenu select the option "Generate Base, Pointcut and Advice Editors".
+ # Go to the folder where the base model that you want to weave is located. Right-click on it and in the appearing "New" submenu select the option "Other..." (or press Ctrl+N instead). In the appearing wizard there is a category "Example EMF Model Creation Wizards". In it you should find a pointcut editor for your metamodel. Select it and click on "Next". Decide on a location and file name and click on "Next". _Choose "Pointcut" from the "Model Object" dropdown list_ and click on "Finish".
+ # In the created pointcut model you can add arbitrary model elements by right-clicking on the root element "Pointcut" and choosing an entry from the "New Child" submenu.
+ # You can design your advice model in a similar way using the generated Wizard.
+ # Once you are ready for weaving select your base, pointcut and advice model, right-click on one of them and choose "Weave (Inferring Pointcut to Advice Mapping)" in the "GeKo Weaver" submenu.
+
+
+= Custom Pointcut to Advice Mappings =
+
+Whenever you design a pointcut and advice for which GeKo cannot guess which pointcut element corresponds to which advice element by looking at String attributes you have to help out a little bit:
+ # Right-click once again on the folder containing your base model. In the appearing "New" submenu select once again the option "Other...". Create a new "Pc2Av Mapping Model" using the generated wizard just as you did for the pointcut and advice model. _This time select "Mapping" as root "Model Object"._
+ # Create mapping entries using the familiar "New Child" submenu and refer to elements of the pointcut and advice model in the property view.
+ # Once you created mapping entries for all pointcut and advice elements that were not matched automatically by Geko you are ready for weaving: select your base, pointcut, advice and mapping model, right-click on one of them and choose "Weave (Inferring Completion of Pointcut to Advice Mapping)" in the "GeKo Weaver" submenu.
+
+
+= Creating Own Extensions =
+
+If you want to create extensions for GeKo because your metamodel cannot be handled in a completely generic way have a look at the JavaDoc or get in contact with a developer.

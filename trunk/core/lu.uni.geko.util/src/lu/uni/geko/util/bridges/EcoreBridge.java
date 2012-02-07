@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -119,10 +120,7 @@ public final class EcoreBridge {
     * @return {@code true} if feature is a String attribute and {@code false} otherwise
     */
    public static boolean isStringAttribute(final EStructuralFeature feature) {
-      if (feature instanceof EAttribute) {
-         return isStringAttribute((EAttribute) feature);
-      }
-      return false;
+      return isAttributeOfJavaType(feature, "String");
    }
 
    /**
@@ -133,7 +131,65 @@ public final class EcoreBridge {
     * @return {@code true} if attribute is of type String and {@code false} otherwise
     */
    public static boolean isStringAttribute(final EAttribute attribute) {
-      return attribute.getEType().getInstanceClassName().equals("java.lang.String");
+      return isAttributeOfJavaType(attribute, "String");
+   }
+
+   /**
+    * Returns whether the given feature is an attribute that has a java type of the given name (e.g. "String" for
+    * "java.lang.String").
+    *
+    * @param feature
+    *           a feature
+    * @param typeName
+    *           a java.lang type name
+    * @return {@code true} if attribute is of type boolean and {@code false} otherwise
+    */
+   public static boolean isAttributeOfJavaType(final EStructuralFeature feature, final String typeName) {
+      if (feature instanceof EAttribute) {
+         return isAttributeOfJavaType((EAttribute) feature, typeName);
+      }
+      return false;
+   }
+
+   /**
+    * Returns whether the given attribute has a java type of the given name (e.g. "String" for "java.lang.String").
+    *
+    * @param attribute
+    *           an attribute
+    * @param typeName
+    *           a java.lang type name
+    * @return {@code true} if attribute is of type boolean and {@code false} otherwise
+    */
+   public static boolean isAttributeOfJavaType(final EAttribute attribute, final String typeName) {
+      if (attribute != null) {
+         EClassifier attributeType = attribute.getEType();
+         if (attributeType != null) {
+            return ("java.lang." + typeName).equals(attributeType.getInstanceClassName());
+         }
+      }
+      return false;
+   }
+
+   /**
+    * Returns whether the given feature is an attribute of type Boolean.
+    *
+    * @param feature
+    *           a feature
+    * @return {@code true} if feature is a Boolean attribute and {@code false} otherwise
+    */
+   public static boolean isBooleanAttribute(final EStructuralFeature feature) {
+      return isAttributeOfJavaType(feature, "Boolean");
+   }
+
+   /**
+    * Returns whether the given attribute is of type Boolean.
+    *
+    * @param attribute
+    *           an attribute
+    * @return {@code true} if attribute is of type Boolean and {@code false} otherwise
+    */
+   public static boolean isBooleanAttribute(final EAttribute attribute) {
+      return isAttributeOfJavaType(attribute, "Boolean");
    }
 
    /**
@@ -169,8 +225,28 @@ public final class EcoreBridge {
     * @return the value for the feature and eObject
     */
    public static Object getValueForFeatureName(final EObject eObject, final String featureName) {
-      EStructuralFeature feature = eObject.eClass().getEStructuralFeature(featureName);
+      EStructuralFeature feature = getFeatureForName(eObject, featureName);
       return eObject.eGet(feature);
+   }
+
+
+   /**
+    * Returns the feature with the given name for the given eObject.
+    *
+    * @param eObject
+    *           an EObject having a feature with the given name
+    * @param featureName
+    *           the name of a feature of the given eObject
+    * @return the feature with the given name for the given eObject.
+    */
+   public static EStructuralFeature getFeatureForName(final EObject eObject, final String featureName) {
+      if (eObject != null) {
+         EClass eClass = eObject.eClass();
+         if (eClass != null) {
+            return eClass.getEStructuralFeature(featureName);
+         }
+      }
+      return null;
    }
 
    /**

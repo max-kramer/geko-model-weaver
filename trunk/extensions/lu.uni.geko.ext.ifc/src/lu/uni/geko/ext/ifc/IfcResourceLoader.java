@@ -19,6 +19,7 @@ import lu.uni.geko.resources.DefaultSimpleResourceLoader;
 import lu.uni.geko.resources.RefinedResourceLoaderExt;
 import lu.uni.geko.util.bridges.EcoreResourceBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
+import lu.uni.geko.util.datastructures.SkippingIterator;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -48,45 +49,10 @@ public class IfcResourceLoader implements RefinedResourceLoaderExt {
    public Iterator<EObject> getAllContentsIterator(final URI uri) {
       Model model = IfcConnector.getPart21ModelAtURI(uri);
       final TreeIterator<EObject> contentIterator = model.eAllContents();
-      return new Iterator<EObject>() {
-         private EObject lookAhead = null;
-
+      return new SkippingIterator<EObject>(contentIterator) {
          @Override
-         public boolean hasNext() {
-            if (this.lookAhead == null) {
-               if (contentIterator.hasNext()) {
-                  lookAhead();
-               } else {
-                  return false;
-               }
-            }
-            return this.lookAhead instanceof IfcRoot;
-         }
-
-         private void lookAhead() {
-            this.lookAhead = contentIterator.next();
-            while (!(this.lookAhead instanceof IfcRoot) && contentIterator.hasNext()) {
-               this.lookAhead = contentIterator.next();
-            }
-         }
-
-         @Override
-         public EObject next() {
-            if (!(this.lookAhead instanceof IfcRoot)) {
-               if (contentIterator.hasNext()) {
-                  lookAhead();
-               } else {
-                  throw new RuntimeException("Called next() on iterator although hasNext() is false!");
-               }
-            }
-            EObject next = this.lookAhead;
-            this.lookAhead = null;
-            return next;
-         }
-
-         @Override
-         public void remove() {
-            throw new RuntimeException("Ifc iterator does not support remove operation!");
+         public boolean skip(final EObject element) {
+            return !(element instanceof IfcRoot);
          }
       };
    }

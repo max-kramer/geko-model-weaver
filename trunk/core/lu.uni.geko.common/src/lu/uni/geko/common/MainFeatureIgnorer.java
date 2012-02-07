@@ -67,4 +67,37 @@ public final class MainFeatureIgnorer {
       }
       return ignoreFeature;
    }
+
+   /**
+    * Returns whether the given feature should be ignored during the comparison of models.<br/>
+    * <br/>
+    * <b>Attention</b>: All registered extensions for this extension point are called in order of decreasing priority (i.e.
+    * starting with the extension having the highest integer value priority). As soon as an extension returned that the given
+    * feature should be ignored no further extensions (i.e. the extensions with lower priority) will be taken into consideration
+    * for this feature during model comparison.
+    *
+    * @param feature
+    *           a structural feature of a metaclass
+    * @return {@code true} if the given feature should have no effect during model comparison and {@code false} otherwise
+    */
+   public static boolean ignoreDuringModelComparison(final EStructuralFeature feature) {
+      // TODO MK Remove redundancy for feature ignorer (e.g. using an interface for ignoring methods and a single ignore method
+      // taking a parameter of this type that is called by all ignore methods)
+      List<FeatureIgnorerExt> featureIgnorers = GeKoBridge.getRegisteredExtensionsInDescPriority(FeatureIgnorerExt.ID,
+            FeatureIgnorerExt.class);
+      boolean ignoreFeature = false;
+      for (final FeatureIgnorerExt featureIgnorer : featureIgnorers) {
+         Callable<Boolean> callable = new Callable<Boolean>() {
+            @Override
+            public Boolean call() {
+               return featureIgnorer.ignoreDuringModelComparison(feature);
+            }
+         };
+         ignoreFeature = EclipseBridge.callInProtectedMode(callable);
+         if (ignoreFeature) {
+            break;
+         }
+      }
+      return ignoreFeature;
+   }
 }

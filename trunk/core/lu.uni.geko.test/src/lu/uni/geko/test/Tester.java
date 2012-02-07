@@ -11,11 +11,12 @@
 package lu.uni.geko.test;
 
 import lu.uni.geko.common.GeKoConstants;
+import lu.uni.geko.common.MainFeatureIgnorer;
 import lu.uni.geko.resources.MainResourceLoader;
 import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
-import lu.uni.geko.util.ecore.UnorderedReferencesRespectingEqualityHelper;
+import lu.uni.geko.util.ecore.FeatureIgnoringUnorderedRefsRespEqualityHelper;
 import lu.uni.geko.util.tostring.EMFToString;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
@@ -26,6 +27,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * A utility class for functionality needed by developers for testing GeKo, a generic model weaver, and its extensions.
@@ -91,8 +93,7 @@ public final class Tester {
          boolean allRequiredModelURIsSet = baseMURI != null && pointcutMURI != null && adviceMURI != null
                && wovenArchetypeMURI != null && baseFileExt != null;
          if (allRequiredModelURIsSet) {
-            boolean allFileExtCorrespond = baseFileExt.equals(trimmedPcFileExt) && baseFileExt.equals(trimmedAvFileExt)
-                  && baseFileExt.equals(wovenArchetypeFileExt);
+            boolean allFileExtCorrespond = baseFileExt.equals(wovenArchetypeFileExt) && trimmedPcFileExt.equals(trimmedAvFileExt);
             if (allFileExtCorrespond) {
                return new Quintuple<URI, URI, URI, URI, URI>(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI,
                      wovenArchetypeMURI);
@@ -141,7 +142,17 @@ public final class Tester {
    public static void assertWovenMRootEqualsWovenArchetypeMRoot(final URI wovenMURI, final URI wovenArchetypeMURI) {
       EObject wovenRootElement = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");
       EObject wovenArchetypeRootElement = MainResourceLoader.getUniqueContentRoot(wovenArchetypeMURI, "woven archetype model");
-      UnorderedReferencesRespectingEqualityHelper equalityHelper = new UnorderedReferencesRespectingEqualityHelper();
+      FeatureIgnoringUnorderedRefsRespEqualityHelper equalityHelper = new FeatureIgnoringUnorderedRefsRespEqualityHelper() {
+         /** The recommended unique identifier for serialising. */
+         private static final long serialVersionUID = 0L;
+
+         @Override
+         public boolean ignoreFeature(final EObject eObject1, final EObject eObject2, final EStructuralFeature feature) {
+            // TODO Auto-generated method stub
+            return MainFeatureIgnorer.ignoreDuringModelComparison(feature);
+         }
+      };
+
       boolean equals = equalityHelper.equals(wovenRootElement, wovenArchetypeRootElement);
       if (equals) {
          String successMessage = "Sucessfully completed asymmetric weaver test in '" + wovenMURI.trimSegments(1).lastSegment()
@@ -149,7 +160,7 @@ public final class Tester {
          SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
          System.out.println(successMessage);
       } else {
-         throw new RuntimeException("The woven model root element '" + EMFToString.getInstance().toString(wovenRootElement)
+         throw new RuntimeException("The woven model root element '" + wovenRootElement
                + "' does not equal the woven archetype model root element '"
                + EMFToString.getInstance().toString(wovenArchetypeRootElement) + "'!");
       }

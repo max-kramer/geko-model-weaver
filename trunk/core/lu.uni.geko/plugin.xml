@@ -244,7 +244,7 @@
             </command>
             <command
                   commandId="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
-                  label="Weave (Inferring Pointcut 2 Advice Mapping)"
+                  label="Weave (Inferring Pointcut to Advice Mapping)"
                   style="push"
                   tooltip="Weaves the selected base, pointcut and advice models to a new woven model by inferring the mapping from pointcut to advice.">
                <visibleWhen
@@ -264,7 +264,7 @@
             </command>
             <command
                   commandId="lu.uni.geko.commands.WeaveWithPc2AvMapping"
-                  label="Weave (Inferring Completion of Pointcut 2 Advice Mapping)"
+                  label="Weave (Inferring Completion of Pointcut to Advice Mapping)"
                   style="push"
                   tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
                <visibleWhen

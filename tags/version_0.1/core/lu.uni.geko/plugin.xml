@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="hasEcoreFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.ecore"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="hasGenmodelFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.genmodel"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="hasPcFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_pc"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="containsPcFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_pc"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyTwoElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="2">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="containsAvFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.*_av"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyThreeElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="3">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="containsMappingFileExt">
+         <with
+               variable="selection">
+            <iterate
+                  operator="or">
+	            <adapt type="org.eclipse.core.resources.IFile">
+	               <test property="org.eclipse.core.resources.name" 
+	                     value="*.pc2avmapping"/>
+	            </adapt>
+            </iterate>
+         </with>
+      </definition>
+      <definition
+            id="exactlyFourElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="4">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="onlyFoldersSelected">
+         <with
+               variable="selection">
+            <iterate
+                  operator="and">
+	            <adapt type="org.eclipse.core.resources.IFolder"/>
+            </iterate>
+         </with>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="lu.uni.geko.commands.GenerateBasePCAndAVEditorsHandler"
+            description="Generate Base, Pointcut and Advice Editors"
+            id="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
+            name="GenerateBasePCAndAVEditors">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GeneratePointcutMMHandler"
+            description="Generate Pointcut Metamodel"
+            id="lu.uni.geko.commands.GeneratePointcutMM"
+            name="GeneratePointcutMM">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GenerateAdviceMMHandler"
+            description="Generate Advice Metamodel"
+            id="lu.uni.geko.commands.GenerateAdviceMM"
+            name="GenerateAdviceMM">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.InstallAndStartGeneratedEditorPluginHandler"
+            description="Install and Start Generated Editor Plugin"
+            id="lu.uni.geko.commands.InstallAndStartGeneratedEditorPlugin"
+            name="InstallAndStartGeneratedEditorPlugin">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.DetectJoinpointsHandler"
+            description="Detect Joinpoints"
+            id="lu.uni.geko.commands.DetectJoinpoints"
+            name="DetectJoinpoints">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveInferringPc2AvMappingHandler"
+            description="Weave (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
+            name="WeaveInferringPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveWithPc2AvMappingHandler"
+            description="Weave (Inferring Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveWithPc2AvMapping"
+            name="WeaveWithPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.TestWeaverHandler"
+            description="Run Weaver Tests in Subfolders"
+            id="lu.uni.geko.commands.TestWeaver"
+            name="TestWeaver">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any">
+         <menu
+               label="GeKo Weaver">
+            <command
+                  commandId="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
+                  label="Generate Base, Pointcut and Advice Editors"
+                  style="push"
+                  tooltip="Generates a pointcut and an advice metamodel from the selected metamodel and registers editors for them.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GeneratePointcutMM"
+                  label="Generate Pointcut Metamodel"
+                  style="push"
+                  tooltip="Generates a pointcut metamodel from the selected metamodel and generates model code for it.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GenerateAdviceMM"
+                  label="Generate Advice Metamodel"
+                  style="push"
+                  tooltip="Generates an advice metamodel from the selected metamodel and generates model code for it.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.InstallAndStartGeneratedEditorPlugin"
+                  label="Install and Start Generated Editor Plugin"
+                  style="push"
+                  tooltip="Installs and starts the editor plugin that was generated using this genmodel.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasGenmodelFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.DetectJoinpoints"
+                  label="Detect Joinpoints"
+                  style="push"
+                  tooltip="Detects the joinpoints for the selected pointcut and base model.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyTwoElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
+                  label="Weave (Inferring Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model by inferring the mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyThreeElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveWithPc2AvMapping"
+                  label="Weave (Inferring Completion of Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to a new woven model using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyFourElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.TestWeaver"
+                  label="Run Asymmetric Weaver Tests in selected Folders"
+                  style="push"
+                  tooltip="Compares the weaving result to the woven archetype in all selected folders">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="onlyFoldersSelected">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

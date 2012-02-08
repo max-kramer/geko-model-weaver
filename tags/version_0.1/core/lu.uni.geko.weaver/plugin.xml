@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="lu.uni.geko.weaver.add.mightyadderext" name="MightyAdderExt" schema="schema/lu.uni.geko.weaver.add.mightyadderext.exsd"/>
+   <extension-point id="lu.uni.geko.weaver.add.simpleadderext" name="SimpleAdderExt" schema="schema/lu.uni.geko.weaver.add.simpleadderext.exsd"/>
+   <extension-point id="lu.uni.geko.weaver.copy.copierfactoryext" name="CopierFactoryExt" schema="schema/lu.uni.geko.weaver.copy.copierfactoryext.exsd"/>
+   <extension
+         point="lu.uni.geko.weaver.add.simpleadderext">
+      <client
+            class="lu.uni.geko.weaver.add.DefaultSimpleAdder"
+            priority="100">
+      </client>
+   </extension>
+   <extension
+         point="lu.uni.geko.weaver.copy.copierfactoryext">
+      <client
+            class="lu.uni.geko.weaver.copy.DefaultCopierFactory"
+            priority="100">
+      </client>
+   </extension>
+</plugin>

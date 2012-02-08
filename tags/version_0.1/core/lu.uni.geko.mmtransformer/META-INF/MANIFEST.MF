@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Metamodel transformer for GeKo Generic Weaver
+Bundle-SymbolicName: lu.uni.geko.mmtransformer;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: lu.uni
+Require-Bundle: lu.uni.geko.util;bundle-version="1.0.0",
+ org.eclipse.emf.importer;bundle-version="2.6.0",
+ org.eclipse.emf.importer.ecore;bundle-version="2.6.0",
+ lu.uni.geko.common,
+ lu.uni.geko.resources
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: lu.uni.geko.mmtransformer

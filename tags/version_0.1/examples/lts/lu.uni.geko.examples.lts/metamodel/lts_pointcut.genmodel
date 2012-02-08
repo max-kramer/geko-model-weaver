@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2012 University of Luxembourg and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Max E. Kramer - initial API and implementation
+-->
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lu.uni.geko.examples.lts_pc.model/src"
+    editDirectory="/lu.uni.geko.examples.lts_pc.edit/src" editorDirectory="/lu.uni.geko.examples.lts_pc.editor/src"
+    modelPluginID="lu.uni.geko.examples.lts_pc.model" modelName="Lts_pointcut" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="lu.uni.geko.examples.lts_pc.edit"
+    editorPluginID="lu.uni.geko.examples.lts_pc.editor">
+  <foreignModel>lts_pointcut.ecore</foreignModel>
+  <genPackages prefix="Lts_pc" disposableProviderFactory="true" ecorePackage="lts_pointcut.ecore#/">
+    <genClasses ecoreClass="lts_pointcut.ecore#//LTS">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//LTS/ownedState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//LTS/initialState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//LTS/currentState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//LTS/finalState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts_pointcut.ecore#//LTS/name"/>
+    </genClasses>
+    <genClasses ecoreClass="lts_pointcut.ecore#//State">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference lts_pointcut.ecore#//State/owningLTS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts_pointcut.ecore#//State/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//State/outgoingTransition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//State/incomingTransition"/>
+    </genClasses>
+    <genClasses ecoreClass="lts_pointcut.ecore#//Transition">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference lts_pointcut.ecore#//Transition/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//Transition/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts_pointcut.ecore#//Transition/input"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lts_pointcut.ecore#//Transition/output"/>
+    </genClasses>
+    <genClasses ecoreClass="lts_pointcut.ecore#//Pointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lts_pointcut.ecore#//Pointcut/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

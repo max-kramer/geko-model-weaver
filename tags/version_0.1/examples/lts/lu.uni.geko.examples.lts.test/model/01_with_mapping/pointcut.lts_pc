@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lts_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lts_pc="http://lts_pointcut">
+  <children xsi:type="lts_pc:State" name="a">
+    <outgoingTransition target="//@children.1" input="" output=""/>
+  </children>
+  <children xsi:type="lts_pc:State" name="" incomingTransition="//@children.0/@outgoingTransition.0"/>
+</lts_pc:Pointcut>

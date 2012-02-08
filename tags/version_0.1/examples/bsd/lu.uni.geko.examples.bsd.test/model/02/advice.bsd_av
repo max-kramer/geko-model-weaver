@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsd_av:Advice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bsd_av="http://lu.uni.geko.examples.bsd_advice">
+  <children xsi:type="bsd_av:Lifeline"/>
+  <children xsi:type="bsd_av:Lifeline"/>
+  <children xsi:type="bsd_av:Lifeline" name="D"/>
+  <children xsi:type="bsd_av:Message" name="m1">
+    <sendEvent name="!m1" owningLifeline="//@children.0"/>
+    <receiveEvent name="?m1" owningLifeline="//@children.1"/>
+  </children>
+  <children xsi:type="bsd_av:Message" name="m4">
+    <sendEvent name="!m4" owningLifeline="//@children.1"/>
+    <receiveEvent name="?m4" owningLifeline="//@children.2"/>
+  </children>
+  <children xsi:type="bsd_av:PrecedenceTuple" precedingEvent="//@children.3/@sendEvent" subsequentEvent="//@children.3/@receiveEvent"/>
+  <children xsi:type="bsd_av:PrecedenceTuple" precedingEvent="//@children.3/@receiveEvent" subsequentEvent="//@children.4/@sendEvent"/>
+  <children xsi:type="bsd_av:PrecedenceTuple" precedingEvent="//@children.4/@sendEvent" subsequentEvent="//@children.4/@receiveEvent"/>
+  <children xsi:type="bsd_av:GlobalScope" scopedObject="//@children.2"/>
+</bsd_av:Advice>

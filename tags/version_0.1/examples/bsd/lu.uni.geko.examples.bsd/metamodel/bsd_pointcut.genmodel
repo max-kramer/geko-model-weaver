@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2012 University of Luxembourg and others.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Max E. Kramer - initial API and implementation
+-->
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lu.uni.geko.examples.bsd_pc.model/src"
+    editDirectory="/lu.uni.geko.examples.bsd_pc.edit/src" editorDirectory="/lu.uni.geko.examples.bsd_pc.editor/src"
+    modelPluginID="lu.uni.geko.examples.bsd_pc.model" modelName="Bsd_pointcut" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="lu.uni.geko.examples.bsd_pc.edit"
+    editorPluginID="lu.uni.geko.examples.bsd_pc.editor">
+  <foreignModel>bsd_pointcut.ecore</foreignModel>
+  <genPackages prefix="Bsd_pc" disposableProviderFactory="true" ecorePackage="bsd_pointcut.ecore#/">
+    <genClasses ecoreClass="bsd_pointcut.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_pointcut.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//BSD">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//BSD/precendenceTuples"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//BSD/lifelines"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//BSD/messages"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//Lifeline"/>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//Event">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//Event/owningLifeline"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//SendEvent"/>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//ReceiveEvent"/>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//PrecedenceTuple">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//PrecedenceTuple/precedingEvent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//PrecedenceTuple/subsequentEvent"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//Message">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//Message/sendEvent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//Message/receiveEvent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_pointcut.ecore#//Message/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bsd_pointcut.ecore#//Message/type"/>
+    </genClasses>
+    <genClasses ecoreClass="bsd_pointcut.ecore#//Pointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bsd_pointcut.ecore#//Pointcut/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

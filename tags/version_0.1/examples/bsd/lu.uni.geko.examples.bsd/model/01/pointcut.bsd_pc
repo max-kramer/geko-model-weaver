@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bsd_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bsd_pc="http://lu.uni.geko.examples.bsd_pointcut">
+  <children xsi:type="bsd_pc:Lifeline"/>
+  <children xsi:type="bsd_pc:Lifeline"/>
+  <children xsi:type="bsd_pc:Message" name="m1">
+    <sendEvent name="!m1" owningLifeline="//@children.0"/>
+    <receiveEvent name="?m1" owningLifeline="//@children.1"/>
+  </children>
+  <children xsi:type="bsd_pc:PrecedenceTuple" precedingEvent="//@children.2/@sendEvent" subsequentEvent="//@children.2/@receiveEvent"/>
+</bsd_pc:Pointcut>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lts_av:Advice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lts_av="http://lts_advice">
+  <children xsi:type="lts_av:State" name="b">
+    <outgoingTransition target="//@children.1"/>
+  </children>
+  <children xsi:type="lts_av:State" name="b_out" incomingTransition="//@children.0/@outgoingTransition.0">
+    <outgoingTransition target="//@children.2" input="tnew" output="tnew_out"/>
+  </children>
+  <children xsi:type="lts_av:State" name="" incomingTransition="//@children.1/@outgoingTransition.0"/>
+  <children xsi:type="lts_av:GlobalScope" scopedObject="//@children.1"/>
+</lts_av:Advice>

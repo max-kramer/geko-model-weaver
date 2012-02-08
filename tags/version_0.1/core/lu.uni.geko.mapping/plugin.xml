@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="lu.uni.geko.mapping.uidcalculatorext" name="UIDCalculator" schema="schema/lu.uni.geko.mapping.uidcalculator.exsd"/>
+      <extension
+         point="lu.uni.geko.mapping.uidcalculatorext">
+      <client
+            class="lu.uni.geko.mapping.NameUIDCalculator"
+            priority="2">
+      </client>
+   </extension>
+   <extension
+         point="lu.uni.geko.mapping.uidcalculatorext">
+      <client
+            class="lu.uni.geko.mapping.StringAttributesUIDCalculator"
+            priority="1">
+      </client>
+   </extension>
+</plugin>

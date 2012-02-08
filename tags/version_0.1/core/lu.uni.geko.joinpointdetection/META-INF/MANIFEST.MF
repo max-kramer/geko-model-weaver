@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Join point detection for GeKo Generic Weaver
+Bundle-SymbolicName: lu.uni.geko.joinpointdetection;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: lu.uni
+Require-Bundle: org.eclipse.core.runtime,
+ lu.uni.geko.util,
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore,
+ lu.uni.geko.common
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: lu.uni.geko.joinpointdetection

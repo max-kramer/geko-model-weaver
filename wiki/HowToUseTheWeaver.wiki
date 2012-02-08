@@ -2,18 +2,20 @@
 
 = Introduction =
 
-There are three different ways of using GeKo:
+There are currently two different ways of using GeKo:
 
+<wiki:comment>
  # You can download an Eclipse installation that has everything you need in it (including source code, examples and EMF dependencies).
- # Or you download a zip containing all GeKo Eclipse plug-in projects (including source code and plug-in projects containing examples but excluding EMF dependencies).
- # The last and most lightweight solution is to download a zip containing only the plug-in projects needed to use GeKo with your models (including source-code but excluding examples, extensions and EMF dependencies).
+</wiki:comment>
+ # You can download a zip containing all GeKo Eclipse plug-in projects (including source code and plug-in projects containing examples but excluding EMF dependencies).
+ # Or you can download a zip containing only the plug-in projects needed to use GeKo with your models (including source-code but excluding examples, extensions and EMF dependencies).
 
 (As soon as GeKo leaves the beta stage we will also provide an Eclipse Update Site.)
 
 
 = Simple Usage =
 
-Once you downloaded GeKo in any of the different ways the way to use it is always the same:
+Once you downloaded GeKo the way to use it is always the same:
 
  # Start an Eclipse instance that runs the GeKo plug-ins. (To do this you need to import the projects in Eclipse: right-click in your project explorer and select "Import...", then choose "General" and "Existing Projects into Workspace" and select the downloaded archive. Then you need to run a new instance using a run / debug configuration with all plug-ins enabled and enough (>=512 MB) PermGen space.)
  # Select the `*`.ecore file of the metamodel used by the models you want to weave and right-click on it. In the appearing "GeKo Weaver" submenu select the option "Generate Base, Pointcut and Advice Editors". (Sorry: As a first workaround you also have to manipulate the MANIFEST.MF of the plug-in "lu.uni.geko.joinpointdetection.drools": add the model code plug-in that was generated for your metamodel to the required bundles and add its packages to the imported packages. We apologize for the inconvenience.)

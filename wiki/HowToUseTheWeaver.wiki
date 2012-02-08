@@ -1,4 +1,4 @@
-#summary This page explains the different ways of using GeKo - An extensible generic weaver for EMF based models.
+#summary This page explains the different ways of using the GeKo weaver.
 
 = Introduction =
 

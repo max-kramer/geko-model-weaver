@@ -17,7 +17,6 @@ import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.bridges.JavaBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
 import lu.uni.geko.util.ecore.FeatureIgnoringUnorderedRefsRespEqualityHelper;
-import lu.uni.geko.util.tostring.EMFToString;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 
 import org.eclipse.core.resources.IFile;
@@ -155,14 +154,14 @@ public final class Tester {
 
       boolean equals = equalityHelper.equals(wovenRootElement, wovenArchetypeRootElement);
       if (equals) {
-         String successMessage = "Sucessfully completed asymmetric weaver test in '" + wovenMURI.trimSegments(1).lastSegment()
+         String successMessage = "Sucessfully completed weaver test in '" + wovenMURI.trimSegments(1).lastSegment()
                + "'.";
          SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
          System.out.println(successMessage);
       } else {
          throw new RuntimeException("The woven model root element '" + wovenRootElement
                + "' does not equal the woven archetype model root element '"
-               + EMFToString.getInstance().toString(wovenArchetypeRootElement) + "'!");
+               + wovenArchetypeRootElement + "'!");
       }
    }
 }

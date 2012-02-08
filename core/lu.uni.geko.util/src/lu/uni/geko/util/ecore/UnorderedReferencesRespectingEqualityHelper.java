@@ -35,9 +35,11 @@ public class UnorderedReferencesRespectingEqualityHelper extends ReusableEqualit
 
    /**
     * A re-implementation of
-    * {@link org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper#haveEqualReference(EObject, EObject, EReference) that considers
-    * values of unordered references as equal if they contain the same elements in different order.<br/>
-    * <br/> An explanation for the fact that the implementation of {@link org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper
+    * {@link org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper#haveEqualReference(EObject, EObject, EReference)
+    * EqualityHelper.haveEqualReference(EObject, EObject, EReference)} that considers values of unordered references as equal if
+    * they contain the same elements in different order.<br/>
+    * <br/>
+    * An explanation for the fact that the implementation of {@link org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper
     * EcoreUtil.EqualityHelper} behaves differently can be found at <a
     * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=369661">bugs.eclipse.org/bugs/show_bug.cgi?id=369661)</a>.<br/>
     * <br/>

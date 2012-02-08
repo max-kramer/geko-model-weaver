@@ -22,8 +22,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * A utility class to access the functionality provided by extensions of the {@link SimpleResourceLoader} and
- * {@link RefinedResourceLoader} extension points.
+ * A utility class to access the functionality provided by extensions of the {@link SimpleResourceLoaderExt} and
+ * {@link RefinedResourceLoaderExt} extension points.
  *
  * @see SimpleResourceLoaderExt
  * @see RefinedResourceLoaderExt

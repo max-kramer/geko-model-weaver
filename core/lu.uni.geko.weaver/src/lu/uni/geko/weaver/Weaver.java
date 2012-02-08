@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 /**
  * A facade for initiating the weaving process for a base, pointcut and advice model using a mapping from pointcut to advice
  * elements. This class initiates all steps required for weaving and handles the involved parameters but it has to be used
- * according to the protocol mentioned in its {@link #Weaver(URI, URI, N2NMap, boolean) constructor}.
+ * according to the protocol mentioned in its {@link #Weaver(URI, URI, N2NMap) constructor}.
  *
  * @author Max E. Kramer
  */

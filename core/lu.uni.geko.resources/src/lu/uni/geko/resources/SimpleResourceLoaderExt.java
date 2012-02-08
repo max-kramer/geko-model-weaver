@@ -26,9 +26,11 @@ public interface SimpleResourceLoaderExt extends ResourceLoader {
    String ID = "lu.uni.geko.resources.simpleresourceloaderext";
 
    /**
-    * Loads the resource at the given URI and returns it.
-    * @pre responsibleForURI(resourceURI) returns true
-    * @param uri the URI of the model resource to be loaded
+    * Loads the resource at the given URI and returns it if {@link ResourceLoader#supportedFileExtensions()
+    * ResourceLoader.supportedFileExtensions()} contains the file extension of the given URI.
+    *
+    * @param uri
+    *           the URI of the model resource to be loaded
     * @return the corresponding resource
     */
    Resource loadResourceAtURI(URI uri);

@@ -31,4 +31,4 @@ Whenever you design a pointcut and advice for which GeKo cannot guess which poin
 
 = Creating Own Extensions =
 
-If you want to create extensions for GeKo because your metamodel cannot be handled in a completely generic way have a look at the source code and the JavaDoc. Although [https://www.ohloh.net/p/geko-model-weaver ohloh.net] believes that GeKo has "Extremely well-commented source code" you are welcome to get in contact with a developer in case someting remains unclear.
+If you want to create extensions for GeKo because your metamodel cannot be handled in a completely generic way have a look at the source code and the [http://svn.codespot.com/a/eclipselabs.org/geko-model-weaver/trunk/doc/0.1/index.html JavaDoc]. Although [https://www.ohloh.net/p/geko-model-weaver ohloh.net] believes that GeKo has "Extremely well-commented source code" you are welcome to get in contact with a developer in case someting remains unclear.

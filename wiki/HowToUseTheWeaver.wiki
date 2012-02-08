@@ -24,11 +24,11 @@ Once you downloaded GeKo in any of the different ways the way to use it is alway
 = Custom Pointcut to Advice Mappings =
 
 Whenever you design a pointcut and advice for which GeKo cannot guess which pointcut element corresponds to which advice element by looking at String attributes you have to help out a little bit:
- # Right-click once again on the folder containing your base model. In the appearing "New" submenu select once again the option "Other...". Create a new "Pc2Av Mapping Model" using the generated wizard just as you did for the pointcut and advice model. _This time select "Mapping" as root "Model Object"._
+ # Right-click once again on the folder containing your base model. In the appearing "New" submenu select once again the option "Other...". Create a new "Pc2AvMapping Model" using the generated wizard just as you did for the pointcut and advice model. _This time select "Mapping" as root "Model Object"._
  # Create mapping entries using the familiar "New Child" submenu and refer to elements of the pointcut and advice model in the property view.
  # Once you created mapping entries for all pointcut and advice elements that were not matched automatically by Geko you are ready for weaving: select your base, pointcut, advice and mapping model, right-click on one of them and choose "Weave (Inferring Completion of Pointcut to Advice Mapping)" in the "GeKo Weaver" submenu.
 
 
 = Creating Own Extensions =
 
-If you want to create extensions for GeKo because your metamodel cannot be handled in a completely generic way have a look at the JavaDoc or get in contact with a developer.
+If you want to create extensions for GeKo because your metamodel cannot be handled in a completely generic way have a look at the source code and the JavaDoc. Although [https://www.ohloh.net/p/geko-model-weaver ohloh.net] believes that GeKo has "Extremely well-commented source code" you are welcome to get in contact with a developer in case someting remains unclear.

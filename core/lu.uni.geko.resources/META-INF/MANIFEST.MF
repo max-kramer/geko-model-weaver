@@ -6,9 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  lu.uni.geko.mapping.model,
  lu.uni.geko.util;bundle-version="1.0.0",
- org.eclipse.emf.ecore.xmi,
- org.eclipse.emf.common;visibility:=reexport,
- org.eclipse.emf.ecore;visibility:=reexport
+ org.eclipse.emf.ecore.xmi
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: lu.uni.geko.resources

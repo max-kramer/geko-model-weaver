@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Common
 Bundle-SymbolicName: lu.uni.geko.common;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
- lu.uni.geko.util;bundle-version="1.0.0",
- org.eclipse.emf.ecore,
- lu.uni.geko.resources;bundle-version="1.0.0"
+Require-Bundle: lu.uni.geko.util;bundle-version="1.0.0",
+ lu.uni.geko.resources;bundle-version="1.0.0",
+ org.eclipse.emf.common,
+ org.eclipse.emf.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: lu.uni.geko.common

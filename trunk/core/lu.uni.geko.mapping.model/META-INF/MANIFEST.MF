@@ -10,6 +10,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: Pc2AvMapping,
  Pc2AvMapping.util,
  Pc2AvMapping.impl
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

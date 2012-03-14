@@ -14,8 +14,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * A mapping from possibly multiple keys to possibly multiple values. A {@code Map<Set<K>, Set<V>>} can be regarded as equivalent
- * to a {@code N2NMap<K, V>} but does not offer convenient methods, caching and synchronisation.<br/>
+ * A mapping from possibly multiple keys to possibly multiple values that contains at most one entry for every key and value.<br/>
+ * <br/>
+ * A {@code Map<Set<K>, Set<V>>} can be regarded as equivalent to a {@code N2NMap<K, V>} but it does not fulfil the same
+ * constraints nor does it provide the same convenience methods or caching and synchronisation mechanism.<br/>
  * <br/>
  * Whereas instances of {@code Map<K, V>} should be named key2ValueMap, instances of {@code Mapping<K,V>} should be named
  * key2ValuesN2NMap (with an s after Value to emphasise that we map on possibly multiple elements). Note that we differentiate
@@ -48,7 +50,9 @@ public interface N2NMap<K, V> {
    Set<K> keySet();
 
    /**
-    * Maps the given key to the given value by adding the value to the set of mapped values (if not contained yet).
+    * Maps the given key to the given value by adding the value to the set of mapped values (if not contained yet) if the key and
+    * value are not part of an existing mapping entry. Throws a {@link java.lang.RuntimeException RuntimeException} if the key is
+    * already mapped to some value(s) or if some key is already mapped to the value.
     *
     * @param key
     *           a key
@@ -68,7 +72,9 @@ public interface N2NMap<K, V> {
    void put(Set<K> keySet, Set<V> valueSet);
 
    /**
-    * Removes the mapping from the given key to the given value.
+    * Removes the mapping from the given key to the given value if the key is the only key of the corresponding entry. Throws a
+    * {@link java.lang.RuntimeException RuntimeException} if another key is involved in the mapping that relates the given key and
+    * value.
     *
     * @param key
     *           a key

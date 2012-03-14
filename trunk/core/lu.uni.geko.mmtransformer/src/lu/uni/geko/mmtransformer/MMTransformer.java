@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.importer.ecore.EcoreImporter;
 
@@ -54,14 +53,13 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 
    @Override
    /**
-    * Makes the metamodel of the transformer suitable for weaving (if necessary), derives an advice and pointcut
-    * metamodel from it and generates and installs plug-ins with model, edit and editor code for all three metamodels.
+    * Derives an advice and pointcut metamodel from the metamodel of the transformer
+    * and generates and installs plug-ins with model, edit and editor code for all three metamodels.
     *
     * @return (pointcutMMURI, adviceMMURI)
     */
    public Pair<URI, URI> transform() {
       EPackage mmPackage = getMMPackage();
-      adjustMMIfNecessary(mmPackage);
       generateAndStartPlugins(this.getMURI(), "", false);
       URI pcMMURI = generatePcMMAndPlugins(mmPackage, false);
       URI avMMURI = generateAvMMAndPlugins(mmPackage, false);
@@ -75,33 +73,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       EPackage rootMMObject = MainResourceLoader.getUniqueContentRootIfCorrectlyTyped(this.getMURI(), "metamodel",
             EPackage.class);
       return rootMMObject;
-   }
-
-   /**
-    * Adjusts the given metamodel package to be suited for weaving (if needed) and saves the modifications in-place.
-    *
-    * @param mmPackage
-    *           a root package of a metamodel
-    */
-   private void adjustMMIfNecessary(final EPackage mmPackage) {
-      for (EObject mmContent : EcoreBridge.getAllContents(mmPackage)) {
-         if (mmContent instanceof EClass) {
-            EClass metaclass = (EClass) mmContent;
-            for (EStructuralFeature feature : metaclass.getEStructuralFeatures()) {
-               String name = feature.getName();
-               String firstChar = name.substring(0, 1);
-               String firstCharLowerCase = firstChar.toLowerCase();
-               if (!firstChar.equals(firstCharLowerCase)) {
-                  String newName = firstCharLowerCase + name.substring(1);
-                  feature.setName(newName);
-                  getConsole().printWarningln(
-                        "The structural feature '" + name + "' of the metaclass '" + metaclass.getName() + "' "
-                              + "did not obey the Java Beans standard so its first character was converted to lowercase!");
-               }
-            }
-         }
-      }
-      MainResourceLoader.save(this.getMURI());
    }
 
    /**

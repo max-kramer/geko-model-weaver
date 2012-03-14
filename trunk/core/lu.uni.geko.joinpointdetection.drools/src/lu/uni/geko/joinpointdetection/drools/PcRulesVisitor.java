@@ -127,7 +127,16 @@ public class PcRulesVisitor {
                   } else {
                      rules.append(",");
                   }
-                  rules.append(attribute.getName() + " == \"" + attributeValue + "\"");
+                  String attributeName = attribute.getName();
+                  // RATIONALE MK: Drools requires field names in rules to start with a lowercase character
+                  // even though it manages to use the right uppercase implementation
+                  char firstChar = attributeName.charAt(0);
+                  if (Character.isUpperCase(firstChar)) {
+                     char lowerFirstChar = Character.toLowerCase(firstChar);
+                     String remainingAttributeName = attributeName.substring(1, attributeName.length());
+                     attributeName = lowerFirstChar + remainingAttributeName;
+                  }
+                  rules.append(attributeName + " == \"" + attributeValue + "\"");
                }
             }
          }

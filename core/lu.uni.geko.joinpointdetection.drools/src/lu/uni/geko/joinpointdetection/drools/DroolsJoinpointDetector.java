@@ -53,7 +53,6 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
 		return populateJoinPoints(baseEObjectsPerMatchLists, pcIDsPerMatchLists, pcID2PcEObjectMap);
 	}
 
-	//begin update version 0.2
 	/**
 	 * Detect Joinpoints for two base models
 	 * 
@@ -91,7 +90,6 @@ public class DroolsJoinpointDetector implements JoinpointDetectorExt {
 		DroolsBridge.detectJoinpoints(pointcutRules, baseContentIterable, baseEObjectsPerMatchLists, pcIDsPerMatchLists);
 		return populateJoinPoints(baseEObjectsPerMatchLists, pcIDsPerMatchLists, pcID2PcEObjectMap);
 	}
-	//end update version 0.2
 
 	/**
 	 * Creates an iterable for (all contents of) the base model at the given URI.

@@ -11,7 +11,6 @@
  ******************************************************************************/
 package lu.uni.geko.util.bridges;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -23,11 +22,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 
 /**
- * A utility class hiding details of the Ecore metamodel creation part of the Eclipse Modeling Framework API for recurring tasks
- * that are not project-specific.<br/>
+ * A utility class hiding details of the Ecore metamodel creation part of the Eclipse Modeling 
+ * Framework API for recurring tasks that are not project-specific.<br/>
  * <br/>
- * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently only providing one
- * implementation and the "abstractions" can be regarded as low-level.)
+ * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently 
+ * only providing one implementation and the "abstractions" can be regarded as low-level.)
  *
  * @author Max E. Kramer
  */
@@ -36,7 +35,6 @@ public final class EcoreFactoryBridge {
 	private EcoreFactoryBridge() {
 	}
 
-	//begin update version 0.2
 	/**
 	 * Adds a new metaclass with the given name to the given package.
 	 *
@@ -60,7 +58,8 @@ public final class EcoreFactoryBridge {
 			return newClass;
 		} else if (classNameToDuplicate.size() != 0){
 			for(String i : classNameToDuplicate) {
-				if (className == i) { //if the base package contains a class with the same name (Pointcut or Advice classes)
+				if (className == i) { //if the base package contains a class with the same name 
+									  //(Pointcut or Advice classes)
 					//we rename the class we add in classNameclassName
 					EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 					newClass.setName(className);
@@ -70,7 +69,6 @@ public final class EcoreFactoryBridge {
 					return newClass;
 				}
 			}
-	//end update version 0.2
 
 			throw new RuntimeException("The " + ePackage.getName() + " package is not allowed to already have a classifier named '"
 					+ className + "'!");

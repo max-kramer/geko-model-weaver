@@ -96,7 +96,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 		return rootMMObject;
 	}
 
-	//begin update version 0.2
 	/**
 	 * Adjusts the given metamodel package to be suited for weaving (if needed) and saves the modifications in-place.
 	 *
@@ -134,7 +133,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 		EPackage mmPackage = getMMPackage();
 		return generatePcMMAndPlugins(mmPackage, true);
 	}
-	//end update version 0.2
 
 	/**
 	 * Generates an advice metamodel from the metamodel at the URI of this transformer and generates model code for it.
@@ -236,7 +234,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 	}
 
 
-	//begin update version 0.2
 	/**
 	 * 
 	 * Set the new Name, NsPrefix and NsURI of a package
@@ -265,7 +262,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 		AvPcPackage.setNsPrefix(newNsPrefix);
 		AvPcPackage.setNsURI(newNsURI);
 	}
-	//end update version 0.2
 
 
 
@@ -290,7 +286,6 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 			final String PcAvMMPkgNsURIAppendage, final String containerName) {
 		EPackage newMMPackage = EcoreUtil.copy(originalPackage);
 
-		//begin update version 0.2
 		// modify the name, NsPrefix and NsURI for the original package and for all packages it contains
 		setPackageProperties(newMMPackage, PcAvMMPkgNameAppendage, PcAvMMPkgNsPrefixAppendage, PcAvMMPkgNsURIAppendage);
 
@@ -308,7 +303,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 		classNameToDuplicate.add(GeKoConstants.getAvMMRootElementName());
 		classNameToDuplicate.add(GeKoConstants.getAvMMGlobalScopeClassName());
 		classNameToDuplicate.add(GeKoConstants.getAvMMPerJoinPointScopeClassName());
-		//end update version 0.2
+
 		EClass rootClass = EcoreFactoryBridge.addNewClassToPkg(containerName, newMMPackage, classNameToDuplicate);
 		EClassifier referenceType = EcoreBridge.getEObjectClassifier();
 		EcoreFactoryBridge.addNewReferenceToEClass(rootClass, "children", referenceType, 1, -1, true);
@@ -346,14 +341,12 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
 	 *           the name of the scope metaclass
 	 */
 	public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
-		//begin update version 0.2
 		//enable the duplication of the advice and pointcut classes
 		List<String> classNameToDuplicate = new ArrayList<String>();
 		classNameToDuplicate.add(GeKoConstants.getPcMMRootElementName());
 		classNameToDuplicate.add(GeKoConstants.getAvMMRootElementName());
 		classNameToDuplicate.add(GeKoConstants.getAvMMGlobalScopeClassName());
 		classNameToDuplicate.add(GeKoConstants.getAvMMPerJoinPointScopeClassName());
-		//end update version 0.2
 		EClass scopeClass = EcoreFactoryBridge.addNewClassToPkg(scopeClassName, adviceMMPackage, classNameToDuplicate);
 		EClassifier referenceType = EcoreBridge.getEObjectClassifier();
 		EcoreFactoryBridge.addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1,

@@ -55,7 +55,6 @@ public final class MainJoinpointDetector {
       return EclipseBridge.callInProtectedMode(callable);
    }
    
-   //begin update version 0.2
    /**
     * Detects the joinpoints for the pointcut and base models at the given URIs and returns them. The execution is performed by the
     * registered mandatory and unique extension of the JoinpointDetector extension point. Throws a
@@ -79,5 +78,4 @@ public final class MainJoinpointDetector {
       };
       return EclipseBridge.callInProtectedMode(callable);
    }
-   //end update version 0.2
 }

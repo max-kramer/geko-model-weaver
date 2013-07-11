@@ -14,7 +14,6 @@ import lu.uni.geko.ActionsFacade;
 
 import org.eclipse.emf.common.util.URI;
 
-//begin update version 0.2
 
 /**
  * A handler for the command that generates a pointcut and an advice metamodel from the selected base metamodel and registers
@@ -34,4 +33,3 @@ public class GeneratePCAndAVEditorsHandler extends AbstractEcoreFilesHandler {
    }
 }
 
-//end update version 0.2

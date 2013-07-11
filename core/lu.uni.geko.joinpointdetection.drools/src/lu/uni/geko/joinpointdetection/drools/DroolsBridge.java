@@ -87,7 +87,6 @@ public final class DroolsBridge {
 		// urlClassLoader);
 		// KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(kBuilderConfiguration);
 
-		//begin update version 0.2
 		// to solve non support of Java 1.7 by the drool library
 		Properties properties = new Properties();
 		properties.setProperty( "drools.dialect.java.compiler.lnglevel","1.6" );
@@ -95,7 +94,6 @@ public final class DroolsBridge {
 				new PackageBuilderConfiguration( properties );
 
 		KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(cfg);
-		//end update version 0.2
 
 		knowledgeBuilder.add(droolsRulesResource, ResourceType.DRL);
 		if (knowledgeBuilder.hasErrors()) {

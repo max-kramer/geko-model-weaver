@@ -53,12 +53,12 @@ public class BiHashN2NMap<K, V> extends HashN2NMap<K, V> implements BiN2NMap<K, 
    }
 
    @Override
-   public final Set<K> getAllKeysForValue(final V value) {
+   public Set<K> getAllKeysForValue(final V value) {
       return this.singleValue2KeysCache.get(value);
    }
 
    @Override
-   public final void put(final Set<K> keySet, final Set<V> valueSet) {
+   public void put(final Set<K> keySet, final Set<V> valueSet) {
       super.put(keySet, valueSet);
       for (V value : valueSet) {
          Set<K> allValueKeys = getAllKeysForValue(value);
@@ -71,7 +71,7 @@ public class BiHashN2NMap<K, V> extends HashN2NMap<K, V> implements BiN2NMap<K, 
    }
 
    @Override
-   public final boolean remove(final K key, final V value) {
+   public boolean remove(final K key, final V value) {
       super.remove(key, value);
       Set<K> allValueKeys = getAllKeysForValue(value);
       if (allValueKeys == null) {

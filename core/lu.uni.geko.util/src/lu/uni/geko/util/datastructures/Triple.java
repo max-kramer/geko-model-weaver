@@ -48,7 +48,7 @@ public class Triple<A, B, C> extends Pair<A, B> {
    /**
     * @return the third element
     */
-   public final C getThird() {
+   public C getThird() {
       return third;
    }
 }

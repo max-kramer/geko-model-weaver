@@ -40,12 +40,12 @@ public class CustomScope implements AdviceInstantiationScope {
     *
     * @return the set of advice elements in this scope
     */
-   protected final Set<EObject> getAvElementsInScope() {
+   protected Set<EObject> getAvElementsInScope() {
       return avElementsInScope;
    }
 
    @Override
-   public final ScopeType getType() {
+   public ScopeType getType() {
       return ScopeType.CustomScope;
    }
 }

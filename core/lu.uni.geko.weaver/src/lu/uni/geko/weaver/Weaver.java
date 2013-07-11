@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
+ *      Flavie Roussy - in-place transformations support added
  ******************************************************************************/
 package lu.uni.geko.weaver;
 
@@ -69,10 +70,17 @@ public class Weaver extends AbstractModelTransformer<URI> {
     *           the URI of the advice model
     * @param pc2AvN2NMap
     *           the mapping from pointcut to advice elements
+    * @param inPlace
+    * 			in-place / out-of-place transformation
     */
-   public Weaver(final URI baseMURI, final URI adviceMURI, final N2NMap<EObject, EObject> pc2AvN2NMap) {
+   public Weaver(final URI baseMURI, final URI adviceMURI, final N2NMap<EObject, EObject> pc2AvN2NMap, boolean inPlace) {
       super(baseMURI);
-      this.wovenMURI = EMFBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+      if (inPlace) {
+    	  this.wovenMURI = baseMURI;
+      }
+      else {
+    	  this.wovenMURI = EMFBridge.newURIWithStringAppendedToFilename(baseMURI, GeKoConstants.getWovenMFilenameAppendage());
+      }
       this.adviceMURI = adviceMURI;
       this.pc2AvN2NMap = pc2AvN2NMap;
    }
@@ -82,7 +90,7 @@ public class Weaver extends AbstractModelTransformer<URI> {
     *
     * @return the URI of the woven model that contains a copy of the base model
     */
-   public final URI copyBaseToWovenMURI() {
+   public URI copyBaseToWovenMURI() {
       EObject baseRootElement = MainResourceLoader.getUniqueContentRoot(this.getMURI(), "base model");
       EObject wovenRootElement = EcoreUtil.copy(baseRootElement);
       MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
@@ -95,12 +103,12 @@ public class Weaver extends AbstractModelTransformer<URI> {
     * @param joinPoints
     *           a list of join points
     */
-   public final void setJoinPoints(final List<JoinPoint> joinPoints) {
+   public void setJoinPoints(final List<JoinPoint> joinPoints) {
       this.joinPoints = joinPoints;
    }
 
    @Override
-   public final URI transform() {
+   public URI transform() {
       for (JoinPoint joinPoint : this.joinPoints) {
          Advice advice = AdviceAndScopeResolver.resolveAvAndInstantiationScopes(this.adviceMURI);
          AdviceEffectuation adviceEffectuation = AdviceEffectuationCalculator.calculateAdviceEffectuation(joinPoint, advice,

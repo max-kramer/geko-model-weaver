@@ -59,62 +59,62 @@ public class HashMappedAdviceEffectuation implements AdviceEffectuation {
    }
 
    @Override
-   public final Set<Entry<Set<EObject>, Set<EObject>>> getBase2AvMergeEntries() {
+   public Set<Entry<Set<EObject>, Set<EObject>>> getBase2AvMergeEntries() {
       return this.base2AvMergeBiN2NMap.entrySet();
    }
 
    @Override
-   public final void addBase2AvMerge(final EObject baseElement, final EObject avElement) {
+   public void addBase2AvMerge(final EObject baseElement, final EObject avElement) {
       this.base2AvMergeBiN2NMap.put(baseElement, avElement);
    }
 
    @Override
-   public final void removeBase2AvMerge(final EObject baseElement, final EObject avElement) {
+   public void removeBase2AvMerge(final EObject baseElement, final EObject avElement) {
       this.base2AvMergeBiN2NMap.remove(baseElement, avElement);
    }
 
    @Override
-   public final Set<EObject> getAllAvElementsToMerge(final EObject baseElement) {
+   public Set<EObject> getAllAvElementsToMerge(final EObject baseElement) {
       return this.base2AvMergeBiN2NMap.getAllValuesForKey(baseElement);
    }
 
    @Override
-   public final Set<EObject> getAllBaseElementsToMerge(final EObject avElement) {
+   public Set<EObject> getAllBaseElementsToMerge(final EObject avElement) {
       return this.base2AvMergeBiN2NMap.getAllKeysForValue(avElement);
    }
 
    @Override
-   public final boolean toMergeWithAnAvElement(final EObject baseElement) {
+   public boolean toMergeWithAnAvElement(final EObject baseElement) {
       return this.base2AvMergeBiN2NMap.containsKey(baseElement);
    }
 
    @Override
-   public final boolean toMergeWithThisAvElement(final EObject baseElement, final EObject avElement) {
+   public boolean toMergeWithThisAvElement(final EObject baseElement, final EObject avElement) {
       return this.base2AvMergeBiN2NMap.getAllValuesForKey(baseElement).contains(avElement);
    }
 
    @Override
-   public final boolean registerAddedAvElement(final EObject avElement) {
+   public boolean registerAddedAvElement(final EObject avElement) {
       return this.remainingAvElementsToAdd.remove(avElement);
    }
 
    @Override
-   public final void registerAddedAvElements(final Collection<EObject> avElements) {
+   public void registerAddedAvElements(final Collection<EObject> avElements) {
       this.remainingAvElementsToAdd.removeAll(avElements);
    }
 
    @Override
-   public final boolean allAvElementsAdded() {
+   public boolean allAvElementsAdded() {
       return this.remainingAvElementsToAdd.isEmpty();
    }
 
    @Override
-   public final Set<EObject> getRemainingAvElementsToAdd() {
+   public Set<EObject> getRemainingAvElementsToAdd() {
       return this.remainingAvElementsToAdd;
    }
 
    @Override
-   public final Set<EObject> getBaseElementsToRemove() {
+   public Set<EObject> getBaseElementsToRemove() {
       return this.baseElementsToRemove;
    }
 }

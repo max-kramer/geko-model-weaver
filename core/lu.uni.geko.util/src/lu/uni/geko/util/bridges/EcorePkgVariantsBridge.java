@@ -56,6 +56,34 @@ public final class EcorePkgVariantsBridge {
          final String pkgNameSuffixToRemove) {
       String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
       String variantPackageNsURI = JavaPkgNameBridge.removeSuffixFromPkgName(originalPackageNsURI, pkgNameSuffixToRemove);
+      //begin update version 0.2
+      //will split all class names that are symmetric (for AdviceAdvice, PointcutPointcut and so one)
+      //TODO FR: do it properly by calling GeKoConstants
+      String classifierName = eClassifier.getName();
+      if(classifierName == "PointcutPointcut") {
+    	  eClassifier.setName("Pointcut");
+      }
+      else if(classifierName == "AdviceAdvice") {
+    	  eClassifier.setName("Advice");
+      }
+      else if(classifierName == "GlobalScopeGlobalScope") {
+    	  eClassifier.setName("GlobalScope");
+      }
+      else if(classifierName == "PerJoinPointScopePerJoinPointScope") {
+    	  eClassifier.setName("PerJoinPointScope");
+      }
+      
+      if(classifierName.length()%2 == 0 ) {
+    	  //if the two parts of the name are equal
+    	  //corresponds in the duplication name done in lu.uni.geko.util.bridges.EcoreFactoryBridge.addNewClassToPkg
+    	  String classifierNamePart1 = classifierName.substring(0, classifierName.length()/2);
+    	  String classifierNamePart2 = classifierName.substring(classifierName.length()/2);
+    	  if(classifierNamePart1.equals(classifierNamePart2)) {
+    		  eClassifier.setName(classifierNamePart1);
+    	  }
+      }
+      //end update version 0.2
+      
       return getEClassifierInPkgVariant(eClassifier, variantPackageNsURI);
    }
 

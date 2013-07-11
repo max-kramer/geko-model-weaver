@@ -34,12 +34,16 @@ public final class JavaPkgNameBridge {
     */
    public static String removePkgSuffixFromCanonicalClassName(final String className, final String pkgNameSuffixToRemove) {
       String[] splitClassName = className.split("\\.");
-      String pkgName = splitClassName[0];
-      for (int i = 1; i < splitClassName.length - 1; i++) {
-         pkgName += "." + splitClassName[i];
-      }
-      String trimmedPkgName = removeSuffixFromPkgName(pkgName, pkgNameSuffixToRemove);
-      return trimmedPkgName + "." + splitClassName[splitClassName.length - 1];
+
+		String pkgName;
+		String trimmedPkgName = "";
+		for (int j=0 ; j < splitClassName.length -1 ; j++)
+		{
+			pkgName = splitClassName[j];
+			trimmedPkgName += removeSuffixFromPkgName(pkgName, pkgNameSuffixToRemove) + ".";
+		}
+
+		return trimmedPkgName + splitClassName[splitClassName.length - 1];
    }
 
    /**
@@ -105,7 +109,7 @@ public final class JavaPkgNameBridge {
             return splitPkgName;
          } else {
             throw new RuntimeException("Cannot remove the package name suffix '" + pkgNameSuffixToRemove
-                  + "' from the package name '" + canonicalPkgName + "' as the package name does not end with this suffix!");
+                 + "' from the package name '" + canonicalPkgName + "' as the package name does not end with this suffix!");
          }
       } else {
          throw new RuntimeException("Cannot remove the pkg name suffix '" + pkgNameSuffixToRemove + "' from the package name '"

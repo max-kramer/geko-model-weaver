@@ -49,7 +49,7 @@ public class Quintuple<A, B, C, D, E> extends Quadruple<A, B, C, D> {
    }
 
    @Override
-   public final String toString() {
+   public String toString() {
       return "Quintuple [first=" + getFirst() + ", second=" + getSecond() + ", third=" + getThird() + ", fourth=" + getFourth()
             + ", fifth=" + getFifth() + "]";
    }
@@ -57,7 +57,7 @@ public class Quintuple<A, B, C, D, E> extends Quadruple<A, B, C, D> {
    /**
     * @return the fifth element.
     */
-   public final E getFifth() {
+   public E getFifth() {
       return fifth;
    }
 }

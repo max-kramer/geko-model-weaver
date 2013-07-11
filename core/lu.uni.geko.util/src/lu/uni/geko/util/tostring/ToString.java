@@ -33,7 +33,7 @@ public class ToString {
     *           the level of indentation
     * @return the indentation string for the given level of indentation
     */
-   protected final String getIndentation(final int indentLevel) {
+   protected String getIndentation(final int indentLevel) {
       StringBuilder s = new StringBuilder();
       for (int i = 0; i < indentLevel; i++) {
          s.append(INDENTATION);
@@ -48,7 +48,7 @@ public class ToString {
     *
     * @see java.lang.Object#toString() Object.toString()
     */
-   public final String toString(final Object object) {
+   public String toString(final Object object) {
       // per default we do not indent
       return toString(object, 0);
    }
@@ -86,7 +86,7 @@ public class ToString {
     *           the level of indentation
     * @return a custom string representation of the given map using the given level of indentation
     */
-   protected final String toString(final Map<?, ?> map, final int indentLevel) {
+   protected String toString(final Map<?, ?> map, final int indentLevel) {
       return toString(map.entrySet(), indentLevel);
    }
 
@@ -98,7 +98,7 @@ public class ToString {
     * @return a custom string representation of the objects reachable through the given iterable using the given level of
     *         indentation
     */
-   protected final String toString(final Iterable<?> iterable, final int indentLevel) {
+   protected String toString(final Iterable<?> iterable, final int indentLevel) {
       Iterator<?> iterator = iterable.iterator();
       return toString(iterator, indentLevel);
    }
@@ -111,7 +111,7 @@ public class ToString {
     * @return a custom string representation of the objects reachable through the given iterator using the given level of
     *         indentation
     */
-   protected final String toString(final Iterator<?> iterator, final int indentLevel) {
+   protected String toString(final Iterator<?> iterator, final int indentLevel) {
       StringBuilder s = new StringBuilder();
       s.append("[");
       if (iterator.hasNext()) {
@@ -131,7 +131,7 @@ public class ToString {
     *           the level of indentation
     * @return a custom string representation of the given mapEntry using the given level of indentation
     */
-   protected final String toString(final Entry<?, ?> mapEntry, final int indentLevel) {
+   protected String toString(final Entry<?, ?> mapEntry, final int indentLevel) {
       return toString(mapEntry.getKey(), indentLevel) + "\n->\n" + toString(mapEntry.getValue(), 0);
    }
 }

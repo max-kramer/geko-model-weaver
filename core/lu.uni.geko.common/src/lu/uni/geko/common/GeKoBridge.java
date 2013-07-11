@@ -138,7 +138,10 @@ public final class GeKoBridge {
     */
    private static boolean skipPcSpecificElement(final EObject eObject) {
       String eObjectClassName = eObject.eClass().getInstanceClass().getSimpleName();
-      return eObjectClassName.equals(GeKoConstants.getPcMMRootElementName());
+      //begin update version 0.2
+      return eObjectClassName.equals(GeKoConstants.getPcMMRootElementName())
+    		  || eObjectClassName.equals(GeKoConstants.getPcMMRootElementName() + GeKoConstants.getPcMMRootElementName());
+      //end update version 0.2
       // MAYDO MK as soon as further elements and / or properties are introduced into the pointcut mm this skipping of these
       // pointcut elements for the weaving has to be updated
    }
@@ -152,9 +155,14 @@ public final class GeKoBridge {
     */
    public static boolean skipAvSpecificElement(final EObject eObject) {
       String eObjectClassName = eObject.eClass().getInstanceClass().getSimpleName();
+      //begin update version 0.2
       return eObjectClassName.equals(GeKoConstants.getAvMMRootElementName())
             || eObjectClassName.equals(GeKoConstants.getAvMMGlobalScopeClassName())
-            || eObjectClassName.equals(GeKoConstants.getAvMMPerJoinPointScopeClassName());
+            || eObjectClassName.equals(GeKoConstants.getAvMMPerJoinPointScopeClassName())
+            || eObjectClassName.equals(GeKoConstants.getAvMMRootElementName() + GeKoConstants.getAvMMRootElementName())
+            || eObjectClassName.equals(GeKoConstants.getAvMMGlobalScopeClassName() + GeKoConstants.getAvMMGlobalScopeClassName())
+            || eObjectClassName.equals(GeKoConstants.getAvMMPerJoinPointScopeClassName() + GeKoConstants.getAvMMPerJoinPointScopeClassName());
+      //end update version 0.2
       // MAYDO MK as soon as further elements and / or properties are introduced into the advice mm this skipping of these
       // advice elements for the weaving has to be updated
    }

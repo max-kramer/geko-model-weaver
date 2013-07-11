@@ -70,7 +70,7 @@ public class Pc2AvMapResolver extends AbstractModelTransformer<N2NMap<EObject, E
    }
 
    @Override
-   public final N2NMap<EObject, EObject> transform() {
+   public N2NMap<EObject, EObject> transform() {
       N2NMap<EObject, EObject> pc2AvN2NMap;
       if (this.pc2AvMappingMURI == null) {
          pc2AvN2NMap = guessPc2AvMapping();

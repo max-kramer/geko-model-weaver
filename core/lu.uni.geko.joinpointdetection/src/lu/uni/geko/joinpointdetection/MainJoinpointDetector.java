@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
+ *     Flavie Roussy - weaving of two linked models
  ******************************************************************************/
 package lu.uni.geko.joinpointdetection;
 
@@ -53,4 +54,30 @@ public final class MainJoinpointDetector {
       };
       return EclipseBridge.callInProtectedMode(callable);
    }
+   
+   //begin update version 0.2
+   /**
+    * Detects the joinpoints for the pointcut and base models at the given URIs and returns them. The execution is performed by the
+    * registered mandatory and unique extension of the JoinpointDetector extension point. Throws a
+    * {@link java.lang.RuntimeException RuntimeException} if no extension or more than one extensions are registered.
+    *
+    * @param pointcutMURI
+    *           the URI of the pointcut model
+    * @param baseMURIs
+    *           the URIs of the base models
+    * @return a list containing all detected join points
+    */
+   public static List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final List<URI> baseMURIs) {
+      final JoinpointDetectorExt joinpointDetector = EclipseBridge.getUniqueRegisteredExtension(JoinpointDetectorExt.ID,
+            "class", JoinpointDetectorExt.class);
+
+      Callable<List<JoinPoint>> callable = new Callable<List<JoinPoint>>() {
+         @Override
+         public List<JoinPoint> call() {
+            return joinpointDetector.detectJoinpoints(pointcutMURI, baseMURIs);
+         }
+      };
+      return EclipseBridge.callInProtectedMode(callable);
+   }
+   //end update version 0.2
 }

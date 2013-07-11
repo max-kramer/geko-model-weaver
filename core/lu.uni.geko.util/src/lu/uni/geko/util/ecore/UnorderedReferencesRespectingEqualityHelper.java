@@ -56,7 +56,7 @@ public class UnorderedReferencesRespectingEqualityHelper extends ReusableEqualit
     */
    @SuppressWarnings("unchecked")
    @Override
-   protected final boolean haveEqualReference(final EObject eObject1, final EObject eObject2, final EReference reference) {
+   protected boolean haveEqualReference(final EObject eObject1, final EObject eObject2, final EReference reference) {
       if (!reference.isMany() || reference.isOrdered()) {
          return super.haveEqualReference(eObject1, eObject2, reference);
       } else {

@@ -46,14 +46,14 @@ public class Pair<A, B> {
    /**
     * @return the first element
     */
-   public final A getFirst() {
+   public A getFirst() {
       return first;
    }
 
    /**
     * @return the second element
     */
-   public final B getSecond() {
+   public B getSecond() {
       return second;
    }
 }

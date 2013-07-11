@@ -57,17 +57,17 @@ public class HashN2NMap<K, V> implements N2NMap<K, V> {
    }
 
    @Override
-   public final Set<V> getAllValuesForKey(final K key) {
+   public Set<V> getAllValuesForKey(final K key) {
       return singleKey2ValuesCache.get(key);
    }
 
    @Override
-   public final Set<K> keySet() {
+   public Set<K> keySet() {
       return this.singleKey2ValuesCache.keySet();
    }
 
    @Override
-   public final void put(final K key, final V value) {
+   public void put(final K key, final V value) {
       Set<K> keySet = Collections.singleton(key);
       Set<V> valueSet = Collections.singleton(value);
       put(keySet, valueSet);
@@ -137,17 +137,17 @@ public class HashN2NMap<K, V> implements N2NMap<K, V> {
    }
 
    @Override
-   public final String toString() {
+   public String toString() {
       return this.map.toString();
    }
 
    @Override
-   public final boolean containsKey(final K key) {
+   public boolean containsKey(final K key) {
       return this.singleKey2ValuesCache.containsKey(key);
    }
 
    @Override
-   public final boolean containsValue(final V value) {
+   public boolean containsValue(final V value) {
       // MAYDO MK speed this up by caching it
       for (Set<V> valueSet : this.map.values()) {
          if (valueSet.contains(value)) {
@@ -158,7 +158,7 @@ public class HashN2NMap<K, V> implements N2NMap<K, V> {
    }
 
    @Override
-   public final Set<Entry<Set<K>, Set<V>>> entrySet() {
+   public Set<Entry<Set<K>, Set<V>>> entrySet() {
       return this.map.entrySet();
    }
 }

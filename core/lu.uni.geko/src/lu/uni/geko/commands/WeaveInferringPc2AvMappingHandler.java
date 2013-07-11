@@ -55,7 +55,7 @@ public class WeaveInferringPc2AvMappingHandler extends AbstractFileHandler {
    }
 
    @Override
-   protected final List<Runnable> getRunnables(final List<List<URI>> uris) {
+   protected List<Runnable> getRunnables(final List<List<URI>> uris) {
       if (uris.size() == getTypeCount()) {
          List<URI> baseMURIs = uris.get(BASE_FILE_TYPE);
          List<URI> pcMURIs = uris.get(PC_FILE_TYPE);
@@ -93,7 +93,7 @@ public class WeaveInferringPc2AvMappingHandler extends AbstractFileHandler {
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI);
+            ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI, false);
          }
       };
    }

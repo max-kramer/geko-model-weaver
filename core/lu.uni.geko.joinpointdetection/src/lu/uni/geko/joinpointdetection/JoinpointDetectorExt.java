@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
+ *     Flavie Roussy - weaving of two linked models
  ******************************************************************************/
 package lu.uni.geko.joinpointdetection;
 
@@ -38,4 +39,15 @@ public interface JoinpointDetectorExt {
     * @return a list containing all detected join points
     */
    List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final URI baseMURI);
+   
+   /**
+    * Detects the joinpoints for the pointcut and two base models at the given URIs and returns them.
+    *
+    * @param pointcutMURI
+    *           the URI of the pointcut model
+    * @param baseMURIs
+    *           the URIs of the base models
+    * @return a list containing all detected join points
+    */
+   List<JoinPoint> detectJoinpoints(final URI pointcutMURI, final List<URI> baseMURIs);
 }

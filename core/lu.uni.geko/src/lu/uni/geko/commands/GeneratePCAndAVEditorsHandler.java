@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Max E. Kramer - initial API and implementation
+ *     Flavie Roussy - adapted from GenerateBasePCAndAVEditorsHanlder
  ******************************************************************************/
 package lu.uni.geko.commands;
 
@@ -14,20 +14,24 @@ import lu.uni.geko.ActionsFacade;
 
 import org.eclipse.emf.common.util.URI;
 
+//begin update version 0.2
+
 /**
- * A handler for the command that generates a pointcut metamodel from the selected base metamodel and registers an editor for it.
+ * A handler for the command that generates a pointcut and an advice metamodel from the selected base metamodel and registers
+ * editors for them.
  *
  * @author Max E. Kramer
  */
-public class GeneratePointcutMMHandler extends AbstractEcoreFilesHandler {
-
+public class GeneratePCAndAVEditorsHandler extends AbstractEcoreFilesHandler {
    @Override
    protected Runnable getRunnable(final URI uri) {
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.generatePcMMAndModelCode(uri);
+            ActionsFacade.generatePcAndAvEditors(uri);
          }
       };
    }
 }
+
+//end update version 0.2

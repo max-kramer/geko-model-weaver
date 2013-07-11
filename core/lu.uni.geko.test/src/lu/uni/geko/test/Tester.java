@@ -99,7 +99,15 @@ public final class Tester {
             }
          }
          throw new RuntimeException(
-               "Test cannot be run as not all required model URIs are set or their file extensions do not correspond!");
+                 "Test cannot be run as not all required model URIs are set or their file extensions do not correspond!\n" +
+                 "The model URIs are:\n" +
+                 "baseMURI: '" + baseMURI + "'\n" +
+                 "pointcutMURI: '" + pointcutMURI + "'\n" +
+                 "adviceMURI: '" + adviceMURI + "'\n" +
+                 "pc2AvMappingMURI: '" + pc2AvMappingMURI + "'\n" +
+                 "wovenArchetypeMURI: '" + wovenArchetypeMURI + "'\n" +
+                 "If only the wovenArchetypeMURI is empty this might indicate that you run a test on an example without an archetype model to which the result can be compared."
+        	);
       } catch (CoreException e) {
          // soften
          throw new RuntimeException(e);

@@ -16,7 +16,6 @@ import java.util.List;
 import lu.uni.geko.ActionsFacade;
 import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.test.Tester;
-import lu.uni.geko.util.bridges.EMFBridge;
 import lu.uni.geko.util.datastructures.Quintuple;
 import lu.uni.geko.util.ui.SimpleMessageConsoleManager;
 

@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class StringAttributesUIDCalculator implements UIDCalculatorExt {
 
    @Override
-   public Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentUID) {
+   public final Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentUID) {
       EClass pcElementClass = pcElement.eClass();
       List<EAttribute> pcStringAttributes = getUIDStringAttributes(pcElementClass);
       String pcElementUID = calculateUIDFromStringAttributes(pcElement, pcStringAttributes);
@@ -77,7 +77,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
+   public final Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
          final EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EcorePkgVariantsBridge.getEClassByReplacingAPkgNsURISuffix(pcElementClass,
@@ -86,7 +86,7 @@ public class StringAttributesUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
+   public final boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
       if (uIDHelper instanceof List<?>) {
          EClass avEClass = avElement.eClass();
          @SuppressWarnings("unchecked")

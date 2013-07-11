@@ -44,12 +44,12 @@ public class HashMappedAdvice implements Advice {
    }
 
    @Override
-   public AdviceInstantiationScope getAvInstantiationScope(final EObject avElement) {
+   public final AdviceInstantiationScope getAvInstantiationScope(final EObject avElement) {
       return this.avElements2ScopeMap.get(avElement);
    }
 
    @Override
-   public Set<EObject> getAllAvElements() {
+   public final Set<EObject> getAllAvElements() {
       return this.avElements;
    }
 
@@ -59,7 +59,7 @@ public class HashMappedAdvice implements Advice {
     * @param avElement
     *           an advice element
     */
-   public void addAvElement(final EObject avElement) {
+   public final void addAvElement(final EObject avElement) {
       this.avElements.add(avElement);
    }
 
@@ -71,12 +71,12 @@ public class HashMappedAdvice implements Advice {
     * @param avInstantiationScope
     *           th advice instantiation scope for the given advice element
     */
-   public void addAvInstantiationScope(final EObject avElement, final AdviceInstantiationScope avInstantiationScope) {
+   public final void addAvInstantiationScope(final EObject avElement, final AdviceInstantiationScope avInstantiationScope) {
       this.avElements2ScopeMap.put(avElement, avInstantiationScope);
    }
 
    @Override
-   public String toString() {
+   public final String toString() {
       return "HashMappedAdvice [avElements2ScopeMap=" + avElements2ScopeMap + ", avElements=" + avElements + "]";
    }
 }

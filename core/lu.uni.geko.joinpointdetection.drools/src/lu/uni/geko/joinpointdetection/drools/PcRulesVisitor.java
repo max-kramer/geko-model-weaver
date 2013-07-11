@@ -59,7 +59,7 @@ public class PcRulesVisitor {
     * @param pointcut
     *           the root element of a pointcut model
     */
-   public void visitPointcut(final EObject pointcut) {
+   public final void visitPointcut(final EObject pointcut) {
       addHeader();
       List<EObject> firstLayerElements = pointcut.eContents();
       // first pass to declare all elements with their attributes as rules
@@ -75,14 +75,14 @@ public class PcRulesVisitor {
    /**
     * @return the generated drools pointcut rules
     */
-   public String getPointcutRules() {
+   public final String getPointcutRules() {
       return rules.toString();
    }
 
    /**
     * @return the mapping from IDs to pointcut elements
     */
-   public Map<Integer, EObject> getPcID2PcEObjectMap() {
+   public final Map<Integer, EObject> getPcID2PcEObjectMap() {
       // RATIONALE MK somebody could call this method multiple times so we should not recompute the inversion every time
       // on the other hand this is more elegant than keeping the two maps synchronous at all times
       Map<Integer, EObject> pcID2PcEObjectMap = new HashMap<Integer, EObject>();

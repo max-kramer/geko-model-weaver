@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  */
 public class DefaultSimpleAdder implements SimpleAdderExt {
    @Override
-   public Pair<EReference, EObject> getContainmentReferenceAndContainer(final EObject wovenRoot, final EObject avElementToAdd,
+   public final Pair<EReference, EObject> getContainmentReferenceAndContainer(final EObject wovenRoot, final EObject avElementToAdd,
          final Advice advice, final AdviceEffectuation avEffectuation, final FeatureEquivalenceHelper featureEquivalenceHelper) {
       EObject avContainer = avElementToAdd.eContainer();
       // check whether the advice element is contained in a advice specific container

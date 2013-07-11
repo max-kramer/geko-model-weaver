@@ -44,22 +44,22 @@ public class HashMappedJoinPoint implements JoinPoint {
     * @param baseElement
     *           the base element corresponding to the given pointcut element
     */
-   public void addMatch(final EObject pcElement, final EObject baseElement) {
+   public final void addMatch(final EObject pcElement, final EObject baseElement) {
       this.wrappedMap.put(pcElement, baseElement);
    }
 
    @Override
-   public EObject getBaseElement(final EObject pcElement) {
+   public final EObject getBaseElement(final EObject pcElement) {
       return this.wrappedMap.get(pcElement);
    }
 
    @Override
-   public Set<EObject> getAllPcElements() {
+   public final Set<EObject> getAllPcElements() {
       return this.wrappedMap.keySet();
    }
 
    @Override
-   public String toString() {
+   public final String toString() {
       return "HashMappedJoinPoint [wrappedMap=" + wrappedMap + "]";
    }
 }

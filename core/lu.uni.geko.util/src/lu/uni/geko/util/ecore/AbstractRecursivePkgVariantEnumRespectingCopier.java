@@ -73,7 +73,7 @@ public abstract class AbstractRecursivePkgVariantEnumRespectingCopier extends Ab
     *           an eObject
     * @return a new variant of the given eObject
     */
-   public EObject copyWithoutCheckingWhetherAlreadyCopied(final EObject eObject) {
+   public final EObject copyWithoutCheckingWhetherAlreadyCopied(final EObject eObject) {
       return super.copy(eObject);
    }
 }

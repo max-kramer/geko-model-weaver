@@ -51,14 +51,15 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
       super(mmURI);
    }
 
-   @Override
+
    /**
     * Derives an advice and pointcut metamodel from the metamodel of the transformer
     * and generates and installs plug-ins with model, edit and editor code for all three metamodels.
     *
     * @return (pointcutMMURI, adviceMMURI)
     */
-   public Pair<URI, URI> transform() {
+   @Override
+   public final Pair<URI, URI> transform() {
       EPackage mmPackage = getMMPackage();
       generateAndStartPlugins(this.getMURI(), "", false);
       URI pcMMURI = generatePcMMAndPlugins(mmPackage, false);
@@ -80,7 +81,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *
     * @return the URI of the generated pointcut metamodel
     */
-   public URI generatePcMMAndModelCode() {
+   public final URI generatePcMMAndModelCode() {
       EPackage mmPackage = getMMPackage();
       return generatePcMMAndPlugins(mmPackage, true);
    }
@@ -90,7 +91,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     *
     * @return the URI of the generated advice metamodel
     */
-   public URI generateAvMMAndModelCode() {
+   public final URI generateAvMMAndModelCode() {
       EPackage mmPackage = getMMPackage();
       return generateAvMMAndPlugins(mmPackage, true);
    }
@@ -245,7 +246,7 @@ public class MMTransformer extends AbstractModelTransformer<Pair<URI, URI>> {
     * @param scopeClassName
     *           the name of the scope metaclass
     */
-   public void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
+   public final void addScopeClassToAdviceMM(final EPackage adviceMMPackage, final String scopeClassName) {
       EClass scopeClass = EcoreFactoryBridge.addNewClassToPkg(scopeClassName, adviceMMPackage);
       EClassifier referenceType = EcoreBridge.getEObjectClassifier();
       EcoreFactoryBridge.addNewReferenceToEClass(scopeClass, GeKoConstants.getAvMMScopeReferenceName(), referenceType, 1, 1,

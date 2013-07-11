@@ -54,7 +54,7 @@ public class FeatureEquivalenceHelper {
     *           the possibly extending type
     * @return whether the given first type is the same as the second type or a super-type of it
     */
-   public boolean isSameOrSuperType(final EClassifier possiblySuperType, final EClassifier possiblyExtendingType) {
+   public final boolean isSameOrSuperType(final EClassifier possiblySuperType, final EClassifier possiblyExtendingType) {
       boolean sameType = equalityHelper.equals(possiblySuperType, possiblyExtendingType);
       if (sameType) {
          return true;
@@ -79,7 +79,7 @@ public class FeatureEquivalenceHelper {
     *           a source eObject
     * @return a collection containing the equivalent feature pairs for the given objects
     */
-   public Collection<Pair<EStructuralFeature, EStructuralFeature>> getEquivalentFeatures(final EObject targetEObject,
+   public final Collection<Pair<EStructuralFeature, EStructuralFeature>> getEquivalentFeatures(final EObject targetEObject,
          final EObject sourceEObject) {
       boolean equalClasses = targetEObject.eClass().equals(sourceEObject.eClass());
       if (equalClasses) {
@@ -127,7 +127,7 @@ public class FeatureEquivalenceHelper {
     *           a feature of the given source eObject
     * @return the equivalent target feature
     */
-   public EStructuralFeature getTargetEquivalentFeature(final EObject targetEObject, final EObject sourceEObject,
+   public final EStructuralFeature getTargetEquivalentFeature(final EObject targetEObject, final EObject sourceEObject,
          final EStructuralFeature sourceFeature) {
       String featureName = sourceFeature.getName();
       EStructuralFeature baseFeature = sourceEObject.eClass().getEStructuralFeature(featureName);

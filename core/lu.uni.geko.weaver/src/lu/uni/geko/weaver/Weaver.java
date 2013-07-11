@@ -82,7 +82,7 @@ public class Weaver extends AbstractModelTransformer<URI> {
     *
     * @return the URI of the woven model that contains a copy of the base model
     */
-   public URI copyBaseToWovenMURI() {
+   public final URI copyBaseToWovenMURI() {
       EObject baseRootElement = MainResourceLoader.getUniqueContentRoot(this.getMURI(), "base model");
       EObject wovenRootElement = EcoreUtil.copy(baseRootElement);
       MainResourceLoader.saveEObjectAsOnlyContent(wovenRootElement, this.wovenMURI);
@@ -95,12 +95,12 @@ public class Weaver extends AbstractModelTransformer<URI> {
     * @param joinPoints
     *           a list of join points
     */
-   public void setJoinPoints(final List<JoinPoint> joinPoints) {
+   public final void setJoinPoints(final List<JoinPoint> joinPoints) {
       this.joinPoints = joinPoints;
    }
 
    @Override
-   public URI transform() {
+   public final URI transform() {
       for (JoinPoint joinPoint : this.joinPoints) {
          Advice advice = AdviceAndScopeResolver.resolveAvAndInstantiationScopes(this.adviceMURI);
          AdviceEffectuation adviceEffectuation = AdviceEffectuationCalculator.calculateAdviceEffectuation(joinPoint, advice,

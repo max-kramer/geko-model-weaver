@@ -5,22 +5,27 @@
     This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-    Checkstyle-Configuration: Code Conventions
+    Checkstyle-Configuration: SDQ Code Conventions
     Description: none
 -->
 <module name="Checker">
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
+    <module name="FileContentsHolder"/>
     <module name="JavadocMethod">
       <property name="allowUndeclaredRTE" value="true"/>
       <property name="suppressLoadErrors" value="true"/>
     </module>
-    <module name="JavadocType"/>
+    <module name="JavadocType">
+      <property name="allowUnknownTags" value="true"/>
+    </module>
     <module name="JavadocVariable"/>
     <module name="JavadocStyle"/>
     <module name="ConstantName"/>
-    <module name="LocalFinalVariableName"/>
+    <module name="LocalFinalVariableName">
+      <property name="format" value="^[a-zA-Z0-9]*$"/>
+    </module>
     <module name="LocalVariableName"/>
     <module name="MemberName"/>
     <module name="MethodName"/>
@@ -33,8 +38,9 @@
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
     <module name="LineLength">
-      <property name="severity" value="info"/>
+      <property name="severity" value="ignore"/>
       <property name="max" value="130"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="info"/>
     </module>
     <module name="MethodLength"/>
     <module name="ParameterNumber"/>
@@ -50,7 +56,9 @@
     <module name="WhitespaceAfter"/>
     <module name="WhitespaceAround"/>
     <module name="ModifierOrder"/>
-    <module name="RedundantModifier"/>
+    <module name="RedundantModifier">
+      <property name="tokens" value="VARIABLE_DEF,ANNOTATION_FIELD_DEF,INTERFACE_DEF"/>
+    </module>
     <module name="AvoidNestedBlocks"/>
     <module name="EmptyBlock"/>
     <module name="LeftCurly"/>
@@ -60,16 +68,19 @@
       <property name="severity" value="ignore"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
-    <module name="DoubleCheckedLocking"/>
     <module name="EmptyStatement"/>
     <module name="EqualsHashCode"/>
     <module name="HiddenField">
+      <property name="tokens" value="VARIABLE_DEF"/>
       <property name="ignoreConstructorParameter" value="true"/>
       <property name="ignoreSetter" value="true"/>
     </module>
     <module name="IllegalInstantiation"/>
     <module name="InnerAssignment"/>
-    <module name="MagicNumber"/>
+    <module name="MagicNumber">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="MissingSwitchDefault"/>
     <module name="RedundantThrows">
       <property name="suppressLoadErrors" value="true"/>
@@ -81,11 +92,19 @@
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="FinalClass"/>
-    <module name="HideUtilityClassConstructor"/>
+    <module name="HideUtilityClassConstructor">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="InterfaceIsType"/>
-    <module name="VisibilityModifier"/>
+    <module name="VisibilityModifier">
+      <property name="protectedAllowed" value="true"/>
+    </module>
     <module name="ArrayTypeStyle"/>
-    <module name="FinalParameters"/>
+    <module name="FinalParameters">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="GenericIllegalRegexp">
       <property name="severity" value="ignore"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
@@ -96,22 +115,32 @@
     </module>
     <module name="UpperEll"/>
     <module name="WhitespaceAround"/>
-    <module name="JavadocMethod">
-      <property name="severity" value="info"/>
-      <property name="suppressLoadErrors" value="true"/>
-    </module>
   </module>
   <module name="JavadocPackage"/>
-  <module name="NewlineAtEndOfFile"/>
+  <module name="NewlineAtEndOfFile">
+    <property name="severity" value="ignore"/>
+    <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+  </module>
   <module name="Translation"/>
   <module name="FileLength"/>
-  <module name="FileTabCharacter"/>
+  <module name="FileTabCharacter">
+    <property name="severity" value="ignore"/>
+    <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+  </module>
   <module name="RegexpSingleline">
+    <property name="severity" value="ignore"/>
     <property name="format" value="\s+$"/>
     <property name="message" value="Line has trailing spaces."/>
+    <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
   </module>
   <module name="FileTabCharacter">
     <property name="severity" value="ignore"/>
     <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+  </module>
+  <module name="SuppressionCommentFilter">
+    <property name="offCommentFormat" value="(@generated$)|(// end of custom code$)"/>
+    <property name="onCommentFormat" value="(@generated NOT$)|(@generated not$)|(@generated Not$)|(// begin of custom code$)"/>
+    <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Warning suppressed because code is generated by EMF. Warning enabled on custom code"/>
+    <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Supress Warnings on EMF generated code. No Supress Warning on manual code"/>
   </module>
 </module>

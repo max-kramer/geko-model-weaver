@@ -53,7 +53,7 @@ public class Quadruple<A, B, C, D> extends Triple<A, B, C> {
    /**
     * @return the fourth element.
     */
-   public D getFourth() {
+   public final D getFourth() {
       return fourth;
    }
 }

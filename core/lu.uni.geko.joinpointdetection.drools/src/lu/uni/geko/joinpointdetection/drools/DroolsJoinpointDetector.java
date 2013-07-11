@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class DroolsJoinpointDetector implements JoinpointDetectorExt {
    @Override
-   public List<JoinPoint> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
+   public final List<JoinPoint> detectJoinpoints(final URI pcMURI, final URI baseMURI) {
       Pair<String, Map<Integer, EObject>> pcRulesAndIDs = (new PcRulesGenerator(pcMURI)).transform();
       String pointcutRules = pcRulesAndIDs.getFirst();
       Map<Integer, EObject> pcID2PcEObjectMap = pcRulesAndIDs.getSecond();

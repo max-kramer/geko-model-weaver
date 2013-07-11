@@ -57,7 +57,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
    protected abstract List<Runnable> getRunnables(List<List<URI>> uris);
 
    @Override
-   public final Object execute(final ExecutionEvent event) throws ExecutionException {
+   public Object execute(final ExecutionEvent event) throws ExecutionException {
       List<List<URI>> selectedFileURIs = getSelectedFileURIs(event);
       for (Runnable runnable : getRunnables(selectedFileURIs)) {
          new Thread(runnable).start();
@@ -72,7 +72,7 @@ public abstract class AbstractFileHandler extends AbstractHandler {
     *           the execution event
     * @return a list containing a list of URIs for each file type
     */
-   public final List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {
+   public List<List<URI>> getSelectedFileURIs(final ExecutionEvent event) {
       StructuredSelection structuredSelection = EclipseBridge.getCurrentStructuredSelection(event);
       List<List<URI>> selectedFileURIs = new ArrayList<List<URI>>();
       for (int type = 0; type < getTypeCount(); type++) {

@@ -50,7 +50,7 @@ public class EnumRespectingCopier extends Copier {
     *           the copy target
     */
    @Override
-   protected final void copyAttribute(final EAttribute eAttribute, final EObject eObject, final EObject copyEObject) {
+   protected void copyAttribute(final EAttribute eAttribute, final EObject eObject, final EObject copyEObject) {
       // UNCHANGED CODE from EcoreUtil$Copier.copyAttribute(..) except for one marked modification
       if (eObject.eIsSet(eAttribute)) {
          if (FeatureMapUtil.isFeatureMap(eAttribute)) {

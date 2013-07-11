@@ -44,35 +44,35 @@ public class SimpleResourceLoaderWrapper implements RefinedResourceLoaderExt {
    }
 
    @Override
-   public final void initialize() {
+   public void initialize() {
       wrappedResourceLoader.initialize();
    }
 
    @Override
-   public final Collection<String> supportedFileExtensions() {
+   public Collection<String> supportedFileExtensions() {
       return wrappedResourceLoader.supportedFileExtensions();
    }
 
    @Override
-   public final Iterator<EObject> getAllContentsIterator(final URI uri) {
+   public Iterator<EObject> getAllContentsIterator(final URI uri) {
       return wrappedResourceLoader.loadResourceAtURI(uri).getAllContents();
    }
 
    @Override
-   public final EObject getUniqueContentRoot(final URI uri, final String modelName) {
+   public EObject getUniqueContentRoot(final URI uri, final String modelName) {
       Resource resource = wrappedResourceLoader.loadResourceAtURI(uri);
       return EcoreResourceBridge.getUniqueContentRoot(resource, modelName);
    }
 
    @Override
-   public final <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(final URI uri, final String modelName,
+   public <T extends EObject> T getUniqueContentRootIfCorrectlyTyped(final URI uri, final String modelName,
          final Class<T> rootElementClass) {
       Resource resource = wrappedResourceLoader.loadResourceAtURI(uri);
       return EcoreResourceBridge.getUniqueContentRootIfCorrectlyTyped(resource, modelName, rootElementClass);
    }
 
    @Override
-   public final void saveEObjectAsOnlyContent(final EObject eObject, final URI uri) {
+   public void saveEObjectAsOnlyContent(final EObject eObject, final URI uri) {
       try {
          Resource resource = wrappedResourceLoader.loadResourceAtURI(uri);
          EcoreResourceBridge.saveEObjectAsOnlyContent(eObject, resource);
@@ -83,7 +83,7 @@ public class SimpleResourceLoaderWrapper implements RefinedResourceLoaderExt {
    }
 
    @Override
-   public final void saveResource(final URI uri) {
+   public void saveResource(final URI uri) {
       try {
          Resource resource = wrappedResourceLoader.loadResourceAtURI(uri);
          EcoreResourceBridge.saveResource(resource);
@@ -94,7 +94,7 @@ public class SimpleResourceLoaderWrapper implements RefinedResourceLoaderExt {
    }
 
    @Override
-   public final boolean isExistingResource(final URI uri) {
+   public boolean isExistingResource(final URI uri) {
       return wrappedResourceLoader.isExistingResource(uri);
    }
 }

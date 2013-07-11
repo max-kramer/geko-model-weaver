@@ -18,12 +18,14 @@ import lu.uni.geko.common.GeKoConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
+//begin update version 0.2
+
 /**
  * A handler for the command that .
  *
  * @author Max E. Kramer
  */
-public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHandler {
+public class WeaveWithPc2AvMappingHandlerInPlace extends WeaveInferringPc2AvMappingHandler {
    /** pointcut to advice mapping model file type. */
    private static final int PC2AVMAPPING_FILE_TYPE = 3;
    /** number of distinct file types. */
@@ -51,8 +53,10 @@ public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHand
       return new Runnable() {
          @Override
          public void run() {
-            ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, false);
+            ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, true);
          }
       };
    }
 }
+
+//begin update version 0.2

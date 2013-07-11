@@ -42,17 +42,17 @@ public abstract class AbstractSingleFileTypeHandler extends AbstractFileHandler 
    protected abstract boolean isSelectableFile(IFile iFile);
 
    @Override
-   protected final int getTypeCount() {
+   protected int getTypeCount() {
       return 1;
    }
 
    @Override
-   protected final int getTypeNoIfSelectable(final IFile iFile) {
+   protected int getTypeNoIfSelectable(final IFile iFile) {
       return (isSelectableFile(iFile) ? 0 : -1);
    }
 
    @Override
-   protected final List<Runnable> getRunnables(final List<List<URI>> uris) {
+   protected List<Runnable> getRunnables(final List<List<URI>> uris) {
       if (uris.size() == 1) {
          List<Runnable> runnables = new ArrayList<Runnable>(uris.get(0).size());
          for (URI uri : uris.get(0)) {

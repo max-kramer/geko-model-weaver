@@ -35,12 +35,12 @@ public abstract class AbstractPkgVariantEnumRespectingCopier extends EnumRespect
    protected abstract String getMMPackageNameSuffixToRemove();
 
    @Override
-   protected final EClass getTarget(final EClass eClass) {
+   protected EClass getTarget(final EClass eClass) {
       return EcorePkgVariantsBridge.getEClassByRemovingAPkgSuffix(eClass, getMMPackageNameSuffixToRemove());
    }
 
    @Override
-   protected final EStructuralFeature getTarget(final EStructuralFeature eStructuralFeature) {
+   protected EStructuralFeature getTarget(final EStructuralFeature eStructuralFeature) {
       EClass variantEClass = eStructuralFeature.getEContainingClass();
       EClass baseEClass = getTarget(variantEClass);
       String featureName = eStructuralFeature.getName();

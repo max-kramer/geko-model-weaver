@@ -22,7 +22,7 @@ import org.eclipse.emf.common.util.URI;
 public class GenerateAdviceMMHandler extends AbstractEcoreFilesHandler {
 
    @Override
-   protected final Runnable getRunnable(final URI uri) {
+   protected Runnable getRunnable(final URI uri) {
       return new Runnable() {
          @Override
          public void run() {

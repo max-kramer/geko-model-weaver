@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Max E. Kramer - initial API and implementation
+ *     Flavie Roussy - adapted from DetectJoinpointsHandler
  ******************************************************************************/
 package lu.uni.geko.commands;
 
@@ -19,12 +19,14 @@ import lu.uni.geko.common.GeKoConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
+//begin update version 0.2
+
 /**
  * A handler for the command that detects the joinpoints for the selected pointcut and base model.
  *
  * @author Max E. Kramer
  */
-public class DetectJoinpointsHandler extends AbstractFileHandler {
+public class DetectJoinpointsSeveralModelsHandler extends AbstractFileHandler {
    /** base model file type ID. */
    private static final int BASE_FILE_TYPE = 0;
    /** pointcut model file type ID. */
@@ -52,24 +54,26 @@ public class DetectJoinpointsHandler extends AbstractFileHandler {
    @Override
    protected List<Runnable> getRunnables(final List<List<URI>> uris) {
       if (uris.size() == getTypeCount()) {
-         List<URI> baseMURIs = uris.get(BASE_FILE_TYPE);
+         final List<URI> baseMURIs = uris.get(BASE_FILE_TYPE);
          List<URI> pcMURIs = uris.get(PC_FILE_TYPE);
          List<Runnable> runnables = new ArrayList<Runnable>(baseMURIs.size());
-         for (final URI baseMURI : baseMURIs) {
+         //for (final URI baseMURI : baseMURIs) {
             if (pcMURIs.size() == 1) {
                final URI pointcutMURI = pcMURIs.get(0);
                Runnable runnable = new Runnable() {
                   @Override
                   public void run() {
-                     ActionsFacade.detectJoinpoints(pointcutMURI, baseMURI);
+                     ActionsFacade.detectJoinpoints(pointcutMURI, baseMURIs);
                   }
                };
                runnables.add(runnable);
             } // MAYDO MK support selecting more than one pointcut for joinpoint detection
-         }
+         //}
          return runnables;
       } else {
          throw new RuntimeException(this.getClass().getName() + " needs base and pointcut files!");
       }
    }
 }
+
+//end update version 0.2

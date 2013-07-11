@@ -52,14 +52,14 @@ public abstract class AbstractModelTransformer<T> {
    /**
     * @return the URI of the model to be transformed.
     */
-   protected final URI getMURI() {
+   protected URI getMURI() {
       return mURI;
    }
 
    /**
     * @return fast access to the console used for displaying information to the user.
     */
-   protected final SimpleMessageConsole getConsole() {
+   protected SimpleMessageConsole getConsole() {
       return console;
    }
 }

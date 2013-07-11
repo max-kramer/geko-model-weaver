@@ -67,12 +67,12 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
    }
 
    @Override
-   protected final String getMMPackageNameSuffixToRemove() {
+   protected String getMMPackageNameSuffixToRemove() {
       return GeKoConstants.getAvMMPkgNsURIAppendage();
    }
 
    @Override
-   public final EObject copyAvElement(final EObject sourceAvElement, final EObject currentBaseVariant,
+   public EObject copyAvElement(final EObject sourceAvElement, final EObject currentBaseVariant,
          final AdviceEffectuation avEffectuation) {
       currentAvEffectuation = avEffectuation;
       EObject copy = copy(sourceAvElement);
@@ -82,7 +82,7 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
    }
 
    @Override
-   public final EObject getExistingVariant(final EObject avElement) {
+   public EObject getExistingVariant(final EObject avElement) {
       if (currentAvEffectuation == null) {
          throw new RuntimeException("Illegal call to getIfNoNewCopyNeeded(" + avElement + ")!");
       } else {
@@ -163,7 +163,7 @@ public class DefaultCopier extends AbstractDeferringManuallyReferencingRecursive
    }
 
    @Override
-   public final void registerVariant(final EObject sourceAvElement, final EObject baseVariant) {
+   public void registerVariant(final EObject sourceAvElement, final EObject baseVariant) {
       if (currentAvEffectuation == null) {
          throw new RuntimeException("Illegal call to registerCopy(" + sourceAvElement + ", " + baseVariant + ")!");
       } else {

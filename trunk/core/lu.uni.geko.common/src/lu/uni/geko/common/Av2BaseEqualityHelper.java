@@ -30,7 +30,7 @@ public class Av2BaseEqualityHelper extends AbstractPkgVariantUnorderedReferences
    private static final long serialVersionUID = 3881034521888762017L;
 
    @Override
-   protected final boolean haveEqualFeature(final EObject baseEObject, final EObject adviceEObject, final EStructuralFeature feature) {
+   protected boolean haveEqualFeature(final EObject baseEObject, final EObject adviceEObject, final EStructuralFeature feature) {
       String featureName = feature.getName();
       if (featureName.equals("lowerBound")) {
          // as we set all lower bounds to zero in the advice mm we have to interpret every lower bound of the base mm as equal
@@ -46,17 +46,17 @@ public class Av2BaseEqualityHelper extends AbstractPkgVariantUnorderedReferences
    }
 
    @Override
-   public final String getMMPkgNameAppendage() {
+   public String getMMPkgNameAppendage() {
       return GeKoConstants.getAvMMPkgNameAppendage();
    }
 
    @Override
-   public final String getMMPkgNsURIAppendage() {
+   public String getMMPkgNsURIAppendage() {
       return GeKoConstants.getAvMMPkgNsURIAppendage();
    }
 
    @Override
-   public final String getMMPkgNsPrefixAppendage() {
+   public String getMMPkgNsPrefixAppendage() {
       return GeKoConstants.getAvMMPkgNsPrefixAppendage();
    }
 }

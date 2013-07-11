@@ -60,7 +60,7 @@ public abstract class AbstractDeferringManuallyReferencingRecursivePkgVariantCop
     * @return an existing or new variant of the given object
     */
    @Override
-   public final EObject get(final Object object) {
+   public EObject get(final Object object) {
       return getExistingVariantOrCreateRegisterAndReferenceANew(object);
    }
 
@@ -74,7 +74,7 @@ public abstract class AbstractDeferringManuallyReferencingRecursivePkgVariantCop
     * @return an existing or new variant of the given eObject
     */
    @Override
-   public final EObject copy(final EObject eObject) {
+   public EObject copy(final EObject eObject) {
       return getExistingVariantOrCreateRegisterAndReferenceANew(eObject);
    }
 

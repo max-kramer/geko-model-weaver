@@ -56,6 +56,24 @@
          </with>
       </definition>
       <definition
+            id="containsNoPcFileExt">
+         <with
+               variable="selection">
+            <not>
+               <iterate
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.name"
+                           value="*.*_pc">
+                     </test>
+                  </adapt>
+               </iterate>
+            </not>
+         </with>
+      </definition>
+      <definition
             id="exactlyTwoElementsSelected">
          <with
                variable="selection">
@@ -75,6 +93,24 @@
 	                     value="*.*_av"/>
 	            </adapt>
             </iterate>
+         </with>
+      </definition>
+      <definition
+            id="containsNoAvFileExt">
+         <with
+               variable="selection">
+            <not>
+               <iterate
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.name"
+                           value="*.*_av">
+                     </test>
+                  </adapt>
+               </iterate>
+            </not>
          </with>
       </definition>
       <definition
@@ -100,11 +136,56 @@
          </with>
       </definition>
       <definition
+            id="containsNoMappingFileExt">
+         <with
+               variable="selection">
+            <not>
+               <iterate
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.name"
+                           value="*.pc2avmapping">
+                     </test>
+                  </adapt>
+               </iterate>
+            </not>
+         </with>
+      </definition>
+      <definition
             id="exactlyFourElementsSelected">
          <with
                variable="selection">
             <count
                   value="4">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="moreThanTwoElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="(2-">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="moreThanThreeElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="(3-">
+            </count>
+         </with>
+      </definition>
+      <definition
+            id="moreThanFourElementsSelected">
+         <with
+               variable="selection">
+            <count
+                  value="(4-">
             </count>
          </with>
       </definition>
@@ -126,6 +207,12 @@
             description="Generate Base, Pointcut and Advice Editors"
             id="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
             name="GenerateBasePCAndAVEditors">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.GeneratePCAndAVEditorsHandler"
+            description="Generate Pointcut and Advice Editors"
+            id="lu.uni.geko.commands.GeneratePCAndAVEditors"
+            name="GeneratePCAndAVEditors">
       </command>
       <command
             defaultHandler="lu.uni.geko.commands.GeneratePointcutMMHandler"
@@ -152,16 +239,58 @@
             name="DetectJoinpoints">
       </command>
       <command
+            defaultHandler="lu.uni.geko.commands.DetectJoinpointsSeveralModelsHandler"
+            description="Detect Joinpoints for several Models"
+            id="lu.uni.geko.commands.DetectJoinpointsSeveralModels"
+            name="DetectJoinpointsSeveralModels">
+      </command>
+      <command
             defaultHandler="lu.uni.geko.commands.WeaveInferringPc2AvMappingHandler"
             description="Weave (Infer Pointcut 2 Advice Mapping)"
             id="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
             name="WeaveInferringPc2AvMapping">
       </command>
       <command
+            defaultHandler="lu.uni.geko.commands.WeaveInferringPc2AvMappingHandlerInPlace"
+            description="Weave in-place (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveInferringPc2AvMappingInPlace"
+            name="WeaveInferringPc2AvMappingInPlace">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMappingHandler"
+            description="Weave several Models (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMapping"
+            name="WeaveSeveralModelsInferringPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMappingHandlerInPlace"
+            description="Weave several Models in-place (Infer Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMappingInPlace"
+            name="WeaveSeveralModelsInferringPc2AvMappingInPlace">
+      </command>
+      <command
             defaultHandler="lu.uni.geko.commands.WeaveWithPc2AvMappingHandler"
             description="Weave (Inferring Completion of Pointcut 2 Advice Mapping)"
             id="lu.uni.geko.commands.WeaveWithPc2AvMapping"
             name="WeaveWithPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveWithPc2AvMappingHandlerInPlace"
+            description="Weave in-place (Inferring Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveWithPc2AvMappingInPlace"
+            name="WeaveWithPc2AvMappingInPlace">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMappingHandler"
+            description="Weave several Models(Inferring Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMapping"
+            name="WeaveSeveralModelsWithPc2AvMapping">
+      </command>
+      <command
+            defaultHandler="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMappingHandlerInPlace"
+            description="Weave several Models in-place (Inferring Completion of Pointcut 2 Advice Mapping)"
+            id="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMappingInPlace"
+            name="WeaveSeveralModelsWithPc2AvMappingInPlace">
       </command>
       <command
             defaultHandler="lu.uni.geko.commands.TestWeaverHandler"
@@ -180,6 +309,18 @@
             <command
                   commandId="lu.uni.geko.commands.GenerateBasePCAndAVEditors"
                   label="Generate Base, Pointcut and Advice Editors"
+                  style="push"
+                  tooltip="Generates a pointcut and an advice metamodel from the selected metamodel and registers editors for them and the selected metamodel.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <reference
+                        definitionId="hasEcoreFileExt">
+                  </reference>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.GeneratePCAndAVEditors"
+                  label="Generate Pointcut and Advice Editors"
                   style="push"
                   tooltip="Generates a pointcut and an advice metamodel from the selected metamodel and registers editors for them.">
                <visibleWhen
@@ -243,6 +384,23 @@
                </visibleWhen>
             </command>
             <command
+                  commandId="lu.uni.geko.commands.DetectJoinpointsSeveralModels"
+                  label="Detect Joinpoints for several Models"
+                  style="push"
+                  tooltip="Detects the joinpoints for the selected pointcut and the two base models.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="moreThanTwoElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
                   commandId="lu.uni.geko.commands.WeaveInferringPc2AvMapping"
                   label="Weave (Inferring Pointcut to Advice Mapping)"
                   style="push"
@@ -259,6 +417,78 @@
                      <reference
                            definitionId="containsAvFileExt">
                      </reference>
+                     <reference
+                           definitionId="containsNoMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveInferringPc2AvMappingInPlace"
+                  label="Weave in-place (Inferring Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to complete the base model (in-place transformation) by inferring the mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyThreeElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsNoMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMapping"
+                  label="Weave several Models (Inferring Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to new woven models by inferring the mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="moreThanThreeElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsNoMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveSeveralModelsInferringPc2AvMappingInPlace"
+                  label="Weave several Models in-place (Inferring Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to complete the base model (in-place transformation) by inferring the mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="moreThanThreeElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsNoMappingFileExt">
+                     </reference>
                   </and>
                </visibleWhen>
             </command>
@@ -272,6 +502,75 @@
                   <and>
                      <reference
                            definitionId="exactlyFourElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveWithPc2AvMappingInPlace"
+                  label="Weave in-place (Inferring Completion of Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to complete the base model (in-place transformation) using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="exactlyFourElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMapping"
+                  label="Weave several Models (Inferring Completion of Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to new woven models using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="moreThanFourElementsSelected">
+                     </reference>
+                     <reference
+                           definitionId="containsPcFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsAvFileExt">
+                     </reference>
+                     <reference
+                           definitionId="containsMappingFileExt">
+                     </reference>
+                  </and>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="lu.uni.geko.commands.WeaveSeveralModelsWithPc2AvMappingInPlace"
+                  label="Weave several Models in-place (Inferring Completion of Pointcut to Advice Mapping)"
+                  style="push"
+                  tooltip="Weaves the selected base, pointcut and advice models to complete the base model (in-place transformation) using (and eventually inferring a completion of) the selected mapping from pointcut to advice.">
+               <visibleWhen
+                     checkEnabled="false">
+                  <and>
+                     <reference
+                           definitionId="moreThanFourElementsSelected">
                      </reference>
                      <reference
                            definitionId="containsPcFileExt">

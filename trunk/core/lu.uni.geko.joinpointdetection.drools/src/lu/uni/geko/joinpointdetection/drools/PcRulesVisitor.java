@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Max E. Kramer - initial API and implementation
+ *     Flavie Roussy - enumeration attributes taken into account
  ******************************************************************************/
 package lu.uni.geko.joinpointdetection.drools;
 
@@ -22,8 +23,10 @@ import lu.uni.geko.common.GeKoConstants;
 import lu.uni.geko.common.MainFeatureIgnorer;
 import lu.uni.geko.util.bridges.EcoreBridge;
 import lu.uni.geko.util.bridges.EcorePkgVariantsBridge;
+import lu.uni.geko.util.bridges.JavaPkgNameBridge;
 
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -59,7 +62,7 @@ public class PcRulesVisitor {
     * @param pointcut
     *           the root element of a pointcut model
     */
-   public final void visitPointcut(final EObject pointcut) {
+   public void visitPointcut(final EObject pointcut) {
       addHeader();
       List<EObject> firstLayerElements = pointcut.eContents();
       // first pass to declare all elements with their attributes as rules
@@ -75,14 +78,14 @@ public class PcRulesVisitor {
    /**
     * @return the generated drools pointcut rules
     */
-   public final String getPointcutRules() {
+   public String getPointcutRules() {
       return rules.toString();
    }
 
    /**
     * @return the mapping from IDs to pointcut elements
     */
-   public final Map<Integer, EObject> getPcID2PcEObjectMap() {
+   public Map<Integer, EObject> getPcID2PcEObjectMap() {
       // RATIONALE MK somebody could call this method multiple times so we should not recompute the inversion every time
       // on the other hand this is more elegant than keeping the two maps synchronous at all times
       Map<Integer, EObject> pcID2PcEObjectMap = new HashMap<Integer, EObject>();
@@ -103,47 +106,66 @@ public class PcRulesVisitor {
             + "global java.util.List pclist;\n\n" + "rule \"Aspect\"\n" + "when\n\n");
    }
 
-   /**
-    * Visits all first layer pointcut contents to declare the corresponding variables together with their attributes and calls
-    * itself recursively on the contents of these elements.
-    *
-    * @param firstLayerElements
-    *           the direct children elements of the root pointcut element
-    */
-   private void declareFirstLayerElements(final List<EObject> firstLayerElements) {
-      for (EObject pcElement : firstLayerElements) {
-         String varDecl = getVarDecl(pcElement);
-         rules.append(varDecl + ": " + getCanonicalBaseClassName(pcElement) + "(");
-         boolean firstAttribute = true;
-         for (EAttribute attribute : pcElement.eClass().getEAllAttributes()) {
-            Object attributeValue = pcElement.eGet(attribute);
-            // RATIONALE MK Attention this also ignores pointcuts that specified on purpose that an attribute is "" or "[]"!
-            if (attributeValue != null && !attributeValue.equals("")
-                  && !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
-               boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue, pcElement);
-               if (!ignoreAttribute) {
-                  if (firstAttribute) {
-                     firstAttribute = false;
-                  } else {
-                     rules.append(",");
-                  }
-                  String attributeName = attribute.getName();
-                  // RATIONALE MK: Drools requires field names in rules to start with a lowercase character
-                  // even though it manages to use the right uppercase implementation
-                  char firstChar = attributeName.charAt(0);
-                  if (Character.isUpperCase(firstChar)) {
-                     char lowerFirstChar = Character.toLowerCase(firstChar);
-                     String remainingAttributeName = attributeName.substring(1, attributeName.length());
-                     attributeName = lowerFirstChar + remainingAttributeName;
-                  }
-                  rules.append(attributeName + " == \"" + attributeValue + "\"");
-               }
-            }
-         }
-         rules.append(")\n");
-         declareFirstLayerElements(pcElement.eContents());
-      }
-   }
+	/**
+	 * Visits all first layer pointcut contents to declare the corresponding variables together with their attributes and calls
+	 * itself recursively on the contents of these elements.
+	 *
+	 * @param firstLayerElements
+	 *           the direct children elements of the root pointcut element
+	 */
+	private void declareFirstLayerElements(final List<EObject> firstLayerElements) {
+		for (EObject pcElement : firstLayerElements) {
+			String varDecl = getVarDecl(pcElement);
+			rules.append(varDecl + ": " + getCanonicalBaseClassName(pcElement) + "(");
+			boolean firstAttribute = true;
+			for (EAttribute attribute : pcElement.eClass().getEAllAttributes()) {
+				Object attributeValue;
+				//begin update version 0.2
+				//if the attribute is an enumeration
+				if ((attribute.getEType() instanceof EEnum)) {
+					attributeValue = pcElement.eGet(attribute);
+					// RATIONALE MK Attention this also ignores pointcuts that specified on purpose that an attribute is "" or "[]"!
+					if (attributeValue != null && !attributeValue.equals("")
+							&& !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
+						boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue, pcElement);
+						if (!ignoreAttribute) {
+							if (firstAttribute) {
+								firstAttribute = false;
+							} else {
+								rules.append(",");
+							}
+							//we need the full-qualified name of the enumeration, without the package name suffix
+							String enumValue = attributeValue.getClass().toString();
+							int enumValueConcat = enumValue.indexOf(" ");
+							enumValue = enumValue.substring(enumValueConcat, enumValue.length());
+							enumValue = JavaPkgNameBridge.removePkgSuffixFromCanonicalClassName(enumValue, GeKoConstants.getPcMMPkgNameAppendage());
+							rules.append(attribute.getName() + " == " + enumValue + "." + attributeValue );
+						}
+					}
+				}
+				//end update version 0.2
+				//else it is a classic attribute
+				else {
+					attributeValue = pcElement.eGet(attribute);
+					// RATIONALE MK Attention this also ignores pointcuts that specified on purpose that an attribute is "" or "[]"!
+					if (attributeValue != null && !attributeValue.equals("")
+							&& !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
+						boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue, pcElement);
+						if (!ignoreAttribute) {
+							if (firstAttribute) {
+								firstAttribute = false;
+							} else {
+								rules.append(",");
+							}
+							rules.append(attribute.getName() + " == \"" + attributeValue + "\"");
+						}
+					}
+				}
+			}
+			rules.append(")\n");
+			declareFirstLayerElements(pcElement.eContents());
+		}
+	}
 
    /**
     * Resolves all references within the first layer pointcut contents and calls itself recursively on the contents of these
@@ -166,6 +188,11 @@ public class PcRulesVisitor {
          rules.append(")\n");
          allContainedObjects.addAll(EcoreBridge.getAllContentsSet(eObject));
       }
+      // as getAllContentSet returns all descendants of an object and not just the childs
+   		// we remove from allContainedObjects all objects we already defined
+   		for (EObject eObject : firstLayerElements) {
+   			allContainedObjects.remove(eObject);
+   		}
       // RATIONALE MK avoid infinite recursion
       if (!allContainedObjects.isEmpty()) {
          resolveReferencesOfFirstLayerElements(allContainedObjects);

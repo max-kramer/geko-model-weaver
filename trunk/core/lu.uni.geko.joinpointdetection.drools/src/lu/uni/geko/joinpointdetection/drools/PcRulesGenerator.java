@@ -41,7 +41,7 @@ public class PcRulesGenerator extends AbstractModelTransformer<Pair<String, Map<
     * @return (pointcut rules, usedIDs2CorrespondingEObjectsMap)
     */
    @Override
-   public final Pair<String, Map<Integer, EObject>> transform() {
+   public Pair<String, Map<Integer, EObject>> transform() {
       getConsole().println("Generating pointcut rules for '" + this.getMURI() + "' ...");
       EObject rootModelElement = GeKoBridge.getPcRootElementIfCorrectlyTyped(this.getMURI());
       if (rootModelElement != null) {

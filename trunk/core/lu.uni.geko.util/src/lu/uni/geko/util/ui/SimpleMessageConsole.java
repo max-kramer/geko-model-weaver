@@ -55,7 +55,7 @@ public class SimpleMessageConsole {
    /**
     * @return the wrapped message console
     */
-   protected final MessageConsole getMessageConsole() {
+   protected MessageConsole getMessageConsole() {
       return messageConsole;
    }
 
@@ -65,7 +65,7 @@ public class SimpleMessageConsole {
     * @param line
     *           the line to print
     */
-   public final void println(final String line) {
+   public void println(final String line) {
       print(line + "\n");
    }
 
@@ -75,7 +75,7 @@ public class SimpleMessageConsole {
     * @param s
     *           the string to print
     */
-   public final void print(final String s) {
+   public void print(final String s) {
       try {
          SimpleMessageConsoleManager.showConsoleView(this);
          messageConsoleStream.print(s);
@@ -92,7 +92,7 @@ public class SimpleMessageConsole {
     * @param line
     *           the line to print
     */
-   public final void printErrorln(final String line) {
+   public void printErrorln(final String line) {
       println("#ERROR# " + line);
    }
 
@@ -102,12 +102,12 @@ public class SimpleMessageConsole {
     * @param line
     *           the line to print
     */
-   public final void printWarningln(final String line) {
+   public void printWarningln(final String line) {
       println("=WARNING= " + line);
    }
 
    @Override
-   public final void finalize() throws Throwable {
+   public void finalize() throws Throwable {
       super.finalize();
       if ((messageConsoleStream != null) && !(messageConsoleStream.isClosed())) {
          messageConsoleStream.close();
@@ -122,7 +122,7 @@ public class SimpleMessageConsole {
     *           the message that explains what has to be confirmed
     * @return whether the user confirmed or not
     */
-   public final boolean confirm(final String message) {
+   public boolean confirm(final String message) {
       // FIXME MK call user-interface methods correctly from non-ui-thread without to much ugly code
       int i = 0;
       if (i == 1) { // instead of commenting out and getting warnings for unused imports

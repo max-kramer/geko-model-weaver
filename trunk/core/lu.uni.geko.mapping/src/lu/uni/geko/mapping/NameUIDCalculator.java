@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 public class NameUIDCalculator implements UIDCalculatorExt {
 
    @Override
-   public final Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentID) {
+   public Pair<String, Object> calculatePcElementUID(final EObject pcElement, final String currentID) {
       EStructuralFeature pcUIDFeature = pcElement.eClass().getEStructuralFeature(GeKoConstants.getUidFeatureName());
       boolean pcUIDIsNameString = pcUIDFeature != null && EcoreBridge.isStringAttribute(pcUIDFeature);
       String pcElementUID = null;
@@ -34,7 +34,7 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public final Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
+   public Collection<EObject> getPotentiallyCorrespondingAvElements(final Collection<EObject> avElements,
          final EObject pcElement) {
       EClass pcElementClass = pcElement.eClass();
       EClass avElementClass = EcorePkgVariantsBridge.getEClassByReplacingAPkgNsURISuffix(pcElementClass,
@@ -43,7 +43,7 @@ public class NameUIDCalculator implements UIDCalculatorExt {
    }
 
    @Override
-   public final boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
+   public boolean isCorresponding(final EObject avElement, final String pcElementUID, final Object uIDHelper) {
       String avElementUID = (String) EcoreBridge.getValueForFeatureName(avElement, GeKoConstants.getUidFeatureName());
       return EcoreBridge.equals(pcElementUID, avElementUID);
    }

@@ -14,16 +14,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
- * An abstract class to be extended by clients to compare variants of EObjects while ignoring
- * certain features. The implementation is based on
- * {@link UnorderedReferencesRespectingEqualityHelper} that ensures that values of unordered
- * references are considered equal if they contain the same elements in different order.
+ * An abstract class to be extended by clients to compare variants of EObjects while ignoring certain features. The implementation
+ * is based on {@link UnorderedReferencesRespectingEqualityHelper} that ensures that values of unordered references are considered
+ * equal if they contain the same elements in different order.
  *
  * @see UnorderedReferencesRespectingEqualityHelper
  *
  * @author Max E. Kramer
  */
-public abstract class FeatureIgnoringUnorderedRefsRespEqualityHelper extends UnorderedReferencesRespectingEqualityHelper {
+public abstract class FeatureIgnoringUnorderedRefsRespEqualityHelper extends
+      UnorderedReferencesRespectingEqualityHelper {
    /** The recommended unique identifier for serialising. */
    private static final long serialVersionUID = 0L;
 
@@ -41,10 +41,14 @@ public abstract class FeatureIgnoringUnorderedRefsRespEqualityHelper extends Uno
    public abstract boolean ignoreFeature(EObject eObject1, EObject eObject2, EStructuralFeature feature);
 
    @Override
-   protected final boolean haveEqualFeature(final EObject eObject1, final EObject eObject2, final EStructuralFeature feature) {
+   protected boolean haveEqualFeature(final EObject eObject1, final EObject eObject2, final EStructuralFeature feature) {
       if (ignoreFeature(eObject1, eObject2, feature)) {
          return true;
-      } else {
+      }
+      else if (feature.getName() == "id"){
+    	  return true;
+      }
+      else {
          return super.haveEqualFeature(eObject1, eObject2, feature);
       }
    }

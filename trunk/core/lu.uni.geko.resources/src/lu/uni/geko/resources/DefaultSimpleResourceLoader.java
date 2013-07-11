@@ -65,13 +65,13 @@ public class DefaultSimpleResourceLoader implements SimpleResourceLoaderExt {
    }
 
    @Override
-   public final void initialize() {
+   public void initialize() {
       Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
       EPackage.Registry.INSTANCE.put(Pc2AvMappingPackage.eNS_URI, Pc2AvMappingPackage.eINSTANCE);
    }
 
    @Override
-   public final Collection<String> supportedFileExtensions() {
+   public Collection<String> supportedFileExtensions() {
       return Collections.singleton("*");
    }
 
@@ -83,7 +83,7 @@ public class DefaultSimpleResourceLoader implements SimpleResourceLoaderExt {
    }
 
    @Override
-   public final Resource loadResourceAtURI(final URI resourceURI) {
+   public Resource loadResourceAtURI(final URI resourceURI) {
       Resource resource = null;
       try {
          try {
@@ -119,7 +119,7 @@ public class DefaultSimpleResourceLoader implements SimpleResourceLoaderExt {
    }
 
    @Override
-   public final boolean isExistingResource(final URI resourceURI) {
+   public boolean isExistingResource(final URI resourceURI) {
       return getResourceSet().getResource(resourceURI, false) != null;
    }
 }

@@ -120,7 +120,6 @@ public class PcRulesVisitor {
 			boolean firstAttribute = true;
 			for (EAttribute attribute : pcElement.eClass().getEAllAttributes()) {
 				Object attributeValue;
-				//begin update version 0.2
 				//if the attribute is an enumeration
 				if ((attribute.getEType() instanceof EEnum)) {
 					attributeValue = pcElement.eGet(attribute);
@@ -143,21 +142,32 @@ public class PcRulesVisitor {
 						}
 					}
 				}
-				//end update version 0.2
 				//else it is a classic attribute
 				else {
-					attributeValue = pcElement.eGet(attribute);
-					// RATIONALE MK Attention this also ignores pointcuts that specified on purpose that an attribute is "" or "[]"!
-					if (attributeValue != null && !attributeValue.equals("")
-							&& !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
-						boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue, pcElement);
-						if (!ignoreAttribute) {
-							if (firstAttribute) {
-								firstAttribute = false;
-							} else {
-								rules.append(",");
-							}
-							rules.append(attribute.getName() + " == \"" + attributeValue + "\"");
+				attributeValue = pcElement.eGet(attribute);
+               // RATIONALE MK Attention this also ignores pointcuts that specified on purpose that
+               // an attribute is "" or "[]"!
+               if (attributeValue != null && !attributeValue.equals("")
+                     && !(attributeValue instanceof List && ((List<?>) attributeValue).isEmpty())) {
+                  boolean ignoreAttribute = MainFeatureIgnorer.ignoreDuringJoinPointDetection(attribute, attributeValue,
+                        pcElement);
+                  if (!ignoreAttribute) {
+                     if (firstAttribute) {
+                        firstAttribute = false;
+                     } else {
+                        rules.append(",");
+                     }
+                     String attributeName = attribute.getName();
+                     // RATIONALE MK: Drools requires field names in rules to start with a lowercase
+                     // character
+                     // even though it manages to use the right uppercase implementation
+                     char firstChar = attributeName.charAt(0);
+                     if (Character.isUpperCase(firstChar)) {
+                        char lowerFirstChar = Character.toLowerCase(firstChar);
+                        String remainingAttributeName = attributeName.substring(1, attributeName.length());
+                        attributeName = lowerFirstChar + remainingAttributeName;
+                     }
+                     rules.append(attributeName + " == \"" + attributeValue + "\"");
 						}
 					}
 				}

@@ -16,11 +16,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
- * A utility class hiding details of working with different variants of Ecore packages using the Eclipse Modeling Framework API
- * for recurring tasks that are not project-specific.<br/>
+ * A utility class hiding details of working with different variants of Ecore packages using the 
+ * Eclipse Modeling Framework API for recurring tasks that are not project-specific.<br/>
  * <br/>
- * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently only providing one
- * implementation and the "abstractions" can be regarded as low-level.)
+ * (Note that it is disputable whether this class conforms to the bridge pattern as we are currently 
+ * only providing one implementation and the "abstractions" can be regarded as low-level.)
  *
  * @author Max E. Kramer
  */
@@ -30,7 +30,8 @@ public final class EcorePkgVariantsBridge {
    }
 
    /**
-    * Returns the metaclass variant corresponding to the given metaclass by removing the given suffix from the package name.
+    * Returns the metaclass variant corresponding to the given metaclass by removing the given 
+    * suffix from the package name.
     *
     * @param eClass
     *           the original metaclass
@@ -44,7 +45,8 @@ public final class EcorePkgVariantsBridge {
    }
 
    /**
-    * Returns the classifier variant corresponding to the given classifier by removing the given suffix from the package name.
+    * Returns the classifier variant corresponding to the given classifier by removing the given 
+    * suffix from the package name.
     *
     * @param eClassifier
     *           the original classifier
@@ -56,8 +58,7 @@ public final class EcorePkgVariantsBridge {
          final String pkgNameSuffixToRemove) {
       String originalPackageNsURI = eClassifier.getEPackage().getNsURI();
       String variantPackageNsURI = JavaPkgNameBridge.removeSuffixFromPkgName(originalPackageNsURI, pkgNameSuffixToRemove);
-      //begin update version 0.2
-      //will split all class names that are symmetric (for AdviceAdvice, PointcutPointcut and so one)
+      //split all class names that are symmetric (for AdviceAdvice, PointcutPointcut and so one)
       //TODO FR: do it properly by calling GeKoConstants
       String classifierName = eClassifier.getName();
       if(classifierName == "PointcutPointcut") {
@@ -75,21 +76,21 @@ public final class EcorePkgVariantsBridge {
       
       if(classifierName.length()%2 == 0 ) {
     	  //if the two parts of the name are equal
-    	  //corresponds in the duplication name done in lu.uni.geko.util.bridges.EcoreFactoryBridge.addNewClassToPkg
+    	  //corresponds in the duplication name done in 
+    	  //lu.uni.geko.util.bridges.EcoreFactoryBridge.addNewClassToPkg
     	  String classifierNamePart1 = classifierName.substring(0, classifierName.length()/2);
     	  String classifierNamePart2 = classifierName.substring(classifierName.length()/2);
     	  if(classifierNamePart1.equals(classifierNamePart2)) {
     		  eClassifier.setName(classifierNamePart1);
     	  }
       }
-      //end update version 0.2
       
       return getEClassifierInPkgVariant(eClassifier, variantPackageNsURI);
    }
 
    /**
-    * Returns the metaclass variant corresponding to the given metaclass by replacing the given suffix in the package namespace
-    * URI with the given replacement suffix.
+    * Returns the metaclass variant corresponding to the given metaclass by replacing the given 
+    * suffix in the package namespace URI with the given replacement suffix.
     *
     * @param eClass
     *           the original metaclass
@@ -107,8 +108,8 @@ public final class EcorePkgVariantsBridge {
    }
 
    /**
-    * Returns the classifier variant corresponding to the given classifier by replacing the given suffix in the package namespace
-    * URI with the given replacement suffix.
+    * Returns the classifier variant corresponding to the given classifier by replacing the given 
+    * suffix in the package namespace URI with the given replacement suffix.
     *
     * @param eClassifier
     *           the original classifier
@@ -127,8 +128,8 @@ public final class EcorePkgVariantsBridge {
    }
 
    /**
-    * Returns the classifier with the same name as the given classifier from the package variant using the given package namespace
-    * URI.
+    * Returns the classifier with the same name as the given classifier from the package variant 
+    * using the given package namespace URI.
     *
     * @param eClassifier
     *           a classifier of the package for the given namespace URI
@@ -143,12 +144,14 @@ public final class EcorePkgVariantsBridge {
    }
 
    /**
-    * Removes the given suffix from the package name in the canonical class name of the given EObject and returns it.
+    * Removes the given suffix from the package name in the canonical class name of the given
+    * EObject and returns it.
     *
     * @param eObject
     *           an EObject
     * @param pkgNameSuffixToRemove
-    *           the suffix to be removed from the package name in the canonical class name of the given EObject
+    *           the suffix to be removed from the package name in the canonical class name of the 
+    *           given EObject
     * @return the trimmed canonical class name
     */
    public static String getPkgNameTrimmedCanonicalClassName(final EObject eObject, final String pkgNameSuffixToRemove) {

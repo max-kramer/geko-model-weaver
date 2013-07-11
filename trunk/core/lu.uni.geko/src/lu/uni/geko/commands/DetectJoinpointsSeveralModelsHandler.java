@@ -19,7 +19,6 @@ import lu.uni.geko.common.GeKoConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
-//begin update version 0.2
 
 /**
  * A handler for the command that detects the joinpoints for the selected pointcut and base model.
@@ -68,12 +67,9 @@ public class DetectJoinpointsSeveralModelsHandler extends AbstractFileHandler {
                };
                runnables.add(runnable);
             } // MAYDO MK support selecting more than one pointcut for joinpoint detection
-         //}
          return runnables;
       } else {
          throw new RuntimeException(this.getClass().getName() + " needs base and pointcut files!");
       }
    }
 }
-
-//end update version 0.2

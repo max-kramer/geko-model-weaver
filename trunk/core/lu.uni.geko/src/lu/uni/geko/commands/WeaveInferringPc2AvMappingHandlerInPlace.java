@@ -19,7 +19,6 @@ import lu.uni.geko.common.GeKoConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 
-//begin update version 0.2
 
 /**
  * A handler for the command that weaves the selected base, pointcut and advice models to a new woven model by inferring the
@@ -101,4 +100,3 @@ public class WeaveInferringPc2AvMappingHandlerInPlace extends AbstractFileHandle
    }
 }
 
-//end update version 0.2

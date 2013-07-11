@@ -46,7 +46,7 @@ public class BidirectionalReferencesCopyingCopier extends Copier {
     *           the object to copy to.
     */
    @Override
-   protected void copyReference(final EReference eReference, final EObject eObject, final EObject copyEObject) {
+   protected final void copyReference(final EReference eReference, final EObject eObject, final EObject copyEObject) {
       if (eObject.eIsSet(eReference)) {
          if (!eReference.isMany()) {
             Object referencedEObject = eObject.eGet(eReference, resolveProxies);

@@ -46,7 +46,7 @@ public abstract class SkippingIterator<T> implements Iterator<T> {
    protected abstract boolean skip(T element);
 
    @Override
-   public boolean hasNext() {
+   public final boolean hasNext() {
       if (this.lookAhead == null) {
          if (this.wrappedIterator.hasNext()) {
             lookAhead();
@@ -68,7 +68,7 @@ public abstract class SkippingIterator<T> implements Iterator<T> {
    }
 
    @Override
-   public T next() {
+   public final T next() {
       if (skip(this.lookAhead)) {
          if (this.wrappedIterator.hasNext()) {
             lookAhead();
@@ -82,7 +82,7 @@ public abstract class SkippingIterator<T> implements Iterator<T> {
    }
 
    @Override
-   public void remove() {
+   public final void remove() {
       throw new RuntimeException("The iterator '" + this + "' does not support remove operation!");
    }
 }

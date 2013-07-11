@@ -29,8 +29,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
- * A utility class for functionality needed by developers for testing GeKo, a generic model weaver, and its extensions.
- *
+ * A utility class for functionality needed by developers for testing GeKo, a generic model weaver,
+ * and its extensions.
+ * 
  * @author Max E. Kramer
  */
 public final class Tester {
@@ -39,10 +40,10 @@ public final class Tester {
    }
 
    /**
-    * Determines and returns the baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, and wovenArchetypeMURI for the given folder
-    * if it conforms to the testing naming conventions (i.e. the values of the constants defined in
-    * {@link lu.uni.geko.common.GeKoConstants}).
-    *
+    * Determines and returns the baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, and
+    * wovenArchetypeMURI for the given folder if it conforms to the testing naming conventions (i.e.
+    * the values of the constants defined in {@link lu.uni.geko.common.GeKoConstants}).
+    * 
     * @param folder
     *           the folder containing the models for testing
     * @return the found (baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI, wovenArchetypeMURI)
@@ -99,15 +100,24 @@ public final class Tester {
             }
          }
          throw new RuntimeException(
-                 "Test cannot be run as not all required model URIs are set or their file extensions do not correspond!\n" +
-                 "The model URIs are:\n" +
-                 "baseMURI: '" + baseMURI + "'\n" +
-                 "pointcutMURI: '" + pointcutMURI + "'\n" +
-                 "adviceMURI: '" + adviceMURI + "'\n" +
-                 "pc2AvMappingMURI: '" + pc2AvMappingMURI + "'\n" +
-                 "wovenArchetypeMURI: '" + wovenArchetypeMURI + "'\n" +
-                 "If only the wovenArchetypeMURI is empty this might indicate that you run a test on an example without an archetype model to which the result can be compared."
-        	);
+               "Test cannot be run as not all required model URIs are set or their file extensions do not correspond!\n"
+                     + "The model URIs are:\n"
+                     + "baseMURI: '"
+                     + baseMURI
+                     + "'\n"
+                     + "pointcutMURI: '"
+                     + pointcutMURI
+                     + "'\n"
+                     + "adviceMURI: '"
+                     + adviceMURI
+                     + "'\n"
+                     + "pc2AvMappingMURI: '"
+                     + pc2AvMappingMURI
+                     + "'\n"
+                     + "wovenArchetypeMURI: '"
+                     + wovenArchetypeMURI
+                     + "'\n"
+                     + "If only the wovenArchetypeMURI is empty this might indicate that you run a test on an example without an archetype model to which the result can be compared.");
       } catch (CoreException e) {
          // soften
          throw new RuntimeException(e);
@@ -115,9 +125,10 @@ public final class Tester {
    }
 
    /**
-    * Determines whether the given URI variable is not yet set. Returns the URI of the model for the given resource if this is the
-    * case and throws a {@link java.lang.RuntimeException RuntimeException} otherwise.
-    *
+    * Determines whether the given URI variable is not yet set. Returns the URI of the model for the
+    * given resource if this is the case and throws a {@link java.lang.RuntimeException
+    * RuntimeException} otherwise.
+    * 
     * @param uri
     *           a URI variable to be checked whether set or not
     * @param resource
@@ -137,10 +148,11 @@ public final class Tester {
    }
 
    /**
-    * Asserts that the models at the given URI are equivalent by throwing a {@link java.lang.RuntimeException RuntimeException} if
-    * this is not the case. The equivalence considers unordered references as equal even if they contain the same elements in
-    * different order.
-    *
+    * Asserts that the models at the given URI are equivalent by throwing a
+    * {@link java.lang.RuntimeException RuntimeException} if this is not the case. The equivalence
+    * considers unordered references as equal even if they contain the same elements in different
+    * order.
+    * 
     * @param wovenMURI
     *           the URI of the newly woven model
     * @param wovenArchetypeMURI
@@ -162,14 +174,12 @@ public final class Tester {
 
       boolean equals = equalityHelper.equals(wovenRootElement, wovenArchetypeRootElement);
       if (equals) {
-         String successMessage = "Sucessfully completed weaver test in '" + wovenMURI.trimSegments(1).lastSegment()
-               + "'.";
+         String successMessage = "Sucessfully completed weaver test in '" + wovenMURI.trimSegments(1).lastSegment() + "'.";
          SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
          System.out.println(successMessage);
       } else {
          throw new RuntimeException("The woven model root element '" + wovenRootElement
-               + "' does not equal the woven archetype model root element '"
-               + wovenArchetypeRootElement + "'!");
+               + "' does not equal the woven archetype model root element '" + wovenArchetypeRootElement + "'!");
       }
    }
 }

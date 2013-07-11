@@ -64,7 +64,7 @@ public abstract class AbstractPkgVariantUnorderedReferencesRespectingEqualityHel
     * @return {@code true} when the given eObjects are equivalent and {@code false} otherwise
     */
    @Override
-   public boolean equals(final EObject eObject, final EObject variantEObject) {
+   public final boolean equals(final EObject eObject, final EObject variantEObject) {
       // only "overridden" for the JavaDoc comment
       return super.equals(eObject, variantEObject);
    }

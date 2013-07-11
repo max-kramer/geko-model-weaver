@@ -33,12 +33,12 @@ public class DetectJoinpointsHandler extends AbstractFileHandler {
    private static final int TYPE_COUNT = 2;
 
    @Override
-   protected int getTypeCount() {
+   protected final int getTypeCount() {
       return TYPE_COUNT;
    }
 
    @Override
-   protected int getTypeNoIfSelectable(final IFile iFile) {
+   protected final int getTypeNoIfSelectable(final IFile iFile) {
       String fileExt = iFile.getFileExtension();
       if (fileExt.endsWith(GeKoConstants.getPcFileExtSuffix())) {
          return PC_FILE_TYPE;
@@ -50,7 +50,7 @@ public class DetectJoinpointsHandler extends AbstractFileHandler {
    }
 
    @Override
-   protected List<Runnable> getRunnables(final List<List<URI>> uris) {
+   protected final List<Runnable> getRunnables(final List<List<URI>> uris) {
       if (uris.size() == getTypeCount()) {
          List<URI> baseMURIs = uris.get(BASE_FILE_TYPE);
          List<URI> pcMURIs = uris.get(PC_FILE_TYPE);

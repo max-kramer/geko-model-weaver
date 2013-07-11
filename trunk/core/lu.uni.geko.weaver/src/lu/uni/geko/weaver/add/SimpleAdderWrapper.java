@@ -55,7 +55,7 @@ public class SimpleAdderWrapper implements MightyAdderExt {
    }
 
    @Override
-   public void addAvElementsToWovenModel(final Advice advice, final AdviceEffectuation avffectuation,
+   public final void addAvElementsToWovenModel(final Advice advice, final AdviceEffectuation avffectuation,
          final FeatureEquivalenceHelper featureEquivalenceHelper, final URI wovenMURI) {
       Set<EObject> remainingAvElementsToAdd = avffectuation.getRemainingAvElementsToAdd();
       EObject uniqueWovenRoot = MainResourceLoader.getUniqueContentRoot(wovenMURI, "woven model");

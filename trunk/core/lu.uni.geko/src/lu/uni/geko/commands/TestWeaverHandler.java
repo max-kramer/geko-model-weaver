@@ -23,8 +23,9 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.emf.common.util.URI;
 
 /**
- * A handler for the command that compares the weaving result to the woven archetype in all selected folders.
- *
+ * A handler for the command that compares the weaving result to the woven archetype in all selected
+ * folders.
+ * 
  * @author Max E. Kramer
  */
 public class TestWeaverHandler extends AbstractFolderHandler {
@@ -32,7 +33,7 @@ public class TestWeaverHandler extends AbstractFolderHandler {
    private static final int TEST_COUNT = 42;
 
    @Override
-   protected List<Runnable> getRunnables(final List<IFolder> folders) {
+   protected final List<Runnable> getRunnables(final List<IFolder> folders) {
       List<Runnable> runnables = new ArrayList<Runnable>(folders.size());
       for (final IFolder folder : folders) {
          runnables.add(new Runnable() {
@@ -49,13 +50,12 @@ public class TestWeaverHandler extends AbstractFolderHandler {
                   if (pc2AvMappingMURI == null) {
                      wovenMURI = ActionsFacade.weaveInferringPc2AvMapping(baseMURI, pointcutMURI, adviceMURI);
                   } else {
-                     wovenMURI = ActionsFacade
-                           .weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI);
+                     wovenMURI = ActionsFacade.weaveWithPc2AvMappingModel(baseMURI, pointcutMURI, adviceMURI, pc2AvMappingMURI);
                   }
                   Tester.assertWovenMRootEqualsWovenArchetypeMRoot(wovenMURI, wovenArchetypeMURI);
-                  
                }
-               String successMessage = "Sucessfully completed all " + TEST_COUNT + " weaver tests in '" + baseMURI.trimSegments(1).lastSegment() + "'.";
+               String successMessage = "Sucessfully completed all " + TEST_COUNT + " weaver tests in '"
+                     + baseMURI.trimSegments(1).lastSegment() + "'.";
                SimpleMessageConsoleManager.getConsole(GeKoConstants.getConsoleName()).println(successMessage);
                System.out.println(successMessage);
             }

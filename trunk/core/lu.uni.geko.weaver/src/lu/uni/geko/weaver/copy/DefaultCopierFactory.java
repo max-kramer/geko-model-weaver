@@ -30,7 +30,7 @@ public class DefaultCopierFactory implements CopierFactoryExt {
    private static final Map<EObject, Copier> ROOT2COPIERMAP = new HashMap<EObject, Copier>();
 
    @Override
-   public Copier getCopier(final EObject rootEObject, final Advice advice) {
+   public final Copier getCopier(final EObject rootEObject, final Advice advice) {
       Copier copier = ROOT2COPIERMAP.get(rootEObject);
       if (copier == null) {
          copier = new DefaultCopier(advice);

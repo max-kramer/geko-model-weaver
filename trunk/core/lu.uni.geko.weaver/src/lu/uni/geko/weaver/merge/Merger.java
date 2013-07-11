@@ -112,7 +112,7 @@ public class Merger {
     *
     * @return the feature equivalence helper
     */
-   public FeatureEquivalenceHelper performMergesAndReturnFeatureEquivalenceHelper() {
+   public final FeatureEquivalenceHelper performMergesAndReturnFeatureEquivalenceHelper() {
       performMerges();
       boolean resolved = allBaseWithBaseMergeFeatureConflictsResolved();
       if (!resolved) {
@@ -671,7 +671,7 @@ public class Merger {
     *
     * @see Merger#baseElements2FeatureConflictsMap baseElements2FeatureConflictsMap
     */
-   public void removeBaseWithBaseFeatureConflict(final EObject baseElement, final EStructuralFeature baseFeature) {
+   public final void removeBaseWithBaseFeatureConflict(final EObject baseElement, final EStructuralFeature baseFeature) {
       Set<EStructuralFeature> conflictingFeatures = baseElements2FeatureConflictsMap.get(baseElement);
       if (conflictingFeatures != null) {
          // RATIONALE MK avoid accessing the object two times for the contains and for the remove method

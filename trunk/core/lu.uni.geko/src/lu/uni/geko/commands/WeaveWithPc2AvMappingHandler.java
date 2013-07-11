@@ -30,12 +30,12 @@ public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHand
    private static final int TYPE_COUNT = 4;
 
    @Override
-   protected int getTypeCount() {
+   protected final int getTypeCount() {
       return TYPE_COUNT;
    }
 
    @Override
-   protected int getTypeNoIfSelectable(final IFile iFile) {
+   protected final int getTypeNoIfSelectable(final IFile iFile) {
       String fileExt = iFile.getFileExtension();
       if (fileExt.equals(GeKoConstants.getPc2AvMappingFileExt())) {
          return PC2AVMAPPING_FILE_TYPE;
@@ -45,7 +45,7 @@ public class WeaveWithPc2AvMappingHandler extends WeaveInferringPc2AvMappingHand
    }
 
    @Override
-   protected Runnable getRunnable(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final List<List<URI>> uris) {
+   protected final Runnable getRunnable(final URI baseMURI, final URI pointcutMURI, final URI adviceMURI, final List<List<URI>> uris) {
       List<URI> pc2AvMappingMURIs = uris.get(PC2AVMAPPING_FILE_TYPE);
       final URI pc2AvMappingMURI = pc2AvMappingMURIs.get(0);
       return new Runnable() {

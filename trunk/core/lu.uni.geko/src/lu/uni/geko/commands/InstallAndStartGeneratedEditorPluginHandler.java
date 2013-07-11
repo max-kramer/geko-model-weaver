@@ -27,18 +27,18 @@ import org.eclipse.emf.common.util.URI;
  */
 public class InstallAndStartGeneratedEditorPluginHandler extends AbstractFileHandler {
    @Override
-   protected int getTypeCount() {
+   protected final int getTypeCount() {
       return 1;
    }
 
    @Override
-   protected int getTypeNoIfSelectable(final IFile iFile) {
+   protected final int getTypeNoIfSelectable(final IFile iFile) {
       return (iFile.getFileExtension().equals(GeKoConstants.getGenmodelFileExt()) ? 0 : -1);
    }
 
    // RATIONALE MK avoid problems with plug-in state changes in different threads by starting all plug-ins stepwise
    @Override
-   protected List<Runnable> getRunnables(final List<List<URI>> uris) {
+   protected final List<Runnable> getRunnables(final List<List<URI>> uris) {
       if (uris.size() == 1) {
          Runnable runnable = new Runnable() {
             @Override

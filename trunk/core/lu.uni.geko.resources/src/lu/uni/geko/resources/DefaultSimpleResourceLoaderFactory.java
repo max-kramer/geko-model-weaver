@@ -24,7 +24,7 @@ public class DefaultSimpleResourceLoaderFactory implements IExecutableExtensionF
    private static DefaultSimpleResourceLoader iNSTANCE = new DefaultSimpleResourceLoader();
 
    @Override
-   public Object create() throws CoreException {
+   public final Object create() throws CoreException {
       return getDefaultSimpleResourceLoaderInstance();
    }
 

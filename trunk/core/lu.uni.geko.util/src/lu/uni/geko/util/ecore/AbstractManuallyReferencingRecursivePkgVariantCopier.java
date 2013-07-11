@@ -42,7 +42,7 @@ public abstract class AbstractManuallyReferencingRecursivePkgVariantCopier exten
     * the registered copies as this is not usable in contexts where the same eObject may have been copied more than once.
     */
    @Override
-   public void copyReferences() {
+   public final void copyReferences() {
       throw new RuntimeException("Illegal call to copyReferences()!");
    }
 
@@ -51,7 +51,7 @@ public abstract class AbstractManuallyReferencingRecursivePkgVariantCopier exten
     * @param eObject an eObject
     * @param copyEObject a copy of the given eObject
     */
-   public void copyReferences(final EObject eObject, final EObject copyEObject) {
+   public final void copyReferences(final EObject eObject, final EObject copyEObject) {
       // UNCHANGED CODE from EcoreUtil$Copier.copyReferences() except for two marked modifications
       /*
        * BEGIN MK COPY REFERENCES MODIFICATION 1 / 2 ###

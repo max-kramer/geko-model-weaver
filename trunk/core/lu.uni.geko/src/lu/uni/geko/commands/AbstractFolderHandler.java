@@ -37,7 +37,7 @@ public abstract class AbstractFolderHandler extends AbstractHandler {
    protected abstract List<Runnable> getRunnables(List<IFolder> folders);
 
    @Override
-   public Object execute(final ExecutionEvent event) throws ExecutionException {
+   public final Object execute(final ExecutionEvent event) throws ExecutionException {
       List<IFolder> selectedFolders = getSelectedFolders(event);
       for (Runnable runnable : getRunnables(selectedFolders)) {
          new Thread(runnable).start();
@@ -52,7 +52,7 @@ public abstract class AbstractFolderHandler extends AbstractHandler {
     *           execution event
     * @return list of folders
     */
-   public List<IFolder> getSelectedFolders(final ExecutionEvent event) {
+   public final List<IFolder> getSelectedFolders(final ExecutionEvent event) {
       StructuredSelection structuredSelection = EclipseBridge.getCurrentStructuredSelection(event);
       List<IFolder> selectedFolders = new ArrayList<IFolder>();
       for (Object selectedElement : structuredSelection.toArray()) {

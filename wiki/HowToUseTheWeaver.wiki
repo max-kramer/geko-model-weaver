@@ -31,7 +31,7 @@ For regression testing or to check whether your installation of GeKo works with 
 
  # Install GeKo as described above in the first step of "Simple Usage"
  # Import all projects from the folder "examples" into the Eclipse workspace running GeKo (Right-click in your project explorer and select "Import...", then choose "General" and "Existing Projects into Workspace" and select the content of the "examples" folder)
- # Navigate to the "model" folder of the example project that you want to test, right-click on the folders of the examples that you want to test (e.g. 01, 02 etc.) an select "GeKo Weaver" from the menu and choose "Run Asymmetric Weaver Tests in selected Folders".
+ # Navigate to the "model" folder of the example test project that you want to test, right-click on the folders of the examples that you want to test (e.g. 01, 02 etc.) an select "GeKo Weaver" from the menu and choose "Run Asymmetric Weaver Tests in selected Folders". Make sure that you selected the right folders that also contain archetype models to which the result can be compared.
 
 = Custom Pointcut to Advice Mappings =
 

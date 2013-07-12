@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uka.ipd.sdq.identifier_pc_pc.model/src" editDirectory="/de.uka.ipd.sdq.identifier_pc_pc.edit/src"
+    editorDirectory="/de.uka.ipd.sdq.identifier_pc_pc.editor/src" modelPluginID="de.uka.ipd.sdq.identifier_pc_pc.model"
+    modelName="Identifier_pointcut_pointcut" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" editPluginID="de.uka.ipd.sdq.identifier_pc_pc.edit"
+    editorPluginID="de.uka.ipd.sdq.identifier_pc_pc.editor">
+  <foreignModel>identifier_pointcut_pointcut.ecore</foreignModel>
+  <genPackages prefix="Identifier_pc_pc" basePackage="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc"
+      resource="XML" disposableProviderFactory="true" ecorePackage="identifier_pointcut_pointcut.ecore#/">
+    <genClasses ecoreClass="identifier_pointcut_pointcut.ecore#//Identifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute identifier_pointcut_pointcut.ecore#//Identifier/id"/>
+      <genOperations ecoreOperation="identifier_pointcut_pointcut.ecore#//Identifier/idHasToBeUnique">
+        <genParameters ecoreParameter="identifier_pointcut_pointcut.ecore#//Identifier/idHasToBeUnique/diagnostics"/>
+        <genParameters ecoreParameter="identifier_pointcut_pointcut.ecore#//Identifier/idHasToBeUnique/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="identifier_pointcut_pointcut.ecore#//PointcutPointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference identifier_pointcut_pointcut.ecore#//PointcutPointcut/children"/>
+    </genClasses>
+    <genClasses ecoreClass="identifier_pointcut_pointcut.ecore#//Pointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference identifier_pointcut_pointcut.ecore#//Pointcut/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

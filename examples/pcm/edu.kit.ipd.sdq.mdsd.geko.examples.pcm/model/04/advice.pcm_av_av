@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.uka.ipd.sdq.pcm_av_av:AdviceAdvice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.uka.ipd.sdq.pcm_av_av="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_advice_advice" xmlns:repository_av_av="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_advice_advice">
+  <children xsi:type="de.uka.ipd.sdq.pcm_av_av:Advice">
+    <children xsi:type="repository_av_av:Repository" entityName="">
+      <components__Repository xsi:type="repository_av_av:BasicComponent" id="" entityName="">
+        <requiredRoles_InterfaceRequiringEntity xsi:type="repository_av_av:OperationRequiredRole" entityName="Required_IWaitingQueue_WaitingQueue" requiredInterface__OperationRequiredRole="//@children.0/@children.0/@interfaces__Repository.0"/>
+      </components__Repository>
+      <components__Repository xsi:type="repository_av_av:BasicComponent" entityName="WaitingQueue">
+        <providedRoles_InterfaceProvidingEntity xsi:type="repository_av_av:OperationProvidedRole" entityName="Provided_IWaitingQueue_WaitingQueue" providedInterface__OperationProvidedRole="//@children.0/@children.0/@interfaces__Repository.0"/>
+      </components__Repository>
+      <interfaces__Repository xsi:type="repository_av_av:OperationInterface" entityName="IWaitingQueue">
+        <signatures__OperationInterface entityName="addTask"/>
+        <signatures__OperationInterface entityName="getTask"/>
+      </interfaces__Repository>
+    </children>
+  </children>
+</de.uka.ipd.sdq.pcm_av_av:AdviceAdvice>

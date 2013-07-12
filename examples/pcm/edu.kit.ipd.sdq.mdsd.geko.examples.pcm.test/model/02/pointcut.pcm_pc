@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<de.uka.ipd.sdq.pcm_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.uka.ipd.sdq.pcm_pc="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_pointcut" xmlns:repository_pc="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_pointcut" xmlns:system_pc="http://sdq.ipd.uka.de/PalladioComponentModel/System/5.0_pointcut">
+  <children xsi:type="repository_pc:Repository" id="" entityName="" repositoryDescription="">
+    <components__Repository xsi:type="repository_pc:BasicComponent" id="" entityName="ShopServer"/>
+    <components__Repository xsi:type="repository_pc:BasicComponent" id="" entityName="ThreadPool"/>
+  </children>
+  <children xsi:type="system_pc:System" id="" entityName="">
+    <assemblyContexts__ComposedStructure id="" entityName="" encapsulatedComponent__AssemblyContext=""/>
+  </children>
+</de.uka.ipd.sdq.pcm_pc:Pointcut>

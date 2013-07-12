@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.uka.ipd.sdq.pcm_av:Advice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.uka.ipd.sdq.pcm_av="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_advice" xmlns:repository_av="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_advice">
+  <children xsi:type="repository_av:Repository" entityName="">
+    <components__Repository xsi:type="repository_av:BasicComponent" entityName=""/>
+    <interfaces__Repository xsi:type="repository_av:OperationInterface" entityName="">
+      <signatures__OperationInterface entityName=""/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository_av:OperationInterface" entityName="AnOtherInterface">
+      <signatures__OperationInterface id="DuplicatedSignature" entityName=""/>
+    </interfaces__Repository>
+  </children>
+</de.uka.ipd.sdq.pcm_av:Advice>

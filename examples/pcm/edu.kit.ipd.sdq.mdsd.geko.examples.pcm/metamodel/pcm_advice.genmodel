@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uka.ipd.sdq.pcm_av/src" modelPluginID="de.uka.ipd.sdq.pcm_av"
+    modelName="Pcm_advice" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false" usedGenPackages="identifier_advice.genmodel#//identifier_av ProbabilityFunction_advice.genmodel#//probfunction_av stoex_advice.genmodel#//stoex_av Units_advice.genmodel#//units_av">
+  <foreignModel>pcm_advice.ecore</foreignModel>
+  <genPackages prefix="Pcm_av" basePackage="de_av.uka_av.ipd_av.sdq_av" disposableProviderFactory="true"
+      ecorePackage="pcm_advice.ecore#/">
+    <genClasses ecoreClass="pcm_advice.ecore#//DummyClass"/>
+    <genClasses ecoreClass="pcm_advice.ecore#//Advice">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//Advice/children"/>
+    </genClasses>
+    <genClasses ecoreClass="pcm_advice.ecore#//GlobalScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//GlobalScope/scopedObject"/>
+    </genClasses>
+    <genClasses ecoreClass="pcm_advice.ecore#//PerJoinPointScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//PerJoinPointScope/scopedObject"/>
+    </genClasses>
+    <nestedGenPackages prefix="Core_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//core_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//core_av/PCMRandomVariable">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/closedWorkload_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/passiveResource_capacity_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/variableCharacterisation_Specification"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/infrastructureCall__PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/resourceCall__PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/parametricResourceDemand_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/loopAction_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/guardedBranchTransition_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/specifiedExecutionTime_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/eventChannelSinkConnector__FilterCondition"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/assemblyEventConnector__FilterCondition"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/loop_LoopIteration"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/openWorkload_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/delay_TimeSpecification"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/communicationLinkResourceSpecifcation_throughput_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/processingResourceSpecification_processingRate_PCMRandomVariable"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/PCMRandomVariable/communicationLinkResourceSpecification_latency_PCMRandomVariable"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//core_av/PCMRandomVariable/SpecificationMustNotBeNULL">
+          <genParameters ecoreParameter="pcm_advice.ecore#//core_av/PCMRandomVariable/SpecificationMustNotBeNULL/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//core_av/PCMRandomVariable/SpecificationMustNotBeNULL/context"/>
+        </genOperations>
+      </genClasses>
+      <nestedGenPackages prefix="Entity_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//core_av/entity_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ResourceProvidedRole">
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceProvidedRole/resourceInterfaceProvidingEntity__ResourceProvidedRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceProvidedRole/providedResourceInterface__ResourceProvidedRole"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/InterfaceProvidingRequiringEntity"/>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/InterfaceProvidingEntity">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/InterfaceProvidingEntity/providedRoles_InterfaceProvidingEntity"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/InterfaceRequiringEntity">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/InterfaceRequiringEntity/requiredRoles_InterfaceRequiringEntity"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ResourceInterfaceRequiringEntity">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceInterfaceRequiringEntity/resourceRequiredRoles__ResourceInterfaceRequiringEntity"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ResourceRequiredRole">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceRequiredRole/requiredResourceInterface__ResourceRequiredRole"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceRequiredRole/resourceInterfaceRequiringEntity__ResourceRequiredRole"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ResourceInterfaceProvidingEntity">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/entity_av/ResourceInterfaceProvidingEntity/resourceProvidedRoles__ResourceInterfaceProvidingEntity"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ComposedProvidingRequiringEntity">
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/entity_av/ComposedProvidingRequiringEntity/ProvidedRolesMustBeBound">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/entity_av/ComposedProvidingRequiringEntity/ProvidedRolesMustBeBound/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/entity_av/ComposedProvidingRequiringEntity/ProvidedRolesMustBeBound/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/NamedElement">
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//core_av/entity_av/NamedElement/entityName"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/ResourceInterfaceProvidingRequiringEntity"/>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/entity_av/Entity"/>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Composition_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//core_av/composition_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/DelegationConnector"/>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/Connector">
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/Connector/parentStructure__Connector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/ComposedStructure">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ComposedStructure/assemblyContexts__ComposedStructure"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ComposedStructure/resourceRequiredDelegationConnectors_ComposedStructure"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ComposedStructure/eventChannel__ComposedStructure"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ComposedStructure/connectors__ComposedStructure"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraint">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraint/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraint/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraintForAssemblyConnectors">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraintForAssemblyConnectors/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ComposedStructure/MultipleConnectorsConstraintForAssemblyConnectors/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/ResourceRequiredDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ResourceRequiredDelegationConnector/innerResourceRequiredRole_ResourceRequiredDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ResourceRequiredDelegationConnector/outerResourceRequiredRole_ResourceRequiredDelegationConnector"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ResourceRequiredDelegationConnector/parentStructure_ResourceRequiredDelegationConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/EventChannel">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannel/eventGroup__EventChannel"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannel/eventChannelSourceConnector__EventChannel"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannel/eventChannelSinkConnector__EventChannel"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannel/parentStructure__EventChannel"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/EventChannelSourceConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSourceConnector/sourceRole__EventChannelSourceRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSourceConnector/assemblyContext__EventChannelSourceConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSourceConnector/eventChannel__EventChannelSourceConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/EventChannelSinkConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSinkConnector/sinkRole__EventChannelSinkConnector"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSinkConnector/filterCondition__EventChannelSinkConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSinkConnector/assemblyContext__EventChannelSinkConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/EventChannelSinkConnector/eventChannel__EventChannelSinkConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/innerProvidedRole_ProvidedDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/outerProvidedRole_ProvidedDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/assemblyContext_ProvidedDelegationConnector"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ProvidedDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ProvidedDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ProvidedDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ComponentOfAssemblyContextAndInnerRoleProvidingComponentNeedToBeTheSame">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ComponentOfAssemblyContextAndInnerRoleProvidingComponentNeedToBeTheSame/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/ProvidedDelegationConnector/ComponentOfAssemblyContextAndInnerRoleProvidingComponentNeedToBeTheSame/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/innerRequiredRole_RequiredDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/outerRequiredRole_RequiredDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/assemblyContext_RequiredDelegationConnector"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiredDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiredDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiredDelegationConnectorandtheconnectedComponentmustbepartofthesamecompositestructure/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/ComponentOfAssemblyContextAndInnerRoleRequiringComponentNeedToBeTheSame">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/ComponentOfAssemblyContextAndInnerRoleRequiringComponentNeedToBeTheSame/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/ComponentOfAssemblyContextAndInnerRoleRequiringComponentNeedToBeTheSame/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiringEntityOfOuterRequiredRoleMustBeTheSameAsTheParentOfTheRequiredDelegationConnector">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiringEntityOfOuterRequiredRoleMustBeTheSameAsTheParentOfTheRequiredDelegationConnector/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/RequiredDelegationConnector/RequiringEntityOfOuterRequiredRoleMustBeTheSameAsTheParentOfTheRequiredDelegationConnector/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/requiringAssemblyContext_AssemblyConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/providingAssemblyContext_AssemblyConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/providedRole_AssemblyConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/requiredRole_AssemblyConnector"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedProvidedRolesAndChildContextMustMatch">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedProvidedRolesAndChildContextMustMatch/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedProvidedRolesAndChildContextMustMatch/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedRequiredRoleAndChildContextMustMatch">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedRequiredRoleAndChildContextMustMatch/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedRequiredRoleAndChildContextMustMatch/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedInterfacesMustMatch">
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedInterfacesMustMatch/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//core_av/composition_av/AssemblyConnector/AssemblyConnectorsReferencedInterfacesMustMatch/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector/sinkRole__AssemblyEventConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector/sourceRole__AssemblyEventConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector/sinkAssemblyContext__AssemblyEventConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector/sourceAssemblyContext__AssemblyEventConnector"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyEventConnector/filterCondition__AssemblyEventConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/SourceDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SourceDelegationConnector/innerSourceRole__SourceRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SourceDelegationConnector/outerSourceRole__SourceRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SourceDelegationConnector/assemblyContext__SourceDelegationConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/SinkDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SinkDelegationConnector/assemblyContext__SinkDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SinkDelegationConnector/innerSinkRole__SinkRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/SinkDelegationConnector/outerSinkRole__SinkRole"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/AssemblyInfrastructureConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyInfrastructureConnector/providedRole__AssemblyInfrastructureConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyInfrastructureConnector/requiredRole__AssemblyInfrastructureConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyInfrastructureConnector/providingAssemblyContext__AssemblyInfrastructureConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyInfrastructureConnector/requiringAssemblyContext__AssemblyInfrastructureConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/ProvidedInfrastructureDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedInfrastructureDelegationConnector/innerProvidedRole__ProvidedInfrastructureDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedInfrastructureDelegationConnector/outerProvidedRole__ProvidedInfrastructureDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/ProvidedInfrastructureDelegationConnector/assemblyContext__ProvidedInfrastructureDelegationConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/RequiredInfrastructureDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredInfrastructureDelegationConnector/innerRequiredRole__RequiredInfrastructureDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredInfrastructureDelegationConnector/outerRequiredRole__RequiredInfrastructureDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredInfrastructureDelegationConnector/assemblyContext__RequiredInfrastructureDelegationConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/RequiredResourceDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredResourceDelegationConnector/assemblyContext__RequiredResourceDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredResourceDelegationConnector/innerRequiredRole__RequiredResourceDelegationConnector"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/RequiredResourceDelegationConnector/outerRequiredRole__RequiredResourceDelegationConnector"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//core_av/composition_av/AssemblyContext">
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyContext/parentStructure__AssemblyContext"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyContext/encapsulatedComponent__AssemblyContext"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//core_av/composition_av/AssemblyContext/configParameterUsages__AssemblyContext"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Usagemodel_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//usagemodel_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Workload">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/Workload/usageScenario_Workload"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/UsageScenario">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UsageScenario/usageModel_UsageScenario"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UsageScenario/scenarioBehaviour_UsageScenario"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UsageScenario/workload_UsageScenario"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/UserData">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UserData/assemblyContext_userData"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UserData/usageModel_UserData"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UserData/userDataParameterUsages_UserData"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/UsageModel">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UsageModel/usageScenario_UsageModel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/UsageModel/userData_UsageModel"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/providedRole_EntryLevelSystemCall"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/operationSignature__EntryLevelSystemCall"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/outputParameterUsages_EntryLevelSystemCall"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/priority"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/inputParameterUsages_EntryLevelSystemCall"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallMustReferenceProvidedRoleOfASystem">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallMustReferenceProvidedRoleOfASystem/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallMustReferenceProvidedRoleOfASystem/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallSignatureMustMatchItsProvidedRole">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallSignatureMustMatchItsProvidedRole/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/EntryLevelSystemCall/EntryLevelSystemCallSignatureMustMatchItsProvidedRole/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/AbstractUserAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/AbstractUserAction/successor"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/AbstractUserAction/predecessor"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/AbstractUserAction/scenarioBehaviour_AbstractUserAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/usageScenario_SenarioBehaviour"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/branchTransition_ScenarioBehaviour"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/loop_ScenarioBehaviour"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/actions_ScenarioBehaviour"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestart">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestart/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestart/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestop">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestop/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/Exactlyonestop/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/EachuseractionexceptStartandStopmusthaveapredecessorandsuccessor">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/EachuseractionexceptStartandStopmusthaveapredecessorandsuccessor/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ScenarioBehaviour/EachuseractionexceptStartandStopmusthaveapredecessorandsuccessor/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/BranchTransition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//usagemodel_av/BranchTransition/branchProbability"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/BranchTransition/branch_BranchTransition"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/BranchTransition/branchedBehaviour_BranchTransition"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Branch">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/Branch/branchTransitions_Branch"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/Branch/AllBranchProbabilitiesMustSumUpTo1">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Branch/AllBranchProbabilitiesMustSumUpTo1/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Branch/AllBranchProbabilitiesMustSumUpTo1/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Loop">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/Loop/loopIteration_Loop"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/Loop/bodyBehaviour_Loop"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Stop">
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/Stop/StopHasNoSuccessor">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Stop/StopHasNoSuccessor/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Stop/StopHasNoSuccessor/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Start">
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/Start/StartHasNoPredecessor">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Start/StartHasNoPredecessor/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/Start/StartHasNoPredecessor/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/OpenWorkload">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/OpenWorkload/interArrivalTime_OpenWorkload"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/OpenWorkload/InterArrivalTimeInOpenWorkloadNeedsToBeSpecified">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/OpenWorkload/InterArrivalTimeInOpenWorkloadNeedsToBeSpecified/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/OpenWorkload/InterArrivalTimeInOpenWorkloadNeedsToBeSpecified/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/Delay">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/Delay/timeSpecification_Delay"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//usagemodel_av/ClosedWorkload">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//usagemodel_av/ClosedWorkload/population"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//usagemodel_av/ClosedWorkload/thinkTime_ClosedWorkload"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/PopulationInClosedWorkloadNeedsToBeSpecified">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/PopulationInClosedWorkloadNeedsToBeSpecified/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/PopulationInClosedWorkloadNeedsToBeSpecified/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/ThinkTimeInClosedWorkloadNeedsToBeSpecified">
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/ThinkTimeInClosedWorkloadNeedsToBeSpecified/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//usagemodel_av/ClosedWorkload/ThinkTimeInClosedWorkloadNeedsToBeSpecified/context"/>
+        </genOperations>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Repository_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//repository_av">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="pcm_advice.ecore#//repository_av/ParameterModifier">
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ParameterModifier/none"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ParameterModifier/in"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ParameterModifier/out"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ParameterModifier/inout"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="pcm_advice.ecore#//repository_av/ComponentType">
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ComponentType/BUSINESS_COMPONENT"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/ComponentType/INFRASTRUCTURE_COMPONENT"/>
+      </genEnums>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum">
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/INT"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/STRING"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/BOOL"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/DOUBLE"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/CHAR"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/BYTE"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//repository_av/PrimitiveTypeEnum/LONG"/>
+      </genEnums>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/PassiveResource">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/PassiveResource/capacity_PassiveResource"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/PassiveResource/basicComponent_PassiveResource"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/PassiveResource/resourceTimeoutFailureType__PassiveResource"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/BasicComponent">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/BasicComponent/serviceEffectSpecifications__BasicComponent"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/BasicComponent/passiveResource_BasicComponent"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/BasicComponent/NoSeffTypeUsedTwice">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/NoSeffTypeUsedTwice/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/NoSeffTypeUsedTwice/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/BasicComponent/ProvideSameInterfacesAsImplementationType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/ProvideSameInterfacesAsImplementationType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/ProvideSameInterfacesAsImplementationType/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/BasicComponent/RequireSameInterfacesAsImplementationType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/RequireSameInterfacesAsImplementationType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/BasicComponent/RequireSameInterfacesAsImplementationType/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/ImplementationComponentType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/ImplementationComponentType/parentCompleteComponentTypes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/ImplementationComponentType/componentParameterUsage_ImplementationComponentType"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/ImplementationComponentType/componentType"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/ImplementationComponentType/RequiredInterfacesHaveToConformToCompleteType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/RequiredInterfacesHaveToConformToCompleteType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/RequiredInterfacesHaveToConformToCompleteType/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/ImplementationComponentType/providedInterfacesHaveToConformToCompleteType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/providedInterfacesHaveToConformToCompleteType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/providedInterfacesHaveToConformToCompleteType/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/ImplementationComponentType/ProvidedInterfaceHaveToConformToComponentType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/ProvidedInterfaceHaveToConformToComponentType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ImplementationComponentType/ProvidedInterfaceHaveToConformToComponentType/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/RepositoryComponent">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/RepositoryComponent/repository__RepositoryComponent"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/ProvidedRole">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/ProvidedRole/providingEntity_ProvidedRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/Parameter">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Parameter/dataType__Parameter"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Parameter/infrastructureSignature__Parameter"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Parameter/operationSignature__Parameter"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Parameter/eventType__Parameter"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/Parameter/parameterName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/Parameter/modifier__Parameter"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Parameter/resourceSignature__Parameter"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/DataType">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/DataType/repository__DataType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/Repository">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/Repository/repositoryDescription"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Repository/components__Repository"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Repository/interfaces__Repository"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Repository/failureTypes__Repository"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Repository/dataTypes__Repository"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/Interface">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Interface/parentInterfaces__Interface"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Interface/protocols__Interface"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Interface/requiredCharacterisations"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Interface/repository__Interface"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/Interface/NoProtocolTypeIDUsedTwice">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/Interface/NoProtocolTypeIDUsedTwice/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/Interface/NoProtocolTypeIDUsedTwice/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/RequiredCharacterisation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/RequiredCharacterisation/type"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/RequiredCharacterisation/parameter"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/RequiredCharacterisation/interface_RequiredCharacterisation"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/EventGroup">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/EventGroup/eventTypes__EventGroup"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/EventType">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/EventType/parameter__EventType"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/EventType/eventGroup__EventType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/Signature">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Signature/exceptions__Signature"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/Signature/failureType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/ExceptionType">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/ExceptionType/exceptionName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/ExceptionType/exceptionMessage"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/InfrastructureSignature">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InfrastructureSignature/parameters__InfrastructureSignature"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InfrastructureSignature/infrastructureInterface__InfrastructureSignature"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/InfrastructureInterface">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InfrastructureInterface/infrastructureSignatures__InfrastructureInterface"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/InfrastructureRequiredRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InfrastructureRequiredRole/requiredInterface__InfrastructureRequiredRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/RequiredRole">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/RequiredRole/requiringEntity_RequiredRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/OperationSignature">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationSignature/interface__OperationSignature"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationSignature/parameters__OperationSignature"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationSignature/returnType__OperationSignature"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/OperationSignature/ParameterNamesHaveToBeUniqueForASignature">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/OperationSignature/ParameterNamesHaveToBeUniqueForASignature/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/OperationSignature/ParameterNamesHaveToBeUniqueForASignature/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/OperationInterface">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationInterface/signatures__OperationInterface"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/OperationInterface/SignaturesHaveToBeUniqueForAnInterface">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/OperationInterface/SignaturesHaveToBeUniqueForAnInterface/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/OperationInterface/SignaturesHaveToBeUniqueForAnInterface/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/OperationRequiredRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationRequiredRole/requiredInterface__OperationRequiredRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/SourceRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/SourceRole/eventGroup__SourceRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/SinkRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/SinkRole/eventGroup__SinkRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/OperationProvidedRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/OperationProvidedRole/providedInterface__OperationProvidedRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/InfrastructureProvidedRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InfrastructureProvidedRole/providedInterface__InfrastructureProvidedRole"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/CompleteComponentType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/CompleteComponentType/parentProvidesComponentTypes"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/CompleteComponentType/AtLeastOneInterfaceHasToBeProvidedOrRequiredByAUsefullCompleteComponentType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompleteComponentType/AtLeastOneInterfaceHasToBeProvidedOrRequiredByAUsefullCompleteComponentType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompleteComponentType/AtLeastOneInterfaceHasToBeProvidedOrRequiredByAUsefullCompleteComponentType/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/CompleteComponentType/providedInterfacesHaveToConformToProvidedType2">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompleteComponentType/providedInterfacesHaveToConformToProvidedType2/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompleteComponentType/providedInterfacesHaveToConformToProvidedType2/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/ProvidesComponentType">
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/ProvidesComponentType/AtLeastOneInterfaceHasToBeProvidedByAUsefullProvidesComponentType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ProvidesComponentType/AtLeastOneInterfaceHasToBeProvidedByAUsefullProvidesComponentType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/ProvidesComponentType/AtLeastOneInterfaceHasToBeProvidedByAUsefullProvidesComponentType/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/CompositeComponent">
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/CompositeComponent/ProvideSameInterfaces">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompositeComponent/ProvideSameInterfaces/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompositeComponent/ProvideSameInterfaces/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//repository_av/CompositeComponent/RequireSameInterfaces">
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompositeComponent/RequireSameInterfaces/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//repository_av/CompositeComponent/RequireSameInterfaces/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/PrimitiveDataType">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//repository_av/PrimitiveDataType/type"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/CollectionDataType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/CollectionDataType/innerType_CollectionDataType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/CompositeDataType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/CompositeDataType/parentType_CompositeDataType"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/CompositeDataType/innerDeclaration_CompositeDataType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/InnerDeclaration">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InnerDeclaration/datatype_InnerDeclaration"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//repository_av/InnerDeclaration/compositeDataType_InnerDeclaration"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//repository_av/Role"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Resourcetype_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//resourcetype_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/ResourceSignature">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceSignature/parameter__ResourceSignature"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourcetype_av/ResourceSignature/resourceServiceId"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceSignature/resourceInterface__ResourceSignature"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/ProcessingResourceType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ProcessingResourceType/hardwareInducedFailureType__ProcessingResourceType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/ResourceType">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceType/resourceRepository_ResourceType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/ResourceRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceRepository/resourceInterfaces__ResourceRepository"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceRepository/schedulingPolicies__ResourceRepository"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceRepository/availableResourceTypes_ResourceRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/SchedulingPolicy">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/SchedulingPolicy/resourceRepository__SchedulingPolicy"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/CommunicationLinkResourceType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/CommunicationLinkResourceType/networkInducedFailureType__CommunicationLinkResourceType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourcetype_av/ResourceInterface">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceInterface/resourceRepository__ResourceInterface"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourcetype_av/ResourceInterface/resourceSignatures__ResourceInterface"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Protocol_av" disposableProviderFactory="true" ecorePackage="pcm_advice.ecore#//protocol_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//protocol_av/Protocol">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//protocol_av/Protocol/protocolTypeID"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Parameter_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//parameter_av">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="pcm_advice.ecore#//parameter_av/VariableCharacterisationType">
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//parameter_av/VariableCharacterisationType/STRUCTURE"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//parameter_av/VariableCharacterisationType/NUMBER_OF_ELEMENTS"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//parameter_av/VariableCharacterisationType/VALUE"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//parameter_av/VariableCharacterisationType/BYTESIZE"/>
+        <genEnumLiterals ecoreEnumLiteral="pcm_advice.ecore#//parameter_av/VariableCharacterisationType/TYPE"/>
+      </genEnums>
+      <genClasses ecoreClass="pcm_advice.ecore#//parameter_av/VariableUsage">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/variableCharacterisation_VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/userData_VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/callAction__VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/synchronisationPoint_VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/callReturnAction__VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/setVariableAction_VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/specifiedOutputParameterAbstraction_expectedExternalOutputs_VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/assemblyContext__VariableUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/entryLevelSystemCall_InputParameterUsage"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/entryLevelSystemCall_OutputParameterUsage"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableUsage/namedReference__VariableUsage"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//parameter_av/VariableCharacterisation">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//parameter_av/VariableCharacterisation/type"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableCharacterisation/specification_VariableCharacterisation"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//parameter_av/VariableCharacterisation/variableUsage_VariableCharacterisation"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//parameter_av/CharacterisedVariable">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//parameter_av/CharacterisedVariable/characterisationType"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Reliability_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//reliability_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/FailureOccurrenceDescription">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//reliability_av/FailureOccurrenceDescription/failureProbability"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//reliability_av/FailureOccurrenceDescription/EnsureValidFailureProbabilityRange">
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/FailureOccurrenceDescription/EnsureValidFailureProbabilityRange/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/FailureOccurrenceDescription/EnsureValidFailureProbabilityRange/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/HardwareInducedFailureType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/HardwareInducedFailureType/processingResourceType__HardwareInducedFailureType"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//reliability_av/HardwareInducedFailureType/HardwareInducedFailureTypeHasProcessingResourceType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/HardwareInducedFailureType/HardwareInducedFailureTypeHasProcessingResourceType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/HardwareInducedFailureType/HardwareInducedFailureTypeHasProcessingResourceType/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/SoftwareInducedFailureType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/SoftwareInducedFailureType/internalFailureOccurrenceDescriptions__SoftwareInducedFailureType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription/internalAction__InternalFailureOccurrenceDescription"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription/softwareInducedFailureType__InternalFailureOccurrenceDescription"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForInternalFailureOccurrenceDescription">
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForInternalFailureOccurrenceDescription/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/InternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForInternalFailureOccurrenceDescription/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/NetworkInducedFailureType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/NetworkInducedFailureType/communicationLinkResourceType__NetworkInducedFailureType"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//reliability_av/NetworkInducedFailureType/NetworkInducedFailureTypeHasCommunicationLinkResourceType">
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/NetworkInducedFailureType/NetworkInducedFailureTypeHasCommunicationLinkResourceType/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/NetworkInducedFailureType/NetworkInducedFailureTypeHasCommunicationLinkResourceType/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription/specifiedReliabilityAnnotation__ExternalFailureOccurrenceDescription"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription/failureType__ExternalFailureOccurrenceDescription"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForExternalFailureOccurrenceDescription">
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForExternalFailureOccurrenceDescription/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//reliability_av/ExternalFailureOccurrenceDescription/NoResourceTimeoutFailureAllowedForExternalFailureOccurrenceDescription/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/ResourceTimeoutFailureType">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/ResourceTimeoutFailureType/passiveResource__ResourceTimeoutFailureType"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//reliability_av/FailureType">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//reliability_av/FailureType/repository__FailureType"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Seff_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//seff_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/StopAction">
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/StopAction/StopActionSuccessorMustNotBeDefined">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/StopAction/StopActionSuccessorMustNotBeDefined/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/StopAction/StopActionSuccessorMustNotBeDefined/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/AbstractInternalControlFlowAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractInternalControlFlowAction/resourceDemand_Action"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractInternalControlFlowAction/infrastructureCall__Action"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractInternalControlFlowAction/resourceCall__Action"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/AbstractAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractAction/predecessor_AbstractAction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractAction/successor_AbstractAction"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractAction/resourceDemandingBehaviour_AbstractAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/abstractLoopAction_ResourceDemandingBehaviour"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/abstractBranchTransition_ResourceDemandingBehaviour"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/steps_Behaviour"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStopAction">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStopAction/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStopAction/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStartAction">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStartAction/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/ExactlyOneStartAction/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/EachActionExceptStartActionandStopActionMustHhaveAPredecessorAndSuccessor">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/EachActionExceptStartActionandStopActionMustHhaveAPredecessorAndSuccessor/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ResourceDemandingBehaviour/EachActionExceptStartActionandStopActionMustHhaveAPredecessorAndSuccessor/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/AbstractLoopAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractLoopAction/bodyBehaviour_Loop"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/AbstractBranchTransition">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractBranchTransition/branchAction_AbstractBranchTransition"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AbstractBranchTransition/branchBehaviour_BranchTransition"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/BranchAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/BranchAction/branches_Branch"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/BranchAction/EitherGuardedBranchesOrProbabilisiticBranchTransitions">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/BranchAction/EitherGuardedBranchesOrProbabilisiticBranchTransitions/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/BranchAction/EitherGuardedBranchesOrProbabilisiticBranchTransitions/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/BranchAction/AllProbabilisticBranchProbabilitiesMustSumUpTo1">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/BranchAction/AllProbabilisticBranchProbabilitiesMustSumUpTo1/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/BranchAction/AllProbabilisticBranchProbabilitiesMustSumUpTo1/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/CallAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/CallAction/inputVariableUsages__CallAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/StartAction">
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/StartAction/StartActionPredecessorMustNotBeDefined">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/StartAction/StartActionPredecessorMustNotBeDefined/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/StartAction/StartActionPredecessorMustNotBeDefined/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ServiceEffectSpecification">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//seff_av/ServiceEffectSpecification/seffTypeID"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ServiceEffectSpecification/describedService__SEFF"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ServiceEffectSpecification/basicComponent_ServiceEffectSpecification"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ServiceEffectSpecification/ReferencedSignatureMustBelongToInterfaceReferencedByProvidedRole">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ServiceEffectSpecification/ReferencedSignatureMustBelongToInterfaceReferencedByProvidedRole/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ServiceEffectSpecification/ReferencedSignatureMustBelongToInterfaceReferencedByProvidedRole/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ResourceDemandingSEFF">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ResourceDemandingSEFF/resourceDemandingInternalBehaviours"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ResourceDemandingInternalBehaviour">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ResourceDemandingInternalBehaviour/resourceDemandingSEFF_ResourceDemandingInternalBehaviour"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ReleaseAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ReleaseAction/passiveResource_ReleaseAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/LoopAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/LoopAction/iterationCount_LoopAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ForkAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ForkAction/asynchronousForkedBehaviours_ForkAction"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ForkAction/synchronisingBehaviours_ForkAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ForkedBehaviour">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ForkedBehaviour/synchronisationPoint_ForkedBehaviour"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ForkedBehaviour/forkAction_ForkedBehaivour"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/SynchronisationPoint">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/SynchronisationPoint/outputParameterUsage_SynchronisationPoint"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/SynchronisationPoint/forkAction_SynchronisationPoint"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/SynchronisationPoint/synchronousForkedBehaviours_SynchronisationPoint"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ExternalCallAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ExternalCallAction/calledService_ExternalService"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/ExternalCallAction/role_ExternalService"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//seff_av/ExternalCallAction/retryCount"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ExternalCallAction/SignatureBelongsToRole">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ExternalCallAction/SignatureBelongsToRole/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ExternalCallAction/SignatureBelongsToRole/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/ExternalCallAction/OperationRequiredRoleMustBeReferencedByContainer">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ExternalCallAction/OperationRequiredRoleMustBeReferencedByContainer/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/ExternalCallAction/OperationRequiredRoleMustBeReferencedByContainer/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/CallReturnAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/CallReturnAction/returnVariableUsage__CallReturnAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/ProbabilisticBranchTransition">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//seff_av/ProbabilisticBranchTransition/branchProbability"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/AcquireAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/AcquireAction/passiveresource_AcquireAction"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//seff_av/AcquireAction/timeout"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//seff_av/AcquireAction/timeoutValue"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/AcquireAction/TimeoutValueOfAcquireActionMustNotBeNegative">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/AcquireAction/TimeoutValueOfAcquireActionMustNotBeNegative/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/AcquireAction/TimeoutValueOfAcquireActionMustNotBeNegative/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/CollectionIteratorAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/CollectionIteratorAction/parameter_CollectionIteratorAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/GuardedBranchTransition">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/GuardedBranchTransition/branchCondition_GuardedBranchTransition"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/SetVariableAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/SetVariableAction/localVariableUsages_SetVariableAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/InternalCallAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/InternalCallAction/calledResourceDemandingInternalBehaviour"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/EmitEventAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/EmitEventAction/eventType__EmitEventAction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/EmitEventAction/sourceRole__EmitEventAction"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//seff_av/InternalAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/InternalAction/internalFailureOccurrenceDescriptions__InternalAction"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/InternalAction/MultipleInternalOccurrenceDescriptionsPerFailureTypeNotAllowed">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/InternalAction/MultipleInternalOccurrenceDescriptionsPerFailureTypeNotAllowed/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/InternalAction/MultipleInternalOccurrenceDescriptionsPerFailureTypeNotAllowed/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/InternalAction/SumOfInternalActionFailureProbabilitiesMustNotExceed1">
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/InternalAction/SumOfInternalActionFailureProbabilitiesMustNotExceed1/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/InternalAction/SumOfInternalActionFailureProbabilitiesMustNotExceed1/context"/>
+        </genOperations>
+      </genClasses>
+      <nestedGenPackages prefix="Seff_performance_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//seff_av/seff_performance_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/signature__InfrastructureCall"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/numberOfCalls__InfrastructureCall"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/action__InfrastructureCall"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/requiredRole__InfrastructureCall"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureMustBelongToUsedRequiredRole">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureMustBelongToUsedRequiredRole/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureMustBelongToUsedRequiredRole/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/ReferencedRequiredRoleMustBeRequiredByComponent">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/ReferencedRequiredRoleMustBeRequiredByComponent/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/ReferencedRequiredRoleMustBeRequiredByComponent/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/InfrastructureCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall">
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/action__ResourceCall"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/resourceRequiredRole__ResourceCall"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/signature__ResourceCall"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/numberOfCalls__ResourceCall"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceSignatureBelongsToResourceRequiredRole">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceSignatureBelongsToResourceRequiredRole/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceSignatureBelongsToResourceRequiredRole/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceRequiredRoleMustBeReferencedByComponent">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceRequiredRoleMustBeReferencedByComponent/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/ResourceRequiredRoleMustBeReferencedByComponent/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ResourceCall/SignatureRoleCombinationMustBeUniqueWithinAbstractInternalControlFlowAction/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/specification_ParametericResourceDemand"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/requiredResource_ParametricResourceDemand"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/action_ParametricResourceDemand"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/DemandedProcessingResourceMustBeUniqueWithinAbstractInternalControlFlowAction">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/DemandedProcessingResourceMustBeUniqueWithinAbstractInternalControlFlowAction/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_performance_av/ParametricResourceDemand/DemandedProcessingResourceMustBeUniqueWithinAbstractInternalControlFlowAction/context"/>
+          </genOperations>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Seff_reliability_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//seff_av/seff_reliability_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/failureHandlingAlternatives__RecoveryActionBehaviour"/>
+          <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/recoveryAction__RecoveryActionBehaviour"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourHasOnlyOnePredecessor">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourHasOnlyOnePredecessor/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourHasOnlyOnePredecessor/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourIsNotSuccessorOfItself">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourIsNotSuccessorOfItself/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/RecoveryActionBehaviourIsNotSuccessorOfItself/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/SuccessorsOfRecoveryActionBehaviourHandleDisjointFailureTypes">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/SuccessorsOfRecoveryActionBehaviourHandleDisjointFailureTypes/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryActionBehaviour/SuccessorsOfRecoveryActionBehaviourHandleDisjointFailureTypes/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction/primaryBehaviour__RecoveryAction"/>
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction/recoveryActionBehaviours__RecoveryAction"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction/PrimaryBehaviourOfRecoveryActionMustBeSet">
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction/PrimaryBehaviourOfRecoveryActionMustBeSet/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//seff_av/seff_reliability_av/RecoveryAction/PrimaryBehaviourOfRecoveryActionMustBeSet/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//seff_av/seff_reliability_av/FailureHandlingEntity">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//seff_av/seff_reliability_av/FailureHandlingEntity/failureTypes_FailureHandlingEntity"/>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Qosannotations_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//qosannotations_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/SpecifiedQoSAnnotation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedQoSAnnotation/signature_SpecifiedQoSAnnation"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedQoSAnnotation/role_SpecifiedQoSAnnotation"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedQoSAnnotation/qosAnnotations_SpecifiedQoSAnnotation"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/QoSAnnotations">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/QoSAnnotations/specifiedOutputParameterAbstractions_QoSAnnotations"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/QoSAnnotations/system_QoSAnnotations"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/QoSAnnotations/specifiedQoSAnnotations_QoSAnnotations"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//qosannotations_av/QoSAnnotations/MultipleReliabilityAnnotationsPerExternalCallNotAllowed">
+          <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/QoSAnnotations/MultipleReliabilityAnnotationsPerExternalCallNotAllowed/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/QoSAnnotations/MultipleReliabilityAnnotationsPerExternalCallNotAllowed/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/SpecifiedOutputParameterAbstraction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedOutputParameterAbstraction/signature_SpecifiedOutputParameterAbstraction"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedOutputParameterAbstraction/role_SpecifiedOutputParameterAbstraction"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedOutputParameterAbstraction/expectedExternalOutputs_SpecifiedOutputParameterAbstraction"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/SpecifiedOutputParameterAbstraction/qosAnnotations_SpecifiedOutputParameterAbstraction"/>
+      </genClasses>
+      <nestedGenPackages prefix="Qos_performance_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//qosannotations_av/qos_performance_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/qos_performance_av/SystemSpecifiedExecutionTime">
+          <genOperations ecoreOperation="pcm_advice.ecore#//qosannotations_av/qos_performance_av/SystemSpecifiedExecutionTime/SystemSpecifiedExecutionTimeMustReferenceRequiredRoleOfASystem">
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_performance_av/SystemSpecifiedExecutionTime/SystemSpecifiedExecutionTimeMustReferenceRequiredRoleOfASystem/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_performance_av/SystemSpecifiedExecutionTime/SystemSpecifiedExecutionTimeMustReferenceRequiredRoleOfASystem/context"/>
+          </genOperations>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/qos_performance_av/SpecifiedExecutionTime">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/qos_performance_av/SpecifiedExecutionTime/specification_SpecifiedExecutionTime"/>
+        </genClasses>
+        <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/qos_performance_av/ComponentSpecifiedExecutionTime">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/qos_performance_av/ComponentSpecifiedExecutionTime/assemblyContext_ComponentSpecifiedExecutionTime"/>
+        </genClasses>
+      </nestedGenPackages>
+      <nestedGenPackages prefix="Qos_reliability_av" resource="XML" disposableProviderFactory="true"
+          ecorePackage="pcm_advice.ecore#//qosannotations_av/qos_reliability_av">
+        <genClasses ecoreClass="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation">
+          <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/externalFailureOccurrenceDescriptions__SpecifiedReliabilityAnnotation"/>
+          <genOperations ecoreOperation="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SpecifiedReliabilityAnnotationMustReferenceRequiredRoleOfASystem">
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SpecifiedReliabilityAnnotationMustReferenceRequiredRoleOfASystem/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SpecifiedReliabilityAnnotationMustReferenceRequiredRoleOfASystem/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SumOfReliabilityAnnotationFailureProbabilitiesMustNotExceed1">
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SumOfReliabilityAnnotationFailureProbabilitiesMustNotExceed1/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/SumOfReliabilityAnnotationFailureProbabilitiesMustNotExceed1/context"/>
+          </genOperations>
+          <genOperations ecoreOperation="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/MultipleExternalOccurrenceDescriptionsPerFailureTypeNotAllowed">
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/MultipleExternalOccurrenceDescriptionsPerFailureTypeNotAllowed/diagnostics"/>
+            <genParameters ecoreParameter="pcm_advice.ecore#//qosannotations_av/qos_reliability_av/SpecifiedReliabilityAnnotation/MultipleExternalOccurrenceDescriptionsPerFailureTypeNotAllowed/context"/>
+          </genOperations>
+        </genClasses>
+      </nestedGenPackages>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="System_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//system_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//system_av/System">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//system_av/System/qosAnnotations_System"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//system_av/System/SystemMustHaveAtLeastOneProvidedRole">
+          <genParameters ecoreParameter="pcm_advice.ecore#//system_av/System/SystemMustHaveAtLeastOneProvidedRole/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//system_av/System/SystemMustHaveAtLeastOneProvidedRole/context"/>
+        </genOperations>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Resourceenvironment_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//resourceenvironment_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//resourceenvironment_av/ResourceEnvironment">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceEnvironment/linkingResources__ResourceEnvironment"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceEnvironment/resourceContainer_ResourceEnvironment"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourceenvironment_av/LinkingResource">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/LinkingResource/connectedResourceContainers_LinkingResource"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/LinkingResource/communicationLinkResourceSpecifications_LinkingResource"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/LinkingResource/resourceEnvironment_LinkingResource"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourceenvironment_av/ResourceContainer">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceContainer/activeResourceSpecifications_ResourceContainer"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceContainer/resourceEnvironment_ResourceContainer"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceContainer/nestedResourceContainers__ResourceContainer"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ResourceContainer/parentResourceContainer__ResourceContainer"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/MTTR"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/MTTF"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/requiredByContainer"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/schedulingPolicy"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/activeResourceType_ActiveResourceSpecification"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/processingRate_ProcessingResourceSpecification"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/numberOfReplicas"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/ProcessingResourceSpecification/resourceContainer_ProcessingResourceSpecification"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification">
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification/linkingResource_CommunicationLinkResourceSpecification"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification/failureProbability"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification/communicationLinkResourceType_CommunicationLinkResourceSpecification"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification/latency_CommunicationLinkResourceSpecification"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//resourceenvironment_av/CommunicationLinkResourceSpecification/throughput_CommunicationLinkResourceSpecification"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Allocation_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//allocation_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//allocation_av/AllocationContext">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/AllocationContext/resourceContainer_AllocationContext"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/AllocationContext/assemblyContext_AllocationContext"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/AllocationContext/allocation_AllocationContext"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/AllocationContext/eventChannel__AllocationContext"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//allocation_av/AllocationContext/OneAssemblyContextOrOneEventChannelShouldBeReferred">
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/AllocationContext/OneAssemblyContextOrOneEventChannelShouldBeReferred/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/AllocationContext/OneAssemblyContextOrOneEventChannelShouldBeReferred/context"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//allocation_av/Allocation">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/Allocation/targetResourceEnvironment_Allocation"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/Allocation/system_Allocation"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//allocation_av/Allocation/allocationContexts_Allocation"/>
+        <genOperations ecoreOperation="pcm_advice.ecore#//allocation_av/Allocation/EachAssemblyContextWithinSystemHasToBeAllocatedExactlyOnce">
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/Allocation/EachAssemblyContextWithinSystemHasToBeAllocatedExactlyOnce/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/Allocation/EachAssemblyContextWithinSystemHasToBeAllocatedExactlyOnce/context"/>
+        </genOperations>
+        <genOperations ecoreOperation="pcm_advice.ecore#//allocation_av/Allocation/CommunicatingServersHaveToBeConnectedByLinkingResource">
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/Allocation/CommunicatingServersHaveToBeConnectedByLinkingResource/diagnostics"/>
+          <genParameters ecoreParameter="pcm_advice.ecore#//allocation_av/Allocation/CommunicatingServersHaveToBeConnectedByLinkingResource/context"/>
+        </genOperations>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Subsystem_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//subsystem_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//subsystem_av/SubSystem"/>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Completions_av" resource="XML" disposableProviderFactory="true"
+        ecorePackage="pcm_advice.ecore#//completions_av">
+      <genClasses ecoreClass="pcm_advice.ecore#//completions_av/Completion"/>
+      <genClasses ecoreClass="pcm_advice.ecore#//completions_av/CompletionRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pcm_advice.ecore#//completions_av/CompletionRepository/completions_CompletionRepository"/>
+      </genClasses>
+      <genClasses ecoreClass="pcm_advice.ecore#//completions_av/DelegatingExternalCallAction"/>
+      <genClasses ecoreClass="pcm_advice.ecore#//completions_av/NetworkDemandParametricResourceDemand">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference pcm_advice.ecore#//completions_av/NetworkDemandParametricResourceDemand/requiredCommunicationLinkResource_ParametricResourceDemand"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0" xmlns:system="http://sdq.ipd.uka.de/PalladioComponentModel/System/5.0" id="_Iv4ksITJEeKtzNn1cQ3LBQ" entityName="SystemUsingThreadPoolProvidedByAppServer">
+  <assemblyContexts__ComposedStructure id="_Oi8IcITJEeKtzNn1cQ3LBQ" entityName="Assembly">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="base.repository#_Q9TLAID4EeKxqqoweghZCQ"/>
+  </assemblyContexts__ComposedStructure>
+</system:System>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0" id="_hKscIID3EeKxqqoweghZCQ" entityName="defaultRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_Q9TLAID4EeKxqqoweghZCQ" entityName="ShopServer">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_0thJ0OMTEeKzVp1N2Jheaw" entityName="Provided_IShopServer_ShopServer" providedInterface__OperationProvidedRole="_v1p_R4D4EeKxqqoweghZCQ"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_v1p_R4D4EeKxqqoweghZCQ" entityName="IShopServer">
+    <signatures__OperationInterface id="_xb5kUID4EeKxqqoweghZCQ" entityName="doShopping"/>
+  </interfaces__Repository>
+</repository:Repository>

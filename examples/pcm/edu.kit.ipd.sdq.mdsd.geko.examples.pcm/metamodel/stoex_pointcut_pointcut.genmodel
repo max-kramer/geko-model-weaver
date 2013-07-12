@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uka.ipd.sdq.stoex_pc_pc/src" modelPluginID="de.uka.ipd.sdq.stoex_pc_pc"
+    modelName="Stoex_pointcut_pointcut" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="ProbabilityFunction_pointcut_pointcut.genmodel#//probfunction_pc_pc Units_pointcut_pointcut.genmodel#//units_pc_pc">
+  <foreignModel>stoex_pointcut_pointcut.ecore</foreignModel>
+  <genPackages prefix="Stoex_pc_pc" basePackage="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc"
+      resource="XML" disposableProviderFactory="true" ecorePackage="stoex_pointcut_pointcut.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="stoex_pointcut_pointcut.ecore#//TermOperations">
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//TermOperations/ADD"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//TermOperations/SUB"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="stoex_pointcut_pointcut.ecore#//ProductOperations">
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//ProductOperations/MULT"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//ProductOperations/DIV"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//ProductOperations/MOD"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="stoex_pointcut_pointcut.ecore#//CompareOperations">
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/GREATER"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/EQUALS"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/LESS"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/NOTEQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/LESSEQUAL"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//CompareOperations/GREATEREQUAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="stoex_pointcut_pointcut.ecore#//BooleanOperations">
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//BooleanOperations/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//BooleanOperations/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="stoex_pointcut_pointcut.ecore#//BooleanOperations/XOR"/>
+    </genEnums>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//VariableReference"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//AbstractNamedReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//AbstractNamedReference/referenceName"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//NamespaceReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//NamespaceReference/innerReference_NamespaceReference"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Variable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//Variable/id_Variable"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Atom"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Unary"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Power"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Product"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Term"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Comparison"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//BooleanExpression"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//IfElse"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Expression"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//TermExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//TermExpression/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//TermExpression/right"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//TermExpression/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//ProductExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//ProductExpression/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//ProductExpression/right"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//ProductExpression/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//ProbabilityFunctionLiteral">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//ProbabilityFunctionLiteral/function_ProbabilityFunctionLiteral"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Parenthesis">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//Parenthesis/innerExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//NumericLiteral"/>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//IntLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//DoubleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//DoubleLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//CompareExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//CompareExpression/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//CompareExpression/right"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//CompareExpression/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//BoolLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//BoolLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//PowerExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//PowerExpression/base"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//PowerExpression/exponent"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//BooleanOperatorExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//BooleanOperatorExpression/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//BooleanOperatorExpression/right"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//BooleanOperatorExpression/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//NotExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//NotExpression/inner"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//NegativeExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//NegativeExpression/inner"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//FunctionLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//FunctionLiteral/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//FunctionLiteral/parameters_FunctionLiteral"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//IfElseExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//IfElseExpression/ifExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//IfElseExpression/elseExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//IfElseExpression/conditionExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//RandomVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute stoex_pointcut_pointcut.ecore#//RandomVariable/specification"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//RandomVariable/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//PointcutPointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//PointcutPointcut/children"/>
+    </genClasses>
+    <genClasses ecoreClass="stoex_pointcut_pointcut.ecore#//Pointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference stoex_pointcut_pointcut.ecore#//Pointcut/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

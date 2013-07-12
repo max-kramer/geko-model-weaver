@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.Pcm_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.Core_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="core_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.util.Core_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/Entity/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.entity_pc.Entity_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="entity_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.entity_pc.util.Entity_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/Composition/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.composition_pc.Composition_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="composition_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.core_pc.composition_pc.util.Composition_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/UsageModel/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.usagemodel_pc.Usagemodel_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="usagemodel_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.usagemodel_pc.util.Usagemodel_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.repository_pc.Repository_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="repository_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.repository_pc.util.Repository_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/ResourceType/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.resourcetype_pc.Resourcetype_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="resourcetype_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.resourcetype_pc.util.Resourcetype_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Protocol/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.protocol_pc.Protocol_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Parameter/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.parameter_pc.Parameter_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="parameter_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.parameter_pc.util.Parameter_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Reliability/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.reliability_pc.Reliability_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="reliability_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.reliability_pc.util.Reliability_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.Seff_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="seff_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.util.Seff_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/SEFF_Performance/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.seff_performance_pc.Seff_performance_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="seff_performance_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.seff_performance_pc.util.Seff_performance_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/SEFF_Reliability/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.seff_reliability_pc.Seff_reliability_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="seff_reliability_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.seff_pc.seff_reliability_pc.util.Seff_reliability_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.Qosannotations_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="qosannotations_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.util.Qosannotations_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/QoS_Performance/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.qos_performance_pc.Qos_performance_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="qos_performance_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.qos_performance_pc.util.Qos_performance_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/QoS_Reliability/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.qos_reliability_pc.Qos_reliability_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="qos_reliability_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.qosannotations_pc.qos_reliability_pc.util.Qos_reliability_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/System/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.system_pc.System_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="system_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.system_pc.util.System_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/ResourceEnvironment/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.resourceenvironment_pc.Resourceenvironment_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="resourceenvironment_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.resourceenvironment_pc.util.Resourceenvironment_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.allocation_pc.Allocation_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="allocation_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.allocation_pc.util.Allocation_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SubSystem/5.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.subsystem_pc.Subsystem_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="subsystem_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.subsystem_pc.util.Subsystem_pcResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/Completions/1.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.completions_pc.Completions_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_pointcut -->
+      <parser
+            type="completions_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.pcm_pc.completions_pc.util.Completions_pcResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

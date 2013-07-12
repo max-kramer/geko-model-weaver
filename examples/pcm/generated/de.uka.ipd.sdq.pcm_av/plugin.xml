@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.Pcm_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.Core_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="core_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.util.Core_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/Entity/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.entity_av.Entity_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="entity_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.entity_av.util.Entity_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Core/Composition/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.composition_av.Composition_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="composition_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.core_av.composition_av.util.Composition_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/UsageModel/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.usagemodel_av.Usagemodel_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="usagemodel_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.usagemodel_av.util.Usagemodel_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.repository_av.Repository_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="repository_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.repository_av.util.Repository_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/ResourceType/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.resourcetype_av.Resourcetype_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="resourcetype_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.resourcetype_av.util.Resourcetype_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Protocol/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.protocol_av.Protocol_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Parameter/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.parameter_av.Parameter_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="parameter_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.parameter_av.util.Parameter_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Reliability/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.reliability_av.Reliability_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="reliability_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.reliability_av.util.Reliability_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.Seff_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="seff_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.util.Seff_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/SEFF_Performance/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.seff_performance_av.Seff_performance_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="seff_performance_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.seff_performance_av.util.Seff_performance_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/SEFF_Reliability/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.seff_reliability_av.Seff_reliability_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="seff_reliability_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.seff_av.seff_reliability_av.util.Seff_reliability_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.Qosannotations_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="qosannotations_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.util.Qosannotations_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/QoS_Performance/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.qos_performance_av.Qos_performance_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="qos_performance_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.qos_performance_av.util.Qos_performance_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/QoSAnnotations/QoS_Reliability/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.qos_reliability_av.Qos_reliability_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="qos_reliability_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.qosannotations_av.qos_reliability_av.util.Qos_reliability_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/System/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.system_av.System_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="system_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.system_av.util.System_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/ResourceEnvironment/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.resourceenvironment_av.Resourceenvironment_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="resourceenvironment_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.resourceenvironment_av.util.Resourceenvironment_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/Allocation/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.allocation_av.Allocation_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="allocation_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.allocation_av.util.Allocation_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/PalladioComponentModel/SubSystem/5.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.subsystem_av.Subsystem_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="subsystem_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.subsystem_av.util.Subsystem_avResourceFactoryImpl"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated pcm_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/Completions/1.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.completions_av.Completions_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated pcm_advice -->
+      <parser
+            type="completions_av"
+            class="de_av.uka_av.ipd_av.sdq_av.pcm_av.completions_av.util.Completions_avResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

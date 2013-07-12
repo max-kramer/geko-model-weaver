@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated identifier_pointcut_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/Identifier/1.0_pointcut_pointcut"
+            class="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc.identifier_pc_pc.Identifier_pc_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated identifier_pointcut_pointcut -->
+      <parser
+            type="identifier_pc_pc"
+            class="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc.identifier_pc_pc.util.Identifier_pc_pcResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

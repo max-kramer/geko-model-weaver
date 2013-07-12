@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Units_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/Units/1.0_pointcut"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.units_pc.Units_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated Units_pointcut -->
+      <parser
+            type="units_pc"
+            class="de_pc.uka_pc.ipd_pc.sdq_pc.units_pc.util.Units_pcResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

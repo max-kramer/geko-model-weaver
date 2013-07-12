@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ProbabilityFunction_pointcut_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/ProbFunction/1.0_pointcut_pointcut"
+            class="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc.probfunction_pc_pc.Probfunction_pc_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated ProbabilityFunction_pointcut_pointcut -->
+      <parser
+            type="probfunction_pc_pc"
+            class="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc.probfunction_pc_pc.util.Probfunction_pc_pcResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

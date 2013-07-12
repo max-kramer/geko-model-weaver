@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated stoex_advice_pointcut -->
+      <package
+            uri="http://sdq.ipd.uka.de/StochasticExpressions/1.0_advice_pointcut"
+            class="de_av_pc.uka_av_pc.ipd_av_pc.sdq_av_pc.stoex_av_pc.Stoex_av_pcPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated stoex_advice_pointcut -->
+      <parser
+            type="stoex_av_pc"
+            class="de_av_pc.uka_av_pc.ipd_av_pc.sdq_av_pc.stoex_av_pc.util.Stoex_av_pcResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

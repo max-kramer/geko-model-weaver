@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Units_advice -->
+      <package
+            uri="http://sdq.ipd.uka.de/Units/1.0_advice"
+            class="de_av.uka_av.ipd_av.sdq_av.units_av.Units_avPackage"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated Units_advice -->
+      <parser
+            type="units_av"
+            class="de_av.uka_av.ipd_av.sdq_av.units_av.util.Units_avResourceFactoryImpl"/>
+   </extension>
+
+</plugin>

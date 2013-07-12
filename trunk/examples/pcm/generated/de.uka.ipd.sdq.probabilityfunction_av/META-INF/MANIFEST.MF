@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: de.uka.ipd.sdq.probabilityfunction_av;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: de_av.uka_av.ipd_av.sdq_av.probfunction_av,
+ de_av.uka_av.ipd_av.sdq_av.probfunction_av.impl,
+ de_av.uka_av.ipd_av.sdq_av.probfunction_av.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ de.uka.ipd.sdq.units_av;visibility:=reexport
+Bundle-ActivationPolicy: lazy

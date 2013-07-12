@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Pc2AvMapping:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:Pc2AvMapping="http://lu.uni.geko.pc2avmapping">
+  <entries>
+    <source href="pointcut.pcm_pc#//@children.0"/>
+    <target href="advice.pcm_av#//@children.0"/>
+  </entries>
+  <entries>
+    <source href="pointcut.pcm_pc#//@children.0/@components__Repository.0"/>
+    <target href="advice.pcm_av#//@children.0/@components__Repository.0"/>
+  </entries>
+  <entries>
+    <source href="pointcut.pcm_pc#//@children.0/@interfaces__Repository.0"/>
+    <target href="advice.pcm_av#//@children.0/@interfaces__Repository.0"/>
+  </entries>
+</Pc2AvMapping:Mapping>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uka.ipd.sdq.units_av/src" editDirectory="/de.uka.ipd.sdq.units_av.edit/src"
+    editorDirectory="/de.uka.ipd.sdq.units_av.editor/src" modelPluginID="de.uka.ipd.sdq.units_av"
+    modelName="Units_advice" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false" editPluginID="de.uka.ipd.sdq.units_av.edit" editorPluginID="de.uka.ipd.sdq.units_av.editor">
+  <foreignModel>Units_advice.ecore</foreignModel>
+  <genPackages prefix="Units_av" basePackage="de_av.uka_av.ipd_av.sdq_av" resource="XML" disposableProviderFactory="true" ecorePackage="Units_advice.ecore#/">
+    <genClasses ecoreClass="Units_advice.ecore#//UnitCarryingElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Units_advice.ecore#//UnitCarryingElement/unit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Units_advice.ecore#//UnitCarryingElement/unitSpecification"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//Unit"/>
+    <genClasses ecoreClass="Units_advice.ecore#//BaseUnit">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Units_advice.ecore#//BaseUnit/name"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//UnitRepository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Units_advice.ecore#//UnitRepository/units"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//UnitMultiplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Units_advice.ecore#//UnitMultiplication/units"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//UnitPower">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Units_advice.ecore#//UnitPower/unit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Units_advice.ecore#//UnitPower/exponent"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//UnitLiteral">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Units_advice.ecore#//UnitLiteral/baseUnit"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//Advice">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Units_advice.ecore#//Advice/children"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//GlobalScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Units_advice.ecore#//GlobalScope/scopedObject"/>
+    </genClasses>
+    <genClasses ecoreClass="Units_advice.ecore#//PerJoinPointScope">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Units_advice.ecore#//PerJoinPointScope/scopedObject"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

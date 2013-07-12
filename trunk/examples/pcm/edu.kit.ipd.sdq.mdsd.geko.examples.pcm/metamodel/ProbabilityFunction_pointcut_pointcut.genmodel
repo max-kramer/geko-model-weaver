@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.uka.ipd.sdq.probabilityfunction_pc_pc/src"
+    modelPluginID="de.uka.ipd.sdq.probabilityfunction_pc_pc" modelName="ProbabilityFunction_pointcut_pointcut"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    usedGenPackages="Units_pointcut_pointcut.genmodel#//units_pc_pc">
+  <foreignModel>ProbabilityFunction_pointcut_pointcut.ecore</foreignModel>
+  <genPackages prefix="Probfunction_pc_pc" basePackage="de_pc_pc.uka_pc_pc.ipd_pc_pc.sdq_pc_pc"
+      resource="XML" disposableProviderFactory="true" ecorePackage="ProbabilityFunction_pointcut_pointcut.ecore#/">
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//BoxedPDF">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//BoxedPDF/samples"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ProbabilityDensityFunction"/>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ProbabilityFunction"/>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ContinuousSample">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//ContinuousSample/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//ContinuousSample/probability"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ProbabilityMassFunction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//ProbabilityMassFunction/samples"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//ProbabilityMassFunction/orderedDomain"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//Sample">
+      <genTypeParameters ecoreTypeParameter="ProbabilityFunction_pointcut_pointcut.ecore#//Sample/T"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//Sample/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//Sample/probability"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//SamplePDF">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//SamplePDF/distance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//SamplePDF/values"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//Complex">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//Complex/real"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//Complex/imaginary"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ContinuousPDF"/>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//ExponentialDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//ExponentialDistribution/rate"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//NormalDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//NormalDistribution/mu"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//NormalDistribution/sigma"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//LognormalDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//LognormalDistribution/mu"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//LognormalDistribution/sigma"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//GammaDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//GammaDistribution/alpha"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ProbabilityFunction_pointcut_pointcut.ecore#//GammaDistribution/theta"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//PointcutPointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//PointcutPointcut/children"/>
+    </genClasses>
+    <genClasses ecoreClass="ProbabilityFunction_pointcut_pointcut.ecore#//Pointcut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ProbabilityFunction_pointcut_pointcut.ecore#//Pointcut/children"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.uka.ipd.sdq.pcm_av_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.uka.ipd.sdq.pcm_av_pc="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_advice_pointcut" xmlns:repository_av_pc="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_advice_pointcut">
+  <children xsi:type="de.uka.ipd.sdq.pcm_av_pc:Advice">
+    <children xsi:type="repository_av_pc:Repository" id="" entityName="">
+      <components__Repository xsi:type="repository_av_pc:BasicComponent" id="" entityName="ThreadPool"/>
+    </children>
+  </children>
+</de.uka.ipd.sdq.pcm_av_pc:Pointcut>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<de.uka.ipd.sdq.pcm_pc:Pointcut xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:de.uka.ipd.sdq.pcm_pc="http://sdq.ipd.uka.de/PalladioComponentModel/5.0_pointcut" xmlns:repository_pc="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0_pointcut">
+  <children xsi:type="repository_pc:Repository" id="" entityName="" repositoryDescription="">
+    <components__Repository xsi:type="repository_pc:BasicComponent" id="" entityName=""/>
+    <interfaces__Repository xsi:type="repository_pc:OperationInterface" id="" entityName="">
+      <signatures__OperationInterface id="" entityName=""/>
+    </interfaces__Repository>
+  </children>
+</de.uka.ipd.sdq.pcm_pc:Pointcut>

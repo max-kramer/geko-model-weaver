@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://sdq.ipd.uka.de/PalladioComponentModel/Repository/5.0" xmlns:seff="http://sdq.ipd.uka.de/PalladioComponentModel/SEFF/5.0" id="_hKscIID3EeKxqqoweghZCQ" entityName="defaultRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_Q9TLAID4EeKxqqoweghZCQ" entityName="ShopServer">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_hrpiMYD5EeKxqqoweghZCQ" entityName="Provided_IShopServer_ShopServer" providedInterface__OperationProvidedRole="_v1p_R4D4EeKxqqoweghZCQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_oEESR4D4EeKxqqoweghZCQ" describedService__SEFF="duplicatedSignature">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_9bjNMoD4EeKxqqoweghZCQ" successor_AbstractAction=""/>
+      <steps_Behaviour xsi:type="seff:InternalCallAction" id="" entityName="Counting" predecessor_AbstractAction="_9bjNMoD4EeKxqqoweghZCQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="10"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__rJRQID4EeKxqqoweghZCQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Cph_8N9qEeKK4I5QUcopiA" entityName="ThreadPool">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CpinAN9qEeKK4I5QUcopiA" entityName="Provided_IThreadPool_ThreadPool" providedInterface__OperationProvidedRole="_CpinAd9qEeKK4I5QUcopiA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CpinBN9qEeKK4I5QUcopiA" entityName="Required_IWaitingQueue_WaitingQueue" requiredInterface__OperationRequiredRole="_CpjOEN9qEeKK4I5QUcopiA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CpjOE99qEeKK4I5QUcopiA" describedService__SEFF="_CpinAt9qEeKK4I5QUcopiA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CpjOFN9qEeKK4I5QUcopiA" successor_AbstractAction="_CpjOFd9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CpjOFt9qEeKK4I5QUcopiA" predecessor_AbstractAction="_CpjOFd9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:AcquireAction" id="_CpjOFd9qEeKK4I5QUcopiA" entityName="acquire" predecessor_AbstractAction="_CpjOFN9qEeKK4I5QUcopiA" successor_AbstractAction="_CpjOFt9qEeKK4I5QUcopiA" passiveresource_AcquireAction="_Cpj1IN9qEeKK4I5QUcopiA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Cpj1Id9qEeKK4I5QUcopiA" describedService__SEFF="_CpinA99qEeKK4I5QUcopiA">
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Cpj1It9qEeKK4I5QUcopiA" successor_AbstractAction="_Cpj1I99qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CpkcMN9qEeKK4I5QUcopiA" predecessor_AbstractAction="_Cpj1I99qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:ReleaseAction" id="_Cpj1I99qEeKK4I5QUcopiA" entityName="release" predecessor_AbstractAction="_Cpj1It9qEeKK4I5QUcopiA" successor_AbstractAction="_CpkcMN9qEeKK4I5QUcopiA" passiveResource_ReleaseAction="_Cpj1IN9qEeKK4I5QUcopiA"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <passiveResource_BasicComponent id="_Cpj1IN9qEeKK4I5QUcopiA" entityName="ThreadPool">
+      <capacity_PassiveResource specification="TPStaticSizeAttribute"/>
+    </passiveResource_BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_CplDQN9qEeKK4I5QUcopiA" entityName="ThreadPoolWrapper">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CplDQd9qEeKK4I5QUcopiA" entityName="Provided_IRequest_TPWrapper" providedInterface__OperationProvidedRole="_CplDQt9qEeKK4I5QUcopiA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CplqUN9qEeKK4I5QUcopiA" entityName="Required_IShopServer_TPWrapper" requiredInterface__OperationRequiredRole="_v1p_R4D4EeKxqqoweghZCQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_CplqUd9qEeKK4I5QUcopiA" entityName="Required_IThreadPool_TPWrapper" requiredInterface__OperationRequiredRole="_CpinAd9qEeKK4I5QUcopiA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CplqUt9qEeKK4I5QUcopiA" describedService__SEFF="duplicatedSignature">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CplqU99qEeKK4I5QUcopiA" successor_AbstractAction="_CplqVN9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CpmRYd9qEeKK4I5QUcopiA" predecessor_AbstractAction="_CpmRYN9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_CplqVN9qEeKK4I5QUcopiA" entityName="AfterStart" predecessor_AbstractAction="_CplqU99qEeKK4I5QUcopiA" successor_AbstractAction="_CplqVd9qEeKK4I5QUcopiA" calledService_ExternalService="_CpinAt9qEeKK4I5QUcopiA" role_ExternalService="_CplqUd9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_CplqVd9qEeKK4I5QUcopiA" predecessor_AbstractAction="_CplqVN9qEeKK4I5QUcopiA" successor_AbstractAction="_CpmRYN9qEeKK4I5QUcopiA" calledService_ExternalService="duplicatedSignature" role_ExternalService="_CplqUN9qEeKK4I5QUcopiA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_CpmRYN9qEeKK4I5QUcopiA" entityName="BeforeStop" predecessor_AbstractAction="_CplqVd9qEeKK4I5QUcopiA" successor_AbstractAction="_CpmRYd9qEeKK4I5QUcopiA" calledService_ExternalService="_CpinA99qEeKK4I5QUcopiA" role_ExternalService="_CplqUd9qEeKK4I5QUcopiA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Cpm4cN9qEeKK4I5QUcopiA" entityName="WaitingQueue">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CpnfgN9qEeKK4I5QUcopiA" entityName="Provided_IWaitingQueue_WaitingQueue" providedInterface__OperationProvidedRole="_CpjOEN9qEeKK4I5QUcopiA"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_v1p_R4D4EeKxqqoweghZCQ" entityName="IShopServer">
+    <signatures__OperationInterface id="_xb5kUID4EeKxqqoweghZCQ" entityName="doShopping"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_CpinAd9qEeKK4I5QUcopiA" entityName="IThreadPool">
+    <signatures__OperationInterface id="_CpinAt9qEeKK4I5QUcopiA" entityName="acquire"/>
+    <signatures__OperationInterface id="_CpinA99qEeKK4I5QUcopiA" entityName="release"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_CplDQt9qEeKK4I5QUcopiA" entityName="IRequest">
+    <signatures__OperationInterface id="duplicatedSignature" entityName="doShopping"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_CpjOEN9qEeKK4I5QUcopiA" entityName="IWaitingQueue">
+    <signatures__OperationInterface id="_CpjOEd9qEeKK4I5QUcopiA" entityName="addTask"/>
+    <signatures__OperationInterface id="_CpjOEt9qEeKK4I5QUcopiA" entityName="getTask"/>
+  </interfaces__Repository>
+</repository:Repository>
